@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\LoginController;
+=======
+use Illuminate\Auth\Events\Registered;
+>>>>>>> 94fab79 (seeder)
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +39,16 @@ Route::get('/import-test', function () {
 
 
 
-
+/*
+|--------------------------------------------------------------------------
+| INI TEMPLATE ROUTES
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
 
 // Route::redirect('/', '/dashboard-general-dashboard');
@@ -225,9 +238,9 @@ Route::get('/auth-login', function () {
 Route::get('/auth-login2', function () {
     return view('pages.auth-login2', ['type_menu' => 'auth']);
 });
-Route::get('/auth-register', function () {
-    return view('pages.auth-register', ['type_menu' => 'auth']);
-});
+
+Route::get('/auth-register', [RegisteredUserController::class, 'register'])->name('register');
+
 Route::get('/auth-reset-password', function () {
     return view('pages.auth-reset-password', ['type_menu' => 'auth']);
 });

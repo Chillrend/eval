@@ -98,6 +98,10 @@
                                     Login
                                 </button>
                             </div>
+
+                            <div class="mt-5 text-center">
+                                Don't have an account? <a href="{{ route('register') }}">Create new one</a>
+                            </div>
                         </form>
                     </div>
                 </div>
