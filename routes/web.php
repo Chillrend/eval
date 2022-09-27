@@ -281,3 +281,5 @@ Route::get('/utilities-subscribe', function () {
 Route::get('/credits', function () {
     return view('pages.credits', ['type_menu' => '']);
 });
+
+Route::get('user', 'UserController@index')->name('user');
