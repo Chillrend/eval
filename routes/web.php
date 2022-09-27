@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\LoginController;
-=======
 use Illuminate\Auth\Events\Registered;
->>>>>>> 94fab79 (seeder)
 use Illuminate\Support\Facades\Route;
 
 /*
