@@ -238,8 +238,8 @@ Route::get('/auth-login', function () {
 Route::get('/auth-login2', function () {
     return view('pages.auth-login2', ['type_menu' => 'auth']);
 });
+Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
 
-Route::get('/auth-register', [RegisteredUserController::class, 'register'])->name('register');
 
 Route::get('/auth-reset-password', function () {
     return view('pages.auth-reset-password', ['type_menu' => 'auth']);
