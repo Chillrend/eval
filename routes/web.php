@@ -14,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/auth-login2');
+// Route::redirect('/', '/dashboard-general-dashboard');
+Route::redirect('/', '/dashboard');
 
 // Dashboard
+Route::get('/dashboard', function () {
+    return view('pages.dashboard', ['type_menu' => 'dashboard']);
+});
+
 Route::get('/dashboard-general-dashboard', function () {
     return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
 });
