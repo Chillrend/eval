@@ -13,6 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| Import Route
+|--------------------------------------------------------------------------
+|
+| Route for importing into database
+|
+*/
+
+Route::get('/import-test', function () {
+    return view('import.import-candidate', ['type_menu' => 'dashboard']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Template Routes
+|--------------------------------------------------------------------------
+|
+| Routes for template files
+|
+*/
+
 Route::redirect('/', '/dashboard-general-dashboard');
 
 // Dashboard
