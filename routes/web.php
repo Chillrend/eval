@@ -52,7 +52,7 @@ Route::get('/import-test', function () {
 
 // Dashboard
 Route::get('/dashboard', function () {
-    return view('pages.dashboard', ['type_menu' => 'dashboard']);
+    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
 });
 
 Route::get('/dashboard-general-dashboard', function () {
@@ -61,7 +61,6 @@ Route::get('/dashboard-general-dashboard', function () {
 Route::get('/dashboard-ecommerce-dashboard', function () {
     return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
 });
-
 
 // Layout
 Route::get('/layout-default-layout', function () {
