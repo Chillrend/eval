@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,29 +14,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-|--------------------------------------------------------------------------
-| Import Route
-|--------------------------------------------------------------------------
-|
-| Route for importing into database
-|
-*/
+Route::redirect('/', '/login');
+
+// Dashboard
+Route::get('/dashboard', function () {
+    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
+});
+
+// Auth
+Route::get('/login', function () {
+    return view('halaman.login');
+});
+
+Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
 
 Route::get('/import-test', function () {
     return view('import.import-candidate', ['type_menu' => 'dashboard']);
 });
 
-/*
-|--------------------------------------------------------------------------
-| Template Routes
-|--------------------------------------------------------------------------
-|
-| Routes for template files
-|
-*/
 
-Route::redirect('/', '/dashboard-general-dashboard');
+
+
+
+
+
+// Route::redirect('/', '/dashboard-general-dashboard');
 
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
@@ -281,5 +284,3 @@ Route::get('/utilities-subscribe', function () {
 Route::get('/credits', function () {
     return view('pages.credits', ['type_menu' => '']);
 });
-
-Route::get('user', 'UserController@index')->name('user');
