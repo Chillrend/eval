@@ -1,136 +1,105 @@
 @extends('layouts.auth')
 
-@section('title', 'Register')
+@section('title', 'Login')
 
 @push('style')
     <!-- CSS Libraries -->
     <link rel="stylesheet"
-        href="{{ asset('library/selectric/public/selectric.css') }}">
+        href="{{ asset('library/bootstrap-social/bootstrap-social.css') }}">
 @endpush
 
 @section('main')
     <div class="card card-primary">
         <div class="card-header">
-            <h4>Register</h4>
+            <h4>Login</h4>
         </div>
 
         <div class="card-body">
-            <form method="POST">
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="frist_name">First Name</label>
-                        <input id="frist_name"
-                            type="text"
-                            class="form-control"
-                            name="frist_name"
-                            autofocus>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="last_name">Last Name</label>
-                        <input id="last_name"
-                            type="text"
-                            class="form-control"
-                            name="last_name">
-                    </div>
-                </div>
-
+            <form method="POST"
+                action="#"
+                class="needs-validation"
+                novalidate="">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email"
                         type="email"
                         class="form-control"
-                        name="email">
+                        name="email"
+                        tabindex="1"
+                        required
+                        autofocus>
                     <div class="invalid-feedback">
+                        Please fill in your email
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="form-group col-6">
+                <div class="form-group">
+                    <div class="d-block">
                         <label for="password"
-                            class="d-block">Password</label>
-                        <input id="password"
-                            type="password"
-                            class="form-control pwstrength"
-                            data-indicator="pwindicator"
-                            name="password">
-                        <div id="pwindicator"
-                            class="pwindicator">
-                            <div class="bar"></div>
-                            <div class="label"></div>
+                            class="control-label">Password</label>
+                        <div class="float-right">
+                            <a href="auth-forgot-password.html"
+                                class="text-small">
+                                Forgot Password?
+                            </a>
                         </div>
                     </div>
-                    <div class="form-group col-6">
-                        <label for="password2"
-                            class="d-block">Password Confirmation</label>
-                        <input id="password2"
-                            type="password"
-                            class="form-control"
-                            name="password-confirm">
-                    </div>
-                </div>
-
-                <div class="form-divider">
-                    Your Home
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label>Country</label>
-                        <select class="form-control selectric">
-                            <option>Indonesia</option>
-                            <option>Palestine</option>
-                            <option>Syria</option>
-                            <option>Malaysia</option>
-                            <option>Thailand</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-6">
-                        <label>Province</label>
-                        <select class="form-control selectric">
-                            <option>West Java</option>
-                            <option>East Java</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label>City</label>
-                        <input type="text"
-                            class="form-control">
-                    </div>
-                    <div class="form-group col-6">
-                        <label>Postal Code</label>
-                        <input type="text"
-                            class="form-control">
+                    <input id="password"
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        tabindex="2"
+                        required>
+                    <div class="invalid-feedback">
+                        please fill in your password
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox"
-                            name="agree"
+                            name="remember"
                             class="custom-control-input"
-                            id="agree">
+                            tabindex="3"
+                            id="remember-me">
                         <label class="custom-control-label"
-                            for="agree">I agree with the terms and conditions</label>
+                            for="remember-me">Remember Me</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <button type="submit"
-                        class="btn btn-primary btn-lg btn-block">
-                        Register
+                        class="btn btn-primary btn-lg btn-block"
+                        tabindex="4">
+                        Login
                     </button>
                 </div>
             </form>
+            <div class="mt-4 mb-3 text-center">
+                <div class="text-job text-muted">Login With Social</div>
+            </div>
+            <div class="row sm-gutters">
+                <div class="col-6">
+                    <a class="btn btn-block btn-social btn-facebook">
+                        <span class="fab fa-facebook"></span> Facebook
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a class="btn btn-block btn-social btn-twitter">
+                        <span class="fab fa-twitter"></span> Twitter
+                    </a>
+                </div>
+            </div>
+
         </div>
+    </div>
+    <div class="text-muted mt-5 text-center">
+        Don't have an account? <a href="auth-register.html">Create One</a>
     </div>
 @endsection
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ asset('library/jquery.pwstrength/jquery.pwstrength.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/auth-register.js') }}"></script>
 @endpush

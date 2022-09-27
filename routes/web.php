@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/dashboard-general-dashboard');
+Route::redirect('/', '/auth-login2');
 
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
@@ -201,9 +202,9 @@ Route::get('/auth-login', function () {
 Route::get('/auth-login2', function () {
     return view('pages.auth-login2', ['type_menu' => 'auth']);
 });
-Route::get('/auth-register', function () {
-    return view('pages.auth-register', ['type_menu' => 'auth']);
-});
+
+Route::get('/auth-register', [RegisteredUserController::class, 'register'])->name('register');
+
 Route::get('/auth-reset-password', function () {
     return view('pages.auth-reset-password', ['type_menu' => 'auth']);
 });
