@@ -240,7 +240,7 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h4>Hover</h4>
+                                <h4>Hover</h4> 
                             </div>
                             <div class="card-body">
                                 <div class="section-title mt-0">Light</div>
