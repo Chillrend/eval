@@ -14,23 +14,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::redirect('/', '/dashboard-general-dashboard');
-Route::redirect('/', '/auth-login2');
-
-
+Route::redirect('/', '/login');
 
 // Dashboard
 Route::get('/dashboard', function () {
     return view('halaman.dashboard', ['type_menu' => 'dashboard']);
 });
 
+// Auth
+Route::get('/login', function () {
+    return view('halaman.login');
+});
+
+Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
+
+
+
+
+
+
+
+
+// Route::redirect('/', '/dashboard-general-dashboard');
+
+// Dashboard
 Route::get('/dashboard-general-dashboard', function () {
     return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
 });
-
 Route::get('/dashboard-ecommerce-dashboard', function () {
     return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
 });
+
 
 // Layout
 Route::get('/layout-default-layout', function () {
@@ -208,9 +222,9 @@ Route::get('/auth-login', function () {
 Route::get('/auth-login2', function () {
     return view('pages.auth-login2', ['type_menu' => 'auth']);
 });
-Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
-
-
+Route::get('/auth-register', function () {
+    return view('pages.auth-register', ['type_menu' => 'auth']);
+});
 Route::get('/auth-reset-password', function () {
     return view('pages.auth-reset-password', ['type_menu' => 'auth']);
 });
@@ -267,5 +281,3 @@ Route::get('/utilities-subscribe', function () {
 Route::get('/credits', function () {
     return view('pages.credits', ['type_menu' => '']);
 });
-
-Route::get('user', 'UserController@index')->name('user');
