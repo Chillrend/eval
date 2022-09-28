@@ -17,7 +17,7 @@
                     <div class="breadcrumb-item">Form</div>
                 </div>
             </div>
-
+ 
             <div class="section-body">
                 <h2 class="section-title">Upload Data Calon Mahasiswa</h2>
                 <p class="section-lead">
@@ -35,10 +35,10 @@
                                 <div class="form-group">
                                     <label>Choose One</label>
                                     <select class="custom-select">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <option selected>Tahun Periode Masuk</option>
+                                        <option value="1">2022</option>
+                                        <option value="2">2021</option>
+                                        <option value="3">2020</option>
                                     </select>
                                 </div>
 
@@ -67,7 +67,44 @@
                                 <h4>Tabel Preview Data Mahasiswa</h4>
                             </div>
                             <div class="card-body">
-
+                                <table class="table-hover table" id="data-mhsw" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tahun Periode</th>
+                                            <th scope="col">No Daftar</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Id Pilihan 1</th>
+                                            <th scope="col">Id Pilihan 2</th>
+                                            <th scope="col">Id Pilihan 3</th>
+                                            <th scope="col">Kode Kelompok Bidang</th>
+                                            <th scope="col">Alamat</th>
+                                            <th scope="col">Sekolah</th>
+                                            <th scope="col">No Telp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Larry</td>
+                                            <td>the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>

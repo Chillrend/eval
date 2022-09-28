@@ -19,7 +19,10 @@ Route::redirect('/', '/login');
 
 // Dashboard
 Route::get('/dashboard', function () {
-    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
+    return view('halaman.dashboard', [
+        'type_menu' => 'dashboard',
+        'as' => 'dashboard'
+    ]);
 });
 
 // Auth
@@ -32,6 +35,7 @@ Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('action
 Route::get('/import-test', function () {
     return view('import.import-candidate', ['type_menu' => 'dashboard']);
 });
+
 
 
 
@@ -61,7 +65,7 @@ Route::get('/login', function () {
 });
 
 Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
-
+Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
 
 
 
