@@ -4,6 +4,8 @@
 
 @push('style')
     <!-- CSS Libraries -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
 @endpush
 
 @section('main')
@@ -67,7 +69,7 @@
                                 <h4>Tabel Preview Data Mahasiswa</h4>
                             </div>
                             <div class="card-body">
-                                <table class="table-hover table" id="data-mhsw" style="width: 100%">
+                                <table class="table-hover table nowrap" id="data-mhsw" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -118,5 +120,13 @@
     <!-- JS Libraies -->
 
     <!-- Page Specific JS File -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#data-mhsw').DataTable({
+                scrollX: true,
+            });
+        });
+    </script>
 @endpush
 
