@@ -314,8 +314,5 @@ Route::get('/utilities-subscribe', function () {
 // credits
 Route::get('/credits', function () {
     return view('pages.credits', ['type_menu' => '']);
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 8668cd2 (keep original template)
+
