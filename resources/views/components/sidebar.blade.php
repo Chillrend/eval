@@ -17,7 +17,7 @@
 
             <li class="menu-header">Import Data Mahasiswa</li>
             <li class="{{ Request::is('import-candidate') ? 'active' : '' }}">
-                <a class="nav-link "
+                <a class="nav-link"
                     href="{{ url('import-test') }}"><i class="ion-upload"></i><span>Import Data Mahasiswa</span></a>
             </li>
             <!-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
