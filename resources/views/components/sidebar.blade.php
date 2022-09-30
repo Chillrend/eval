@@ -14,6 +14,12 @@
                 <a class="nav-link"
                     href="{{ url('dashboard') }}"><i class="fas fa-house"></i><span>Dashboard</span></a>
             </li>
+
+            <li class="menu-header">Import Data Mahasiswa</li>
+            <li class="{{ Request::is('import-candidate') ? 'active' : '' }}">
+                <a class="nav-link "
+                    href="{{ url('import-test') }}"><i class="ion-upload"></i><span>Import Data Mahasiswa</span></a>
+            </li>
             <!-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
                 <a href="#"
                     class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
@@ -44,12 +50,12 @@
                 
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('layout-default-layout') }}"> Berdasarkan Prestasi</a>
+                        <a class="nav-link ion-trophy"
+                            href="{{ url('layout-default-layout') }}">&nbsp;&nbsp;&nbsp;Prestasi</a>
                     </li>
                     <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('transparent-sidebar') }}"> Berdasarkan Les</a>
+                        <a class="nav-link ion-document-text"
+                            href="{{ url('transparent-sidebar') }}">&nbsp;&nbsp;&nbsp; Berdasarkan Tes</a>
                     </li>              
                 </ul>
                 <!-- <ul class="dropdown-menu">

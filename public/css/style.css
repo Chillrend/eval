@@ -63,6 +63,11 @@
   outline: none;
 }
 
+div.dataTables_wrapper {
+  width: 800px;
+  margin: 0 auto;
+}
+
 a {
   color: #6777ef;
   font-weight: 500;
