@@ -9,5 +9,5 @@ class Candidates extends Model
 {
     use HasFactory;
 
-    protected $connection = 'mongodb';
+    // protected $connection = 'mongodb';
 }
