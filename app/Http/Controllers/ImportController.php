@@ -23,15 +23,15 @@ class ImportController extends Controller
 
         for ($i=0; $i < count($array[0]); $i++) { 
             $filtered[] = [
-                'no_daftar'             => $array[0][$i][$namedkey[0]], 
-                'nama'                  => $array[0][$i][$namedkey[1]] ,
-                'id_pilihan1'           => $array[0][$i][$namedkey[2]], 
-                'id_pilihan2'           => $array[0][$i][$namedkey[3]], 
-                'id_pilihan3'           => $array[0][$i][$namedkey[4]], 
-                'kode_kelompok_bidang'  => $array[0][$i][$namedkey[5]], 
-                'alamat'                => $array[0][$i][$namedkey[6]], 
-                'sekolah'               => $array[0][$i][$namedkey[7]], 
-                'telp'                  => $array[0][$i][$namedkey[8]],
+                'no_daftar'             => trim($array[0][$i][$namedkey[0]]), 
+                'nama'                  => trim($array[0][$i][$namedkey[1]]) ,
+                'id_pilihan1'           => trim($array[0][$i][$namedkey[2]]), 
+                'id_pilihan2'           => trim($array[0][$i][$namedkey[3]]), 
+                'id_pilihan3'           => trim($array[0][$i][$namedkey[4]]), 
+                'kode_kelompok_bidang'  => trim($array[0][$i][$namedkey[5]]), 
+                'alamat'                => trim($array[0][$i][$namedkey[6]]), 
+                'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
+                'telp'                  => trim($array[0][$i][$namedkey[8]]),
             ] ;
 
             if($array[0][$i][$namedkey[2]] === "" || $array[0][$i][$namedkey[2]] === " "){
@@ -67,6 +67,6 @@ class ImportController extends Controller
         // dd($filtered);
         // Candidates::insert([$filtered]);
 
-        
+        redirect()->back();
     }
 }
