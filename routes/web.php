@@ -3,6 +3,8 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +69,11 @@ Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('action
 Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
 
 
+Route::post('/import-test', [ImportController::class,'import'])->name('import');
 
+Route::get('/import-test', function () {
+    return view('import.import-candidate',['type_menu' => 'dashboard']);
+});
 
 
 

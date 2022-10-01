@@ -33,6 +33,8 @@
                                 <h4>Data</h4>
                             </div>
                             <div class="card-body">
+                                <form action="/import-test" method="post" enctype="multipart/form-data">
+                                    @csrf
                                 <div class="section-title mt-0">Pilih Periode PMB</div>
                                 <div class="form-group">
                                     <label>Choose One</label>
@@ -47,11 +49,14 @@
                                 <div class="section-title">File Browser</div>
                                 <div class="custom-file">
                                     <input type="file"
+                                            name="excel"
                                            class="custom-file-input"
                                            id="customFile">
                                     <label class="custom-file-label"
                                            for="customFile">Choose file</label>
                                 </div>
+                                <input type="submit" class="btn btn-primary"/>
+                                </form>
                             </div>
                         </div>
                     </div>
