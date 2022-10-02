@@ -75,7 +75,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table-hover table display nowrap" id="data-mhsw" style="width: 100%">
+                                    <table class="table-hover table display nowrap" id="table" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -99,8 +99,8 @@
                                                 <td>{{$quotaa->politeknik}}</td>
                                                 <td>{{$quotaa->id_kelompok_bidang}}</td>
                                                 <td>{{$quotaa->kelompok_bidang}}</td>
-                                                <td>{{$quotaa->quota}}</td>
-                                                <td>{{$quotaa->tertampung}}</td>
+                                                <td>{{$quotaa->quota == null ? '-' : $quotaa->quota}}</td>
+                                                <td>{{$quotaa->tertampung == null ? '-' : $quotaa->tertampung}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>

@@ -75,7 +75,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table-hover table display nowrap" id="data-mhsw" style="width: 100%">
+                                    <table class="table-hover table display nowrap" id="table" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -99,8 +99,8 @@
                                                 <td>{{$candidate->no_daftar}}</td>
                                                 <td>{{$candidate->nama}}</td>
                                                 <td>{{$candidate->id_pilihan1}}</td>
-                                                <td>{{$candidate->id_pilihan2}}</td>
-                                                <td>{{$candidate->id_pilihan3}}</td>
+                                                <td>{{$candidate->id_pilihan2 == null ? '-' : $candidate->id_pilihan2}}</td>
+                                                <td>{{$candidate->id_pilihan3 == null ? '-' : $candidate->id_pilihan3}}</td>
                                                 <td>{{$candidate->kode_kelompok_bidang}}</td>
                                                 <td>{{$candidate->alamat}}</td>
                                                 <td>{{$candidate->sekolah}}</td>
