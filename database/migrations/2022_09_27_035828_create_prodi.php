@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kode_prodi', function (Blueprint $table) {
-            $table->id();
-            $table->integer('id_prodi');
+        Schema::create('prodi', function (Blueprint $table) {
+            $table->id('id_prodi');
             $table->string('jurusan');
             $table->integer('id_politeknik');
             $table->string('politeknik');
             $table->integer('id_kelompok_bidang');
             $table->string('kelompok_bidang');
-            $table->integer('quota');
-            $table->integer('tertampung');
+            $table->integer('quota')->nullable();
+            $table->integer('tertampung')->nullable();
             $table->timestamps();
         });
     }

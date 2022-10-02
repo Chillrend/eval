@@ -16,9 +16,13 @@
             </li>
 
             <li class="menu-header">Import</li>
-            <li class="{{ Request::is('import-candidate') ? 'active' : '' }}">
+            <li class="{{ Request::is('import-candidates') ? 'active' : '' }}">
                 <a class="nav-link "
                     href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+            </li>
+            <li class="{{ Request::is('import-prodi') ? 'active' : '' }}">
+                <a class="nav-link "
+                    href="{{ url('import-prodi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
             </li>
             <!-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
                 <a href="#"

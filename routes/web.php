@@ -3,8 +3,8 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ProdiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,15 +34,11 @@ Route::get('/dashboard', function () {
     return view('halaman.dashboard', ['type_menu' => 'dashboard']);
 })->name('dashboard');
 
-
-// Route::get('/import-test', function () {
-//     return view('import.import-candidate', ['type_menu' => 'dashboard']);
-// });
-
 Route::get('/import-candidates', [ImportController::class,'render']);
-
 Route::post('/import-candidates', [ImportController::class,'import']);
 
+Route::get('/import-prodi', [ProdiController::class,'render']);
+Route::post('/import-prodi', [ProdiController::class,'import']);
 
 
 
