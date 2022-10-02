@@ -18,7 +18,7 @@
             <li class="menu-header">Import</li>
             <li class="{{ Request::is('import-candidate') ? 'active' : '' }}">
                 <a class="nav-link "
-                    href="{{ url('import-test') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                    href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
             </li>
             <!-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
                 <a href="#"

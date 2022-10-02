@@ -10,13 +10,14 @@ use Maatwebsite\Fascades\Excel;
 
 class ImportController extends Controller
 {
-    public function index ()
-    {
-        return view();
-    }
+    public $q;
+    public $sortBy = 'no_daftar';
+    public $sortAsc = true;
+
 
     public function import (Request $request) 
     {
+        dd($request);
         $array = (new CandidatesImport())->toArray($request->file('excel'));
  
         $namedkey = array('nodaftar', 'nama', 'id_pilihan1', 'id_pilihan2', 'id_pilihan3', 'kode_kelompok_bidang', 'alamat', 'sekolah', 'telp');
@@ -62,11 +63,29 @@ class ImportController extends Controller
 
         // $filtered = (object) $filtered;
         // $savedd=$filtered->save();
-        $savedd = Candidates::insert($filtered);
+        $savedd = Candidates::upsert($filtered);
         
         // dd($filtered);
         // Candidates::insert([$filtered]);
 
         redirect()->back();
+    }
+
+    public function render()
+    {
+        $candidates = Candidates::query()
+            ->when( $this->q, function($query) {
+                return $query->where(function( $query) {
+                    $query->where('name', 'like', '%'.$this->q . '%')
+                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+                });
+            })
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+            ->paginate(10);
+
+        return view('halaman.import-candidate',[
+            'type_menu' => 'import-candidate',
+            'candidates' => $candidates,
+        ]);
     }
 }

@@ -19,11 +19,6 @@ use App\Http\Controllers\ImportController;
 
 Route::redirect('/', '/login');
 
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
-})->name('dashboard');
-
 // Auth
 Route::get('/login', function () {
     return view('halaman.login');
@@ -33,9 +28,20 @@ Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('action
 
 Route::post('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
 
-Route::get('/import-test', function () {
-    return view('import.import-candidate', ['type_menu' => 'dashboard']);
-});
+
+// Dashboard
+Route::get('/dashboard', function () {
+    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
+})->name('dashboard');
+
+
+// Route::get('/import-test', function () {
+//     return view('import.import-candidate', ['type_menu' => 'dashboard']);
+// });
+
+Route::get('/import-candidates', [ImportController::class,'render']);
+
+Route::post('/import-candidates', [ImportController::class,'import']);
 
 
 
@@ -51,30 +57,6 @@ Route::get('/import-test', function () {
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-// Route::redirect('/', '/dashboard-general-dashboard');
-
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
-});
-
-// Auth
-Route::get('/login', function () {
-    return view('halaman.login');
-});
-
-Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
-Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
-
-
-Route::post('/import-test', [ImportController::class,'import'])->name('import');
-
-Route::get('/import-test', function () {
-    return view('import.import-candidate',['type_menu' => 'dashboard']);
-});
-
 
 
 
