@@ -18,8 +18,21 @@ class ImportController extends Controller
 
     public function import (Request $request) 
     {
+        // dd($request->all());
         $array = (new CandidatesImport())->toArray($request->file('excel')); 
-        $namedkey = array('nodaftar', 'nama', 'id_pilihan1', 'id_pilihan2', 'id_pilihan3', 'kode_kelompok_bidang', 'alamat', 'sekolah', 'telp');
+        // $namedkey = array('nodaftar', 'nama', 'id_pilihan1', 'id_pilihan2', 'id_pilihan3', 'kode_kelompok_bidang', 'alamat', 'sekolah', 'telp');
+        $namedkey = array(
+            $request->input('col_no_daftar'), 
+            $request->input('col_nama'), 
+            $request->input('col_id_pilihan_1'), 
+            $request->input('col_id_pilihan_2'), 
+            $request->input('col_id_pilihan_3'), 
+            $request->input('col_kode_kelompok_bidang'), 
+            $request->input('col_alamat'), 
+            $request->input('col_sekolah'),
+            $request->input('col_no_telp'),
+        );
+        dd($namedkey);
 
         for ($i=0; $i < count($array[0]); $i++) { 
             $filtered[] = [
