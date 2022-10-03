@@ -52,14 +52,10 @@
                                         </select>
 
                                     <div class="section-title">File Browser</div>
-                                    <div class="custom-file">
-                                        <input type="file"
-                                                name="excel"
-                                            class="custom-file-input"
-                                            id="customFile">
-                                        <label class="custom-file-label"
-                                            for="customFile">Choose file</label>
-                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="file"  name="excel" class="choose form-control" id="customFile">
+                                        <label class="input-group-text" for="customFile">Upload</label>
+                                      </div>
 
                                                                         
                                     <div class="section-title">Nama Kolom Excel</div>
