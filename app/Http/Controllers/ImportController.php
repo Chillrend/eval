@@ -73,7 +73,6 @@ class ImportController extends Controller
 
     public function render()
     {
-        $candidates = Candidates::where
         $candidates = Candidates::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
