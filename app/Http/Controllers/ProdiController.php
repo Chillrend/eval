@@ -15,7 +15,16 @@ class ProdiController extends Controller
     public function import (Request $request) 
     {
         $array = (new ProdiImport())->toArray($request->file('excel'));
-        $namedkey = array('id_prodi', 'jurusan', 'id_politeknik', 'politeknik', 'id_kelompok_bidang', 'kelompok_bidang', 'quota', 'tertampung');
+        $namedkey = array(
+            $request->input('col_id_prodi'), 
+            $request->input('col_jurusan'), 
+            $request->input('col_id_politeknik'), 
+            $request->input('col_politeknik'), 
+            $request->input('col_id_kelompok_bidang'), 
+            $request->input('col_kelompok_bidang'), 
+            $request->input('col_quota'), 
+            $request->input('col_tertampung')
+        );
         // dd($namedkey);
 
         for ($i=0; $i < count($array[0]); $i++) { 
@@ -58,7 +67,7 @@ class ProdiController extends Controller
         // dd($filtered);
         // Candidates::insert([$filtered]);
 
-        redirect()->back();
+        return redirect()->back();
     }
 
     public function render()
