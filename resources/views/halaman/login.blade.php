@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-12 order-lg-2 min-vh-101 position-relative overlay-gradient-bottom "
-                    data-background="{{ asset('img/unsplash/pnj.jpg') }}" style="background-size:108%;">
+                    data-background="{{ asset('img/unsplash/pnj.jpg') }}" style="background-size:cover; background-position:center">
                     
                 </div>
             </div>
