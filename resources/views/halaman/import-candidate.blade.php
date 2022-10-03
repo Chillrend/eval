@@ -117,7 +117,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="m-4 p-4 page-pagination">
+                                <div class="m-4 p-4 pagination justify-content-between">
+                                    <div>
+                                        <p>1 of 3 from 100 contents</p>
+                                    </div>
                                     {!! $candidates->links("pagination::bootstrap-4") !!}
                                 </div>
                                 </div>

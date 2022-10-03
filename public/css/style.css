@@ -1323,6 +1323,9 @@ table tr:hover .table-links {
 .page-link:focus {
   box-shadow: none;
 }
+.page-pagination{
+  
+}
 
 /* 3.11 Badge */
 .badges .badge {
