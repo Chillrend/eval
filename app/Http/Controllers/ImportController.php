@@ -68,7 +68,7 @@ class ImportController extends Controller
         // Candidates::insert([$filtered]);
 
         // redirect()->route('candidates');
-        redirect('/dashboard');
+        return redirect('/import-candidates');
     }
 
     public function render()
