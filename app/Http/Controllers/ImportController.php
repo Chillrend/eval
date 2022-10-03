@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
 
 class ImportController extends Controller
@@ -68,6 +69,8 @@ class ImportController extends Controller
         // Candidates::insert([$filtered]);
 
         // redirect()->route('candidates');
+        // Session::flash(success('Sweet Alert with success.','Welcome to ItSolutionStuff.com')->autoclose(3500);
+        Session::flash('sukses','Data Berhasil ditambahkan');
         return redirect('/import-candidates');
     }
 
