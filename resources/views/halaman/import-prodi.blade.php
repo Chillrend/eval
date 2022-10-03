@@ -4,8 +4,15 @@
 
 @push('style')
     <!-- CSS Libraries -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    {{-- <link rel="stylesheet"
+        href="assets/modules/datatables/datatables.min.css">
+    <link rel="stylesheet"
+        href="assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css"> --}}
 
+    <link rel="stylesheet"
+        href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 @endpush
 
 @section('main')
@@ -121,9 +128,11 @@
 
 @push('scripts')
     <!-- JS Libraies -->
+    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script> --}}
+    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="../../js/table.js"></script>
 @endpush
 

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('sekolah')->nullable();
             $table->biginteger('telp')->nullable();
+            $table->timestamps();
         });
     }
 
