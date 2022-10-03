@@ -117,8 +117,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="m-4 p-4">
-                                    {!! $candidates->links() !!}
+                                <div class="m-4 p-4 page-pagination">
+                                    {!! $candidates->links("pagination::bootstrap-4") !!}
                                 </div>
                                 </div>
                             </div>
