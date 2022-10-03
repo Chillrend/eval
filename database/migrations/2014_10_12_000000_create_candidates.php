@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('kode_kelompok_bidang')->nullable();
             $table->string('alamat')->nullable();
             $table->string('sekolah')->nullable();
-            $table->biginteger('telp')->nullable();
+            $table->string('telp')->nullable();
             $table->timestamps();
         });
     }
