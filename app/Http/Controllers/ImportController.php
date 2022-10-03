@@ -17,7 +17,8 @@ class ImportController extends Controller
 
     public function import (Request $request) 
     {
-        $array = (new CandidatesImport())->toArray($request->file('excel')); 
+        $array = (new CandidatesImport())->toArray($request->file('excel'));
+ 
         $namedkey = array('nodaftar', 'nama', 'id_pilihan1', 'id_pilihan2', 'id_pilihan3', 'kode_kelompok_bidang', 'alamat', 'sekolah', 'telp');
 
         for ($i=0; $i < count($array[0]); $i++) { 
@@ -73,7 +74,6 @@ class ImportController extends Controller
 
     public function render()
     {
-        $candidates = Candidates::where
         $candidates = Candidates::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
