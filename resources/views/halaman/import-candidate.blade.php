@@ -44,7 +44,7 @@
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
                                         <label>Choose One</label>
-                                        <select class="custom-select" name="periode">
+                                        <select class="custom-select " name="periode">
                                             <option selected hidden>Tahun Periode Masuk</option>
                                             <option>2022</option>
                                             <option>2021</option>
@@ -213,19 +213,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($candidates as $candidate)
+                                            <?php $no=1; ?>
+                                            @foreach($candidates as $candidate => $data)
                                             <tr>
+                                                <th scope="row">{{ $candidate + $candidates->firstItem()}}</th> 
                                                 <td></td>
-                                                <td></td>
-                                                <td>{{$candidate->no_daftar}}</td>
-                                                <td>{{$candidate->nama}}</td>
-                                                <td>{{$candidate->id_pilihan1}}</td>
-                                                <td>{{$candidate->id_pilihan2 == null ? '-' : $candidate->id_pilihan2}}</td>
-                                                <td>{{$candidate->id_pilihan3 == null ? '-' : $candidate->id_pilihan3}}</td>
-                                                <td>{{$candidate->kode_kelompok_bidang}}</td>
-                                                <td>{{$candidate->alamat}}</td>
-                                                <td>{{$candidate->sekolah}}</td>
-                                                <td>{{$candidate->telp}}</td>
+                                                <td>{{$data->no_daftar}}</td>
+                                                <td>{{$data->nama}}</td>
+                                                <td>{{$data->id_pilihan1}}</td>
+                                                <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
+                                                <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
+                                                <td>{{$data->kode_kelompok_bidang}}</td>
+                                                <td>{{$data->alamat}}</td>
+                                                <td>{{$data->sekolah}}</td>
+                                                <td>{{$data->telp}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
