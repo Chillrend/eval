@@ -14,16 +14,17 @@ class ProdiController extends Controller
 
     public function import (Request $request) 
     {
+        $periode = $request->input('periode');
         $array = (new ProdiImport())->toArray($request->file('excel'));
         $namedkey = array(
-            $request->input('col_id_prodi'), 
-            $request->input('col_jurusan'), 
-            $request->input('col_id_politeknik'), 
-            $request->input('col_politeknik'), 
-            $request->input('col_id_kelompok_bidang'), 
-            $request->input('col_kelompok_bidang'), 
-            $request->input('col_quota'), 
-            $request->input('col_tertampung')
+            strtolower($request->input('col_id_prodi')), 
+            strtolower($request->input('col_jurusan')), 
+            strtolower($request->input('col_id_politeknik')), 
+            strtolower($request->input('col_politeknik')), 
+            strtolower($request->input('col_id_kelompok_bidang')), 
+            strtolower($request->input('col_kelompok_bidang')), 
+            strtolower($request->input('col_quota')), 
+            strtolower($request->input('col_tertampung'))
         );
         // dd($namedkey);
 
