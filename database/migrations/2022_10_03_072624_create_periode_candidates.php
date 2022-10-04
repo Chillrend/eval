@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('periode_candidates', function (Blueprint $table) {
             $table->id('id');
             $table->year('tahun_periode');
-            $table->string('no_daftar')->unique();
+            $table->bigInteger('no_daftar')->unique();
         });
     }
 
