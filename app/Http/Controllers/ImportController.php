@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
 use App\Models\Candidates;
+use App\Models\Periode;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
@@ -20,19 +21,20 @@ class ImportController extends Controller
     {
         // dd($request->all());
         $array = (new CandidatesImport())->toArray($request->file('excel')); 
-        // $namedkey = array('nodaftar', 'nama', 'id_pilihan1', 'id_pilihan2', 'id_pilihan3', 'kode_kelompok_bidang', 'alamat', 'sekolah', 'telp');
+        // dd($array);
+
         $namedkey = array(
-            $request->input('col_no_daftar'), 
-            $request->input('col_nama'), 
-            $request->input('col_id_pilihan_1'), 
-            $request->input('col_id_pilihan_2'), 
-            $request->input('col_id_pilihan_3'), 
-            $request->input('col_kode_kelompok_bidang'), 
-            $request->input('col_alamat'), 
-            $request->input('col_sekolah'),
-            $request->input('col_no_telp'),
+            strtolower($request->input('col_no_daftar')), 
+            strtolower($request->input('col_nama')), 
+            strtolower($request->input('col_id_pilihan_1')), 
+            strtolower($request->input('col_id_pilihan_2')), 
+            strtolower($request->input('col_id_pilihan_3')), 
+            strtolower($request->input('col_kode_kelompok_bidang')), 
+            strtolower($request->input('col_alamat')), 
+            strtolower($request->input('col_sekolah')),
+            strtolower($request->input('col_no_telp')),
         );
-        dd($namedkey);
+        $periode = $request->input('periode');
 
         for ($i=0; $i < count($array[0]); $i++) { 
             $filtered[] = [
@@ -46,7 +48,10 @@ class ImportController extends Controller
                 'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
                 'telp'                  => trim($array[0][$i][$namedkey[8]]),
             ] ;
-
+            $periodes[] = [
+                'tahun_periode'       => $periode,
+                'no_daftar'     => trim($array[0][$i][$namedkey[0]])
+            ];
             if($array[0][$i][$namedkey[2]] === "" || $array[0][$i][$namedkey[2]] === " "){
                 $filtered[$i]['id_pilihan1'] = null;
             }else{
@@ -72,10 +77,11 @@ class ImportController extends Controller
         // }
 
 
-        // dd($filtered);
+        // dd([$periodes, $filtered]);
 
         // $filtered = (object) $filtered;
         // $savedd=$filtered->save();
+        $saved = Periode::insert($periodes);
         $savedd = Candidates::upsert($filtered,'no_daftar');
         
         // dd($filtered);
