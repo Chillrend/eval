@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ProdiImport;
+use App\Models\Criteria;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,19 @@ class ProdiController extends Controller
             strtolower($request->input('col_politeknik')), 
             strtolower($request->input('col_id_kelompok_bidang')), 
             strtolower($request->input('col_kelompok_bidang')), 
-            strtolower($request->input('col_quota')), 
+            strtolower($request->input('col_Quota')), 
             strtolower($request->input('col_tertampung'))
         );
-        // dd($namedkey);
+
+        $criteria = array(
+            'tahun' => $periode,
+            'criteria' => implode('---',$namedkey),
+            'table' => 'prodi',
+            'kode_criteria' => strval($periode).'_prodi',
+        );
+        Criteria::upsert($criteria,'kode_criteria');
+        
+
 
         for ($i=0; $i < count($array[0]); $i++) { 
             $filtered[] = [
@@ -51,23 +61,9 @@ class ProdiController extends Controller
                 $filtered[$i]['tertampung'] = $array[0][$i][$namedkey[7]];
             };
         }
-        // for ($i=0; $i < count($filtered) ; $i++) { 
-        //     for ($a=0; $a < count($filtered[$i]); $a++) { 
-        //         if ($filtered[$i][$a] === '') {
-        //             $filtered[$i][$a] = null;
-        //         }
-        //     }
-        // }
 
-
-
-        // $filtered = (object) $filtered;
-        // $savedd=$filtered->save();
-        $savedd = Prodi::upsert($filtered,'id_prodi');
+        Prodi::insert($filtered);
         
-        // dd($filtered);
-        // Candidates::insert([$filtered]);
-
         return redirect()->back();
     }
 
@@ -82,9 +78,15 @@ class ProdiController extends Controller
             })
             ->paginate(10);
 
+        $criteria = Criteria::where('table', 'prodi')->get();
+        for ($i=0; $i < count($criteria); $i++) { 
+            $criteria[$i]['criteria'] = explode('---',$criteria[$i]['criteria']);
+        }
+
         return view('halaman.import-prodi',[
             'type_menu' => 'import-prodi',
             'prodi' => $prodi,
+            'criteria' => $criteria,
         ]);
     }
 }
