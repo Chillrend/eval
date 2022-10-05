@@ -52,13 +52,115 @@
                                         </select>
 
                                     <div class="section-title">File Browser</div>
-                                    <div class="custom-file">
-                                        <input type="file"
-                                                name="excel"
-                                            class="custom-file-input"
-                                            id="customFile">
-                                        <label class="custom-file-label"
-                                            for="customFile">Choose file</label>
+                                    <div class="input-group mb-3">
+                                        <input type="file"  name="excel" class="choose form-control" id="customFile">
+                                        <label class="input-group-text" for="customFile">Upload</label>
+                                      </div>
+
+                                                                        
+                                    <div class="section-title">Nama Kolom Excel</div>
+                                    <label>Cocokkan nama kolom excel dengan nama pada table</label>
+                                    <div class="form-row">
+                                        <div class="form-group col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Id Prodi</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_id_prodi"
+                                                    name="col_id_prodi"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                        <div class="form-groupv col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Jurusan</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_jurusan"
+                                                    name="col_jurusan"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Id Politeknik</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_id_politeknik"
+                                                    name="col_id_politeknik"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Politeknik</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_politeknik"
+                                                    name="col_politeknik"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                        <div class="form-groupv col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Id Kelompok Bidang</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_id_kelompok_bidang"
+                                                    name="col_id_kelompok_bidang"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Kelompok Bidang</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_kelompok_bidang"
+                                                    name="col_kelompok_bidang"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Quota</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_Quota"
+                                                    name="col_Quota"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
+                                        <div class="form-groupv col-4">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Tertampung</div>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="col_tertampung"
+                                                    name="col_tertampung"
+                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
 use App\Models\Candidates;
+use App\Models\Criteria;
+use App\Models\Periode;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
 
 class ImportController extends Controller
@@ -17,8 +20,32 @@ class ImportController extends Controller
 
     public function import (Request $request) 
     {
+        // dd($request->all());
         $array = (new CandidatesImport())->toArray($request->file('excel')); 
-        $namedkey = array('nodaftar', 'nama', 'id_pilihan1', 'id_pilihan2', 'id_pilihan3', 'kode_kelompok_bidang', 'alamat', 'sekolah', 'telp');
+        // dd($array);
+
+        $namedkey = array(
+            strtolower($request->input('col_no_daftar')), 
+            strtolower($request->input('col_nama')), 
+            strtolower($request->input('col_id_pilihan_1')), 
+            strtolower($request->input('col_id_pilihan_2')), 
+            strtolower($request->input('col_id_pilihan_3')), 
+            strtolower($request->input('col_kode_kelompok_bidang')), 
+            strtolower($request->input('col_alamat')), 
+            strtolower($request->input('col_sekolah')),
+            strtolower($request->input('col_no_telp')),
+        );
+        $periode = $request->input('periode');
+
+        $criteria = array(
+            'tahun' => $periode,
+            'criteria' => implode('---',$namedkey),
+            'table' => 'candidates',
+            'kode_criteria' => strval($periode).'_candidates',
+        );
+        Criteria::upsert($criteria,'kode_criteria');
+        
+
 
         for ($i=0; $i < count($array[0]); $i++) { 
             $filtered[] = [
@@ -32,7 +59,10 @@ class ImportController extends Controller
                 'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
                 'telp'                  => trim($array[0][$i][$namedkey[8]]),
             ] ;
-
+            $periodes[] = [
+                'tahun_periode'       => $periode,
+                'no_daftar'     => trim($array[0][$i][$namedkey[0]])
+            ];
             if($array[0][$i][$namedkey[2]] === "" || $array[0][$i][$namedkey[2]] === " "){
                 $filtered[$i]['id_pilihan1'] = null;
             }else{
@@ -49,25 +79,12 @@ class ImportController extends Controller
                 $filtered[$i]['id_pilihan3'] = $array[0][$i][$namedkey[4]];
             };
         }
-        // for ($i=0; $i < count($filtered) ; $i++) { 
-        //     for ($a=0; $a < count($filtered[$i]); $a++) { 
-        //         if ($filtered[$i][$a] === '') {
-        //             $filtered[$i][$a] = null;
-        //         }
-        //     }
-        // }
 
-
-        // dd($filtered);
-
-        // $filtered = (object) $filtered;
-        // $savedd=$filtered->save();
+        $saved = Periode::insert($periodes);
         $savedd = Candidates::upsert($filtered,'no_daftar');
-        
-        // dd($filtered);
-        // Candidates::insert([$filtered]);
 
-        // redirect()->route('candidates');
+
+        Session::flash('sukses','Data Berhasil ditambahkan');
         return redirect('/import-candidates');
     }
 
@@ -83,9 +100,16 @@ class ImportController extends Controller
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
+        $criteria = Criteria::where('table', 'candidates')->get();
+        for ($i=0; $i < count($criteria); $i++) { 
+            $criteria[$i]['criteria'] = explode('---',$criteria[$i]['criteria']);
+        }
+    
+
         return view('halaman.import-candidate',[
             'type_menu' => 'import-candidate',
             'candidates' => $candidates,
+            'criteria' => $criteria,
         ]);
     }
 }
