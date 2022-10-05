@@ -61,7 +61,7 @@
                                     <div class="section-title">Nama Kolom Excel</div>
                                     <label>Cocokkan nama kolom excel dengan nama pada table</label>
                                     <div class="form-row">
-                                        <div class="form-group col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Id Prodi</div>
@@ -73,7 +73,7 @@
                                                     placeholder="Nama Kolom pada Excel">
                                             </div>
                                         </div>
-                                        <div class="form-groupv col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Jurusan</div>
@@ -85,7 +85,7 @@
                                                     placeholder="Nama Kolom pada Excel">
                                             </div>
                                         </div>
-                                        <div class="form-group col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Id Politeknik</div>
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Politeknik</div>
@@ -111,7 +111,7 @@
                                                     placeholder="Nama Kolom pada Excel">
                                             </div>
                                         </div>
-                                        <div class="form-groupv col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Id Kelompok Bidang</div>
@@ -123,7 +123,7 @@
                                                     placeholder="Nama Kolom pada Excel">
                                             </div>
                                         </div>
-                                        <div class="form-group col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Kelompok Bidang</div>
@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Quota</div>
@@ -149,7 +149,7 @@
                                                     placeholder="Nama Kolom pada Excel">
                                             </div>
                                         </div>
-                                        <div class="form-groupv col-4">
+                                        <div class="form-group col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Tertampung</div>
@@ -199,17 +199,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($prodi as $quotaa)
+                                            @foreach($prodi as $quotaa => $data)
                                             <tr>
-                                                <td>{{$quotaa->id}}</td>
-                                                <td>{{$quotaa->id_prodi}}</td>
-                                                <td>{{$quotaa->jurusan}}</td>
-                                                <td>{{$quotaa->id_politeknik}}</td>
-                                                <td>{{$quotaa->politeknik}}</td>
-                                                <td>{{$quotaa->id_kelompok_bidang}}</td>
-                                                <td>{{$quotaa->kelompok_bidang}}</td>
-                                                <td>{{$quotaa->quota == null ? '-' : $quotaa->quota}}</td>
-                                                <td>{{$quotaa->tertampung == null ? '-' : $quotaa->tertampung}}</td>
+                                                <th scope="row">{{ $quotaa + $prodi->firstItem()}}</th>                                           
+                                                <td>{{$data->id_prodi}}</td>
+                                                <td>{{$data->jurusan}}</td>
+                                                <td>{{$data->id_politeknik}}</td>
+                                                <td>{{$data->politeknik}}</td>
+                                                <td>{{$data->id_kelompok_bidang}}</td>
+                                                <td>{{$data->kelompok_bidang}}</td>
+                                                <td>{{$data->quota == null ? '-' : $data->quota}}</td>
+                                                <td>{{$data->tertampung == null ? '-' : $data->tertampung}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
