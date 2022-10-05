@@ -55,7 +55,7 @@
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
                         <a class="nav-link ion-trophy"
-                            href="{{ url('layout-default-layout') }}">&nbsp;&nbsp;&nbsp;Prestasi</a>
+                            href="{{ url('prestasi') }}">&nbsp;&nbsp;&nbsp;Prestasi</a>
                     </li>
                     <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
                         <a class="nav-link ion-document-text"

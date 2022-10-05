@@ -1586,9 +1586,8 @@ table tr:hover .table-links {
     background-color: #f9fafe;
     font-weight: 600;
 }
-.page-pagination{
-  
-}
+
+.page-pagination {}
 
 .page-link:hover {
     background-color: #6777ef;
@@ -3473,14 +3472,16 @@ pre {
     background-size: cover;
 }
 
+
 /* 4.2 Section */
 
 .section {
     position: relative;
     z-index: 1;
 }
-.section > *:first-child {
-  /* margin-top: -7px; */
+
+.section>*:first-child {
+    /* margin-top: -7px; */
 }
 
 .section .section-header {
