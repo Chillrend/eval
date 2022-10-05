@@ -395,7 +395,6 @@ select.form-control:not([size]):not([multiple]) {
 
 .custom-file-input:focus+.custom-file-label:after {
     border-color: transparent;
-    texr
 }
 
 .selectgroup {
