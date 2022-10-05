@@ -216,8 +216,8 @@
                                             <?php $no=1; ?>
                                             @foreach($candidates as $candidate => $data)
                                             <tr>
-                                                <th scope="row">{{ $candidate + $candidates->firstItem()}}</th> 
-                                                <td></td>
+                                                <th scope="row">{{ $candidate + $candidates->firstItem()}}</th>                                              
+                                                <td>{{$data->tahun_periode}}</td>
                                                 <td>{{$data->no_daftar}}</td>
                                                 <td>{{$data->nama}}</td>
                                                 <td>{{$data->id_pilihan1}}</td>

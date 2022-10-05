@@ -7,6 +7,7 @@ use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Periode;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
@@ -106,10 +107,42 @@ class ImportController extends Controller
         }
     
 
+        // $data = Candidates::join('periode_candidates','periode_candidates.no_daftar','=','candidates.no_daftar')
+        //                         ->get(['periode_candidates.tahun_periode','candidates.no_daftar','candidates.nama',
+        //                         'candidates.id_pilihan1','candidates.id_pilihan2','candidates.id_pilihan3','candidates.kode_kelompok_bidang',
+        //                         'candidates.alamat','candidates.sekolah','candidates.telp'])
+        //                          ;
+
+        // $data = DB::table('candidates')
+        //     ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
+        //     ->select('candidates.*', 'periode_candidates.tahun_periode')
+        //     ->get()
+        //     ;
+
+        // $data = $data->orderBy('created_at', 'desc')->paginate(10);
+        // $collection = (new Collection($data))->paginate(10);
+                                 
+        $candidates = Candidates::query()
+            ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
+                        ->select('candidates.*', 'periode_candidates.tahun_periode')
+                        ->get()
+            ->when( $this->q, function($query) {
+                return $query->where(function( $query) {
+                    $query->where('name', 'like', '%'.$this->q . '%')
+                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+                });
+            })
+            ->paginate(10);
+            
+            ;
+            
+        // dd($data);
+        
+
         return view('halaman.import-candidate',[
             'type_menu' => 'import-candidate',
             'candidates' => $candidates,
-            'criteria' => $criteria,
+            'criteria' => $criteria
         ]);
     }
 }
