@@ -215,9 +215,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="m-4 p-4">
-                                    {!! $prodi->links() !!}
-                                </div>
+                                <div class="m-4 p-4 pagination justify-content-between">
+                                    <div>
+                                        <p>1 of 3 from 100 contents</p>
+                                    </div>
+                                    {!! $prodi->links("pagination::bootstrap-4") !!}
                                 </div>
                             </div>
                         </div>
