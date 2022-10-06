@@ -24,10 +24,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Admin</h4>
+                                <h4>Total Kandidat</h4>
                             </div>
                             <div class="card-body">
-                                10
+                                3122
                             </div>
                         </div>
                     </div>
@@ -39,10 +39,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>News</h4>
+                                <h4>Prestasi</h4>
                             </div>
                             <div class="card-body">
-                                42
+                                522
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Reports</h4>
+                                <h4>Seleksi Tes</h4>
                             </div>
                             <div class="card-body">
                                 1,201
@@ -69,17 +69,17 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Online Users</h4>
+                                <h4>Seleksi Mandiri</h4>
                             </div>
                             <div class="card-body">
-                                47
+                                1399
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
                             <h4>Statistics</h4>
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+                <!-- <div class="col-lg-4 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
                             <h4>Recent Activities</h4>
@@ -188,9 +188,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-body pt-2 pb-2">
@@ -800,7 +800,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </section>
     </div>
 @endsection

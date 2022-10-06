@@ -395,7 +395,6 @@ select.form-control:not([size]):not([multiple]) {
 
 .custom-file-input:focus+.custom-file-label:after {
     border-color: transparent;
-    texr
 }
 
 .selectgroup {
@@ -1597,6 +1596,8 @@ table tr:hover .table-links {
     background-color: #f9fafe;
     font-weight: 600;
 }
+
+.page-pagination {}
 
 .page-link:hover {
     background-color: #6777ef;
@@ -3490,7 +3491,7 @@ pre {
 }
 
 .section>*:first-child {
-    margin-top: -7px;
+    /* margin-top: -7px; */
 }
 
 .section .section-header {

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
 use App\Models\Candidates;
+use App\Models\Criteria;
 use App\Models\Periode;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
@@ -35,6 +37,16 @@ class ImportController extends Controller
             strtolower($request->input('col_no_telp')),
         );
         $periode = $request->input('periode');
+
+        $criteria = array(
+            'tahun' => $periode,
+            'criteria' => implode('---',$namedkey),
+            'table' => 'candidates',
+            'kode_criteria' => strval($periode).'_candidates',
+        );
+        Criteria::upsert($criteria,'kode_criteria');
+        
+
 
         for ($i=0; $i < count($array[0]); $i++) { 
             $filtered[] = [
@@ -68,27 +80,11 @@ class ImportController extends Controller
                 $filtered[$i]['id_pilihan3'] = $array[0][$i][$namedkey[4]];
             };
         }
-        // for ($i=0; $i < count($filtered) ; $i++) { 
-        //     for ($a=0; $a < count($filtered[$i]); $a++) { 
-        //         if ($filtered[$i][$a] === '') {
-        //             $filtered[$i][$a] = null;
-        //         }
-        //     }
-        // }
 
-
-        // dd([$periodes, $filtered]);
-
-        // $filtered = (object) $filtered;
-        // $savedd=$filtered->save();
         $saved = Periode::insert($periodes);
         $savedd = Candidates::upsert($filtered,'no_daftar');
-        
-        // dd($filtered);
-        // Candidates::insert([$filtered]);
 
-        // redirect()->route('candidates');
-        // Session::flash(success('Sweet Alert with success.','Welcome to ItSolutionStuff.com')->autoclose(3500);
+
         Session::flash('sukses','Data Berhasil ditambahkan');
         return redirect('/import-candidates');
     }
@@ -105,9 +101,48 @@ class ImportController extends Controller
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
+        $criteria = Criteria::where('table', 'candidates')->get();
+        for ($i=0; $i < count($criteria); $i++) { 
+            $criteria[$i]['criteria'] = explode('---',$criteria[$i]['criteria']);
+        }
+    
+
+        // $data = Candidates::join('periode_candidates','periode_candidates.no_daftar','=','candidates.no_daftar')
+        //                         ->get(['periode_candidates.tahun_periode','candidates.no_daftar','candidates.nama',
+        //                         'candidates.id_pilihan1','candidates.id_pilihan2','candidates.id_pilihan3','candidates.kode_kelompok_bidang',
+        //                         'candidates.alamat','candidates.sekolah','candidates.telp'])
+        //                          ;
+
+        // $data = DB::table('candidates')
+        //     ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
+        //     ->select('candidates.*', 'periode_candidates.tahun_periode')
+        //     ->get()
+        //     ;
+
+        // $data = $data->orderBy('created_at', 'desc')->paginate(10);
+        // $collection = (new Collection($data))->paginate(10);
+                                 
+        $candidates = Candidates::query()
+            ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
+                        ->select('candidates.*', 'periode_candidates.tahun_periode')
+                        ->get()
+            ->when( $this->q, function($query) {
+                return $query->where(function( $query) {
+                    $query->where('name', 'like', '%'.$this->q . '%')
+                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+                });
+            })
+            ->paginate(10);
+            
+            ;
+            
+        // dd($data);
+        
+
         return view('halaman.import-candidate',[
             'type_menu' => 'import-candidate',
             'candidates' => $candidates,
+            'criteria' => $criteria
         ]);
     }
 }

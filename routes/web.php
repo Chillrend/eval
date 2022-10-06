@@ -5,7 +5,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProdiController;
-
+use App\Http\Controllers\PrestasiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +41,11 @@ Route::get('/import-prodi', [ProdiController::class,'render']);
 Route::post('/import-prodi', [ProdiController::class,'import']);
 
 
+Route::post('/prestasi', [PrestasiController::class,'import']);
+
+Route::get('/prestasi', function () {
+    return view('halaman.prestasi', ['type_menu' => 'layout']);
+});
 
 
 /*
