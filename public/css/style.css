@@ -889,6 +889,16 @@ select.form-control:not([size]):not([multiple]) {
 .card .card-body p {
     font-weight: 500;
 }
+/* .card .card-prodi {
+    border-bottom-color: #f9f9f9;
+    line-height: 30px;
+    align-self: center;
+    width: 100%;
+    min-height: 70px;
+    padding: 15px 25px;
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+} */
 
 .card .card-header {
     border-bottom-color: #f9f9f9;
@@ -898,7 +908,7 @@ select.form-control:not([size]):not([multiple]) {
     min-height: 70px;
     padding: 15px 25px;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .card .card-header .btn {

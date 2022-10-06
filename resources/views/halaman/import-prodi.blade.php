@@ -22,33 +22,35 @@
                 <h1>Quota Prodi</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Bootstrap Components</a></div>
-                    <div class="breadcrumb-item">Form</div>
+                    <div class="breadcrumb-item"><a href="#">Program Studi</a></div>
+                    <div class="breadcrumb-item">Quota</div>
                 </div>
             </div>
  
             <div class="section-body">
-                <h2 class="section-title">Upload Data Calon Mahasiswa</h2>
-                <p class="section-lead">
-                    Upload data quota program studi lewat file spreadsheet
-                </p>
-
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4>Data</h4>
+                            <div class="card-header d-flex flex-column justify-content-start">
+                                <h1 class="section-title">Upload Data Calon Mahasiswa</h1>
                             </div>
                             <form action="/import-prodi" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
                                         <label>Choose One</label>
-                                        <select class="custom-select" name="periode">
+                                        <select class="custom-select" onchange="myFunction();" name="periode" id="periode">
                                             <option selected hidden>Tahun Periode Masuk</option>
-                                            <option>2022</option>
-                                            <option>2021</option>
-                                            <option>2020</option>
+                                            @if($criteria[count($criteria) -1]["tahun"] != now()->year)
+                                            <option >{{now()->year}}</option>
+                                            @foreach($criteria->reverse() as $kriteria)
+                                            <option>{{$kriteria->tahun}}</option>
+                                            @endforeach
+                                            @else
+                                            @foreach($criteria->reverse() as $kriteria)
+                                            <option>{{$kriteria->tahun}}</option>
+                                            @endforeach
+                                            @endif
                                         </select>
 
                                     <div class="section-title">File Browser</div>
@@ -236,5 +238,42 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+
+    <!-- coba  -->
+    <script>
+        // var test = <?php echo json_encode($criteria); ?>;
+        // for(i = 0; i < test.length; i++) {
+        //     console.log(test[i])
+        // }
+
+        function myFunction() {
+            var test = <?php echo json_encode($criteria); ?>;
+            if(test != null) {
+                for(i=0; i < test.length; i++) {
+                    if(document.getElementById("periode").value == test[i].tahun) {
+                        document.getElementById("col_id_prodi").value = test[i].criteria[0];
+                        document.getElementById("col_jurusan").value = test[i].criteria[1];
+                        document.getElementById("col_id_politeknik").value = test[i].criteria[2];
+                        document.getElementById("col_politeknik").value = test[i].criteria[3];
+                        document.getElementById("col_id_kelompok_bidang").value = test[i].criteria[4];
+                        document.getElementById("col_kelompok_bidang").value = test[i].criteria[5];
+                        document.getElementById("col_Quota").value = test[i].criteria[6];
+                        document.getElementById("col_tertampung").value = test[i].criteria[7];
+                        break;
+                    }
+                    else if(document.getElementById("periode").value != test[i].tahun) {
+                        document.getElementById("col_id_prodi").value ="";
+                    document.getElementById("col_jurusan").value = "";
+                    document.getElementById("col_id_politeknik").value = "";
+                    document.getElementById("col_politeknik").value = "";
+                    document.getElementById("col_id_kelompok_bidang").value = "";
+                    document.getElementById("col_kelompok_bidang").value = "";
+                    document.getElementById("col_Quota").value = "";
+                    document.getElementById("col_tertampung").value = "";
+                    }
+                }
+            }
+        }
+    </script>
 @endpush
 
