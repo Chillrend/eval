@@ -236,5 +236,32 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+    <script>
+        $(document).ready(function () {
+        $.ajax({
+            method: "POST",
+            url: 'http://localhost:8000/api/get-criteria-prodi/?tahun=2021',
+            data: {
+                tahun: 2021,
+            },
+            success: function (response) {
+                // var dataRW = response.RW;
+                // $("#selectRW").removeAttr("disabled").selectric("refresh");
+
+                // for (var i = 0; i < dataRW.length; i++) {
+                //     $("#selectRW").append(
+                //         "<option>" + dataRW[i].RW + "</option>"
+                //     );
+                //     $("#selectRW").selectric("refresh");
+                // }
+                console.log(response);
+            },
+            error: function (response) {
+                var hasil = response.responseJSON.message;
+                alert(hasil);
+            },
+        });
+    });
+    </script>
 @endpush
 
