@@ -14,16 +14,6 @@
                 <a class="nav-link"
                     href="{{ url('dashboard') }}"><i class="fas fa-house"></i><span>Dashboard</span></a>
             </li>
-
-            <li class="menu-header">Import</li>
-            <li class="{{ Request::is('import-candidates') ? 'active' : '' }}">
-                <a class="nav-link "
-                    href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
-            </li>
-            <li class="{{ Request::is('import-prodi') ? 'active' : '' }}">
-                <a class="nav-link "
-                    href="{{ url('import-prodi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
-            </li>
             <!-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
                 <a href="#"
                     class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
@@ -47,20 +37,24 @@
 
                 <a href="#"
                     class="nav-link has-dropdown"
-                    data-toggle="dropdown"><i class="fas fa-file-import"></i><span>Seleksi Nasional</span></a>
+                    data-toggle="dropdown"><i class="fas fa-graduation-cap"></i><span>Prestasi</span></a>
                 <!-- <a href="#"
                     class="nav-link has-dropdown"
                     data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
                 
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link ion-trophy"
-                            href="{{ url('prestasi') }}">&nbsp;&nbsp;&nbsp;Prestasi</a>
+                    <li class="{{ Request::is('import-candidates') ? 'active' : '' }}">
+                        <a class="nav-link "
+                            href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                     </li>
-                    <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link ion-document-text"
-                            href="{{ url('transparent-sidebar') }}">&nbsp;&nbsp;&nbsp; Berdasarkan Tes</a>
-                    </li>              
+                    <li class="{{ Request::is('import-prodi') ? 'active' : '' }}">
+                        <a class="nav-link "
+                            href="{{ url('import-prodi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                    </li>  
+                    <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
+                        <a class="nav-link "
+                            href="{{ url('preview-prestasi') }}"><i class="fas fa-eye" ></i><span>Preview Prestasi</span></a>
+                    </li>             
                 </ul>
                 <!-- <ul class="dropdown-menu">
                     <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">

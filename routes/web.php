@@ -43,7 +43,7 @@ Route::post('/import-prodi', [ProdiController::class,'import']);
 
 Route::post('/prestasi', [PrestasiController::class,'import']);
 
-Route::get('/prestasi', function () {
+Route::get('/preview-prestasi', function () {
     return view('halaman.prestasi', ['type_menu' => 'layout']);
 });
 

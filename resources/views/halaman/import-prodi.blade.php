@@ -19,11 +19,29 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Quota Prodi</h1>
+                <h1>Form Quota Prodi</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Program Studi</a></div>
-                    <div class="breadcrumb-item">Quota</div>
+                    <div class="breadcrumb-item">Form Quota Prodi</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-0">
+                    <div class="alert alert-primary alert-dismissible show fade">
+                        <div class="alert-body">
+                            <div class="hero bg-primary text-white">
+                                <div class="hero-inner">
+                                    <button class="close"
+                                        data-dismiss="hero">
+                                    <span>&times;</span>
+                                    </button>
+                                    <h2>Selamat Datang di Halaman Program Studi</h2>
+                                    <p class="lead">This page is a place to manage posts, categories and more.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
  
@@ -31,9 +49,16 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header d-flex flex-column justify-content-start">
-                                <h1 class="section-title">Upload Data Calon Mahasiswa</h1>
+                            <div class="card-header">
+                            <h4>Upload Data Quota Prodi</h4>
+                            <div class="card-header-action">
+                                <a data-collapse="#mycard-collapse"
+                                    class="btn btn-icon btn-info"
+                                    href="#"><i class="fas fa-minus"></i></a>
                             </div>
+                        </div>
+                        <div class="collapse show" id="mycard-collapse">
+                            <div class="card-body">
                             <form action="/import-prodi" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
@@ -169,6 +194,8 @@
                                     <input type="submit" class="btn btn-primary"/>
                                 </div>
                             </form>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
