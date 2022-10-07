@@ -60,7 +60,7 @@ class ImportController extends Controller
                 'alamat'                => trim($array[0][$i][$namedkey[6]]), 
                 'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
                 'telp'                  => trim($array[0][$i][$namedkey[8]]),
-                'tahun_periode'         => $periode,
+                'tahun_periode'       => $periode,
             ] ;
             $periodes[] = [
                 'tahun_periode'       => $periode,
@@ -136,7 +136,7 @@ class ImportController extends Controller
         //     })
         //     ->paginate(10);
             
-        //     ;
+            
             
         // dd($data);
         

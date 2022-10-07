@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('sekolah')->nullable();
             $table->string('telp')->nullable();
+            $table->year('tahun_periode');
             $table->timestamps();
         });
     }
