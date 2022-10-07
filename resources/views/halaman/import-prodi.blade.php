@@ -36,6 +36,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="alert "></div>
                             <div class="card-header">
                                 <h4>Data</h4>
                             </div>
@@ -44,11 +45,18 @@
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
                                         <label>Choose One</label>
-                                        <select class="custom-select" name="periode">
+                                        <select class="custom-select" name="periode" id="periode" onchange="myFunction()">
                                             <option selected hidden>Tahun Periode Masuk</option>
-                                            <option>2022</option>
-                                            <option>2021</option>
-                                            <option>2020</option>
+                                            @if($criteria[count($criteria) -1]["tahun"] != now()->year)
+                                            <option >{{now()->year}}</option>
+                                            @foreach($criteria->reverse() as $kriteria)
+                                            <option>{{$kriteria->tahun}}</option>
+                                            @endforeach
+                                            @else
+                                            @foreach($criteria->reverse() as $kriteria)
+                                            <option>{{$kriteria->tahun}}</option>
+                                            @endforeach
+                                            @endif
                                         </select>
 
                                     <div class="section-title">File Browser</div>
@@ -236,32 +244,6 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
-    <script>
-        $(document).ready(function () {
-        $.ajax({
-            method: "POST",
-            url: 'http://localhost:8000/api/get-criteria-prodi/?tahun=2021',
-            data: {
-                tahun: 2021,
-            },
-            success: function (response) {
-                // var dataRW = response.RW;
-                // $("#selectRW").removeAttr("disabled").selectric("refresh");
-
-                // for (var i = 0; i < dataRW.length; i++) {
-                //     $("#selectRW").append(
-                //         "<option>" + dataRW[i].RW + "</option>"
-                //     );
-                //     $("#selectRW").selectric("refresh");
-                // }
-                console.log(response);
-            },
-            error: function (response) {
-                var hasil = response.responseJSON.message;
-                alert(hasil);
-            },
-        });
-    });
-    </script>
+    <script src="../../js/import-prodi.js"></script>
 @endpush
 
