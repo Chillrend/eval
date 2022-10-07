@@ -34,7 +34,7 @@ class ProdiController extends Controller
             'table' => 'prodi',
             'kode_criteria' => strval($periode).'_prodi',
         );
-        Criteria::upsert($criteria,'kode_criteria');
+        Criteria::insert($criteria,'kode_criteria');
         
 
 
