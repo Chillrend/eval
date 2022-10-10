@@ -12,7 +12,6 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
-        "mongodb/mongodb": "^1.12",
         "psr/simple-cache": "2.0"
     },
     "require-dev": {

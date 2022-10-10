@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('candidates', function (Blueprint $table) {
+            $table->year('tahun_periode');
             $table->id('no_daftar');
             $table->string('nama');
             $table->integer('id_pilihan1')->nullable();
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('sekolah')->nullable();
             $table->string('telp')->nullable();
+            $table->year('tahun_periode');
             $table->timestamps();
         });
     }
