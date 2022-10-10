@@ -44,163 +44,165 @@
                     </div>
                 </div>
             </div>
- 
-            <div class="section-body">
+
+<br>
+            <div id="accordion">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="alert "></div>
-                            <div class="card-header">
-                            <h4>Upload Data Quota Prodi</h4>
-                            <div class="card-header-action">
-                                <a data-collapse="#mycard-collapse"
-                                    class="btn btn-icon btn-info"
-                                    href="#"><i class="fas fa-minus"></i></a>
+                            <div class="card-header accordion-header"
+                                role="button"
+                                data-toggle="collapse"
+                                data-target="#panel-body-3">
+                                <h4>Upload Data Quota Prodi</h4>
                             </div>
-                        </div>
-                        <div class="collapse show" id="mycard-collapse">
-                            <div class="card-body">
-                            <form action="/import-prodi" method="post" enctype="multipart/form-data">
-                                <div class="card-body">
-                                    @csrf
-                                    <div class="section-title mt-0">Pilih Periode PMB</div>
-                                        <label>Choose One</label>
-                                        <select class="custom-select" name="periode" id="periode" onchange="myFunction()">
-                                            <option selected hidden>Tahun Periode Masuk</option>
-                                            @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
-                                            <option >{{now()->year}}</option>
-                                            @foreach($criteria->reverse() as $kriteria)
-                                            <option>{{$kriteria->tahun}}</option>
-                                            @endforeach
-                                            @else
-                                            @foreach($criteria->reverse() as $kriteria)
-                                            <option>{{$kriteria->tahun}}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
-
-                                    <div class="section-title">File Browser</div>
-                                    <div class="input-group mb-3">
-                                        <input type="file"  name="excel" class="choose form-control" id="customFile">
-                                        <label class="input-group-text" for="customFile">Upload</label>
-                                      </div>
-
-                                                                        
-                                    <div class="section-title">Nama Kolom Excel</div>
-                                    <label>Cocokkan nama kolom excel dengan nama pada table</label>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Id Prodi</div>
+                            <div class="accordion-body collapse"
+                                id="panel-body-3"
+                                data-parent="#accordion">
+                                <form action="/import-prodi" method="post" enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        @csrf
+                                        <div class="section-title mt-0">Pilih Periode PMB</div>
+                                            <label>Choose One</label>
+                                            <select class="custom-select" name="periode" id="periode" onchange="myFunction()">
+                                                <option selected hidden>Tahun Periode Masuk</option>
+                                                @if($criteria[count($criteria) -1]["tahun"] != now()->year)
+                                                <option >{{now()->year}}</option>
+                                                @foreach($criteria->reverse() as $kriteria)
+                                                <option>{{$kriteria->tahun}}</option>
+                                                @endforeach
+                                                @else
+                                                @foreach($criteria->reverse() as $kriteria)
+                                                <option>{{$kriteria->tahun}}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+    
+                                        <div class="section-title">File Browser</div>
+                                        <div class="input-group mb-3">
+                                            <input type="file"  name="excel" class="choose form-control" id="customFile">
+                                            <label class="input-group-text" for="customFile">Upload</label>
+                                          </div>
+    
+                                                                            
+                                        <div class="section-title">Nama Kolom Excel</div>
+                                        <label>Cocokkan nama kolom excel dengan nama pada table</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Id Prodi</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_id_prodi"
+                                                        name="col_id_prodi"
+                                                        placeholder="Nama Kolom pada Excel">
                                                 </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_id_prodi"
-                                                    name="col_id_prodi"
-                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Jurusan</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_jurusan"
+                                                        name="col_jurusan"
+                                                        placeholder="Nama Kolom pada Excel">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Id Politeknik</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_id_politeknik"
+                                                        name="col_id_politeknik"
+                                                        placeholder="Nama Kolom pada Excel">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Jurusan</div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Politeknik</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_politeknik"
+                                                        name="col_politeknik"
+                                                        placeholder="Nama Kolom pada Excel">
                                                 </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_jurusan"
-                                                    name="col_jurusan"
-                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Id Kelompok Bidang</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_id_kelompok_bidang"
+                                                        name="col_id_kelompok_bidang"
+                                                        placeholder="Nama Kolom pada Excel">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Kelompok Bidang</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_kelompok_bidang"
+                                                        name="col_kelompok_bidang"
+                                                        placeholder="Nama Kolom pada Excel">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Id Politeknik</div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Quota</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_Quota"
+                                                        name="col_Quota"
+                                                        placeholder="Nama Kolom pada Excel">
                                                 </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_id_politeknik"
-                                                    name="col_id_politeknik"
-                                                    placeholder="Nama Kolom pada Excel">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Tertampung</div>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="col_tertampung"
+                                                        name="col_tertampung"
+                                                        placeholder="Nama Kolom pada Excel">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Politeknik</div>
-                                                </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_politeknik"
-                                                    name="col_politeknik"
-                                                    placeholder="Nama Kolom pada Excel">
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Id Kelompok Bidang</div>
-                                                </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_id_kelompok_bidang"
-                                                    name="col_id_kelompok_bidang"
-                                                    placeholder="Nama Kolom pada Excel">
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Kelompok Bidang</div>
-                                                </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_kelompok_bidang"
-                                                    name="col_kelompok_bidang"
-                                                    placeholder="Nama Kolom pada Excel">
-                                            </div>
-                                        </div>
+                                    <div class="card-footer text-right">
+                                        <input type="submit" class="btn btn-primary"/>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Quota</div>
-                                                </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_Quota"
-                                                    name="col_Quota"
-                                                    placeholder="Nama Kolom pada Excel">
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Tertampung</div>
-                                                </div>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    id="col_tertampung"
-                                                    name="col_tertampung"
-                                                    placeholder="Nama Kolom pada Excel">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer text-right">
-                                    <input type="submit" class="btn btn-primary"/>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
+                                </form>
+                            </div>    
                         </div>
                     </div>
                 </div>
+            </div>
 
+
+ 
+            
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data quota program studi yang akan di upload
@@ -250,6 +252,7 @@
                                         <p>1 of 3 from 100 contents</p>
                                     </div>
                                     {!! $prodi->links("pagination::bootstrap-4") !!}
+                                    <button class="btn btn-primary" id="swal-6">Accept Data</button>
                                 </div>
                             </div>
                         </div>
@@ -265,9 +268,11 @@
     <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script> --}}
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
     <script src="../../js/import-prodi.js"></script>
+    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 

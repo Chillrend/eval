@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
         name="viewport">
-    <title>Login &mdash; Stisla</title>
+    <title>Login &mdash; PMB</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet"
@@ -100,10 +100,10 @@
                             </div>
 
                             <div class="form-group text-right">
-                                <a href="auth-forgot-password.html"
+                                {{-- <a href="auth-forgot-password.html"
                                     class="float-left mt-3">
                                     Forgot Password?
-                                </a>
+                                </a> --}}
                                 <button type="submit"
                                     class="btn btn-primary btn-lg btn-icon icon-right"
                                     tabindex="4">
