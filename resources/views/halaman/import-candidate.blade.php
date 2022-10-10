@@ -46,7 +46,7 @@
                                         <label>Choose One</label>
                                         <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
                                             <option selected hidden>Tahun Periode Masuk</option>
-                                            @if($criteria[count($criteria) -1]["tahun"] != now()->year)
+                                            @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
                                             <option >{{now()->year}}</option>
                                             @foreach($criteria->reverse() as $kriteria)
                                             <option>{{$kriteria->tahun}}</option>
