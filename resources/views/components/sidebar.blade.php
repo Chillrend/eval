@@ -37,7 +37,7 @@
 
                 <a href="#"
                     class="nav-link has-dropdown"
-                    data-toggle="dropdown"><i class="fas fa-graduation-cap"></i><span>Prestasi</span></a>
+                    data-toggle="dropdown"><i class="fas fa-graduation-cap"></i><span>Seleksi Prestasi</span></a>
                 <!-- <a href="#"
                     class="nav-link has-dropdown"
                     data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
