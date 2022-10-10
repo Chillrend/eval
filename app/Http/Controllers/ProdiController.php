@@ -30,7 +30,7 @@ class ProdiController extends Controller
 
         $criteria = array(
             'tahun' => $periode,
-            'criteria' => implode('---',$namedkey),
+            'criteria' => $namedkey,
             'table' => 'prodi',
             'kode_criteria' => strval($periode).'_prodi',
         );
@@ -49,17 +49,6 @@ class ProdiController extends Controller
                 'quota'                 => trim($array[0][$i][$namedkey[6]]), 
                 'tertampung'            => trim($array[0][$i][$namedkey[7]]), 
             ] ;
-
-            if($array[0][$i][$namedkey[6]] === "" || $array[0][$i][$namedkey[6]] === " "){
-                $filtered[$i]['quota'] = null;
-            }else{
-                $filtered[$i]['quota'] = $array[0][$i][$namedkey[6]];
-            };
-            if($array[0][$i][$namedkey[7]] === "" || $array[0][$i][$namedkey[7]] === " "){
-                $filtered[$i]['tertampung'] = null;
-            }else{
-                $filtered[$i]['tertampung'] = $array[0][$i][$namedkey[7]];
-            };
         }
 
         Prodi::insert($filtered);
@@ -79,10 +68,7 @@ class ProdiController extends Controller
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'prodi')->get();
-        for ($i=0; $i < count($criteria); $i++) { 
-            $criteria[$i]['criteria'] = explode('---',$criteria[$i]['criteria']);
-        }
-
+        
         return view('halaman.import-prodi',[
             'type_menu' => 'import-prodi',
             'prodi' => $prodi,

@@ -41,7 +41,7 @@ class ImportController extends Controller
 
         $criteria = array(
             'tahun' => $periode,
-            'criteria' => implode('---',$namedkey),
+            'criteria' => $namedkey,
             'table' => 'candidates',
             'kode_criteria' => strval($periode).'_candidates',
         );
@@ -60,31 +60,12 @@ class ImportController extends Controller
                 'alamat'                => trim($array[0][$i][$namedkey[6]]), 
                 'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
                 'telp'                  => trim($array[0][$i][$namedkey[8]]),
-                'tahun_periode'       => $periode,
+                'tahun_periode'         => $periode,
             ] ;
-            $periodes[] = [
-                'tahun_periode'       => $periode,
-                'no_daftar'     => trim($array[0][$i][$namedkey[0]])
-            ];
-            if($array[0][$i][$namedkey[2]] === "" || $array[0][$i][$namedkey[2]] === " "){
-                $filtered[$i]['id_pilihan1'] = null;
-            }else{
-                $filtered[$i]['id_pilihan1'] = $array[0][$i][$namedkey[2]];
-            };
-            if($array[0][$i][$namedkey[3]] === "" || $array[0][$i][$namedkey[3]] === " "){
-                $filtered[$i]['id_pilihan2'] = null;
-            }else{
-                $filtered[$i]['id_pilihan2'] = $array[0][$i][$namedkey[3]];
-            };
-            if($array[0][$i][$namedkey[4]] === "" || $array[0][$i][$namedkey[4]] === " "){
-                $filtered[$i]['id_pilihan3'] = null;
-            }else{
-                $filtered[$i]['id_pilihan3'] = $array[0][$i][$namedkey[4]];
-            };
         }
 
-        $saved = Periode::insert($periodes);
-        $savedd = Candidates::insert($filtered,'no_daftar');
+        Candidates::truncate();
+        Candidates::insert($filtered,'no_daftar');
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
@@ -104,42 +85,7 @@ class ImportController extends Controller
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'candidates')->get();
-        for ($i=0; $i < count($criteria); $i++) { 
-            $criteria[$i]['criteria'] = explode('---',$criteria[$i]['criteria']);
-        }
-    
 
-        // $data = Candidates::join('periode_candidates','periode_candidates.no_daftar','=','candidates.no_daftar')
-        //                         ->get(['periode_candidates.tahun_periode','candidates.no_daftar','candidates.nama',
-        //                         'candidates.id_pilihan1','candidates.id_pilihan2','candidates.id_pilihan3','candidates.kode_kelompok_bidang',
-        //                         'candidates.alamat','candidates.sekolah','candidates.telp'])
-        //                          ;
-
-        // $data = DB::table('candidates')
-        //     ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
-        //     ->select('candidates.*', 'periode_candidates.tahun_periode')
-        //     ->get()
-        //     ;
-
-        // $data = $data->orderBy('created_at', 'desc')->paginate(10);
-        // $collection = (new Collection($data))->paginate(10);
-                                 
-        // $candidates = Candidates::query()
-        //     ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
-        //                 ->select('candidates.*', 'periode_candidates.tahun_periode')
-        //                 ->get()
-        //     ->when( $this->q, function($query) {
-        //         return $query->where(function( $query) {
-        //             $query->where('name', 'like', '%'.$this->q . '%')
-        //                 ->orWhere('ident', 'like', '%' . $this->q . '%');
-        //         });
-        //     })
-        //     ->paginate(10);
-            
-            
-            
-        // dd($data);
-        
 
         return view('halaman.import-candidate',[
             'type_menu' => 'import-candidate',
