@@ -66,7 +66,7 @@
                                             <label>Choose One</label>
                                             <select class="custom-select" name="periode" id="periode" onchange="myFunction()">
                                                 <option selected hidden>Tahun Periode Masuk</option>
-                                                @if($criteria[count($criteria) -1]["tahun"] != now()->year)
+                                                @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
                                                 <option >{{now()->year}}</option>
                                                 @foreach($criteria->reverse() as $kriteria)
                                                 <option>{{$kriteria->tahun}}</option>
@@ -247,12 +247,15 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="m-4 p-4 pagination justify-content-between">
-                                    <div>
-                                        <p>1 of 3 from 100 contents</p>
-                                    </div>
-                                    {!! $prodi->links("pagination::bootstrap-4") !!}
-                                    <button class="btn btn-primary" id="swal-6">Accept Data</button>
+                            </div>
+                            <div class="card-footer pagination justify-content-between">
+                                <div>
+                                    <p>1 of 3 from 100 contents</p>
+                                </div>
+                                {!! $prodi->links("pagination::bootstrap-4") !!}
+                                <div class="">
+                                    <button class="btn btn-warning" id="swal-6"><strong>Cancel</strong></button>
+                                    <button class="btn btn-success" id="swal-6"><strong>Save</strong></button>
                                 </div>
                             </div>
                         </div>
