@@ -1599,8 +1599,6 @@ table tr:hover .table-links {
     font-weight: 600;
 }
 
-.page-pagination {}
-
 .page-link:hover {
     background-color: #6777ef;
     color: #fff;
