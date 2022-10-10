@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 
 class Prodi extends Model
 {
@@ -15,5 +15,6 @@ class Prodi extends Model
      * @var string
      */
     protected $table = 'prodi';
+    protected $connection = 'mongodb';
     
 }

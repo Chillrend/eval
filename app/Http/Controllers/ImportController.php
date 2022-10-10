@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
+use Jenssegers\Mongodb\Eloquent\Model;
 
-class ImportController extends Controller
+class ImportController extends Controller 
 {
     public $q;
     public $sortBy = 'no_daftar';
@@ -44,7 +45,7 @@ class ImportController extends Controller
             'table' => 'candidates',
             'kode_criteria' => strval($periode).'_candidates',
         );
-        Criteria::upsert($criteria,'kode_criteria');
+        Criteria::insert($criteria,'kode_criteria');
         
 
 
@@ -82,7 +83,7 @@ class ImportController extends Controller
         }
 
         $saved = Periode::insert($periodes);
-        $savedd = Candidates::upsert($filtered,'no_daftar');
+        $savedd = Candidates::insert($filtered,'no_daftar');
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
@@ -122,19 +123,19 @@ class ImportController extends Controller
         // $data = $data->orderBy('created_at', 'desc')->paginate(10);
         // $collection = (new Collection($data))->paginate(10);
                                  
-        $candidates = Candidates::query()
-            ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
-                        ->select('candidates.*', 'periode_candidates.tahun_periode')
-                        ->get()
-            ->when( $this->q, function($query) {
-                return $query->where(function( $query) {
-                    $query->where('name', 'like', '%'.$this->q . '%')
-                        ->orWhere('ident', 'like', '%' . $this->q . '%');
-                });
-            })
-            ->paginate(10);
+        // $candidates = Candidates::query()
+        //     ->join('periode_candidates', 'periode_candidates.no_daftar', '=', 'candidates.no_daftar')
+        //                 ->select('candidates.*', 'periode_candidates.tahun_periode')
+        //                 ->get()
+        //     ->when( $this->q, function($query) {
+        //         return $query->where(function( $query) {
+        //             $query->where('name', 'like', '%'.$this->q . '%')
+        //                 ->orWhere('ident', 'like', '%' . $this->q . '%');
+        //         });
+        //     })
+        //     ->paginate(10);
             
-            ;
+        //     ;
             
         // dd($data);
         

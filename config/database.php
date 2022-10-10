@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,15 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => env('DB_HOST', '10.23.249.99'),
+            'port' => env('DB_PORT', 27017),
+            'database' => env('DB_DATABASE', 'eval_pmb'),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', '')
+          ],
 
         'pgsql' => [
             'driver' => 'pgsql',
