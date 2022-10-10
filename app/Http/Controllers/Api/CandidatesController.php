@@ -23,7 +23,7 @@ class CandidatesController extends Controller
     {
         $query = $request->query();
         $criteria = Criteria::select('criteria')->where('table', 'candidates')->where('tahun', $query['tahun'])->first();
-        $criteria=explode('---',$criteria);
+        $criteria=explode('---',$criteria['criteria']);
         // dd($criteria);
 
         return response()->json([

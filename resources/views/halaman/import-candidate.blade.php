@@ -44,13 +44,20 @@
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
                                         <label>Choose One</label>
-                                        <select class="custom-select " name="periode">
+                                        <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
                                             <option selected hidden>Tahun Periode Masuk</option>
-                                            <option>2022</option>
-                                            <option>2021</option>
-                                            <option>2020</option>
+                                            @if($criteria[count($criteria) -1]["tahun"] != now()->year)
+                                            <option >{{now()->year}}</option>
+                                            @foreach($criteria->reverse() as $kriteria)
+                                            <option>{{$kriteria->tahun}}</option>
+                                            @endforeach
+                                            @else
+                                            @foreach($criteria->reverse() as $kriteria)
+                                            <option>{{$kriteria->tahun}}</option>
+                                            @endforeach
+                                            @endif
                                         </select>
-
+                                        
                                     <div class="section-title">File Browser</div>
 
                                     <div class="input-group mb-3">
@@ -257,5 +264,6 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+    <script src="../../js/import-candidate.js"></script>
 @endpush
 
