@@ -49,6 +49,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="alert "></div>
                             <div class="card-header">
                             <h4>Upload Data Quota Prodi</h4>
                             <div class="card-header-action">
@@ -64,7 +65,7 @@
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
                                         <label>Choose One</label>
-                                        <select class="custom-select" onchange="myFunction();" name="periode" id="periode">
+                                        <select class="custom-select" name="periode" id="periode" onchange="myFunction()">
                                             <option selected hidden>Tahun Periode Masuk</option>
                                             @if($criteria[count($criteria) -1]["tahun"] != now()->year)
                                             <option >{{now()->year}}</option>
@@ -267,42 +268,6 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
-
-    <!-- coba  -->
-    <script>
-        // var test = <?php echo json_encode($criteria); ?>;
-        // for(i = 0; i < test.length; i++) {
-        //     console.log(test[i])
-        // }
-
-        function myFunction() {
-            var test = <?php echo json_encode($criteria); ?>;
-            if(test != null) {
-                for(i=0; i < test.length; i++) {
-                    if(document.getElementById("periode").value == test[i].tahun) {
-                        document.getElementById("col_id_prodi").value = test[i].criteria[0];
-                        document.getElementById("col_jurusan").value = test[i].criteria[1];
-                        document.getElementById("col_id_politeknik").value = test[i].criteria[2];
-                        document.getElementById("col_politeknik").value = test[i].criteria[3];
-                        document.getElementById("col_id_kelompok_bidang").value = test[i].criteria[4];
-                        document.getElementById("col_kelompok_bidang").value = test[i].criteria[5];
-                        document.getElementById("col_Quota").value = test[i].criteria[6];
-                        document.getElementById("col_tertampung").value = test[i].criteria[7];
-                        break;
-                    }
-                    else if(document.getElementById("periode").value != test[i].tahun) {
-                        document.getElementById("col_id_prodi").value ="";
-                    document.getElementById("col_jurusan").value = "";
-                    document.getElementById("col_id_politeknik").value = "";
-                    document.getElementById("col_politeknik").value = "";
-                    document.getElementById("col_id_kelompok_bidang").value = "";
-                    document.getElementById("col_kelompok_bidang").value = "";
-                    document.getElementById("col_Quota").value = "";
-                    document.getElementById("col_tertampung").value = "";
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="../../js/import-prodi.js"></script>
 @endpush
 
