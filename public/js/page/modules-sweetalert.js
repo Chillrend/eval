@@ -18,22 +18,22 @@ $("#swal-4").click(function() {
 
 $("#swal-5").click(function() {
     swal({
-        title: 'Apakah Anda Yakin?',
-        text: 'Data yang telah disimpan tidak bisa diubah. Silahkan periksa data kembali! ',
-        icon: 'warning',
-        buttons: true,
-    })
-    .then((saveData) => {
-        if (saveData) {
-            swal("Berhasil!", "Data Berhasil Disimpan!", "success",);
-            window.location = "preview-tes";
-        } else {
-            swal({
-                buttons: false,
-                timer: 10000,
-            });
-        }
-    });
+            title: 'Apakah Anda Yakin?',
+            text: 'Data yang telah disimpan tidak bisa diubah. Silahkan periksa data kembali! ',
+            icon: 'warning',
+            buttons: true,
+        })
+        .then((saveData) => {
+            if (saveData) {
+                swal("Berhasil!", "Data Berhasil Disimpan!", "success", );
+                window.location = "preview-tes";
+            } else {
+                swal({
+                    buttons: false,
+                    timer: 10000,
+                });
+            }
+        });
 });
 
 $("#swal-6").click(function() {
@@ -45,12 +45,19 @@ $("#swal-6").click(function() {
         })
         .then((saveData) => {
             if (saveData) {
-                swal("Berhasil!", "Data Berhasil Disimpan!", "success",);
-                window.location = "preview-prestasi";
+                swal({
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Disimpan! ',
+                    icon: 'success',
+                    buttons: false,
+                    timer: 1500,
+                }).then(function() {
+                    window.location.href = "preview-prestasi";
+                }, 1500)
             } else {
                 swal({
                     buttons: false,
-                    timer: 10000,
+                    timer: 800,
                 });
             }
         });

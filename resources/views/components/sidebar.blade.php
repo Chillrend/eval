@@ -77,7 +77,7 @@
     
                     <a href="#"
                         class="nav-link has-dropdown"
-                        data-toggle="dropdown"><i class="fas ion-android-clipboard"></i><span>Seleksi Tes</span></a>
+                        data-toggle="dropdown"><i class="fas fa-solid fa-paste"></i><span>Seleksi Tes</span></a>
                     <!-- <a href="#"
                         class="nav-link has-dropdown"
                         data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
@@ -114,7 +114,7 @@
                 </li>
             <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="far fa-file"></i><span>Seleksi Mandiri</span></a>
+                    href="{{ url('blank-page') }}"><i class="far fa-sharp fa-solid fa-file-lines"></i><span>Seleksi Mandiri</span></a>
             </li>
             <!-- <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
                 <a class="nav-link"

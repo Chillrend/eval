@@ -13,6 +13,7 @@
 
     <link rel="stylesheet"
         href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
+
 @endpush
 
 @section('main')
@@ -26,16 +27,17 @@
                     <div class="breadcrumb-item">Form Kuota Prodi</div>
                 </div>
             </div>
-            <div class="row">
+
+            <div class="row" id="hero-awal">
                 <div class="col-12 mb-0">
                     <div class="alert alert-primary alert-dismissible show fade">
                         <div class="alert-body">
                             <div class="hero bg-primary text-white">
-                                <div class="hero-inner">
-                                    <button class="close"
-                                        data-dismiss="hero">
-                                    <span>&times;</span>
-                                    </button>
+                                <button class="close" id="bt-close"
+                                    data-dismiss="hero">
+                                    <i class="fa fa-times fa-sm"></i>
+                                </button>
+                                <div class="hero-inner" id="hero-inner">
                                     <h2>Selamat Datang di Halaman Program Studi</h2>
                                     <p class="lead">Silahkan upload data program studi dengan file excel.</p>
                                 </div>
@@ -51,9 +53,10 @@
                         <div class="card">
                             <div class="card-header accordion-header"
                                 role="button"
+                                id="collapase-accordion"
                                 data-toggle="collapse"
                                 data-target="#panel-body-3">
-                                <h4>Upload Data Kuota Prodi</h4>
+                                <h4 class="my-2">Upload Data Kuota Prodi</h4>
                             </div>
                             <div class="accordion-body collapse"
                                 id="panel-body-3"
@@ -208,7 +211,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Preview Data Kuota Prodi</h4>
+                                <h4 class="my-2">Tabel Preview Data Kuota Prodi</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -244,22 +247,34 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="card-footer pagination justify-content-between">
-                                <div>
-                                    <div>
-                                        <p> {{ $prodi->firstItem() }} of {{ $prodi->lastItem() }} from {{ $prodi->total() }} contents</p>
-                                    </div>
+                            <div class="card-footer row">
+                                <div class="col-sm-12 col-md-5">
+                                    <p> {{ $prodi->firstItem() }} of {{ $prodi->lastItem() }} from {{ $prodi->total() }} contents</p>
                                 </div>
+                                <div class="col-sm-12 col-md-5 pagination">
                                 {!! $prodi->links("pagination::bootstrap-4") !!}
-                                <div class="">
-                                    <button class="btn btn-warning" id="swal-6"><strong>Cancel</strong></button>
-                                    <button class="btn btn-success" id="swal-6"><strong>Save</strong></button>
                                 </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-right">
+                                    <button class="btn btn-lg btn-warning mx-1" id="swal-6">
+                                        <h6 class="my-0">Cancel</h6>
+                                    </button>
+                                    <button class="btn btn-lg btn-success mx-1" id="swal-6">
+                                        <h6 class="my-0">Save</h6>
+                                    </button>
+                                </div>                                
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
 @endsection
@@ -273,6 +288,7 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+    <script src="../../js/style.js"></script>
     <script src="../../js/import-prodi.js"></script>
     <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush

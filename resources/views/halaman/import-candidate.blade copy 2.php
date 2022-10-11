@@ -26,18 +26,18 @@
                     <div class="breadcrumb-item">Form Data Calon Mahasiswa</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="hero-awal">
                 <div class="col-12 mb-0">
                     <div class="alert alert-primary alert-dismissible show fade">
                         <div class="alert-body">
                             <div class="hero bg-primary text-white">
-                                <button class="close"
+                                <button class="close" id="bt-close"
                                     data-dismiss="hero">
                                     <i class="fa fa-times fa-sm"></i>
                                 </button>
-                                <div class="hero-inner">
+                                <div class="hero-inner" id="hero-inner">
                                     <h2>Selamat Datang di Halaman Data Mahasiswa</h2>
-                                    <p class="lead">Seleksi Nasional Berdasarkan Prestasi</p>
+                                    <p class="lead">Upload data hanya dapat digunakan untuk file excel!</p>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +51,10 @@
                         <div class="card">
                             <div class="card-header accordion-header"
                                 role="button"
+                                id="collapase-accordion"
                                 data-toggle="collapse"
                                 data-target="#panel-body-3">
-                                <h4 class="my-2">Import Data</h4> 
+                                <h4 class="my-2">Upload Data Calon Mahasiswa</h4> 
                             </div>
                             <div class="accordion-body collapse"
                             id="panel-body-3"
@@ -240,7 +241,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $no=1; ?>
                                         @foreach($candidates as $candidate => $data)
                                         <tr>
                                             <th scope="row">{{ $candidate + $candidates->firstItem()}}</th>                                              
@@ -296,6 +296,7 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+    <script src="../../js/style.js"></script>
     <script src="../../js/import-candidate.js"></script>
     <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
