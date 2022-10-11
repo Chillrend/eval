@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
+use App\Models\Prestasi;
 use App\Models\Periode;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +67,7 @@ class ImportController extends Controller
 
         Candidates::truncate();
         Candidates::insert($filtered,'no_daftar');
+        Prestasi::insert($filtered,'no_daftar');
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
@@ -92,5 +94,12 @@ class ImportController extends Controller
             'candidates' => $candidates,
             'criteria' => $criteria
         ]);
+    }
+
+    public function cancelprestasi(){
+        Prestasi::truncate();
+        Candidates::truncate();
+        Criteria::truncate();
+        return redirect('/import-candidates');
     }
 }

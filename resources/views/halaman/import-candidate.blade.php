@@ -45,7 +45,6 @@
                 </div>
             </div>
  <br>
-
             <div id="accordion">
                 <div class="row">
                     <div class="col-12">
@@ -265,26 +264,20 @@
                             <div class="col-sm-12 col-md-5">
                                 <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
                             </div>
-                            <div class="col-sm-12 col-md-5 pagination">
-                            {!! $candidates->links("pagination::bootstrap-4") !!}
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-                
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-right">
-                                <button class="btn btn-lg btn-warning mx-1" id="swal-6">
-                                    <h6 class="my-0">Cancel</h6>
-                                </button>
-                                <button class="btn btn-lg btn-success mx-1" id="swal-6">
-                                    <h6 class="my-0">Save</h6>
-                                </button>
-                            </div>                                
+                            <div class="card-footer pagination justify-content-between">
+                                <div>
+                                    <p>1 of 3 from 100 contents</p>
+                                </div>
+                                {!! $candidates->links("pagination::bootstrap-4") !!}
+                                {{-- <form method="POST"
+                                action="{{ }}">
+                                @csrf <!-- {{ csrf_field() }} --> --}}
+                                <div class="">
+                                    <button class="btn btn-warning" id="" href="route('cancelprestasi')"><strong>Cancel</strong></button>
+                                    <button class="btn btn-success" id="swal-6"><strong>Save</strong></button>
+                                </div>
+                                {{-- </form> --}}
+                            </div> 
                         </div>
                     </div>
                 </div>

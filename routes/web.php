@@ -36,16 +36,18 @@ Route::get('/dashboard', function () {
 
 Route::get('/import-candidates', [ImportController::class,'render']);
 Route::post('/import-candidates', [ImportController::class,'import']);
+Route::post('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
+
 
 Route::get('/import-prodi', [ProdiController::class,'render']);
 Route::post('/import-prodi', [ProdiController::class,'import']);
 
 
-Route::post('/prestasi', [PrestasiController::class,'import']);
+Route::get('/preview-prestasi', [PrestasiController::class,'render']);
 
-Route::get('/preview-prestasi', function () {
-    return view('halaman.prestasi', ['type_menu' => 'layout']);
-});
+// Route::get('/preview-prestasi', function () {
+//     return view('halaman.prestasi', ['type_menu' => 'layout']);
+// });
 
 
 /*

@@ -32,35 +32,39 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Id Prodi</th>
-                                        <th scope="col">Jurusan</th>
-                                        <th scope="col">Id Politeknik</th>
-                                        <th scope="col">Politeknik</th>
-                                        <th scope="col">Id Kelompok Bidang</th>
-                                        <th scope="col">Kelompok Bidang</th>
-                                        <th scope="col">Quota</th>
-                                        <th scope="col">Tertampung</th>
+                                                <th scope="col">Tahun Periode</th>
+                                                <th scope="col">No Daftar</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Id Pilihan 1</th>
+                                                <th scope="col">Id Pilihan 2</th>
+                                                <th scope="col">Id Pilihan 3</th>
+                                                <th scope="col">Kode Kelompok Bidang</th>
+                                                <th scope="col">Alamat</th>
+                                                <th scope="col">Sekolah</th>
+                                                <th scope="col">No Telp</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach($prodi as $quotaa) --}}
+                                    <?php $no=1; ?>
+                                    @foreach($prestasi as $prestasis => $data)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <th scope="row">{{ $prestasis + $prestasi->firstItem()}}</th>                                              
+                                        <td>{{$data->tahun_periode}}</td>
+                                        <td>{{$data->no_daftar}}</td>
+                                        <td>{{$data->nama}}</td>
+                                        <td>{{$data->id_pilihan1}}</td>
+                                        <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
+                                        <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
+                                        <td>{{$data->kode_kelompok_bidang}}</td>
+                                        <td>{{$data->alamat}}</td>
+                                        <td>{{$data->sekolah}}</td>
+                                        <td>{{$data->telp}}</td>
                                     </tr>
-                                    {{-- @endforeach --}}
-                                </tbody>
+                                    @endforeach
                             </table>
                         </div>
                         <div class="m-4 p-4">
-                            {{-- {!! $prodi->links() !!} --}}
+                            {!! $prestasi->links() !!}
                         </div>
                         </div>
                     </div>

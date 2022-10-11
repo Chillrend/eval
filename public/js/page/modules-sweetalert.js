@@ -29,12 +29,12 @@ $("#swal-6").click(function() {
         })
         .then((saveData) => {
             if (saveData) {
-                swal("Berhasil!", "Data Berhasil Disimpan!", "success");
+                swal("Berhasil!", "Data Berhasil Disimpan!", "success",);
                 window.location = "preview-prestasi";
             } else {
                 swal({
                     buttons: false,
-                    timer: 1000,
+                    timer: 10000,
                 });
             }
         });
