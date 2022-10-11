@@ -44,7 +44,8 @@
                     </div>
                 </div>
             </div>
-            <br>
+ <br>
+
             <div id="accordion">
                 <div class="row">
                     <div class="col-12">
@@ -262,7 +263,7 @@
                         </div>
                         <div class="card-footer row">
                             <div class="col-sm-12 col-md-5">
-                                <p>1 of 3 from 100 contents</p>
+                                <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
                             </div>
                             <div class="col-sm-12 col-md-5 pagination">
                             {!! $candidates->links("pagination::bootstrap-4") !!}

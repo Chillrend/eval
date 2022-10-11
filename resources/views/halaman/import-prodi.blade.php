@@ -19,11 +19,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Form Quota Prodi</h1>
+                <h1>Form Kuota Prodi</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Program Studi</a></div>
-                    <div class="breadcrumb-item">Form Quota Prodi</div>
+                    <div class="breadcrumb-item">Form Kuota Prodi</div>
                 </div>
             </div>
             <div class="row">
@@ -37,7 +37,7 @@
                                     <span>&times;</span>
                                     </button>
                                     <h2>Selamat Datang di Halaman Program Studi</h2>
-                                    <p class="lead">This page is a place to manage posts, categories and more.</p>
+                                    <p class="lead">Silahkan upload data program studi dengan file excel.</p>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 role="button"
                                 data-toggle="collapse"
                                 data-target="#panel-body-3">
-                                <h4>Upload Data Quota Prodi</h4>
+                                <h4>Upload Data Kuota Prodi</h4>
                             </div>
                             <div class="accordion-body collapse"
                                 id="panel-body-3"
@@ -166,7 +166,7 @@
                                             <div class="form-group col-md-4">
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">Quota</div>
+                                                        <div class="input-group-text">Kuota</div>
                                                     </div>
                                                     <input type="text"
                                                         class="form-control"
@@ -199,19 +199,16 @@
                 </div>
             </div>
 
-
- 
-            
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
-                    Preview data quota program studi yang akan di upload
+                    Preview data kuota program studi yang akan di upload
                 </p>
 
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Preview Data Quota Prodi</h4>
+                                <h4>Tabel Preview Data Kuota Prodi</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -225,7 +222,7 @@
                                                 <th scope="col">Politeknik</th>
                                                 <th scope="col">Id Kelompok Bidang</th>
                                                 <th scope="col">Kelompok Bidang</th>
-                                                <th scope="col">Quota</th>
+                                                <th scope="col">Kuota</th>
                                                 <th scope="col">Tertampung</th>
                                             </tr>
                                         </thead>
@@ -249,7 +246,9 @@
                             </div>
                             <div class="card-footer pagination justify-content-between">
                                 <div>
-                                    <p>1 of 3 from 100 contents</p>
+                                    <div>
+                                        <p> {{ $prodi->firstItem() }} of {{ $prodi->lastItem() }} from {{ $prodi->total() }} contents</p>
+                                    </div>
                                 </div>
                                 {!! $prodi->links("pagination::bootstrap-4") !!}
                                 <div class="">

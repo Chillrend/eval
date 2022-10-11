@@ -39,8 +39,7 @@
                             class="shadow-light rounded-circle mb-5 mt-2">
                         <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Evaluasi PMB</span>
                         </h4>
-                        <p class="text-muted">Before you get started, you must login or register if you don't already
-                            have an account.</p>
+                        <p class="text-muted">Before you get started, you must login first.</p>
                         @if(session()->has('error'))
                             <div class="alert alert-danger alert-dismissible show fade">
                                 <div class="alert-body">
