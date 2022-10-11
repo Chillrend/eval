@@ -44,7 +44,6 @@
                     </div>
                 </div>
             </div>
-
 <br>
             <div id="accordion">
                 <div class="row">
