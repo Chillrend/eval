@@ -72,6 +72,46 @@
                 </ul> -->
 
             </li>
+            <li class="nav-item dropdown {{ $type_menu === 'seleksinasional' ? 'active' : '' }}">
+                <!-- <li class="nav-item dropdown {{ $type_menu === 'layout' ? 'active' : '' }}"> -->
+    
+                    <a href="#"
+                        class="nav-link has-dropdown"
+                        data-toggle="dropdown"><i class="fas ion-android-clipboard"></i><span>Seleksi Tes</span></a>
+                    <!-- <a href="#"
+                        class="nav-link has-dropdown"
+                        data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
+                    
+                    <ul class="dropdown-menu">
+                        <li class="{{ Request::is('import-candidates') ? 'active' : '' }}">
+                            <a class="nav-link "
+                                href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                        </li>
+                        <li class="{{ Request::is('import-prodi') ? 'active' : '' }}">
+                            <a class="nav-link "
+                                href="{{ url('import-prodi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                        </li>  
+                        <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
+                            <a class="nav-link "
+                                href="{{ url('preview-prestasi') }}"><i class="fas fa-eye" ></i><span>Preview Prestasi</span></a>
+                        </li>             
+                    </ul>
+                    <!-- <ul class="dropdown-menu">
+                        <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
+                            <a class="nav-link"
+                                href="{{ url('layout-default-layout') }}">Default Layout</a>
+                        </li>
+                        <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
+                            <a class="nav-link"
+                                href="{{ url('transparent-sidebar') }}">Transparent Sidebar</a>
+                        </li>
+                        <li class="{{ Request::is('layout-top-navigation') ? 'active' : '' }}">
+                            <a class="nav-link"
+                                href="{{ url('layout-top-navigation') }}">Top Navigation</a>
+                        </li>
+                    </ul> -->
+    
+                </li>
             <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('blank-page') }}"><i class="far fa-file"></i><span>Seleksi Mandiri</span></a>
