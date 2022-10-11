@@ -262,14 +262,17 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="m-4 p-4 pagination justify-content-between">
-                                    <div>
-                                        <p>1 of 3 from 100 contents</p>
-                                    </div>
-                                    {!! $candidates->links("pagination::bootstrap-4") !!}
-                                    <button class="btn btn-primary" id="swal-6">Accept Data</button>
-                                </div>
                             </div>
+                            <div class="card-footer pagination justify-content-between">
+                                <div>
+                                    <p>1 of 3 from 100 contents</p>
+                                </div>
+                                {!! $candidates->links("pagination::bootstrap-4") !!}
+                                <div class="">
+                                    <button class="btn btn-warning" id="swal-6"><strong>Cancel</strong></button>
+                                    <button class="btn btn-success" id="swal-6"><strong>Save</strong></button>
+                                </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
