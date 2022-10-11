@@ -7,6 +7,7 @@ use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
+use App\Models\Tes;
 use App\Models\Periode;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class ImportController extends Controller 
+class ImportTesController extends Controller 
 {
     public $q;
     public $sortBy = 'no_daftar';
@@ -67,16 +68,16 @@ class ImportController extends Controller
 
         Candidates::truncate();
         Candidates::insert($filtered,'no_daftar');
-        Prestasi::insert($filtered,'no_daftar');
+        Tes::insert($filtered,'no_daftar');
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
-        return redirect('/import-candidates-prestasi');
+        return redirect('/import-candidates-tes');
     }
 
     public function render()
     {
-        $candidates = Prestasi::query()
+        $candidates = Tes::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
                     $query->where('name', 'like', '%'.$this->q . '%')
@@ -89,17 +90,17 @@ class ImportController extends Controller
         $criteria = Criteria::where('table', 'candidates')->get();
 
 
-        return view('halaman.import-candidate-prestasi',[
-            'type_menu' => 'import-candidates-prestasi',
+        return view('halaman.import-candidate-tes',[
+            'type_menu' => 'import-candidate-tes',
             'candidates' => $candidates,
             'criteria' => $criteria
         ]);
     }
 
-    public function cancelprestasi(){
-        Prestasi::truncate();
+    public function canceltes(){
+        Tes::truncate();
         Candidates::truncate();
         Criteria::truncate();
-        return redirect('/import-candidates-prestasi');
+        return redirect('/import-candidates-tes');
     }
 }

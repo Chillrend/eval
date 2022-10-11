@@ -17,7 +17,23 @@ $("#swal-4").click(function() {
 });
 
 $("#swal-5").click(function() {
-    swal('Good Job', 'You clicked the button!', 'error');
+    swal({
+        title: 'Apakah Anda Yakin?',
+        text: 'Data yang telah disimpan tidak bisa diubah. Silahkan periksa data kembali! ',
+        icon: 'warning',
+        buttons: true,
+    })
+    .then((saveData) => {
+        if (saveData) {
+            swal("Berhasil!", "Data Berhasil Disimpan!", "success",);
+            window.location = "preview-tes";
+        } else {
+            swal({
+                buttons: false,
+                timer: 10000,
+            });
+        }
+    });
 });
 
 $("#swal-6").click(function() {

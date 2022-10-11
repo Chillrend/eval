@@ -43,13 +43,13 @@
                     data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
                 
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('import-candidates') ? 'active' : '' }}">
+                    <li class="{{ Request::is('import-candidates-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
-                            href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                            href="{{ url('import-candidates-prestasi') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                     </li>
-                    <li class="{{ Request::is('import-prodi') ? 'active' : '' }}">
+                    <li class="{{ Request::is('import-prodi-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
-                            href="{{ url('import-prodi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                            href="{{ url('import-prodi-prestasi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
                     </li>  
                     <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
@@ -83,17 +83,17 @@
                         data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
                     
                     <ul class="dropdown-menu">
-                        <li class="{{ Request::is('import-candidates') ? 'active' : '' }}">
+                        <li class="{{ Request::is('import-candidates-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('import-candidates') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                                href="{{ url('import-candidates-tes') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                         </li>
-                        <li class="{{ Request::is('import-prodi') ? 'active' : '' }}">
+                        <li class="{{ Request::is('import-prodi-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('import-prodi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                                href="{{ url('import-prodi-tes') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
                         </li>  
-                        <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
+                        <li class="{{ Request::is('preview-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('preview-prestasi') }}"><i class="fas fa-eye" ></i><span>Preview Prestasi</span></a>
+                                href="{{ url('preview-tes') }}"><i class="fas fa-eye" ></i><span>Preview Prestasi</span></a>
                         </li>             
                     </ul>
                     <!-- <ul class="dropdown-menu">
