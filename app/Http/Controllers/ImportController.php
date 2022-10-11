@@ -27,17 +27,11 @@ class ImportController extends Controller
         $array = (new CandidatesImport())->toArray($request->file('excel')); 
         // dd($array);
 
-        $namedkey = array(
-            strtolower($request->input('col_no_daftar')), 
-            strtolower($request->input('col_nama')), 
-            strtolower($request->input('col_id_pilihan_1')), 
-            strtolower($request->input('col_id_pilihan_2')), 
-            strtolower($request->input('col_id_pilihan_3')), 
-            strtolower($request->input('col_kode_kelompok_bidang')), 
-            strtolower($request->input('col_alamat')), 
-            strtolower($request->input('col_sekolah')),
-            strtolower($request->input('col_no_telp')),
-        );
+        $namedkey = array();
+        for ($i=0; $i < 9; $i++) {
+            $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
+        }
+
         $periode = $request->input('periode');
 
         $criteria = array(
@@ -46,28 +40,24 @@ class ImportController extends Controller
             'table' => 'candidates',
             'kode_criteria' => strval($periode).'_candidates',
         );
-        Criteria::insert($criteria,'kode_criteria');
+        if (Criteria::where('kode_criteria',strval($periode).'_candidates')->first()) {
+            Criteria::where('kode_criteria',strval($periode).'_candidates')->update($criteria);
+        } else {
+            Criteria::insert($criteria);
+        }
         
 
-
-        for ($i=0; $i < count($array[0]); $i++) { 
-            $filtered[] = [
-                'no_daftar'             => trim($array[0][$i][$namedkey[0]]), 
-                'nama'                  => trim($array[0][$i][$namedkey[1]]) ,
-                'id_pilihan1'           => trim($array[0][$i][$namedkey[2]]), 
-                'id_pilihan2'           => trim($array[0][$i][$namedkey[3]]), 
-                'id_pilihan3'           => trim($array[0][$i][$namedkey[4]]), 
-                'kode_kelompok_bidang'  => trim($array[0][$i][$namedkey[5]]), 
-                'alamat'                => trim($array[0][$i][$namedkey[6]]), 
-                'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
-                'telp'                  => trim($array[0][$i][$namedkey[8]]),
-                'tahun_periode'         => $periode,
-            ] ;
+        for ($i=0; $i < count($array[0]); $i++) {
+            // $fil = array();
+            for ($ab=0; $ab < count($namedkey); $ab++) { 
+                $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+            };
+            $fil['periode'] = $periode;
+            $filtered[] = $fil;
         }
 
         Candidates::truncate();
-        Candidates::insert($filtered,'no_daftar');
-        Prestasi::insert($filtered,'no_daftar');
+        Candidates::insert($filtered);
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');

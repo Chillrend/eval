@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
- <br>
+            <br>
             <div id="accordion">
                 <div class="row">
                     <div class="col-12">
@@ -77,128 +77,22 @@
                                             @endif
                                         </select>
                                         
-                                    <div class="section-title">File Browser</div>
+                                        <div class="section-title">File Browser</div>
                                         <div class="input-group mb-3">
                                             <input type="file"  name="excel" class="choose form-control" id="customFile">
                                             <label class="input-group-text" for="customFile">Upload</label>
                                         </div>
                                         
-                                    <div class="section-title">Nama Kolom Excel</div>
+                                        <div class="section-title">Nama Kolom Excel</div>
                                         <label>Cocokkan nama kolom excel dengan nama pada table</label>
-
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">No Daftar</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_no_daftar"
-                                                        name="col_no_daftar"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Nama</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_nama"
-                                                        name="col_nama"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Id Pilihan 1</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_id_pilihan_1"
-                                                        name="col_id_pilihan_1"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-primary" type="button" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Id Pilihan 2</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_id_pilihan_2"
-                                                        name="col_id_pilihan_2"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Id Pilihan 3</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_id_pilihan_3"
-                                                        name="col_id_pilihan_3"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Kode Kelompok Bidang</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_kode_kelompok_bidang"
-                                                        name="col_kode_kelompok_bidang"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Alamat</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_alamat"
-                                                        name="col_alamat"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Sekolah</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_sekolah"
-                                                        name="col_sekolah"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">No Telp</div>
-                                                    </div>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="col_no_telp"
-                                                        name="col_no_telp"
-                                                        placeholder="Nama Kolom pada Excel">
-                                                </div>
-                                            </div>
+                                        
+                                        <div id="namedkey">
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">
@@ -210,77 +104,78 @@
                     </div>
                 </div>
             </div>
-        
-            <h2 class="section-title">Preview</h2>
-            <p class="section-lead">
-                Preview data mahasiswa yang akan di upload
-            </p>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Tahun Periode</th>
-                                            <th scope="col">No Daftar</th>
-                                            <th scope="col">Nama</th>
-                                            <th scope="col">Id Pilihan 1</th>
-                                            <th scope="col">Id Pilihan 2</th>
-                                            <th scope="col">Id Pilihan 3</th>
-                                            <th scope="col">Kode Kelompok Bidang</th>
-                                            <th scope="col">Alamat</th>
-                                            <th scope="col">Sekolah</th>
-                                            <th scope="col">No Telp</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $no=1; ?>
-                                        @foreach($candidates as $candidate => $data)
-                                        <tr>
-                                            <th scope="row">{{ $candidate + $candidates->firstItem()}}</th>                                              
-                                            <td>{{$data->tahun_periode}}</td>
-                                            <td>{{$data->no_daftar}}</td>
-                                            <td>{{$data->nama}}</td>
-                                            <td>{{$data->id_pilihan1}}</td>
-                                            <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
-                                            <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
-                                            <td>{{$data->kode_kelompok_bidang}}</td>
-                                            <td>{{$data->alamat}}</td>
-                                            <td>{{$data->sekolah}}</td>
-                                            <td>{{$data->telp}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+            @if($candidates !== 0)
+                <h2 class="section-title">Preview</h2>
+                <p class="section-lead">
+                    Preview data mahasiswa yang akan di upload
+                </p>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
                             </div>
-                        </div>
-                        <div class="card-footer row">
-                            <div class="col-sm-12 col-md-5">
-                                <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
-                            </div>
-                            <div class="card-footer pagination justify-content-between">
-                                <div>
-                                    <p>1 of 3 from 100 contents</p>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                        @php
+                                        $abs = $criteria->first();
+                                        @endphp
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">periode</th>
+                                                @foreach($abs['criteria'] as $criteriaa)
+                                                <th scope="col">{{$criteriaa}}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($candidates as $candidate => $data)
+                                            <tr>
+                                                <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
+                                                <td>{{$data['periode']}}</td>
+                                                @foreach($abs['criteria'] as $criteriaa)
+                                                <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
+                                                @endforeach
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
+                            </div>
+                            <div class="card-footer row">
+                                <div class="col-sm-12 col-md-5">
+                                    <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
+                                </div>
+                                <div class="col-sm-12 col-md-5 pagination">
                                 {!! $candidates->links("pagination::bootstrap-4") !!}
-                                {{-- <form method="POST"
-                                action="{{ }}">
-                                @csrf <!-- {{ csrf_field() }} --> --}}
-                                <div class="">
-                                    <button class="btn btn-warning" id="" href="route('cancelprestasi')"><strong>Cancel</strong></button>
-                                    <button class="btn btn-success" id="swal-6"><strong>Save</strong></button>
                                 </div>
-                                {{-- </form> --}}
                             </div> 
                         </div>
                     </div>
                 </div>
+                    
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-right">
+                                <form method="POST" action="{{ }}">
+                                @csrf
+                                    <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
+                                        <h6 class="my-0">Cancel</h6>
+                                    </button>
+                                    <button class="btn btn-lg btn-success mx-1" >
+                                        <h6 class="my-0">Save</h6>
+                                    </button>
+                                </form>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             </div>
         </section>
     </div>
