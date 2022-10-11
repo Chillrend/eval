@@ -31,21 +31,20 @@
                     <div class="alert alert-primary alert-dismissible show fade">
                         <div class="alert-body">
                             <div class="hero bg-primary text-white">
+                                <button class="close"
+                                    data-dismiss="hero">
+                                    <i class="fa fa-times fa-sm"></i>
+                                </button>
                                 <div class="hero-inner">
-                                    <button class="close"
-                                        data-dismiss="hero">
-                                    <span>&times;</span>
-                                    </button>
                                     <h2>Selamat Datang di Halaman Data Mahasiswa</h2>
-                                    <p class="lead">This page is a place to manage posts, categories and more.</p>
+                                    <p class="lead">Seleksi Nasional Berdasarkan Prestasi</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
- <br>
-
+            <br>
             <div id="accordion">
                 <div class="row">
                     <div class="col-12">
@@ -54,7 +53,7 @@
                                 role="button"
                                 data-toggle="collapse"
                                 data-target="#panel-body-3">
-                                <h4>Upload Data Calon Mahasiswa</h4> 
+                                <h4 class="my-2">Import Data</h4> 
                             </div>
                             <div class="accordion-body collapse"
                             id="panel-body-3"
@@ -79,14 +78,14 @@
                                         </select>
                                         
                                     <div class="section-title">File Browser</div>
-
                                         <div class="input-group mb-3">
                                             <input type="file"  name="excel" class="choose form-control" id="customFile">
                                             <label class="input-group-text" for="customFile">Upload</label>
                                         </div>
                                         
-                                        <div class="section-title">Nama Kolom Excel</div>
+                                    <div class="section-title">Nama Kolom Excel</div>
                                         <label>Cocokkan nama kolom excel dengan nama pada table</label>
+
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
                                                 <div class="input-group mb-2">
@@ -211,68 +210,80 @@
                     </div>
                 </div>
             </div>
+        
+            <h2 class="section-title">Preview</h2>
+            <p class="section-lead">
+                Preview data mahasiswa yang akan di upload
+            </p>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tahun Periode</th>
+                                            <th scope="col">No Daftar</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Id Pilihan 1</th>
+                                            <th scope="col">Id Pilihan 2</th>
+                                            <th scope="col">Id Pilihan 3</th>
+                                            <th scope="col">Kode Kelompok Bidang</th>
+                                            <th scope="col">Alamat</th>
+                                            <th scope="col">Sekolah</th>
+                                            <th scope="col">No Telp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
+                                        @foreach($candidates as $candidate => $data)
+                                        <tr>
+                                            <th scope="row">{{ $candidate + $candidates->firstItem()}}</th>                                              
+                                            <td>{{$data->tahun_periode}}</td>
+                                            <td>{{$data->no_daftar}}</td>
+                                            <td>{{$data->nama}}</td>
+                                            <td>{{$data->id_pilihan1}}</td>
+                                            <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
+                                            <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
+                                            <td>{{$data->kode_kelompok_bidang}}</td>
+                                            <td>{{$data->alamat}}</td>
+                                            <td>{{$data->sekolah}}</td>
+                                            <td>{{$data->telp}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer row">
+                            <div class="col-sm-12 col-md-5">
+                                <p>1 of 3 from 100 contents</p>
+                            </div>
+                            <div class="col-sm-12 col-md-5 pagination">
+                            {!! $candidates->links("pagination::bootstrap-4") !!}
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
                 
-
-                <h2 class="section-title">Preview</h2>
-                <p class="section-lead">
-                    Preview data mahasiswa yang akan di upload
-                </p>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Tabel Preview Data Mahasiswa</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Tahun Periode</th>
-                                                <th scope="col">No Daftar</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Id Pilihan 1</th>
-                                                <th scope="col">Id Pilihan 2</th>
-                                                <th scope="col">Id Pilihan 3</th>
-                                                <th scope="col">Kode Kelompok Bidang</th>
-                                                <th scope="col">Alamat</th>
-                                                <th scope="col">Sekolah</th>
-                                                <th scope="col">No Telp</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $no=1; ?>
-                                            @foreach($candidates as $candidate => $data)
-                                            <tr>
-                                                <th scope="row">{{ $candidate + $candidates->firstItem()}}</th>                                              
-                                                <td>{{$data->tahun_periode}}</td>
-                                                <td>{{$data->no_daftar}}</td>
-                                                <td>{{$data->nama}}</td>
-                                                <td>{{$data->id_pilihan1}}</td>
-                                                <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
-                                                <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
-                                                <td>{{$data->kode_kelompok_bidang}}</td>
-                                                <td>{{$data->alamat}}</td>
-                                                <td>{{$data->sekolah}}</td>
-                                                <td>{{$data->telp}}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer pagination justify-content-between">
-                                <div>
-                                    <p>1 of 3 from 100 contents</p>
-                                </div>
-                                {!! $candidates->links("pagination::bootstrap-4") !!}
-                                <div class="">
-                                    <button class="btn btn-warning" id="swal-6"><strong>Cancel</strong></button>
-                                    <button class="btn btn-success" id="swal-6"><strong>Save</strong></button>
-                                </div>
-                            </div> 
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <button class="btn btn-lg btn-warning mx-1" id="swal-6">
+                                    <h6 class="my-0">Cancel</h6>
+                                </button>
+                                <button class="btn btn-lg btn-success mx-1" id="swal-6">
+                                    <h6 class="my-0">Save</h6>
+                                </button>
+                            </div>                                
                         </div>
                     </div>
                 </div>
