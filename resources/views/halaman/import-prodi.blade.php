@@ -59,6 +59,30 @@
                                 data-target="#panel-body-3">
                                 <h4 class="my-2">Upload Data Kuota Prodi</h4>
                             </div>
+                            @if(session()->has('success'))
+                            <div class="alert alert-success alert-has-icon alert-dismissible show fade">
+                                <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                <div class="alert-body">
+                                    <div class="alert-title">Impor Berhasil</div>
+                                    {{session('success')}}
+                                </div>
+                                <button class="close" data-dismiss="alert">
+                                    <i class="fas fa-times fa-lg"></i>
+                                </button>
+                            </div>
+                            @endif
+                            @if(session()->has('error'))
+                            <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade">
+                                <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                <div class="alert-body">
+                                    <div class="alert-title">Impor Gagal</div>
+                                    {{session('error')}}
+                                </div>
+                                <button class="close" data-dismiss="alert">
+                                    <i class="fas fa-times fa-lg"></i>
+                                </button>
+                            </div>
+                            @endif
                             <div class="accordion-body collapse"
                                 id="panel-body-3"
                                 data-parent="#accordion">

@@ -64,7 +64,7 @@ class ImportController extends Controller
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
             return redirect()->back();
         }catch (Exception $error) {
-            Session::flash('error','Pastikan anda telah mengisi semua input');
+            Session::flash('error', $error);
             return redirect()->back();
         }
     }
