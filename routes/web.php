@@ -5,7 +5,11 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImportController;
-
+use App\Http\Controllers\ImportTesController;
+use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\ProdiTesController;
+use App\Http\Controllers\PrestasiController;
+use App\Http\Controllers\TesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +42,8 @@ Route::get('/import-test', function () {
 });
 
 
+Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
+Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
 
 
 
