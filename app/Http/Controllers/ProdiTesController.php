@@ -8,7 +8,7 @@ use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ProdiController extends Controller
+class ProdiTesController extends Controller
 {
     public $q;
     public $sortBy = 'no_daftar';
@@ -78,7 +78,7 @@ class ProdiController extends Controller
 
         $criteria = Criteria::where('table', 'prodi')->get();
         
-        return view('halaman.import-prodi-prestasi',[
+        return view('halaman.import-prodi-tes',[
             'type_menu' => 'import-prodi',
             'prodi' => $prodi,
             'criteria' => $criteria,

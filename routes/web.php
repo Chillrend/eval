@@ -4,7 +4,9 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ImportTesController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\ProdiTesController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\TesController;
 /*
@@ -54,12 +56,11 @@ Route::post('/import-candidates-tes', [ImportTesController::class,'import']);
 Route::post('canceltes', [ImportTesController::class,'canceltes'])->name('canceltes');
 
 
-Route::get('/import-prodi-tes', [ProdiController::class,'render']);
-Route::post('/import-prodi-tes', [ProdiController::class,'import']);
+Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
+Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
 
 Route::get('/preview-tes', [TesController::class,'render']);
 
-Route::get('/preview-tes', [TesController::class,'render']);
 
 
 

@@ -22,8 +22,8 @@
                 <h1>Form Data Calon Mahasiswa</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Data Mahasiswa</a></div>
                     <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
+                    <div class="breadcrumb-item"><a href="#">Data Mahasiswa</a></div>
                     <div class="breadcrumb-item">Form Data Calon Mahasiswa</div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                                 </button>
                                 <div class="hero-inner" id="hero-inner">
                                     <h2>Selamat Datang di Halaman Data Mahasiswa</h2>
-                                    <p class="lead">Silahkan upload data mahasiswa seleksi tes dengan file excel.</p>
+                                    <p class="lead">Silahkan upload data mahasiswa seleksi prestasi dengan file excel.</p>
                                 </div>
                             </div>
                         </div>
@@ -55,12 +55,12 @@
                                 id="collapase-accordion"
                                 data-toggle="collapse"
                                 data-target="#panel-body-3">
-                                <h4 class="my-2">Upload Data Calon Mahasiswa</h4> 
+                                <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
                             <div class="accordion-body collapse"
                             id="panel-body-3"
                             data-parent="#accordion">
-                            <form action="/import-candidates-tes" method="post" enctype="multipart/form-data">
+                            <form action="/import-candidates-prestasi" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
@@ -96,6 +96,7 @@
                                         
                                         <div id="namedkey">
                                         </div>
+                                        <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" hidden>
                                     </div>
                                     <div class="card-footer text-right">
                                         <input type="submit" class="btn btn-primary"/>
@@ -106,7 +107,7 @@
                     </div>
                 </div>
             </div>
-            @if($candidates !== 0)
+            @if($candidates != '')
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -163,19 +164,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-right">
-                                    {{-- <form method="POST"
-                                    action="{{ }}">
-                                    @csrf <!-- {{ csrf_field() }} --> --}}
-                                    <div class="">
-                                    {{-- </form> --}}
-                                        <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')>
-                                            <h6 class="my-0">Cancel</h6>
-                                        </button>
-                                        <button class="btn btn-lg btn-success mx-1" >
-                                            <h6 class="my-0">Save</h6>
-                                        </button>
-                                    </div>
-                                    {{-- </form> --}}
+                                <form method="POST" action="cancelprestasi">
+                                @csrf
+                                    <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
+                                        <h6 class="my-0">Cancel</h6>
+                                    </button>
+                                </form>
+                                <form method="POST" action="saveprestasi">
+                                    @csrf
+                                    <button class="btn btn-lg btn-success mx-1"  href="route('saveprestasi')" >
+                                        <h6 class="my-0">Save</h6>
+                                    </button>
+                                </form>
                                 </div>                                
                             </div>
                         </div>
