@@ -7,9 +7,7 @@ use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
-use App\Models\Periode;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
 use Jenssegers\Mongodb\Eloquent\Model;
@@ -23,45 +21,52 @@ class ImportController extends Controller
 
     public function import (Request $request) 
     {
-        // dd($request->all());
-        $array = (new CandidatesImport())->toArray($request->file('excel')); 
-        // dd($array);
-
-        $namedkey = array();
-        for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
-            $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
+        if ($request->file('excel') == null ||
+            $request->input('periode') == '' ||
+            $request->input('banyakCollumn') == 0) {
+                Session::flash('error','Pastikan anda telah mengisi semua input');
+                return redirect()->back();
         }
 
-        $periode = $request->input('periode');
+        try {
+            $array = (new CandidatesImport())->toArray($request->file('excel')); 
+            $namedkey = array();
+            for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
+                $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
+            }
 
-        $criteria = array(
-            'tahun' => $periode,
-            'criteria' => $namedkey,
-            'table' => 'candidates',
-            'kode_criteria' => strval($periode).'_candidates',
-        );
-        if (Criteria::where('kode_criteria',strval($periode).'_candidates')->first()) {
-            Criteria::where('kode_criteria',strval($periode).'_candidates')->update($criteria);
-        } else {
-            Criteria::insert($criteria);
+            $periode = $request->input('periode');
+
+            $criteria = array(
+                'tahun' => $periode,
+                'criteria' => $namedkey,
+                'table' => 'candidates',
+                'kode_criteria' => strval($periode).'_candidates',
+            );     
+
+            for ($i=0; $i < count($array[0]); $i++) {
+                for ($ab=0; $ab < count($namedkey); $ab++) { 
+                    $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                };
+                $fil['periode'] = $periode;
+                $filtered[] = $fil;
+            }
+
+            if (Criteria::where('kode_criteria',strval($periode).'_candidates')->first()) {
+                Criteria::where('kode_criteria',strval($periode).'_candidates')->update($criteria);
+            } else {
+                Criteria::insert($criteria);
+            }
+
+            Prestasi::truncate();
+            Prestasi::insert($filtered);
+
+            Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
+            return redirect()->back();
+        }catch (Exception $error) {
+            Session::flash('error','Pastikan anda telah mengisi semua input');
+            return redirect()->back();
         }
-        
-
-        for ($i=0; $i < count($array[0]); $i++) {
-            // $fil = array();
-            for ($ab=0; $ab < count($namedkey); $ab++) { 
-                $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
-            };
-            $fil['periode'] = $periode;
-            $filtered[] = $fil;
-        }
-
-        Prestasi::truncate();
-        Prestasi::insert($filtered);
-
-
-        Session::flash('sukses','Data Berhasil ditambahkan');
-        return redirect('/import-candidates-prestasi');
     }
 
     public function render()
