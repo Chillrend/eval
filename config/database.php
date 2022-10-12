@@ -67,7 +67,7 @@ return [
             'driver' => 'mongodb',
             'host' => env('DB_HOST', '10.23.249.99'),
             'port' => env('DB_PORT', 27017),
-            'database' => env('DB_DATABASE', 'eval_pmb'),
+            'database' => env('DB_DATABASE', 'eval'),
             'username' => env('DB_USERNAME', ''),
             'password' => env('DB_PASSWORD', '')
           ],
