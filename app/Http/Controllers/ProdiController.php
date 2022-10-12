@@ -6,6 +6,7 @@ use App\Imports\ProdiImport;
 use App\Models\Criteria;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProdiController extends Controller
 {
@@ -15,18 +16,25 @@ class ProdiController extends Controller
 
     public function import (Request $request) 
     {
-        $periode = $request->input('periode');
         $array = (new ProdiImport())->toArray($request->file('excel'));
-        $namedkey = array(
-            strtolower($request->input('col_id_prodi')), 
-            strtolower($request->input('col_jurusan')), 
-            strtolower($request->input('col_id_politeknik')), 
-            strtolower($request->input('col_politeknik')), 
-            strtolower($request->input('col_id_kelompok_bidang')), 
-            strtolower($request->input('col_kelompok_bidang')), 
-            strtolower($request->input('col_Quota')), 
-            strtolower($request->input('col_tertampung'))
-        );
+
+        $namedkey = array();
+        for ($i=0; $i < 8; $i++) {
+            $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
+        }
+
+        // $namedkey = array(
+        //     strtolower($request->input('col_id_prodi')), 
+        //     strtolower($request->input('col_jurusan')), 
+        //     strtolower($request->input('col_id_politeknik')), 
+        //     strtolower($request->input('col_politeknik')), 
+        //     strtolower($request->input('col_id_kelompok_bidang')), 
+        //     strtolower($request->input('col_kelompok_bidang')), 
+        //     strtolower($request->input('col_Quota')), 
+        //     strtolower($request->input('col_tertampung'))
+        // );
+
+        $periode = $request->input('periode');
 
         $criteria = array(
             'tahun' => $periode,
@@ -34,25 +42,27 @@ class ProdiController extends Controller
             'table' => 'prodi',
             'kode_criteria' => strval($periode).'_prodi',
         );
-        Criteria::insert($criteria,'kode_criteria');
-        
-
-
-        for ($i=0; $i < count($array[0]); $i++) { 
-            $filtered[] = [
-                'id_prodi'              => trim($array[0][$i][$namedkey[0]]), 
-                'jurusan'               => trim($array[0][$i][$namedkey[1]]) ,
-                'id_politeknik'         => trim($array[0][$i][$namedkey[2]]), 
-                'politeknik'            => trim($array[0][$i][$namedkey[3]]), 
-                'id_kelompok_bidang'    => trim($array[0][$i][$namedkey[4]]), 
-                'kelompok_bidang'       => trim($array[0][$i][$namedkey[5]]), 
-                'quota'                 => trim($array[0][$i][$namedkey[6]]), 
-                'tertampung'            => trim($array[0][$i][$namedkey[7]]), 
-            ] ;
+        if (Criteria::where('kode_criteria',strval($periode).'_prodi')->first()) {
+            Criteria::where('kode_criteria',strval($periode).'_prodi')->update($criteria);
+        } else {
+            Criteria::insert($criteria);
         }
 
+
+        for ($i=0; $i < count($array[0]); $i++) {
+            // $fil = array();
+            for ($ab=0; $ab < count($namedkey); $ab++) { 
+                $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+            };
+            $fil['periode'] = $periode;
+            $filtered[] = $fil;
+        }
+
+
+        Prodi::truncate();
         Prodi::insert($filtered);
         
+        Session::flash('sukses','Data Berhasil ditambahkan');
         return redirect()->back();
     }
 
