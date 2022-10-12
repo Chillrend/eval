@@ -34,7 +34,7 @@ class TesController extends Controller
         $criteria = Tes::where('table', 'candidates')->get();
 
 
-        return view('halaman.prestasi',[
+        return view('halaman.preview-tes',[
             'type_menu' => 'import-candidate',
             'prestasi' => $prestasi,
             'criteria' => $criteria

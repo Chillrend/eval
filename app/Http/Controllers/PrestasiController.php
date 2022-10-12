@@ -34,7 +34,7 @@ class PrestasiController extends Controller
         $criteria = Prestasi::where('table', 'candidates')->get();
 
 
-        return view('halaman.prestasi',[
+        return view('halaman.preview-prestasi',[
             'type_menu' => 'import-candidate',
             'prestasi' => $prestasi,
             'criteria' => $criteria

@@ -21,23 +21,24 @@
             <div class="section-header">
                 <h1>Form Data Calon Mahasiswa</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="#">Seleksi Prestasi</a></div>
                     <div class="breadcrumb-item"><a href="#">Data Mahasiswa</a></div>
                     <div class="breadcrumb-item">Form Data Calon Mahasiswa</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="hero-awal">
                 <div class="col-12 mb-0">
                     <div class="alert alert-primary alert-dismissible show fade">
                         <div class="alert-body">
                             <div class="hero bg-primary text-white">
-                                <button class="close"
+                                <button class="close" id="bt-close"
                                     data-dismiss="hero">
                                     <i class="fa fa-times fa-sm"></i>
                                 </button>
-                                <div class="hero-inner">
+                                <div class="hero-inner" id="hero-inner">
                                     <h2>Selamat Datang di Halaman Data Mahasiswa</h2>
-                                    <p class="lead">Seleksi Nasional Berdasarkan Prestasi</p>
+                                    <p class="lead">Silahkan upload data mahasiswa seleksi prestasi dengan file excel.</p>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +52,10 @@
                         <div class="card">
                             <div class="card-header accordion-header"
                                 role="button"
+                                id="collapase-accordion"
                                 data-toggle="collapse"
                                 data-target="#panel-body-3">
-                                <h4 class="my-2">Import Data</h4> 
+                                <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
                             <div class="accordion-body collapse"
                             id="panel-body-3"
@@ -192,6 +194,7 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+    <script src="../../js/style.js"></script>
     <script src="../../js/import-candidate.js"></script>
     <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush

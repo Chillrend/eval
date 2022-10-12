@@ -26,10 +26,12 @@ Route::get('/login', function () {
     return view('halaman.login');
 })->name('login');
 
+//Login
 Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
 
+//Logout
 Route::post('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
-
+Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
 
 // Dashboard
 Route::get('/dashboard', function () {
@@ -40,6 +42,7 @@ Route::get('/dashboard', function () {
 Route::get('/import-candidates-prestasi', [ImportController::class,'render']);
 Route::post('/import-candidates-prestasi', [ImportController::class,'import']);
 Route::post('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
+Route::get('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
 
 
 Route::get('/import-prodi-prestasi', [ProdiController::class,'render']);
