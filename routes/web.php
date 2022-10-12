@@ -42,7 +42,8 @@ Route::get('/dashboard', function () {
 Route::get('/import-candidates-prestasi', [ImportController::class,'render']);
 Route::post('/import-candidates-prestasi', [ImportController::class,'import']);
 Route::post('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
-Route::get('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
+Route::post('saveprestasi', [ImportController::class,'saveprestasi'])->name('saveprestasi');
+// Route::get('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
 
 
 Route::get('/import-prodi-prestasi', [ProdiController::class,'render']);

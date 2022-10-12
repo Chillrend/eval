@@ -7,6 +7,7 @@ use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
+use App\Models\Tempory_Prestasi;
 use App\Models\Periode;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +59,7 @@ class ImportController extends Controller
 
         Prestasi::truncate();
         Prestasi::insert($filtered);
+        Tempory_Prestasi::insert($filtered);
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
@@ -66,7 +68,7 @@ class ImportController extends Controller
 
     public function render()
     {
-        $candidates = Prestasi::query()
+        $candidates = Tempory_Prestasi::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
                     $query->where('name', 'like', '%'.$this->q . '%')
@@ -91,5 +93,10 @@ class ImportController extends Controller
         Candidates::truncate();
         Criteria::truncate();
         return redirect('/import-candidates-prestasi');
+    }
+
+    public function saveprestasi(){
+        Tempory_Prestasi::truncate();
+        return redirect('/preview-prestasi');
     }
 }
