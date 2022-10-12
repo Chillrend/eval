@@ -98,6 +98,7 @@
                                         
                                         <div id="namedkey">
                                         </div>
+                                        <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" hidden>
                                     </div>
                                     <div class="card-footer text-right">
                                         <input type="submit" class="btn btn-primary"/>

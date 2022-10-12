@@ -28,7 +28,7 @@ class ImportController extends Controller
         // dd($array);
 
         $namedkey = array();
-        for ($i=0; $i < 9; $i++) {
+        for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
             $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
         }
 

@@ -19,7 +19,7 @@ class ProdiController extends Controller
         $array = (new ProdiImport())->toArray($request->file('excel'));
 
         $namedkey = array();
-        for ($i=0; $i < 8; $i++) {
+        for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
             $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
         }
 
@@ -57,7 +57,6 @@ class ProdiController extends Controller
             $fil['periode'] = $periode;
             $filtered[] = $fil;
         }
-
 
         Prodi::truncate();
         Prodi::insert($filtered);

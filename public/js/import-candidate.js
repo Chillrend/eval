@@ -18,6 +18,7 @@ function addCollumn() {
   }
   console.log(collumn);
   document.getElementById("nameCollumn").value = ''
+  document.getElementById("banyakCollumn").value = collumn.length
 
 
 
