@@ -104,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            @if($candidates !== 0)
+            @if($candidates != '')
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -161,7 +161,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-right">
-                                <form method="POST" action="{{ }}">
+                                <form method="POST">
                                 @csrf
                                     <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
                                         <h6 class="my-0">Cancel</h6>

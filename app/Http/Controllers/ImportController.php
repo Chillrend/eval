@@ -56,8 +56,8 @@ class ImportController extends Controller
             $filtered[] = $fil;
         }
 
-        Candidates::truncate();
-        Candidates::insert($filtered);
+        Prestasi::truncate();
+        Prestasi::insert($filtered);
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
@@ -77,7 +77,7 @@ class ImportController extends Controller
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'candidates')->get();
-
+        
 
         return view('halaman.import-candidate-prestasi',[
             'type_menu' => 'import-candidates-prestasi',
