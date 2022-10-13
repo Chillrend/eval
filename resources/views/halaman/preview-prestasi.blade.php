@@ -21,63 +21,71 @@
                     <div class="breadcrumb-item">Data Mahasiswa Seleksi Prestasi</div>
                 </div>
             </div>
-                    <h2 class="section-title">Preview</h2>
-                    <p class="section-lead">
-                        Preview data prestasi mahasiswa seleksi prestasi
-                    </p>
-    
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="my-2">Tabel Preview Data Prestasi Mahasiswa</h4>
+            <h2 class="section-title">Preview</h2>
+            <p class="section-lead">
+                Preview data prestasi mahasiswa seleksi prestasi dan kuota program studi
+            </p>
+            <div id="accordion">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header accordion-header" 
+                            id="row-prestasi" role="button" 
+                            data-toggle="collapse"
+                            data-target="#panel-body-3">
+                                <h4 class="my-2">Tabel Preview Data Prestasi Mahasiswa</h4>
+                            </div>
+                            <div class="accordion-body collapse" 
+                            id="row-tabel-prestasi" 
+                            data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                        <th scope="col">Tahun Periode</th>
+                                                        <th scope="col">No Daftar</th>
+                                                        <th scope="col">Nama</th>
+                                                        <th scope="col">Id Pilihan 1</th>
+                                                        <th scope="col">Id Pilihan 2</th>
+                                                        <th scope="col">Id Pilihan 3</th>
+                                                        <th scope="col">Kode Kelompok Bidang</th>
+                                                        <th scope="col">Alamat</th>
+                                                        <th scope="col">Sekolah</th>
+                                                        <th scope="col">No Telp</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($prestasi as $prestasis => $data)
+                                                <tr>
+                                                    <th scope="row">{{ $prestasis + $prestasi->firstItem()}}</th>                                              
+                                                    <td>{{$data->tahun_periode}}</td>
+                                                    <td>{{$data->no_daftar}}</td>
+                                                    <td>{{$data->nama}}</td>
+                                                    <td>{{$data->id_pilihan1}}</td>
+                                                    <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
+                                                    <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
+                                                    <td>{{$data->kode_kelompok_bidang}}</td>
+                                                    <td>{{$data->alamat}}</td>
+                                                    <td>{{$data->sekolah}}</td>
+                                                    <td>{{$data->telp}}</td>
+                                                </tr>
+                                                @endforeach
+                                        </table>
+                                    </div>
                                 </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                                <th scope="col">Tahun Periode</th>
-                                                <th scope="col">No Daftar</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Id Pilihan 1</th>
-                                                <th scope="col">Id Pilihan 2</th>
-                                                <th scope="col">Id Pilihan 3</th>
-                                                <th scope="col">Kode Kelompok Bidang</th>
-                                                <th scope="col">Alamat</th>
-                                                <th scope="col">Sekolah</th>
-                                                <th scope="col">No Telp</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no=1; ?>
-                                    @foreach($prestasi as $prestasis => $data)
-                                    <tr>
-                                        <th scope="row">{{ $prestasis + $prestasi->firstItem()}}</th>                                              
-                                        <td>{{$data->tahun_periode}}</td>
-                                        <td>{{$data->no_daftar}}</td>
-                                        <td>{{$data->nama}}</td>
-                                        <td>{{$data->id_pilihan1}}</td>
-                                        <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
-                                        <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
-                                        <td>{{$data->kode_kelompok_bidang}}</td>
-                                        <td>{{$data->alamat}}</td>
-                                        <td>{{$data->sekolah}}</td>
-                                        <td>{{$data->telp}}</td>
-                                    </tr>
-                                    @endforeach
-                            </table>
+                                <div class="card-footer row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <p> {{ $prestasi->firstItem() }} of {{ $prestasi->lastItem() }} from {{ $prestasi->total() }} contents</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-5 pagination">
+                                    {!! $prestasi->links("pagination::bootstrap-4") !!}
+                                    </div>
+                                </div> 
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer row">
-                        <div class="col-sm-12 col-md-5">
-                            <p> {{ $prestasi->firstItem() }} of {{ $prestasi->lastItem() }} from {{ $prestasi->total() }} contents</p>
-                        </div>
-                        <div class="col-sm-12 col-md-5 pagination">
-                        {!! $prestasi->links("pagination::bootstrap-4") !!}
-                        </div>
-                    </div> 
                 </div>
             </div>
         </section>
@@ -92,4 +100,5 @@
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
+    <script src="../../js/style.js"></script>
 @endpush
