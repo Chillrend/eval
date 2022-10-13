@@ -11,3 +11,8 @@ $('#row-prestasi').on('click', function(e) {
 
     $("#row-tabel-prestasi").toggle(800);
 });
+
+$('#row-prodi').on('click', function(e) {
+
+    $("#row-tabel-prodi").toggle(800);
+});
