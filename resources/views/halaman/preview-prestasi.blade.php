@@ -108,32 +108,28 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                        <th scope="col">Tahun Periode</th>
-                                                        <th scope="col">No Daftar</th>
-                                                        <th scope="col">Nama</th>
-                                                        <th scope="col">Id Pilihan 1</th>
-                                                        <th scope="col">Id Pilihan 2</th>
-                                                        <th scope="col">Id Pilihan 3</th>
-                                                        <th scope="col">Kode Kelompok Bidang</th>
-                                                        <th scope="col">Alamat</th>
-                                                        <th scope="col">Sekolah</th>
-                                                        <th scope="col">No Telp</th>
+                                                        <th scope="col">ID Prodi</th>
+                                                        <th scope="col">Jurusan</th>
+                                                        <th scope="col">ID Politeknik</th>
+                                                        <th scope="col">Politeknik</th>
+                                                        <th scope="col">ID Kelompok Bidang</th>
+                                                        <th scope="col">Kelompok Bidang</th>
+                                                        <th scope="col">Kuota</th>
+                                                        <th scope="col">Tertampung</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($prestasi as $prestasis => $data)
+                                                @foreach($prodi as $prodii => $data)
                                                 <tr>
-                                                    <th scope="row">{{ $prestasis + $prestasi->firstItem()}}</th>                                              
-                                                    <td>{{$data->tahun_periode}}</td>
-                                                    <td>{{$data->no_daftar}}</td>
-                                                    <td>{{$data->nama}}</td>
-                                                    <td>{{$data->id_pilihan1}}</td>
-                                                    <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
-                                                    <td>{{$data->id_pilihan3 == null ? '-' : $data->id_pilihan3}}</td>
-                                                    <td>{{$data->kode_kelompok_bidang}}</td>
-                                                    <td>{{$data->alamat}}</td>
-                                                    <td>{{$data->sekolah}}</td>
-                                                    <td>{{$data->telp}}</td>
+                                                    <th scope="row">{{ $prodii + $prodi->firstItem()}}</th>                                              
+                                                    <td>{{$data->id_prodi}}</td>
+                                                    <td>{{$data->jurusan}}</td>
+                                                    <td>{{$data->id_politeknik}}</td>
+                                                    <td>{{$data->politeknik}}</td>
+                                                    <td>{{$data->id_kelompok_bidang}}</td>
+                                                    <td>{{$data->kelompok_bidang}}</td>
+                                                    <td>{{$data->quota}}</td>
+                                                    <td>{{$data->tertampung}}</td>
                                                 </tr>
                                                 @endforeach
                                         </table>
@@ -141,10 +137,10 @@
                                 </div>
                                 <div class="card-footer row">
                                     <div class="col-sm-12 col-md-5">
-                                        <p> {{ $prestasi->firstItem() }} of {{ $prestasi->lastItem() }} from {{ $prestasi->total() }} contents</p>
+                                        <p> {{ $prodi->firstItem() }} of {{ $prodi->lastItem() }} from {{ $prodi->total() }} contents</p>
                                     </div>
                                     <div class="col-sm-12 col-md-5 pagination">
-                                    {!! $prestasi->links("pagination::bootstrap-4") !!}
+                                    {!! $prodi->links("pagination::bootstrap-4") !!}
                                     </div>
                                 </div> 
                             </div>
