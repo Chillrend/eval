@@ -89,7 +89,7 @@ class CandidatePresController extends Controller
         }
 
         return view('halaman.candidate-prestasi',[
-            'type_menu' => 'import-candidates-prestasi',
+            'type_menu' => 'prestasi',
             'candidates' => $candidates,
             'criteria' => $criteria,
             'searchbar' => [$collumn, $search],

@@ -48,7 +48,7 @@ class PreviewPresController extends Controller
         $criteriaprodi = Prodi::where('table', 'prodi')->get();
 
         return view('halaman.preview-prestasi',[
-            'type_menu' => 'import-candidate',
+            'type_menu' => 'prestasi',
             'prestasi' => $prestasi,
             'prodi' => $prodi,
             'criteria' => $criteria,

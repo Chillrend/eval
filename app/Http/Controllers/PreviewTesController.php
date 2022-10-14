@@ -35,7 +35,7 @@ class PreviewTesController extends Controller
 
 
         return view('halaman.preview-tes',[
-            'type_menu' => 'import-candidate',
+            'type_menu' => 'tes',
             'prestasi' => $prestasi,
             'criteria' => $criteria
         ]);

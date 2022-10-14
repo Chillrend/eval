@@ -91,7 +91,7 @@ class CandidateTesController extends Controller
 
 
         return view('halaman.candidate-tes',[
-            'type_menu' => 'import-candidate-tes',
+            'type_menu' => 'tes',
             'candidates' => $candidates,
             'criteria' => $criteria
         ]);
