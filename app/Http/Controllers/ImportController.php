@@ -7,6 +7,7 @@ use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
+use App\Models\Tempory_Prestasi;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
@@ -71,7 +72,7 @@ class ImportController extends Controller
 
     public function render()
     {
-        $candidates = Prestasi::query()
+        $candidates = Tempory_Prestasi::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
                     $query->where('name', 'like', '%'.$this->q . '%')
@@ -96,5 +97,10 @@ class ImportController extends Controller
         Candidates::truncate();
         Criteria::truncate();
         return redirect('/import-candidates-prestasi');
+    }
+
+    public function saveprestasi(){
+        Tempory_Prestasi::truncate();
+        return redirect('/preview-prestasi');
     }
 }

@@ -185,20 +185,25 @@
                 </div>
                     
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="text-right">
-                                <form method="POST">
-                                @csrf
-                                    <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
-                                        <h6 class="my-0">Cancel</h6>
-                                    </button>
-                                    <button class="btn btn-lg btn-success mx-1" >
-                                        <h6 class="my-0">Save</h6>
-                                    </button>
-                                </form>
-                                </div>                                
+                                <div class="float-right row">
+                                    <span>
+                                        <form method="POST" action="cancelprestasi">
+                                            @csrf
+                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
+                                                    <h6 class="my-0">Cancel</h6>
+                                                </button>
+                                            </form>
+                                    </span>
+                                    <form method="POST" action="saveprestasi">
+                                        @csrf
+                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprestasi')" >
+                                            <h6 class="my-0">Save</h6>
+                                        </button>
+                                    </form>
+                                </div>                              
                             </div>
                         </div>
                     </div>
