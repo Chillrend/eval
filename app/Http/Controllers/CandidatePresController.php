@@ -12,7 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 
-class ImportController extends Controller 
+class CandidatePresController extends Controller 
 {
     public $q;
     public $sortBy = 'no_daftar';

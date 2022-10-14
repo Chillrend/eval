@@ -11,7 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ProdiController extends Controller
+class ProdiPresController extends Controller
 {
     public $q;
     public $sortBy = 'no_daftar';

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Fascades\Excel;
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class PrestasiController extends Controller
+class PreviewPresController extends Controller
 {
 
     public $q;

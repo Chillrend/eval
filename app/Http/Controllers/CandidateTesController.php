@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Fascades\Excel;
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class ImportTesController extends Controller 
+class CandidateTesController extends Controller 
 {
     public $q;
     public $sortBy = 'no_daftar';

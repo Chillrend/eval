@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Fascades\Excel;
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class TesController extends Controller
+class PreviewTesController extends Controller
 {
 
     public $q;
