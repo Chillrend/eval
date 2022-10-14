@@ -60,8 +60,8 @@
                                                 @foreach($prestasi as $prestasis => $data)
                                                 <tr>
                                                     <th scope="row">{{ $prestasis + $prestasi->firstItem()}}</th>                                              
-                                                    <td>{{$data->tahun_periode}}</td>
-                                                    <td>{{$data->no_daftar}}</td>
+                                                    <td>{{$data->periode}}</td>
+                                                    <td>{{$data->nodaftar}}</td>
                                                     <td>{{$data->nama}}</td>
                                                     <td>{{$data->id_pilihan1}}</td>
                                                     <td>{{$data->id_pilihan2 == null ? '-' : $data->id_pilihan2}}</td>
