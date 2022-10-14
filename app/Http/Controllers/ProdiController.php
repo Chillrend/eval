@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Imports\ProdiImport;
 use App\Models\Criteria;
 use App\Models\Prodi;
+use App\Models\Tempory_Prodi_Prestasi;
+use App\Models\Prodi_Prestasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -60,6 +62,8 @@ class ProdiController extends Controller
 
         Prodi::truncate();
         Prodi::insert($filtered);
+        Tempory_Prodi_Prestasi::insert($filtered);
+        Prodi_Prestasi::insert($filtered);
         
         Session::flash('sukses','Data Berhasil ditambahkan');
         return redirect()->back();
@@ -67,7 +71,7 @@ class ProdiController extends Controller
 
     public function render()
     {
-        $prodi = Prodi::query()
+        $prodi = Tempory_Prodi_Prestasi::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
                     $query->where('name', 'like', '%'.$this->q . '%')
@@ -83,5 +87,18 @@ class ProdiController extends Controller
             'prodi' => $prodi,
             'criteria' => $criteria,
         ]);
+    }
+
+    public function cancelprodi(){
+        Tempory_Prodi_Prestasi::truncate();
+        Prodi::truncate();
+        Criteria::truncate();
+        Prodi_Prestasi::truncate();
+        return redirect('/import-candidates-prestasi');
+    }
+
+    public function saveprodi(){
+        Tempory_Prodi_Prestasi::truncate();
+        return redirect('/preview-prestasi');
     }
 }

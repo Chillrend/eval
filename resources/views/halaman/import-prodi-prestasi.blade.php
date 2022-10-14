@@ -166,14 +166,22 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="text-right">
-                                    <button class="btn btn-lg btn-warning mx-1" id="swal-6">
-                                        <h6 class="my-0">Cancel</h6>
-                                    </button>
-                                    <button class="btn btn-lg btn-success mx-1" id="swal-6">
-                                        <h6 class="my-0">Save</h6>
-                                    </button>
-                                </div>                                
+                                <div class="float-right row">
+                                    <span>
+                                        <form method="POST" action="cancelprodi">
+                                            @csrf
+                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprodi')">
+                                                    <h6 class="my-0">Cancel</h6>
+                                                </button>
+                                            </form>
+                                    </span>
+                                    <form method="POST" action="saveprodi">
+                                        @csrf
+                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprodi')" >
+                                            <h6 class="my-0">Save</h6>
+                                        </button>
+                                    </form>
+                                </div>                              
                             </div>
                         </div>
                     </div>
