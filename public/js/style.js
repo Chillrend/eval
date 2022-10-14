@@ -6,3 +6,13 @@ $('#collapase-accordion').on('click', function(e) {
 
     $("#panel-body-3").toggle(800);
 });
+
+$('#row-prestasi').on('click', function(e) {
+
+    $("#row-tabel-prestasi").toggle(800);
+});
+
+$('#row-prodi').on('click', function(e) {
+
+    $("#row-tabel-prodi").toggle(800);
+});

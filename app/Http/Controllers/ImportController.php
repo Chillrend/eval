@@ -7,6 +7,7 @@ use App\Imports\CandidatesImport;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
+use App\Models\Tempory_Prestasi;
 use Exception;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
@@ -100,5 +101,10 @@ class ImportController extends Controller
         Candidates::truncate();
         Criteria::truncate();
         return redirect('/import-candidates-prestasi');
+    }
+
+    public function saveprestasi(){
+        Tempory_Prestasi::truncate();
+        return redirect('/preview-prestasi');
     }
 }

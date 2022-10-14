@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Imports\ProdiImport;
 use App\Models\Criteria;
 use App\Models\Prodi;
+use App\Models\Tempory_Prodi_Prestasi;
+use App\Models\Prodi_Prestasi;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -86,11 +88,24 @@ class ProdiController extends Controller
 
         $criteria = Criteria::where('table', 'prodi')->get();
         
-        return view('halaman.import-prodi',[
+        return view('halaman.import-prodi-prestasi',[
             'type_menu' => 'import-prodi',
             'prodi' => $prodi,
             'criteria' => $criteria,
             'searchbar' => [$collumn, $search],
         ]);
+    }
+
+    public function cancelprodi(){
+        Tempory_Prodi_Prestasi::truncate();
+        Prodi::truncate();
+        Criteria::truncate();
+        Prodi_Prestasi::truncate();
+        return redirect('/import-candidates-prestasi');
+    }
+
+    public function saveprodi(){
+        Tempory_Prodi_Prestasi::truncate();
+        return redirect('/preview-prestasi');
     }
 }

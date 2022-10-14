@@ -23,7 +23,7 @@
                 <h1>Form Kuota Prodi</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Seleksi Prestasi</a></div>
+                    <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
                     <div class="breadcrumb-item"><a href="#">Program Studi</a></div>
                     <div class="breadcrumb-item">Form Kuota Prodi</div>
                 </div>

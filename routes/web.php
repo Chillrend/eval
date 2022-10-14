@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ImportTesController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\ProdiTesController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\TesController;
 /*
@@ -26,12 +27,10 @@ Route::get('/login', function () {
     return view('halaman.login');
 })->name('login');
 
-//Login
 Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
 
-//Logout
 Route::post('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
-Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
+
 
 // Dashboard
 Route::get('/dashboard', function () {
@@ -42,11 +41,12 @@ Route::get('/dashboard', function () {
 Route::get('/import-candidates-prestasi', [ImportController::class,'render']);
 Route::post('/import-candidates-prestasi', [ImportController::class,'import']);
 Route::post('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
-Route::get('cancelprestasi', [ImportController::class,'cancelprestasi'])->name('cancelprestasi');
-
+Route::post('saveprestasi', [ImportController::class,'saveprestasi'])->name('saveprestasi');
 
 Route::get('/import-prodi-prestasi', [ProdiController::class,'render']);
 Route::post('/import-prodi-prestasi', [ProdiController::class,'import']);
+Route::post('cancelprodi', [ImportController::class,'cancelprodi'])->name('cancelprodi');
+Route::post('saveprodi', [ImportController::class,'saveprodi'])->name('saveprodi');
 
 
 Route::get('/preview-prestasi', [PrestasiController::class,'render']);
@@ -58,15 +58,12 @@ Route::post('/import-candidates-tes', [ImportTesController::class,'import']);
 Route::post('canceltes', [ImportTesController::class,'canceltes'])->name('canceltes');
 
 
-Route::get('/import-prodi-tes', [ProdiController::class,'render']);
-Route::post('/import-prodi-tes', [ProdiController::class,'import']);
-
+Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
+Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
 
 Route::get('/preview-tes', [TesController::class,'render']);
 
-// Route::get('/preview-prestasi', function () {
-//     return view('halaman.prestasi', ['type_menu' => 'layout']);
-// });
+
 
 
 /*
