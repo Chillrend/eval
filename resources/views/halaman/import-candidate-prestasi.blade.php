@@ -71,7 +71,7 @@
                                 @endif
                                 @if(session()->has('error'))
                                 <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade">
-                                    <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                    <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
                                     <div class="alert-body">
                                         <div class="alert-title">Impor Gagal</div>
                                         {{session('error')}}
@@ -165,9 +165,9 @@
                             <div class="card-body">
                                 @if(session()->has('error1'))
                                     <div class="alert alert-danger alert-has-icon alert-dismissible show fade">
-                                        <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                        <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
                                         <div class="alert-body">
-                                            <div class="alert-title">Impor Gagal</div>
+                                            <div class="alert-title">Data Tidak Ditemukan</div>
                                             {{session('error1')}}
                                         </div>
                                         <button class="close" data-dismiss="alert">
