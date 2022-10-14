@@ -8,9 +8,8 @@ use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
 use Exception;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
-use Maatwebsite\Fascades\Excel;
-use Jenssegers\Mongodb\Eloquent\Model;
 
 class ImportController extends Controller 
 {
@@ -69,13 +68,14 @@ class ImportController extends Controller
         }
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        $search = $request->input('search');
+        $collumn = $request->input('kolom');
         $candidates = Prestasi::query()
-            ->when( $this->q, function($query) {
-                return $query->where(function( $query) {
-                    $query->where('name', 'like', '%'.$this->q . '%')
-                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+            ->when( $request->all(), function($query) use ($collumn,$search) {
+                return $query->where(function($query) use ($collumn,$search) {
+                    $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
@@ -87,7 +87,8 @@ class ImportController extends Controller
         return view('halaman.import-candidate-prestasi',[
             'type_menu' => 'import-candidates-prestasi',
             'candidates' => $candidates,
-            'criteria' => $criteria
+            'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
         ]);
     }
 
