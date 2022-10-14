@@ -88,7 +88,7 @@ class ProdiController extends Controller
 
         $criteria = Criteria::where('table', 'prodi')->get();
         
-        return view('halaman.import-prodi-prestasi',[
+        return view('halaman.prodi-prestasi',[
             'type_menu' => 'import-prodi',
             'prodi' => $prodi,
             'criteria' => $criteria,

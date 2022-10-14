@@ -90,7 +90,7 @@ class ImportTesController extends Controller
         $criteria = Criteria::where('table', 'candidates')->get();
 
 
-        return view('halaman.import-candidate-tes',[
+        return view('halaman.candidate-tes',[
             'type_menu' => 'import-candidate-tes',
             'candidates' => $candidates,
             'criteria' => $criteria

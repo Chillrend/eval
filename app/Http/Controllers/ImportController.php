@@ -88,7 +88,7 @@ class ImportController extends Controller
             Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
         }
 
-        return view('halaman.import-candidate-prestasi',[
+        return view('halaman.candidate-prestasi',[
             'type_menu' => 'import-candidates-prestasi',
             'candidates' => $candidates,
             'criteria' => $criteria,
