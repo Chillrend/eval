@@ -100,7 +100,7 @@ class CandidatePresController extends Controller
         Prestasi::truncate();
         Candidates::truncate();
         Criteria::truncate();
-        return redirect('/import-candidates-prestasi');
+        return redirect('/candidates-prestasi');
     }
 
     public function saveprestasi(){

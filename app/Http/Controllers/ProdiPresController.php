@@ -101,7 +101,7 @@ class ProdiPresController extends Controller
         Prodi::truncate();
         Criteria::truncate();
         Prodi_Prestasi::truncate();
-        return redirect('/import-candidates-prestasi');
+        return redirect('/candidates-prestasi');
     }
 
     public function saveprodi(){

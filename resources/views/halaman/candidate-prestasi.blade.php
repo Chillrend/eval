@@ -85,7 +85,7 @@
                             <div class="accordion-body collapse"
                             id="panel-body-3"
                             data-parent="#accordion">
-                            <form action="/import-candidates-prestasi" method="post" enctype="multipart/form-data">
+                            <form action="/candidates-prestasi" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
@@ -146,7 +146,7 @@
                                 $abs = $criteria->first();
                                 @endphp                       
                                 <div class="card-header-form">
-                                    <form action="/import-candidates-prestasi" method="get">
+                                    <form action="/candidates-prestasi" method="get">
                                         <div class="input-group">
                                             <select class="form-control" name="kolom" id="periode" onchange="myFunction()">
                                                 <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>

@@ -42,18 +42,18 @@ Route::get('/dashboard', function () {
 
 
 // Prestasi
-Route::get('/import-candidates-prestasi', [CandidatePresController::class,'render']);
+Route::get('/candidates-prestasi', [CandidatePresController::class,'render']);
 
-Route::post('/import-candidates-prestasi', [CandidatePresController::class,'import']);
+Route::post('/candidates-prestasi', [CandidatePresController::class,'import']);
 
 Route::post('cancelprestasi', [CandidatePresController::class,'cancelprestasi'])->name('cancelprestasi');
 
 Route::post('saveprestasi', [CandidatePresController::class,'saveprestasi'])->name('saveprestasi');
 
 
-Route::get('/import-prodi-prestasi', [ProdiPresController::class,'render']);
+Route::get('/prodi-prestasi', [ProdiPresController::class,'render']);
 
-Route::post('/import-prodi-prestasi', [ProdiPresController::class,'import']);
+Route::post('/prodi-prestasi', [ProdiPresController::class,'import']);
 
 Route::post('cancelprodi', [ProdiPresController::class,'cancelprodi'])->name('cancelprodi');
 
@@ -65,16 +65,16 @@ Route::get('/preview-prestasi', [PreviewPresController::class,'render']);
 
 
 //Tes
-Route::get('/import-candidates-tes', [CandidateTesController::class,'render']);
+Route::get('/candidates-tes', [CandidateTesController::class,'render']);
 
-Route::post('/import-candidates-tes', [CandidateTesController::class,'import']);
+Route::post('/candidates-tes', [CandidateTesController::class,'import']);
 
 Route::post('canceltes', [CandidateTesController::class,'canceltes'])->name('canceltes');
 
 
-Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
+Route::get('/prodi-tes', [ProdiTesController::class,'render']);
 
-Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
+Route::post('/prodi-tes', [ProdiTesController::class,'import']);
 
 
 Route::get('/preview-tes', [PreviewTesController::class,'render']);

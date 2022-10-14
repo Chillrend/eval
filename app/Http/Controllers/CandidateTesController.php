@@ -72,7 +72,7 @@ class CandidateTesController extends Controller
 
 
         Session::flash('sukses','Data Berhasil ditambahkan');
-        return redirect('/import-candidates-tes');
+        return redirect('/candidates-tes');
     }
 
     public function render()
@@ -101,6 +101,6 @@ class CandidateTesController extends Controller
         Tes::truncate();
         Candidates::truncate();
         Criteria::truncate();
-        return redirect('/import-candidates-tes');
+        return redirect('/candidates-tes');
     }
 }

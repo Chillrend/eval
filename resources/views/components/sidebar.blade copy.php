@@ -83,9 +83,9 @@
                         data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a> -->
                     
                     <ul class="dropdown-menu">
-                        <li class="{{ Request::is('import-candidates-tes') ? 'active' : '' }}">
+                        <li class="{{ Request::is('candidates-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('import-candidates-tes') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                                href="{{ url('candidates-tes') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                         </li>
                         <li class="{{ Request::is('import-prodi-tes') ? 'active' : '' }}">
                             <a class="nav-link "

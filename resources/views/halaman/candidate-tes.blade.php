@@ -60,7 +60,7 @@
                             <div class="accordion-body collapse"
                             id="panel-body-3"
                             data-parent="#accordion">
-                            <form action="/import-candidates-prestasi" method="post" enctype="multipart/form-data">
+                            <form action="/candidates-tes" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>

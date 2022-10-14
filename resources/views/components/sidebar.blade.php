@@ -23,13 +23,13 @@
                     data-toggle="dropdown"><i class="fas fa-graduation-cap"></i><span>Seleksi Prestasi</span></a>
                 
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('import-candidates-prestasi') ? 'active' : '' }}">
+                    <li class="{{ Request::is('candidates-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
-                            href="{{ url('import-candidates-prestasi') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                            href="{{ url('candidates-prestasi') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                     </li>
-                    <li class="{{ Request::is('import-prodi-prestasi') ? 'active' : '' }}">
+                    <li class="{{ Request::is('prodi-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
-                            href="{{ url('import-prodi-prestasi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                            href="{{ url('prodi-prestasi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
                     </li>  
                     <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
@@ -45,13 +45,13 @@
                         data-toggle="dropdown"><i class="fas fa-solid fa-paste"></i><span>Seleksi Tes</span></a>
                     
                     <ul class="dropdown-menu">
-                        <li class="{{ Request::is('import-candidates-tes') ? 'active' : '' }}">
+                        <li class="{{ Request::is('candidates-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('import-candidates-tes') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                                href="{{ url('candidates-tes') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                         </li>
-                        <li class="{{ Request::is('import-prodi-tes') ? 'active' : '' }}">
+                        <li class="{{ Request::is('prodi-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('import-prodi-tes') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                                href="{{ url('prodi-tes') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
                         </li>  
                         <li class="{{ Request::is('preview-tes') ? 'active' : '' }}">
                             <a class="nav-link "
