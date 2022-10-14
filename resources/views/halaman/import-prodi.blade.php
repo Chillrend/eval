@@ -134,7 +134,8 @@
                     </div>
                 </div>
             </div>
-            @if($prodi != '')
+            @if(empty($prodi))
+            @else
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data kuota program studi yang akan di upload
@@ -142,15 +143,31 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="my-2">Tabel Preview Data Kuota Prodi</h4>
+                            <div class="card-header my-2">
+                                <h4 class="">Tabel Preview Data Kuota Prodi</h4>
+                                @php
+                                    $abs = $criteria->first();
+                                @endphp
+                                <div class="card-header-form">
+                                    <form action="/import-prodi-prestasi" method="get">
+                                        <div class="input-group">
+                                            <select class="form-control" name="kolom" id="kolom">
+                                                <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
+                                                @foreach($abs['criteria'] as $criteriaa)
+                                                <option>{{$criteriaa}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="text" class="form-control" name="search" placeholder="Search" value="{{$searchbar[1]}}">
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                        @php
-                                        $abs = $criteria->first();
-                                        @endphp
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

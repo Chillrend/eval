@@ -67,13 +67,14 @@ class ProdiController extends Controller
         }
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        $search = $request->input('search');
+        $collumn = $request->input('kolom');
         $prodi = Prodi::query()
-            ->when( $this->q, function($query) {
-                return $query->where(function( $query) {
-                    $query->where('name', 'like', '%'.$this->q . '%')
-                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+            ->when( $request->all(), function($query) use ($collumn,$search) {
+                return $query->where(function($query) use ($collumn,$search) {
+                    $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
             ->paginate(10);
@@ -84,6 +85,7 @@ class ProdiController extends Controller
             'type_menu' => 'import-prodi',
             'prodi' => $prodi,
             'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
         ]);
     }
 }
