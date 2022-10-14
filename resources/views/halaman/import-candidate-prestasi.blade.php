@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            @isset($candidates)
+            @if($candidates->first() || $searchbar)
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -163,6 +163,18 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                @if(session()->has('error1'))
+                                    <div class="alert alert-danger alert-has-icon alert-dismissible show fade">
+                                        <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                        <div class="alert-body">
+                                            <div class="alert-title">Impor Gagal</div>
+                                            {{session('error1')}}
+                                        </div>
+                                        <button class="close" data-dismiss="alert">
+                                            <i class="fas fa-times fa-lg"></i>
+                                        </button>
+                                    </div>
+                                @endif
                                 <div class="table-responsive">
                                     <table class="table-hover table display nowrap" id="table" style="width: 100%">
                                         <thead>
@@ -219,7 +231,7 @@
                         </div>
                     </div>
                 </div>
-            @endisset
+            @endif
             </div>
         </section>
     </div>

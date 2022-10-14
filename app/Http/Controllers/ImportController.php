@@ -83,6 +83,9 @@ class ImportController extends Controller
 
         $criteria = Criteria::where('table', 'candidates')->get();
         
+        if($request->all() && empty($candidates->first())){
+            Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
+        }
 
         return view('halaman.import-candidate-prestasi',[
             'type_menu' => 'import-candidates-prestasi',

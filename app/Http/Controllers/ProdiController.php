@@ -79,6 +79,11 @@ class ProdiController extends Controller
             })
             ->paginate(10);
 
+        if($request->all() && empty($prodi->first())){
+            Session::flash('error1','Data Prodi Tidak Tersedia');
+        }
+    
+
         $criteria = Criteria::where('table', 'prodi')->get();
         
         return view('halaman.import-prodi',[
