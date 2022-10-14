@@ -154,7 +154,7 @@
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script> --}}
+    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
