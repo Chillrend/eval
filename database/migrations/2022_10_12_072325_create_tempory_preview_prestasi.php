@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('candidates', function (Blueprint $table) {
+        Schema::create('tempory_preview_prestasi', function (Blueprint $table) {
             $table->year('tahun_periode');
             $table->id('no_daftar');
             $table->string('nama');
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eval');
+        Schema::dropIfExists('tempory_preview_prestasi');
     }
 };

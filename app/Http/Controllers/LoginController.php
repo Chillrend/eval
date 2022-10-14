@@ -28,10 +28,7 @@ class LoginController extends Controller
         if (Auth::Attempt($data)) {
             $email = $request->input('email');
             $user = User::where('email', $email)->first();
-            // echo $user;
             session()->put('name',$user->name);
-            // return redirect()->route('dashboard', [$user]);
-            // return redirect()->route('dashboard');
             return redirect('dashboard');    
         }else{
             session()->flash('error', 'Email atau Password Salah');

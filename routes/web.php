@@ -23,11 +23,6 @@ use App\Http\Controllers\TesController;
 
 Route::redirect('/', '/login');
 
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
-})->name('dashboard');
-
 // Auth
 Route::get('/login', function () {
     return view('halaman.login');
@@ -37,10 +32,51 @@ Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('action
 
 Route::post('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
 
-Route::get('/import-test', function () {
-    return view('import.import-candidate', ['type_menu' => 'dashboard']);
-});
 
+// Dashboard
+Route::get('/dashboard', function () {
+    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
+})->name('dashboard');
+
+
+
+// Prestasi
+Route::get('/candidates-prestasi', [CandidatePresController::class,'render']);
+
+Route::post('/candidates-prestasi', [CandidatePresController::class,'import']);
+
+Route::post('cancelprestasi', [CandidatePresController::class,'cancelprestasi'])->name('cancelprestasi');
+
+Route::post('saveprestasi', [CandidatePresController::class,'saveprestasi'])->name('saveprestasi');
+
+
+Route::get('/prodi-prestasi', [ProdiPresController::class,'render']);
+
+Route::post('/prodi-prestasi', [ProdiPresController::class,'import']);
+
+Route::post('cancelprodi', [ProdiPresController::class,'cancelprodi'])->name('cancelprodi');
+
+Route::post('saveprodi', [ProdiPresController::class,'saveprodi'])->name('saveprodi');
+
+
+Route::get('/preview-prestasi', [PreviewPresController::class,'render']);
+
+
+
+//Tes
+Route::get('/candidates-tes', [CandidateTesController::class,'render']);
+
+Route::post('/candidates-tes', [CandidateTesController::class,'import']);
+
+Route::post('canceltes', [CandidateTesController::class,'canceltes'])->name('canceltes');
+
+
+Route::get('/prodi-tes', [ProdiTesController::class,'render']);
+
+Route::post('/prodi-tes', [ProdiTesController::class,'import']);
+
+
+Route::get('/preview-tes', [PreviewTesController::class,'render']);
 
 Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
 Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
@@ -57,30 +93,6 @@ Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-// Route::redirect('/', '/dashboard-general-dashboard');
-
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('halaman.dashboard', ['type_menu' => 'dashboard']);
-});
-
-// Auth
-Route::get('/login', function () {
-    return view('halaman.login');
-});
-
-Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
-Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
-
-
-Route::post('/import-test', [ImportController::class,'import'])->name('import');
-
-Route::get('/import-test', function () {
-    return view('import.import-candidate',['type_menu' => 'dashboard']);
-});
-
 
 
 

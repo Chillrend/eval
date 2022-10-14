@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
         name="viewport">
-    <title>Login &mdash; Stisla</title>
+    <title>Login &mdash; PMB</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet"
@@ -39,8 +39,7 @@
                             class="shadow-light rounded-circle mb-5 mt-2">
                         <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Evaluasi PMB</span>
                         </h4>
-                        <p class="text-muted">Before you get started, you must login or register if you don't already
-                            have an account.</p>
+                        <p class="text-muted">Before you get started, you must login first.</p>
                         @if(session()->has('error'))
                             <div class="alert alert-danger alert-dismissible show fade">
                                 <div class="alert-body">
@@ -100,10 +99,10 @@
                             </div>
 
                             <div class="form-group text-right">
-                                <a href="auth-forgot-password.html"
+                                {{-- <a href="auth-forgot-password.html"
                                     class="float-left mt-3">
                                     Forgot Password?
-                                </a>
+                                </a> --}}
                                 <button type="submit"
                                     class="btn btn-primary btn-lg btn-icon icon-right"
                                     tabindex="4">
@@ -114,7 +113,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-12 order-lg-2 min-vh-101 position-relative overlay-gradient-bottom "
-                    data-background="{{ asset('img/unsplash/pnj.jpg') }}" style="background-size:108%;">
+                    data-background="{{ asset('img/unsplash/pnj.jpg') }}" style="background-size:cover; background-position:center">
                     
                 </div>
             </div>

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Jenssegers\Mongodb\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,5 +32,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('magangUTD2022'),
 
         ]);
+
+        // DB::collection('users')->insert([
+        //     'name' => 'Admin',
+        //     'email' => 'admin@pnj.ac.id',
+        //     // 'email_verified_at' => date('Y-m-d H:i:s', time()),
+        //     // 'password' => Hash::make('magangUTD2022'),])
+        //     // ;
+        // ]);
     }
 }
