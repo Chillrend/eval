@@ -102,99 +102,129 @@
                     </div>
                 </div>
             </div>
-            @if($candidates != '')
-                <h2 class="section-title">Preview</h2>
-                <p class="section-lead">
-                    Preview data mahasiswa yang akan di upload
-                </p>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                        @php
-                                        $abs = $criteria->first();
-                                        @endphp
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">periode</th>
-                                                @foreach($abs['criteria'] as $criteriaa)
-                                                <th scope="col">{{$criteriaa}}</th>
-                                                @endforeach
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($candidates as $candidate => $data)
-                                            <tr>
-                                                <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
-                                                <td>{{$data['periode']}}</td>
-                                                @foreach($abs['criteria'] as $criteriaa)
-                                                <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
-                                                @endforeach
-                                            </tr>
+            {{-- @if($candidates != '') --}}
+            @if($candidates->first() && $searchbar || $candidates != '')
+            <h2 class="section-title">Preview</h2>
+            <p class="section-lead">
+                Preview data mahasiswa yang akan di upload
+            </p>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header my-2">
+                            <h4>Tabel Preview</h4>      
+                            @php
+                            $abs = $criteria->first();
+                            @endphp                       
+                            <div class="card-header-form">
+                                <form action="/candidates-tes" method="get">
+                                    <div class="input-group">
+                                        <select class="form-control" name="kolom" id="periode" onchange="myFunction()">
+                                            <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
+                                            @foreach($abs['criteria'] as $criteriaa)
+                                            <option>{{$criteriaa}}</option>
                                             @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </select>
+                                        <input type="text" class="form-control" name="search" placeholder="Search" value="{{$searchbar[1]}}">
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="card-footer row">
-                                <div class="col-sm-12 col-md-5">
-                                    <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
-                                </div>
-                                <div class="col-sm-12 col-md-5 pagination">
-                                {!! $candidates->links("pagination::bootstrap-4") !!}
-                                </div>
-                            </div> 
                         </div>
+                        <div class="card-body">
+                            @if(session()->has('error1'))
+                                <div class="alert alert-danger alert-has-icon alert-dismissible show fade">
+                                    <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                                    <div class="alert-body">
+                                        <div class="alert-title">Data Tidak Ditemukan</div>
+                                        {{session('error1')}}
+                                    </div>
+                                    <button class="close" data-dismiss="alert">
+                                        <i class="fas fa-times fa-lg"></i>
+                                    </button>
+                                </div>
+                            @endif
+                            
+                            <div class="table-responsive">
+                                <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">periode</th>
+                                            @foreach($abs['criteria'] as $criteriaa)
+                                            <th scope="col">{{$criteriaa}}</th>
+                                            @endforeach
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($candidates as $candidate => $data)
+                                        <tr>
+                                            <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
+                                            <td>{{$data['periode']}}</td>
+                                            @foreach($abs['criteria'] as $criteriaa)
+                                            <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
+                                            @endforeach
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer row">
+                            <div class="col-sm-12 col-md-5">
+                                <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
+                            </div>
+                            <div class="col-sm-12 col-md-5 pagination">
+                            {!! $candidates->links("pagination::bootstrap-4") !!}
+                            </div>
+                        </div> 
                     </div>
                 </div>
-                    
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-right row">
-                                    <span>
-                                        <form method="POST" action="cancelprestasi">
-                                            @csrf
-                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
-                                                    <h6 class="my-0">Cancel</h6>
-                                                </button>
-                                            </form>
-                                    </span>
-                                    <form method="POST" action="saveprestasi">
+            </div>
+                
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="float-right row">
+                                <span>
+                                    <form method="POST" action="cancelprestasi">
                                         @csrf
-                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprestasi')" >
-                                            <h6 class="my-0">Save</h6>
-                                        </button>
-                                    </form>
-                                </div>                              
-                            </div>
+                                            <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
+                                                <h6 class="my-0">Cancel</h6>
+                                            </button>
+                                        </form>
+                                </span>
+                                <form method="POST" action="saveprestasi">
+                                    @csrf
+                                    <button class="btn btn-lg btn-success mx-1"  href="route('saveprestasi')" >
+                                        <h6 class="my-0">Save</h6>
+                                    </button>
+                                </form>
+                            </div>                              
                         </div>
                     </div>
                 </div>
-            @endif
-        </section>
-    </div>
+            </div>
+        @endif
+    </section>
+</div>
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
-    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+<!-- JS Libraies -->
+<script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+<script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
 
-    <!-- Page Specific JS File -->
-    <script src="../../js/table.js"></script>
-    <script src="../../js/style.js"></script>
-    <script src="../../js/import-candidate.js"></script>
-    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
+<!-- Page Specific JS File -->
+<script src="../../js/table.js"></script>
+<script src="../../js/style.js"></script>
+<script src="../../js/import-candidate.js"></script>
+<script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 

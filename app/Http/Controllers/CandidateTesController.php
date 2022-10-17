@@ -75,8 +75,10 @@ class CandidateTesController extends Controller
         return redirect('/candidates-tes');
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        $search = $request->input('search');
+        $collumn = $request->input('kolom');
         $candidates = Tes::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
@@ -88,12 +90,15 @@ class CandidateTesController extends Controller
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'candidates')->get();
-
+        if($request->all() && empty($candidates->first())){
+            Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
+        }
 
         return view('halaman.candidate-tes',[
             'type_menu' => 'tes',
             'candidates' => $candidates,
-            'criteria' => $criteria
+            'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
         ]);
     }
 

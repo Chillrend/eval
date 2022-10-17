@@ -127,7 +127,7 @@
                 </div>
             </div>
             {{-- @if($candidates->first() || $searchbar) --}}
-            @if($candidates != '')
+            @if($candidates->first() && $searchbar || $candidates != '')
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -170,6 +170,7 @@
                                         </button>
                                     </div>
                                 @endif
+                                
                                 <div class="table-responsive">
                                     <table class="table-hover table display nowrap" id="table" style="width: 100%">
                                         <thead>
