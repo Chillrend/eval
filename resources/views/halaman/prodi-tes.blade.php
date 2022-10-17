@@ -48,15 +48,11 @@
                 </div>
             </div>
             <br>
-            <div id="accordion">
+            <div id="">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header"
-                                role="button"
-                                id="collapase-accordion"
-                                data-toggle="collapse"
-                                data-target="#panel-body-3">
+                            <div class="card-header">
                                 <h4 class="my-2">Upload Data Kuota Prodi</h4>
                             </div>
                             @if(session()->has('success'))
@@ -83,10 +79,8 @@
                                 </button>
                             </div>
                             @endif
-                            <div class="accordion-body collapse"
-                                id="panel-body-3"
-                                data-parent="#accordion">
-                                <form action="/prodi-prestasi" method="post" enctype="multipart/form-data">
+                            <div>
+                                <form action="/prodi-tes" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         @csrf
                                         <div class="section-title mt-0">Pilih Periode PMB</div>
@@ -134,8 +128,7 @@
                     </div>
                 </div>
             </div>
-            @if(empty($prodi))
-            @else
+            @if($prodi->first() || $searchbar)
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data kuota program studi yang akan di upload
@@ -149,7 +142,7 @@
                                     $abs = $criteria->first();
                                 @endphp
                                 <div class="card-header-form">
-                                    <form action="/prodi-prestasi" method="get">
+                                    <form action="/prodi-tes" method="get">
                                         <div class="input-group">
                                             <select class="form-control" name="kolom" id="kolom">
                                                 <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>

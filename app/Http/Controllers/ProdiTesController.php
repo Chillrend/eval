@@ -65,8 +65,10 @@ class ProdiTesController extends Controller
         return redirect()->back();
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        $search = $request->input('search');
+        $collumn = $request->input('kolom');
         $prodi = Prodi::query()
             ->when( $this->q, function($query) {
                 return $query->where(function( $query) {
@@ -74,14 +76,20 @@ class ProdiTesController extends Controller
                         ->orWhere('ident', 'like', '%' . $this->q . '%');
                 });
             })
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'prodi')->get();
         
+        if($request->all() && empty($prodi->first())){
+            Session::flash('error1','Data Prodi Tidak Tersedia');
+        }
+
         return view('halaman.prodi-tes',[
             'type_menu' => 'tes',
             'prodi' => $prodi,
             'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
         ]);
     }
 }

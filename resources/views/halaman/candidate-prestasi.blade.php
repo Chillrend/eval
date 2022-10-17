@@ -50,11 +50,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header"
-                                role="button"
-                                id="collapase-accordion"
-                                data-toggle="collapse"
-                                data-target="#panel-body-3">
+                            <div class="card-header">
                                 <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
                                 @if(session()->has('success'))
@@ -82,9 +78,7 @@
                                 </div>
                                 @endif
 
-                            <div class="accordion-body collapse"
-                            id="panel-body-3"
-                            data-parent="#accordion">
+                            <div class="">
                             <form action="/candidates-prestasi" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf

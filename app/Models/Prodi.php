@@ -15,7 +15,7 @@ class Prodi extends Model
      *
      * @var string
      */
-    protected $table = 'prodi';
+    protected $table = 'prodi_prestasi';
     protected $connection = 'mongodb';
     
 }

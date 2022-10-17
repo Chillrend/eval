@@ -79,15 +79,15 @@ class ProdiPresController extends Controller
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
-
-        if($request->all() && empty($prodi->first())){
-            Session::flash('error1','Data Prodi Tidak Tersedia');
-        }
-    
 
         $criteria = Criteria::where('table', 'prodi')->get();
         
+        if($request->all() && empty($prodi->first())){
+            Session::flash('error1','Data Prodi Tidak Tersedia');
+        }
+
         return view('halaman.prodi-prestasi',[
             'type_menu' => 'prestasi',
             'prodi' => $prodi,

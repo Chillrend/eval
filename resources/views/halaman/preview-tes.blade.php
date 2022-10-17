@@ -25,19 +25,14 @@
             <p class="section-lead">
                 Preview data mahasiswa seleksi prestasi dan kuota program studi
             </p>
-            <div id="accordion">
+            <div id="">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header" 
-                            id="row-prestasi" role="button" 
-                            data-toggle="collapse"
-                            data-target="#panel-body-3">
+                            <div class="card-header" >
                                 <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
                             </div>
-                            <div class="accordion-body collapse" 
-                            id="row-tabel-prestasi" 
-                            data-parent="#accordion">
+                            <div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table-hover table display nowrap" id="table" style="width: 100%">
@@ -89,19 +84,14 @@
                 </div>
             </div>
 
-            {{-- <div id="accordion">
+            <div id="">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header" 
-                            id="row-prodi" role="button" 
-                            data-toggle="collapse"
-                            data-target="#panel-body-3">
+                            <div class="card-header">
                                 <h4 class="my-2">Tabel Preview Data Program Studi</h4>
                             </div>
-                            <div class="accordion-body collapse" 
-                            id="row-tabel-prodi" 
-                            data-parent="#accordion">
+                            <div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table-hover table display nowrap" id="table" style="width: 100%">
@@ -147,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </section>
     </div>
 @endsection
