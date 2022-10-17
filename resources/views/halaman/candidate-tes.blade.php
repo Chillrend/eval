@@ -38,7 +38,7 @@
                                 </button>
                                 <div class="hero-inner" id="hero-inner">
                                     <h2>Selamat Datang di Halaman Data Mahasiswa</h2>
-                                    <p class="lead">Silahkan upload data mahasiswa seleksi prestasi dengan file excel.</p>
+                                    <p class="lead">Silahkan upload data mahasiswa seleksi tes dengan file excel.</p>
                                 </div>
                             </div>
                         </div>
@@ -89,6 +89,7 @@
                                         </div>
                                         
                                         <div id="namedkey">
+                                        
                                         </div>
                                         <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" hidden>
                                     </div>
@@ -178,7 +179,6 @@
                     </div>
                 </div>
             @endif
-            </div>
         </section>
     </div>
 @endsection

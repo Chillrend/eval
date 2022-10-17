@@ -128,7 +128,7 @@
                     </div>
                 </div>
             </div>
-            @if($prodi->first() || $searchbar)
+            @if($prodi != '')
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data kuota program studi yang akan di upload

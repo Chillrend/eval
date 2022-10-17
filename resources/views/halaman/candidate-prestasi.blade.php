@@ -126,7 +126,8 @@
                     </div>
                 </div>
             </div>
-            @if($candidates->first() || $searchbar)
+            {{-- @if($candidates->first() || $searchbar) --}}
+            @if($candidates != '')
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -231,7 +232,6 @@
                     </div>
                 </div>
             @endif
-            </div>
         </section>
     </div>
 @endsection
