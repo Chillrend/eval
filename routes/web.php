@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\LoginController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ImportController;
-use App\Http\Controllers\ImportTesController;
-use App\Http\Controllers\ProdiController;
+
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdiTesController;
-use App\Http\Controllers\PrestasiController;
-use App\Http\Controllers\TesController;
+use App\Http\Controllers\PreviewTesController;
+use App\Http\Controllers\PreviewPresController;
+use App\Http\Controllers\CandidateTesController;
+use App\Http\Controllers\CandidatePresController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
