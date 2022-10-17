@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdiTesController;
+use App\Http\Controllers\ProdiPresController;
 use App\Http\Controllers\PreviewTesController;
 use App\Http\Controllers\PreviewPresController;
 use App\Http\Controllers\CandidateTesController;
