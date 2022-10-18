@@ -74,12 +74,11 @@ class CandidatePresController extends Controller
         $search = $request->input('search');
         $collumn = $request->input('kolom');
         $candidates = Prestasi::query()
-            ->when( $request->all(), function($query) use ($collumn,$search) {
+            ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'candidates')->get();
