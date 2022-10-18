@@ -9,6 +9,7 @@ use App\Models\Criteria;
 use App\Models\Prestasi;
 use App\Models\Tes;
 use App\Models\Periode;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -24,76 +25,74 @@ class CandidateTesController extends Controller
 
     public function import (Request $request) 
     {
-        // dd($request->all());
-        $array = (new CandidatesImport())->toArray($request->file('excel')); 
-        // dd($array);
-
-        $namedkey = array(
-            strtolower($request->input('col_no_daftar')), 
-            strtolower($request->input('col_nama')), 
-            strtolower($request->input('col_id_pilihan_1')), 
-            strtolower($request->input('col_id_pilihan_2')), 
-            strtolower($request->input('col_id_pilihan_3')), 
-            strtolower($request->input('col_kode_kelompok_bidang')), 
-            strtolower($request->input('col_alamat')), 
-            strtolower($request->input('col_sekolah')),
-            strtolower($request->input('col_no_telp')),
-        );
-        $periode = $request->input('periode');
-
-        $criteria = array(
-            'tahun' => $periode,
-            'criteria' => $namedkey,
-            'table' => 'candidates',
-            'kode_criteria' => strval($periode).'_candidates',
-        );
-        Criteria::insert($criteria,'kode_criteria');
-        
-
-
-        for ($i=0; $i < count($array[0]); $i++) { 
-            $filtered[] = [
-                'no_daftar'             => trim($array[0][$i][$namedkey[0]]), 
-                'nama'                  => trim($array[0][$i][$namedkey[1]]) ,
-                'id_pilihan1'           => trim($array[0][$i][$namedkey[2]]), 
-                'id_pilihan2'           => trim($array[0][$i][$namedkey[3]]), 
-                'id_pilihan3'           => trim($array[0][$i][$namedkey[4]]), 
-                'kode_kelompok_bidang'  => trim($array[0][$i][$namedkey[5]]), 
-                'alamat'                => trim($array[0][$i][$namedkey[6]]), 
-                'sekolah'               => trim($array[0][$i][$namedkey[7]]), 
-                'telp'                  => trim($array[0][$i][$namedkey[8]]),
-                'tahun_periode'         => $periode,
-            ] ;
+        if ($request->file('excel') == null ||
+            $request->input('periode') == '' ||
+            $request->input('banyakCollumn') == 0) {
+                Session::flash('error','Pastikan anda telah mengisi semua input');
+                return redirect()->back();
         }
+        try {
+            $array = (new CandidatesImport())->toArray($request->file('excel')); 
 
-        Candidates::truncate();
-        Candidates::insert($filtered,'no_daftar');
-        Tes::insert($filtered,'no_daftar');
+            $namedkey = array();
+            for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
+                $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
+            }
+            $periode = $request->input('periode');
 
+            $criteria = array(
+                'tahun' => $periode,
+                'criteria' => $namedkey,
+                'table' => 'candidates_tes',
+                'kode_criteria' => strval($periode).'_candidates_tes',
+            );
 
-        Session::flash('sukses','Data Berhasil ditambahkan');
-        return redirect('/candidates-tes');
+            for ($i=0; $i < count($array[0]); $i++) {
+                for ($ab=0; $ab < count($namedkey); $ab++) { 
+                    $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                };
+                $fil['periode'] = $periode;
+                $filtered[] = $fil;
+            }
+
+            if (Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->first()) {
+                Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->update($criteria);
+            } else {
+                Criteria::insert($criteria);
+            }
+
+            Tes::truncate();
+            Tes::insert($filtered);
+
+            Session::flash('sukses','Data Berhasil ditambahkan');
+            return redirect('/candidates-tes');
+        } catch (Exception $error) {
+            Session::flash('error', $error);
+            return redirect()->back();        }
     }
 
-    public function render()
+    public function render(Request $request)
     {
+
+        $search = $request->input('search');
+        $collumn = $request->input('kolom');
         $candidates = Tes::query()
-            ->when( $this->q, function($query) {
-                return $query->where(function( $query) {
-                    $query->where('name', 'like', '%'.$this->q . '%')
-                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+            ->when( $search && $collumn, function($query) use ($collumn,$search){
+                return $query->where(function($query) use ($collumn,$search) {
+                    $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'candidates')->get();
+        $criteria = Criteria::where('table', 'candidates_tes')->get();
 
+        // dd($candidates);
 
         return view('halaman.candidate-tes',[
             'type_menu' => 'tes',
             'candidates' => $candidates,
-            'criteria' => $criteria
+            'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
         ]);
     }
 
