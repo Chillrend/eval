@@ -134,8 +134,7 @@
                     </div>
                 </div>
             </div>
-            @if(empty($prodi))
-            @else
+            @if($prodi->first() || $searchbar)
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data kuota program studi yang akan di upload
@@ -149,7 +148,7 @@
                                     $abs = $criteria->first();
                                 @endphp
                                 <div class="card-header-form">
-                                    <form action="/prodi-prestasi" method="get">
+                                    <form action="/prodi-tes" method="get">
                                         <div class="input-group">
                                             <select class="form-control" name="kolom" id="kolom">
                                                 <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>

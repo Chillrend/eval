@@ -16,23 +16,19 @@ class ProdiTesController extends Controller
 
     public function import (Request $request) 
     {
+        if ($request->file('excel') == null ||
+        $request->input('periode') == '' ||
+        $request->input('banyakCollumn') == 0) {
+            Session::flash('error','Pastikan anda telah mengisi semua input');
+            return redirect()->back();
+        }
+
         $array = (new ProdiImport())->toArray($request->file('excel'));
 
         $namedkey = array();
         for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
             $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
         }
-
-        // $namedkey = array(
-        //     strtolower($request->input('col_id_prodi')), 
-        //     strtolower($request->input('col_jurusan')), 
-        //     strtolower($request->input('col_id_politeknik')), 
-        //     strtolower($request->input('col_politeknik')), 
-        //     strtolower($request->input('col_id_kelompok_bidang')), 
-        //     strtolower($request->input('col_kelompok_bidang')), 
-        //     strtolower($request->input('col_Quota')), 
-        //     strtolower($request->input('col_tertampung'))
-        // );
 
         $periode = $request->input('periode');
 
@@ -65,13 +61,14 @@ class ProdiTesController extends Controller
         return redirect()->back();
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        $search = $request->input('search');
+        $collumn = $request->input('kolom');
         $prodi = Prodi::query()
-            ->when( $this->q, function($query) {
-                return $query->where(function( $query) {
-                    $query->where('name', 'like', '%'.$this->q . '%')
-                        ->orWhere('ident', 'like', '%' . $this->q . '%');
+            ->when( $search && $collumn, function($query) use ($collumn,$search) {
+                return $query->where(function($query) use ($collumn,$search) {
+                    $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
             ->paginate(10);
@@ -82,6 +79,7 @@ class ProdiTesController extends Controller
             'type_menu' => 'tes',
             'prodi' => $prodi,
             'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
         ]);
     }
 }
