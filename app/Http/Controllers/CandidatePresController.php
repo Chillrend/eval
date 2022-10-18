@@ -100,6 +100,7 @@ class CandidatePresController extends Controller
         Prestasi::truncate();
         Candidates::truncate();
         Criteria::truncate();
+        Tempory_Prestasi::truncate();
         return redirect('/candidates-prestasi');
     }
 

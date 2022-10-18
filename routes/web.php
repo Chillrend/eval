@@ -84,6 +84,13 @@ Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
 
 
 
+//Mandiri
+Route::get('seleksi-mandiri', function () {
+    return view('halaman.seleksi-mandiri', ['type_menu' => 'seleksi-mandiri']);
+})->name('seleksi-mandiri');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | INI TEMPLATE ROUTES
