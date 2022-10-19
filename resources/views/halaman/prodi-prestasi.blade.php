@@ -10,7 +10,8 @@
         href="assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
         href="assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css"> --}}
-
+        <link rel="stylesheet"
+        href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 
@@ -48,20 +49,14 @@
                 </div>
             </div>
             <br>
-            <div id="accordion">
+            <div id="">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header"
-                                role="button"
-                                id="collapase-accordion"
-                                data-toggle="collapse"
-                                data-target="#panel-body-3">
+                            <div class="card-header">
                                 <h4 class="my-2">Upload Data Kuota Prodi</h4>
                             </div>
-                            <div class="accordion-body collapse"
-                                id="panel-body-3"
-                                data-parent="#accordion">
+                            <div>
                                 <form action="/prodi-prestasi" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         @csrf
@@ -221,10 +216,13 @@
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script> 
+    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('js/stisla.js') }}"></script>
+    <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>

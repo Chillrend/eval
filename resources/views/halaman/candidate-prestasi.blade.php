@@ -10,7 +10,8 @@
         href="assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
         href="assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css"> --}}
-
+    <link rel="stylesheet"
+        href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 @endpush
@@ -50,11 +51,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header"
-                                role="button"
-                                id="collapase-accordion"
-                                data-toggle="collapse"
-                                data-target="#panel-body-3">
+                            <div class="card-header">
                                 <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
                                 @if(session()->has('success'))
@@ -82,9 +79,7 @@
                                 </div>
                                 @endif
 
-                            <div class="accordion-body collapse"
-                            id="panel-body-3"
-                            data-parent="#accordion">
+                            <div class="">
                             <form action="/candidates-prestasi" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
@@ -132,7 +127,10 @@
                     </div>
                 </div>
             </div>
-            @if($candidates->first() || $searchbar)
+            {{-- @if($candidates != '') --}}
+            {{-- @if($candidates->first() && $searchbar || $candidates != '') --}}
+            {{-- @if($candidates->first() || $searchbar ) --}}
+            @if($candidates != '' || $candidates->first() && $searchbar)
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -146,18 +144,19 @@
                                 $abs = $criteria->first();
                                 @endphp                       
                                 <div class="card-header-form">
-                                    <form action="/candidates-prestasi" method="get">
+                                    <form  action="/candidates-prestasi" method="get">
                                         <div class="input-group">
-                                            <select class="form-control" name="kolom" id="periode" onchange="myFunction()">
+                                            <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
                                                 <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
                                                 @foreach($abs['criteria'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
                                                 @endforeach
                                             </select>
+                                            &nbsp; &nbsp;
                                             <input type="text" class="form-control" name="search" placeholder="Search" value="{{$searchbar[1]}}">
                                             <div class="input-group-btn">
                                                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                            </div>
+                                            </div>       
                                         </div>
                                     </form>
                                 </div>
@@ -175,6 +174,7 @@
                                         </button>
                                     </div>
                                 @endif
+                                
                                 <div class="table-responsive">
                                     <table class="table-hover table display nowrap" id="table" style="width: 100%">
                                         <thead>
@@ -237,7 +237,6 @@
                     </div>
                 </div>
             @endif
-            </div>
         </section>
     </div>
 @endsection
@@ -248,6 +247,9 @@
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('js/stisla.js') }}"></script>
+    <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 
     <!-- Page Specific JS File -->

@@ -10,7 +10,8 @@
         href="assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
         href="assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css"> --}}
-
+        <link rel="stylesheet"
+        href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 @endpush
@@ -38,7 +39,7 @@
                                 </button>
                                 <div class="hero-inner" id="hero-inner">
                                     <h2>Selamat Datang di Halaman Data Mahasiswa</h2>
-                                    <p class="lead">Silahkan upload data mahasiswa seleksi prestasi dengan file excel.</p>
+                                    <p class="lead">Silahkan upload data mahasiswa seleksi tes dengan file excel.</p>
                                 </div>
                             </div>
                         </div>
@@ -46,15 +47,11 @@
                 </div>
             </div>
             <br>
-            <div id="accordion">
+            <div id="">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header accordion-header"
-                                role="button"
-                                id="collapase-accordion"
-                                data-toggle="collapse"
-                                data-target="#panel-body-3">
+                            <div class="card-header">
                                 <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
                             @if(session()->has('success'))
@@ -119,6 +116,7 @@
                                         </div>
                                         
                                         <div id="namedkey">
+                                        
                                         </div>
                                         <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" hidden>
                                     </div>
@@ -230,17 +228,20 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
-    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+ <!-- JS Libraies -->
+ <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+ <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+ <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+ <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+ <script src="{{ asset('js/stisla.js') }}"></script>
+ <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 
-    <!-- Page Specific JS File -->
-    <script src="../../js/table.js"></script>
-    <script src="../../js/style.js"></script>
-    <script src="../../js/import-candidate.js"></script>
-    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
+<!-- Page Specific JS File -->
+<script src="../../js/table.js"></script>
+<script src="../../js/style.js"></script>
+<script src="../../js/import-candidate.js"></script>
+<script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 

@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\LoginController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CandidatePresController;
-use App\Http\Controllers\ProdiPresController;
-use App\Http\Controllers\PreviewPresController;
-
-use App\Http\Controllers\CandidateTesController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdiTesController;
+use App\Http\Controllers\ProdiPresController;
 use App\Http\Controllers\PreviewTesController;
+use App\Http\Controllers\PreviewPresController;
+use App\Http\Controllers\CandidateTesController;
+use App\Http\Controllers\CandidatePresController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,6 +79,15 @@ Route::post('/prodi-tes', [ProdiTesController::class,'import']);
 
 Route::get('/preview-tes', [PreviewTesController::class,'render']);
 
+Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
+Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
+
+
+
+//Mandiri
+Route::get('seleksi-mandiri', function () {
+    return view('halaman.seleksi-mandiri', ['type_menu' => 'seleksi-mandiri']);
+})->name('seleksi-mandiri');
 
 
 

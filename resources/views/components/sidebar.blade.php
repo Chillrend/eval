@@ -59,9 +59,9 @@
                         </li>             
                     </ul>    
                 </li>
-            <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
+            <li class="{{ Request::is('seleksi-mandiri') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="far fa-sharp fa-solid fa-file-lines"></i><span>Seleksi Mandiri</span></a>
+                    href="{{ url('seleksi-mandiri') }}"><i class="far fa-sharp fa-solid fa-file-lines"></i><span>Seleksi Mandiri</span></a>
             </li>
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="https://getstisla.com/docs"

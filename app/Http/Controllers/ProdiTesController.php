@@ -71,10 +71,15 @@ class ProdiTesController extends Controller
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
         $criteria = Criteria::where('table', 'prodi')->get();
         
+        if($request->all() && empty($prodi->first())){
+            Session::flash('error1','Data Prodi Tidak Tersedia');
+        }
+
         return view('halaman.prodi-tes',[
             'type_menu' => 'tes',
             'prodi' => $prodi,
