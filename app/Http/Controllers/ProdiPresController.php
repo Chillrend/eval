@@ -39,8 +39,8 @@ class ProdiPresController extends Controller
             $criteria = array(
                 'tahun' => $periode,
                 'criteria' => $namedkey,
-                'table' => 'prodi',
-                'kode_criteria' => strval($periode).'_prodi',
+                'table' => 'prodi_pres',
+                'kode_criteria' => strval($periode).'_prodi_pres',
             );
     
             for ($i=0; $i < count($array[0]); $i++) {
@@ -52,8 +52,8 @@ class ProdiPresController extends Controller
                 $filtered[] = $fil;
             }
     
-            if (Criteria::where('kode_criteria',strval($periode).'_prodi')->first()) {
-                Criteria::where('kode_criteria',strval($periode).'_prodi')->update($criteria);
+            if (Criteria::where('kode_criteria',strval($periode).'_prodi_pres')->first()) {
+                Criteria::where('kode_criteria',strval($periode).'_prodi_pres')->update($criteria);
             } else {
                 Criteria::insert($criteria);
             }
@@ -82,7 +82,7 @@ class ProdiPresController extends Controller
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'prodi')->get();
+        $criteria = Criteria::where('table', 'prodi_pres')->get();
         
         if($request->all() && empty($prodi->first())){
             Session::flash('error1','Data Prodi Tidak Tersedia');

@@ -36,10 +36,10 @@ class ProdiTesController extends Controller
             'tahun' => $periode,
             'criteria' => $namedkey,
             'table' => 'prodi',
-            'kode_criteria' => strval($periode).'_prodi',
+            'kode_criteria' => strval($periode).'prodi_tes',
         );
-        if (Criteria::where('kode_criteria',strval($periode).'_prodi')->first()) {
-            Criteria::where('kode_criteria',strval($periode).'_prodi')->update($criteria);
+        if (Criteria::where('kode_criteria',strval($periode).'_prodi_tes')->first()) {
+            Criteria::where('kode_criteria',strval($periode).'_prodi_tes')->update($criteria);
         } else {
             Criteria::insert($criteria);
         }
@@ -74,7 +74,7 @@ class ProdiTesController extends Controller
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'prodi')->get();
+        $criteria = Criteria::where('table', 'prodi_tes')->get();
         
         if($request->all() && empty($prodi->first())){
             Session::flash('error1','Data Prodi Tidak Tersedia');

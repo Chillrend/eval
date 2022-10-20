@@ -40,8 +40,8 @@ class CandidatePresController extends Controller
             $criteria = array(
                 'tahun' => $periode,
                 'criteria' => $namedkey,
-                'table' => 'candidates',
-                'kode_criteria' => strval($periode).'_candidates',
+                'table' => 'candidates_pres',
+                'kode_criteria' => strval($periode).'_candidates_pres',
             );     
 
             for ($i=0; $i < count($array[0]); $i++) {
@@ -52,8 +52,8 @@ class CandidatePresController extends Controller
                 $filtered[] = $fil;
             }
 
-            if (Criteria::where('kode_criteria',strval($periode).'_candidates')->first()) {
-                Criteria::where('kode_criteria',strval($periode).'_candidates')->update($criteria);
+            if (Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->first()) {
+                Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->update($criteria);
             } else {
                 Criteria::insert($criteria);
             }
@@ -81,7 +81,7 @@ class CandidatePresController extends Controller
             })
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'candidates')->get();
+        $criteria = Criteria::where('table', 'candidates_pres')->get();
         
         if($request->all() && empty($candidates->first())){
             Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
