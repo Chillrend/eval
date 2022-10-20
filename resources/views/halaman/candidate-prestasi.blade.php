@@ -130,7 +130,7 @@
             {{-- @if($candidates != '') --}}
             {{-- @if($candidates->first() && $searchbar || $candidates != '') --}}
             {{-- @if($candidates->first() || $searchbar ) --}}
-            @if($candidates != '' || $candidates->first() && $searchbar)
+            @if($candidates->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
