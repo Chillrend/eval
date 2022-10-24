@@ -4,25 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
-use App\Models\Candidates;
+use App\Models\CandidateTes;
 use App\Models\Criteria;
-use App\Models\Prestasi;
-use App\Models\Tes;
-use App\Models\Periode;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Maatwebsite\Fascades\Excel;
-use Jenssegers\Mongodb\Eloquent\Model;
 
 class CandidateTesController extends Controller 
 {
-    public $q;
-    public $sortBy = 'no_daftar';
-    public $sortAsc = true;
-
-
     public function import (Request $request) 
     {
         if ($request->file('excel') == null ||
@@ -52,17 +40,18 @@ class CandidateTesController extends Controller
                     $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
                 };
                 $fil['periode'] = $periode;
+                $fil['status'] = 0;
                 $filtered[] = $fil;
             }
 
-            if (Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->first()) {
-                Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->update($criteria);
+            if (Criteria::query()->where('kode_criteria',strval($periode).'_candidates_tes')->exists()) {
+                Criteria::query()->where('kode_criteria',strval($periode).'_candidates_tes')->update($criteria);
             } else {
                 Criteria::insert($criteria);
             }
 
-            Tes::truncate();
-            Tes::insert($filtered);
+            CandidateTes::query()->where('status',0)->delete();
+            CandidateTes::insert($filtered);
 
             Session::flash('sukses','Data Berhasil ditambahkan');
             return redirect('/candidates-tes');
@@ -76,7 +65,7 @@ class CandidateTesController extends Controller
 
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $candidates = Tes::query()
+        $candidates = CandidateTes::query()->where('status',0)
             ->when( $search && $collumn, function($query) use ($collumn,$search){
                 return $query->where(function($query) use ($collumn,$search) {
                     $query->where($collumn, 'like', '%'.$search . '%');
@@ -84,9 +73,7 @@ class CandidateTesController extends Controller
             })
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'candidates_tes')->get();
-
-        // dd($candidates);
+        $criteria = Criteria::query()->where('table', 'candidates_tes')->get();
 
         return view('halaman.candidate-tes',[
             'type_menu' => 'tes',
@@ -96,10 +83,14 @@ class CandidateTesController extends Controller
         ]);
     }
 
-    public function canceltes(){
-        Tes::truncate();
-        Candidates::truncate();
-        Criteria::truncate();
+    public function cancel(){
+        CandidateTes::query()->where('status',0)->delete();
         return redirect('/candidates-tes');
+    }
+
+    public function save(){
+        CandidateTes::query()->where('status',1)->delete();
+        CandidateTes::query()->where('status',0)->update(['status' => 1]);
+        return redirect('/preview-tes');
     }
 }

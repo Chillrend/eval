@@ -42,44 +42,32 @@ Route::middleware(['auth', 'admin'])->group(function () {
     
     // Prestasi
     Route::get('/candidates-prestasi', [CandidatePresController::class,'render']);
-
     Route::post('/candidates-prestasi', [CandidatePresController::class,'import']);
-
-    Route::post('cancelprestasi', [CandidatePresController::class,'cancelprestasi'])->name('cancelprestasi');
-
-    Route::post('saveprestasi', [CandidatePresController::class,'saveprestasi'])->name('saveprestasi');
+    Route::post('/cancel-candidates-prestasi', [CandidatePresController::class,'cancelprestasi'])->name('cancelCanPres');
+    Route::post('/save-candidates-prestasi', [CandidatePresController::class,'saveprestasi'])->name('saveCanPres');
 
 
     Route::get('/prodi-prestasi', [ProdiPresController::class,'render']);
-
     Route::post('/prodi-prestasi', [ProdiPresController::class,'import']);
-
-    Route::post('cancelprodi', [ProdiPresController::class,'cancelprodi'])->name('cancelprodi');
-
-    Route::post('saveprodi', [ProdiPresController::class,'saveprodi'])->name('saveprodi');
-
+    Route::post('/cancel-prodi-prestasi', [ProdiPresController::class,'cancel'])->name('cancelProPres');
+    Route::post('/save-prodi-prestasi', [ProdiPresController::class,'save'])->name('saveProPres');
 
     Route::get('/preview-prestasi', [PreviewPresController::class,'render']);
 
 
-
     //Tes
     Route::get('/candidates-tes', [CandidateTesController::class,'render']);
-
     Route::post('/candidates-tes', [CandidateTesController::class,'import']);
-
-    Route::post('canceltes', [CandidateTesController::class,'canceltes'])->name('canceltes');
-
+    Route::post('/cancel-candidates-tes', [CandidateTesController::class,'cancel'])->name('cancelCanTes');
+    Route::post('/save-candidates-tes', [CandidateTesController::class,'save'])->name('saveCanTes');
 
     Route::get('/prodi-tes', [ProdiTesController::class,'render']);
-
     Route::post('/prodi-tes', [ProdiTesController::class,'import']);
-
+    Route::post('/cancel-prodi-tes', [ProdiTesController::class,'cancel'])->name('cancelProTes');
+    Route::post('/save-prodi-tes', [ProdiTesController::class,'save'])->name('saveProTes');
 
     Route::get('/preview-tes', [PreviewTesController::class,'render']);
 
-    Route::get('/import-prodi-tes', [ProdiTesController::class,'render']);
-    Route::post('/import-prodi-tes', [ProdiTesController::class,'import']);
 
 
 

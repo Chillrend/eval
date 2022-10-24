@@ -218,16 +218,16 @@
                             <div class="card-body">
                                 <div class="float-right row">
                                     <span>
-                                        <form method="POST" action="cancelprestasi">
+                                        <form method="POST" action="cancelCanPres">
                                             @csrf
-                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
+                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelCanPres')">
                                                     <h6 class="my-0">Cancel</h6>
                                                 </button>
                                             </form>
                                     </span>
-                                    <form method="POST" action="saveprestasi">
+                                    <form method="POST" action="saveCanPres">
                                         @csrf
-                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprestasi')" >
+                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveCanPres')" >
                                             <h6 class="my-0">Save</h6>
                                         </button>
                                     </form>

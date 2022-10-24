@@ -7,15 +7,13 @@ use App\Models\Criteria;
 use App\Models\Prodi;
 use App\Models\Tempory_Prodi_Prestasi;
 use App\Models\Prodi_Prestasi;
+use App\Models\ProdiPres;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class ProdiPresController extends Controller
 {
-    public $q;
-    public $sortBy = 'no_daftar';
-    public $sortAsc = true;
 
     public function import (Request $request) 
     {
@@ -49,6 +47,7 @@ class ProdiPresController extends Controller
                     $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
                 };
                 $fil['periode'] = $periode;
+                $fil['status'] = 0;
                 $filtered[] = $fil;
             }
     
@@ -58,8 +57,8 @@ class ProdiPresController extends Controller
                 Criteria::insert($criteria);
             }
     
-            Prodi::truncate();
-            Prodi::insert($filtered);
+            ProdiPres::query()->where('status',0)->delete();
+            ProdiPres::insert($filtered);
             
             Session::flash('sukses','Data Calon Mahasiswa Berhasil diimport');
             return redirect()->back();
@@ -73,16 +72,15 @@ class ProdiPresController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $prodi = Prodi::query()
+        $prodi = ProdiPres::query()->where('status',0)
             ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'prodi_pres')->get();
+        $criteria = Criteria::query()->where('table', 'prodi_pres')->get();
         
         if($request->all() && empty($prodi->first())){
             Session::flash('error1','Data Prodi Tidak Tersedia');
@@ -96,16 +94,14 @@ class ProdiPresController extends Controller
         ]);
     }
 
-    public function cancelprodi(){
-        Tempory_Prodi_Prestasi::truncate();
-        Prodi::truncate();
-        Criteria::truncate();
-        Prodi_Prestasi::truncate();
-        return redirect('/candidates-prestasi');
+    public function cancel(){
+        ProdiPres::query()->where('status',0)->delete();
+        return redirect('/prodi-prestasi');
     }
 
-    public function saveprodi(){
-        Tempory_Prodi_Prestasi::truncate();
+    public function save(){
+        ProdiPres::query()->where('status',1)->delete();
+        ProdiPres::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-prestasi');
     }
 }

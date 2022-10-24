@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
+use App\Models\CandidatePres;
 use App\Models\Candidates;
 use App\Models\Criteria;
 use App\Models\Prestasi;
@@ -49,17 +50,18 @@ class CandidatePresController extends Controller
                     $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
                 };
                 $fil['periode'] = $periode;
+                $fil['status'] = 0;
                 $filtered[] = $fil;
             }
 
-            if (Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->first()) {
-                Criteria::where('kode_criteria',strval($periode).'_candidates_tes')->update($criteria);
+            if (Criteria::query()->where('kode_criteria',strval($periode).'_candidates_pres')->exists()) {
+                Criteria::query()->where('kode_criteria',strval($periode).'_candidates_pres')->update($criteria);
             } else {
                 Criteria::insert($criteria);
             }
 
-            Prestasi::truncate();
-            Prestasi::insert($filtered);
+            CandidatePres::query()->where('status',0)->delete();
+            CandidatePres::insert($filtered);
 
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
             return redirect()->back();
@@ -73,7 +75,7 @@ class CandidatePresController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $candidates = Prestasi::query()
+        $candidates = CandidatePres::query()->where('status',0)
             ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
                     $query->where($collumn, 'like', '%'.$search . '%');
@@ -96,15 +98,13 @@ class CandidatePresController extends Controller
     }
 
     public function cancelprestasi(){
-        Prestasi::truncate();
-        Candidates::truncate();
-        Criteria::truncate();
-        Tempory_Prestasi::truncate();
+        CandidatePres::query()->where('status',0)->delete();
         return redirect('/candidates-prestasi');
     }
 
     public function saveprestasi(){
-        Tempory_Prestasi::truncate();
+        CandidatePres::query()->where('status',1)->delete();
+        CandidatePres::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-prestasi');
     }
 }

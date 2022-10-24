@@ -203,16 +203,16 @@
                             <div class="card-body">
                                 <div class="float-right row">
                                     <span>
-                                        <form method="POST" action="cancelprestasi">
+                                        <form method="POST" action="{{route('cancelCanTes')}}">
                                             @csrf
-                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprestasi')">
+                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelProPres')">
                                                     <h6 class="my-0">Cancel</h6>
                                                 </button>
                                             </form>
                                     </span>
-                                    <form method="POST" action="saveprestasi">
+                                    <form method="POST" action="{{route('saveCanTes')}}">
                                         @csrf
-                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprestasi')" >
+                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveProPres')" >
                                             <h6 class="my-0">Save</h6>
                                         </button>
                                     </form>

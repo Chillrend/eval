@@ -214,13 +214,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="text-right">
-                                    <button class="btn btn-lg btn-warning mx-1" id="swal-6">
-                                        <h6 class="my-0">Cancel</h6>
-                                    </button>
-                                    <button class="btn btn-lg btn-success mx-1" id="swal-6">
-                                        <h6 class="my-0">Save</h6>
-                                    </button>
+                                <div class="float-right row">
+                                    <form action="{{route('cancelProTes')}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-lg btn-warning mx-1" id="swal-6">
+                                            <h6 class="my-0">Cancel</h6>
+                                        </button>
+                                    </form>
+                                    <form action="{{route('saveProTes')}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-lg btn-success mx-1" id="swal-6">
+                                            <h6 class="my-0">Save</h6>
+                                        </button>
+                                    </form>
                                 </div>                                
                             </div>
                         </div>

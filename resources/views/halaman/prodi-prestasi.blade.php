@@ -56,6 +56,30 @@
                             <div class="card-header">
                                 <h4 class="my-2">Upload Data Kuota Prodi</h4>
                             </div>
+                            @if(session()->has('success'))
+                            <div class="alert alert-success alert-has-icon alert-dismissible show fade">
+                                <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                <div class="alert-body">
+                                    <div class="alert-title">Impor Berhasil</div>
+                                    {{session('success')}}
+                                </div>
+                                <button class="close" data-dismiss="alert">
+                                    <i class="fas fa-times fa-lg"></i>
+                                </button>
+                            </div>
+                            @endif
+                            @if(session()->has('error'))
+                            <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade">
+                                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                                <div class="alert-body">
+                                    <div class="alert-title">Impor Gagal</div>
+                                    {{session('error')}}
+                                </div>
+                                <button class="close" data-dismiss="alert">
+                                    <i class="fas fa-times fa-lg"></i>
+                                </button>
+                            </div>
+                            @endif
                             <div>
                                 <form action="/prodi-prestasi" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
@@ -190,17 +214,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-right row">
-                                    <span>
-                                        <form method="POST" action="cancelprodi">
-                                            @csrf
-                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprodi')">
-                                                    <h6 class="my-0">Cancel</h6>
-                                                </button>
-                                            </form>
-                                    </span>
-                                    <form method="POST" action="saveprodi">
+                                    <form method="POST" action="{{route('cancelProPres')}}">
                                         @csrf
-                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprodi')" >
+                                            <button class="btn btn-lg btn-warning mx-1" href="route('cancelProPres')">
+                                                <h6 class="my-0">Cancel</h6>
+                                            </button>
+                                        </form>
+                                    <form method="POST" action="{{route('saveProPres')}}">
+                                        @csrf
+                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveProPres')" >
                                             <h6 class="my-0">Save</h6>
                                         </button>
                                     </form>
