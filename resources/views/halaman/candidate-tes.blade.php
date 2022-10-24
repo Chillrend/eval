@@ -65,8 +65,8 @@
                                         <i class="fas fa-times fa-lg"></i>
                                     </button>
                                 </div>
-                                @endif
-                                @if(session()->has('error'))
+                            @endif
+                            @if(session()->has('error'))
                                 <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade">
                                     <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
                                     <div class="alert-body">
@@ -78,9 +78,7 @@
                                     </button>
                                 </div>
                             @endif
-                            <div class="accordion-body collapse"
-                            id="panel-body-3"
-                            data-parent="#accordion">
+
                             <form action="/candidates-tes" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
@@ -123,8 +121,7 @@
                                     <div class="card-footer text-right">
                                         <input type="submit" class="btn btn-primary"/>
                                     </div>
-                                </form>
-                            </div>    
+                            </form>
                         </div>
                     </div>
                 </div>

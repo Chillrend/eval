@@ -74,11 +74,18 @@ class ProdiTesController extends Controller
             ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
             ->paginate(10);
 
-        $criteria = Criteria::where('table', 'prodi_tes')->get();
+        $criteria = Criteria::query()->where('table', 'prodi_tes')->get();
         
         if($request->all() && empty($prodi->first())){
             Session::flash('error1','Data Prodi Tidak Tersedia');
         }
+
+        dd([
+            'type_menu' => 'tes',
+            'prodi' => $prodi,
+            'criteria' => $criteria,
+            'searchbar' => [$collumn, $search],
+        ]);
 
         return view('halaman.prodi-tes',[
             'type_menu' => 'tes',
