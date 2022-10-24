@@ -146,8 +146,8 @@
                                 <div class="card-header-form">
                                     <form  action="/candidates-prestasi" method="get">
                                         <div class="input-group">
-                                            <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
-                                                <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
+                                            <select class="btn custom-select" name="kolom" id="periode">
+                                                <option selected hidden>Pilih Kolom</option>
                                                 @foreach($abs['criteria'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
                                                 @endforeach

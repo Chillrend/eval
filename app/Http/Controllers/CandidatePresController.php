@@ -22,6 +22,7 @@ class CandidatePresController extends Controller
 
     public function import (Request $request) 
     {
+        dd(request());
         if ($request->file('excel') == null ||
             $request->input('periode') == '' ||
             $request->input('banyakCollumn') == 0) {
@@ -83,8 +84,13 @@ class CandidatePresController extends Controller
             })
             ->paginate(10);
 
+            $criteria = Criteria::where('table', 'candidates_pres')->where('tahun','2022')->first();
+            // $list = $criteria->criteria;
+            session()->put('list', $criteria->criteria);
+            
+
         $criteria = Criteria::where('table', 'candidates_pres')->get();
-        
+
         if($request->all() && empty($candidates->first())){
             Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
         }
@@ -106,5 +112,29 @@ class CandidatePresController extends Controller
         CandidatePres::query()->where('status',1)->delete();
         CandidatePres::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-prestasi');
+    }
+
+    public function criteria(Request $request)
+    {
+        $criteria = Criteria::where('table', 'candidates_pres')->where('tahun', $request->input('tahun'))->first();
+        $list = $criteria->criteria;
+        return response()->json([
+            'data'=>$list,
+        ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->input('id');
+        $list = $request->input('list');
+        // explode('"', $list);
+
+        // $list = json_encode($list);
+        // dd($request->all());
+        // unset($list[$id]);
+        // $list = array_values($list);
+        return response()->json([
+            'data'=>$list,
+        ]);
     }
 }

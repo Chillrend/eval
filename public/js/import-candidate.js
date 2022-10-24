@@ -3,8 +3,41 @@ var collumn = [];
 // document.getElementById("addcollumn").addEventListener("click", addCollumn);
 
 function deleteCollumn(id){
-  collumn = collumn.splice(id,0);
-  addCollumn();
+  console.log(JSON.stringify(collumn));
+  var formdata = new FormData();
+  formdata.append("id",id)
+  formdata.append("list",JSON.stringify(collumn))
+  var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:8000/api/del-criteria-candidates-pres", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      if(result != null) {
+        console.log(result);
+
+          var coba = JSON.parse(result)
+          console.log(coba['data']);
+          // var criteria = coba['data']
+          // $("#namedkey").empty();
+          // for (let index = 0; index < criteria.length; index++) {
+          //   let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+criteria[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
+          //   $("#namedkey").append(tag);
+          // }
+      }
+      else {
+        alert('empty')
+          
+      }
+      
+    }
+      )
+    .catch(error => {
+      alert(error)
+    });
 }
 
 function addCollumn() {
@@ -32,44 +65,37 @@ function addCollumn() {
 
 }
 
-// function myFunction(){
-//     var requestOptions = {
-//       method: 'POST',
-//       redirect: 'follow'
-//     };
-//     var taun = document.getElementById("periode").value;
-    
-//     fetch("http://localhost:8000/api/get-criteria-candidates/?tahun=" + taun, requestOptions)
-//       .then(response => response.text())
-//       .then(result => {
-//         if(result != null) {
-//             var coba = JSON.parse(result)
-//             document.getElementById("col_no_daftar").value = coba.criteria[0];
-//             document.getElementById("col_nama").value = coba.criteria[1];
-//             document.getElementById("col_id_pilihan_1").value = coba.criteria[2];
-//             document.getElementById("col_id_pilihan_2").value = coba.criteria[3];
-//             document.getElementById("col_id_pilihan_3").value = coba.criteria[4];
-//             document.getElementById("col_kode_kelompok_bidang").value = coba.criteria[5];
-//             document.getElementById("col_alamat").value = coba.criteria[6];
-//             document.getElementById("col_sekolah").value = coba.criteria[7];
-//             document.getElementById("col_no_telp").value = coba.criteria[9];
-//         }
-//         else {
-            
-//         }
-        
-//       }
-//         )
-//       .catch(error => {
-//         document.getElementById("col_no_daftar").value = "";
-//         document.getElementById("col_nama").value = "";
-//         document.getElementById("col_id_pilihan_1").value = "";
-//         document.getElementById("col_id_pilihan_2").value = "";
-//         document.getElementById("col_id_pilihan_3").value = "";
-//         document.getElementById("col_kode_kelompok_bidang").value = "";
-//         document.getElementById("col_alamat").value = "";
-//         document.getElementById("col_sekolah").value = "";
-//         document.getElementById("col_no_telp").value = "";
-//       });
+function myFunction(){
 
-// }
+  var formdata = new FormData();
+  formdata.append("tahun",document.getElementById("periode").value)
+  var requestOptions = {
+    method: 'POST',
+    body:formdata,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:8000/api/get-criteria-candidates-pres/", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      if(result != null) {
+          var coba = JSON.parse(result)
+          collumn = coba['data']
+          $("#namedkey").empty();
+          for (let index = 0; index < collumn.length; index++) {
+            let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
+            $("#namedkey").append(tag);
+          }
+      }
+      else {
+        alert('empty')
+          
+      }
+      
+    }
+      )
+    .catch(error => {
+      alert(error)
+    });
+
+}
