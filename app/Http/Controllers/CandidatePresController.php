@@ -107,4 +107,21 @@ class CandidatePresController extends Controller
         CandidatePres::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-prestasi');
     }
+
+    public function criteria()
+    {
+        $criteria = Criteria::select('criteria')->where('table', 'candidates_pres')->where('tahun', request('tahun'))->first();
+        session()->put('list', $criteria);
+        return response()->json([
+            'criteria'=>$criteria->criteria,
+        ]);
+    }
+
+    public function delcriteria()
+    {
+        $criteria = session('list');
+        return response()->json([
+            'criteria'=>$criteria,
+        ]);    
+    }
 }

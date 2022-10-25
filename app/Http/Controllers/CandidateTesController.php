@@ -93,4 +93,13 @@ class CandidateTesController extends Controller
         CandidateTes::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-tes');
     }
+
+    public function criteria()
+    {
+        $criteria = Criteria::select('criteria')->where('table', 'candidates_tes')->where('tahun', request('tahun'))->first();
+        session()->put('list', $criteria);
+        return response()->json([
+            'criteria'=>$criteria->criteria,
+        ]);
+    }
 }
