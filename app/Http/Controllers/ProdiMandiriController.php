@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Imports\ProdiImport;
 use App\Models\Criteria;
-use App\Models\Tempory_Prodi_Mandiri;
-use App\Models\Prodi_Mandiri;
+use App\Models\ProdiMand;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class ProdiMandiriController extends Controller
 {
-    public $q;
-    public $sortBy = 'no_daftar';
-    public $sortAsc = true;
 
     public function import (Request $request) 
     {
@@ -38,8 +34,8 @@ class ProdiMandiriController extends Controller
             $criteria = array(
                 'tahun' => $periode,
                 'criteria' => $namedkey,
-                'table' => 'prodi',
-                'kode_criteria' => strval($periode).'_prodi',
+                'table' => 'prodi_mand',
+                'kode_criteria' => strval($periode).'_prodi_mand',
             );
     
             for ($i=0; $i < count($array[0]); $i++) {
@@ -48,17 +44,18 @@ class ProdiMandiriController extends Controller
                     $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
                 };
                 $fil['periode'] = $periode;
+                $fil['status'] = 0;
                 $filtered[] = $fil;
             }
     
-            if (Criteria::where('kode_criteria',strval($periode).'_prodi')->first()) {
-                Criteria::where('kode_criteria',strval($periode).'_prodi')->update($criteria);
+            if (Criteria::where('kode_criteria',strval($periode).'_prodi_mand')->first()) {
+                Criteria::where('kode_criteria',strval($periode).'_prodi_mand')->update($criteria);
             } else {
                 Criteria::insert($criteria);
             }
     
-            Prodi_Mandiri::truncate();
-            Prodi_Mandiri::insert($filtered);
+            ProdiMand::query()->where('status',0)->delete();
+            ProdiMand::insert($filtered);
             
             Session::flash('sukses','Data Calon Mahasiswa Berhasil diimport');
             return redirect()->back();
@@ -72,21 +69,16 @@ class ProdiMandiriController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $prodi = Prodi_Mandiri::query()
-            ->when( $request->all(), function($query) use ($collumn,$search) {
+        $prodi = ProdiMand::query()->where('status',0)
+            ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-            ->paginate(10)->onEachSide(1);
+            ->paginate(10);
 
-        $criteria = Criteria::where('table', 'prodi')->get();
+        $criteria = Criteria::query()->where('table', 'prodi_mand')->get();
         
-        if($request->all() && empty($prodi->first())){
-            Session::flash('error1','Data Prodi Tidak Tersedia');
-        }
-
         return view('halaman.prodi-mandiri',[
             'type_menu' => 'mandiri',
             'prodi' => $prodi,
@@ -96,15 +88,13 @@ class ProdiMandiriController extends Controller
     }
 
     public function cancelprodimandiri(){
-        Tempory_Prodi_Mandiri::truncate();
-        Prodi_Mandiri::truncate();
-        Criteria::truncate();
-        return redirect('/candidates-mandiri');
+        ProdiMand::query()->where('status',0)->delete();
+        return redirect('/prodi-mandiri');
     }
 
     public function saveprodimandiri(){
-        Tempory_Prodi_Mandiri::truncate();
+        ProdiMand::query()->where('status',1)->delete();
+        ProdiMand::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-mandiri');
     }
-
 }

@@ -84,9 +84,6 @@ class ProdiTesController extends Controller
 
         $criteria = Criteria::query()->where('table', 'prodi_tes')->get();
 
-        if($request->all() && empty($prodi->first())){
-            Session::flash('error1','Data Prodi Tidak Tersedia');
-        }
 
         return view('halaman.prodi-tes',[
             'type_menu' => 'tes',
@@ -96,12 +93,12 @@ class ProdiTesController extends Controller
         ]);
     }
 
-    public function cancel(){
+    public function cancelProMan(){
         ProdiTes::query()->where('status',0)->delete();
         return redirect('/prodi-tes');
     }
 
-    public function save(){
+    public function saveProMan(){
         ProdiTes::query()->where('status',1)->delete();
         ProdiTes::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-tes');

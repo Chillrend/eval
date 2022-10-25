@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Imports\ProdiImport;
 use App\Models\Criteria;
-use App\Models\Tempory_Prodi_Prestasi;
-use App\Models\Prodi_Prestasi;
 use App\Models\ProdiPres;
 use Exception;
 use Illuminate\Http\Request;
@@ -80,10 +78,6 @@ class ProdiPresController extends Controller
             ->paginate(10);
 
         $criteria = Criteria::query()->where('table', 'prodi_pres')->get();
-        
-        if($request->all() && empty($prodi->first())){
-            Session::flash('error1','Data Prodi Tidak Tersedia');
-        }
 
         return view('halaman.prodi-prestasi',[
             'type_menu' => 'prestasi',

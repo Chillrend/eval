@@ -129,9 +129,7 @@
                     </div>
                 </div>
             </div>
-            {{-- @if($prodi != '') --}}
-            @if($prodi != '' || $prodi->first() && $searchbar)
-            {{-- @if($prodi->first() || $searchbar) --}}
+            @if($prodi->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data kuota program studi yang akan di upload
@@ -217,21 +215,19 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-right row">
-                                    <span>
-                                        <form method="POST" action="cancelprodimandiri">
-                                            @csrf
-                                                <button class="btn btn-lg btn-warning mx-1" href="route('cancelprodimandiri')">
-                                                    <h6 class="my-0">Cancel</h6>
-                                                </button>
-                                            </form>
-                                    </span>
-                                    <form method="POST" action="saveprodimandiri">
+                                    <form action="{{route('cancelProMan')}}" method="post">
                                         @csrf
-                                        <button class="btn btn-lg btn-success mx-1"  href="route('saveprodimandiri')" >
+                                        <button class="btn btn-lg btn-warning mx-1" id="swal-6">
+                                            <h6 class="my-0">Cancel</h6>
+                                        </button>
+                                    </form>
+                                    <form action="{{route('saveProMan')}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-lg btn-success mx-1" id="swal-6">
                                             <h6 class="my-0">Save</h6>
                                         </button>
                                     </form>
-                                </div>                              
+                                </div>                                
                             </div>
                         </div>
                     </div>
