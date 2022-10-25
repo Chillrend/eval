@@ -67,7 +67,7 @@
                     data-toggle="dropdown"><i class="fas fa-sharp fa-solid fa-file-lines"></i><span>Seleksi Mandiri</span></a>
                 
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('candidate-mandiri') ? 'active' : '' }}">
+                    <li class="{{ Request::is('candidates-mandiri') ? 'active' : '' }}">
                         <a class="nav-link "
                             href="{{ url('candidates-mandiri') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                     </li>
