@@ -10,7 +10,7 @@
         href="assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
         href="assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css"> --}}
-        <link rel="stylesheet"
+    <link rel="stylesheet"
         href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
@@ -47,14 +47,14 @@
                 </div>
             </div>
             <br>
-            <div id="">
+            <div id="accordion">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
-                            @if(session()->has('success'))
+                                @if(session()->has('success'))
                                 <div class="alert alert-success alert-has-icon alert-dismissible show fade">
                                     <div class="alert-icon"><i class="fas fa-check"></i></div>
                                     <div class="alert-body">
@@ -77,10 +77,9 @@
                                         <i class="fas fa-times fa-lg"></i>
                                     </button>
                                 </div>
-                            @endif
-                            <div class="accordion-body collapse"
-                            id="panel-body-3"
-                            data-parent="#accordion">
+                                @endif
+
+                            <div class="">
                             <form action="/candidates-tes" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     @csrf
@@ -90,12 +89,12 @@
                                             <option selected hidden>Tahun Periode Masuk</option>
                                             @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
                                             <option >{{now()->year}}</option>
-                                            @foreach($criteria->reverse() as $kriteria)
-                                            <option>{{$kriteria->tahun}}</option>
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
                                             @endforeach
                                             @else
-                                            @foreach($criteria->reverse() as $kriteria)
-                                            <option>{{$kriteria->tahun}}</option>
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -116,9 +115,8 @@
                                         </div>
                                         
                                         <div id="namedkey">
-                                        
                                         </div>
-                                        <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" hidden>
+                                        <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" value="0" hidden>
                                     </div>
                                     <div class="card-footer text-right">
                                         <input type="submit" class="btn btn-primary"/>
@@ -228,20 +226,20 @@
 @endsection
 
 @push('scripts')
- <!-- JS Libraies -->
- <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
- <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
- <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
- <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
- <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
- <script src="{{ asset('js/stisla.js') }}"></script>
- <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- JS Libraies -->
+    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('js/stisla.js') }}"></script>
+    <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 
-<!-- Page Specific JS File -->
-<script src="../../js/table.js"></script>
-<script src="../../js/style.js"></script>
-<script src="../../js/import-candidate.js"></script>
-<script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
+    <!-- Page Specific JS File -->
+    <script src="../../js/table.js"></script>
+    <script src="../../js/style.js"></script>
+    <script src="../../js/import-candidate.js"></script>
+    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 

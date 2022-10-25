@@ -1,3 +1,4 @@
+//accordion
 $("#bt-close").click(function() {
     $("#hero-awal").toggle("blind", 800);
 });
@@ -15,4 +16,12 @@ $('#row-prestasi').on('click', function(e) {
 $('#row-prodi').on('click', function(e) {
 
     $("#row-tabel-prodi").toggle(800);
+});
+
+
+
+//modal
+
+$("#modal-1").fireModal({
+    body: 'Modal body text goes here.'
 });

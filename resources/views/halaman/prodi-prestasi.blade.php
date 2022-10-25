@@ -81,21 +81,45 @@
                             </div>
                             @endif
                             <div>
+                                @if(session()->has('success'))
+                            <div class="alert alert-success alert-has-icon alert-dismissible show fade">
+                                <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                <div class="alert-body">
+                                    <div class="alert-title">Impor Berhasil</div>
+                                    {{session('success')}}
+                                </div>
+                                <button class="close" data-dismiss="alert">
+                                    <i class="fas fa-times fa-lg"></i>
+                                </button>
+                            </div>
+                            @endif
+                            @if(session()->has('error'))
+                            <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade">
+                                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                                <div class="alert-body">
+                                    <div class="alert-title">Impor Gagal</div>
+                                    {{session('error')}}
+                                </div>
+                                <button class="close" data-dismiss="alert">
+                                    <i class="fas fa-times fa-lg"></i>
+                                </button>
+                            </div>
+                            @endif
                                 <form action="/prodi-prestasi" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         @csrf
                                         <div class="section-title mt-0">Pilih Periode PMB</div>
                                             <label>Choose One</label>
-                                            <select class="custom-select" name="periode" id="periode" onchange="myFunction()">
+                                            <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
                                                 <option selected hidden>Tahun Periode Masuk</option>
                                                 @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
                                                 <option >{{now()->year}}</option>
-                                                @foreach($criteria->reverse() as $kriteria)
-                                                <option>{{$kriteria->tahun}}</option>
+                                                @foreach($criteria->reverse() as $periode)
+                                                <option>{{$periode->tahun}}</option>
                                                 @endforeach
                                                 @else
-                                                @foreach($criteria->reverse() as $kriteria)
-                                                <option>{{$kriteria->tahun}}</option>
+                                                @foreach($criteria->reverse() as $periode)
+                                                <option>{{$periode->tahun}}</option>
                                                 @endforeach
                                                 @endif
                                             </select>

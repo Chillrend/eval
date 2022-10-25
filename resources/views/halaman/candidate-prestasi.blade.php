@@ -89,12 +89,12 @@
                                             <option selected hidden>Tahun Periode Masuk</option>
                                             @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
                                             <option >{{now()->year}}</option>
-                                            @foreach($criteria->reverse() as $kriteria)
-                                            <option>{{$kriteria->tahun}}</option>
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
                                             @endforeach
                                             @else
-                                            @foreach($criteria->reverse() as $kriteria)
-                                            <option>{{$kriteria->tahun}}</option>
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -211,7 +211,7 @@
                         </div>
                     </div>
                 </div>
-                    
+                
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">

@@ -56,7 +56,8 @@
                             <div class="card-header">
                                 <h4 class="my-2">Upload Data Kuota Prodi</h4>
                             </div>
-                            @if(session()->has('success'))
+                            <div>
+                                @if(session()->has('success'))
                             <div class="alert alert-success alert-has-icon alert-dismissible show fade">
                                 <div class="alert-icon"><i class="fas fa-check"></i></div>
                                 <div class="alert-body">
@@ -80,7 +81,6 @@
                                 </button>
                             </div>
                             @endif
-                            <div>
                                 <form action="/prodi-tes" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         @csrf
@@ -138,11 +138,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header my-2">
-                                <h4 class="">Tabel Preview Data Kuota Prodi</h4>
+                                <h4 class="my-2">Tabel Preview Data Kuota Prodi</h4>
                                 @php
-                                    $abs = $criteria->first();
+                                $abs = $criteria->first();
                                 @endphp
-                                <div class="card-header-form">
+                                 <div class="card-header-form">
                                     <form action="/prodi-tes" method="get">
                                         <div class="input-group">
                                             <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
@@ -163,7 +163,7 @@
                             <div class="card-body">
                                 @if(session()->has('error1'))
                                     <div class="alert alert-danger alert-has-icon alert-dismissible show fade">
-                                        <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                        <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
                                         <div class="alert-body">
                                             <div class="alert-title">Data Tidak Ditemukan</div>
                                             {{session('error1')}}

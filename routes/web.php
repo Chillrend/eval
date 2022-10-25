@@ -6,10 +6,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdiTesController;
 use App\Http\Controllers\ProdiPresController;
+use App\Http\Controllers\ProdiMandiriController;
 use App\Http\Controllers\PreviewTesController;
 use App\Http\Controllers\PreviewPresController;
+use App\Http\Controllers\PreviewMandiriController;
 use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\CandidatePresController;
+use App\Http\Controllers\CandidateMandiriController;
+use App\Http\Controllers\FilterDataMandiri;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +36,8 @@ Route::get('/login', function () {
 Route::post('actionlogin', [LoginController::class,'actionlogin'])->name('actionlogin');
 Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    // Dashboard
+Route::get('actionlogout', [LoginController::class,'actionlogout'])->name('actionlogout');
+Route::middleware(['auth', 'admin'])->group(function () {    // Dashboard
     Route::get('/dashboard', function () {
         return view('halaman.dashboard', ['type_menu' => 'dashboard']);
     })->name('dashboard');
@@ -71,11 +75,23 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 
-    //Mandiri
-    Route::get('seleksi-mandiri', function () {
-        return view('halaman.seleksi-mandiri', ['type_menu' => 'seleksi-mandiri']);
-    })->name('seleksi-mandiri');
+//Mandiri
+Route::get('/candidates-mandiri', [CandidateMandiriController::class,'render']);
+Route::post('/candidates-mandiri', [CandidateMandiriController::class,'import']);
 
+Route::post('cancelmandiri', [CandidateMandiriController::class,'cancelmandiri'])->name('cancelmandiri');
+Route::post('savemandiri', [CandidateMandiriController::class,'savemandiri'])->name('savemandiri');
+
+Route::get('/prodi-mandiri', [ProdiMandiriController::class,'render']);
+Route::post('/prodi-mandiri', [ProdiMandiriController::class,'import']);
+
+Route::post('cancelprodimandiri', [ProdiMandiriController::class,'cancelprodimandiri'])->name('cancelprodimandiri');
+Route::post('saveprodimandiri', [ProdiMandiriController::class,'saveprodimandiri'])->name('saveprodimandiri');
+
+
+Route::get('/preview-mandiri', [PreviewMandiriController::class,'render']);
+
+Route::get('filter-mandiri', [FilterDataMandiri::class,'filter']);
 
 });
 

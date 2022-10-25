@@ -60,6 +60,7 @@ class CandidateTesController extends Controller
             return redirect()->back();        }
     }
 
+
     public function render(Request $request)
     {
 
@@ -71,7 +72,8 @@ class CandidateTesController extends Controller
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->paginate(10);
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+            ->paginate(10)->onEachSide(1);
 
         $criteria = Criteria::query()->where('table', 'candidates_tes')->get();
 

@@ -58,11 +58,30 @@
                                 href="{{ url('preview-tes') }}"><i class="fas fa-eye" ></i><span>Preview</span></a>
                         </li>             
                     </ul>    
-                </li>
-            <li class="{{ Request::is('seleksi-mandiri') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('seleksi-mandiri') }}"><i class="far fa-sharp fa-solid fa-file-lines"></i><span>Seleksi Mandiri</span></a>
             </li>
+
+            <li class="nav-item dropdown {{ $type_menu === 'mandiri' ? 'active' : '' }}">
+    
+                <a href="#"
+                    class="nav-link has-dropdown"
+                    data-toggle="dropdown"><i class="fas fa-sharp fa-solid fa-file-lines"></i><span>Seleksi Mandiri</span></a>
+                
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('candidate-mandiri') ? 'active' : '' }}">
+                        <a class="nav-link "
+                            href="{{ url('candidates-mandiri') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
+                    </li>
+                    <li class="{{ Request::is('prodi-mandiri') ? 'active' : '' }}">
+                        <a class="nav-link "
+                            href="{{ url('prodi-mandiri') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
+                    </li>  
+                    <li class="{{ Request::is('preview-mandiri') ? 'active' : '' }}">
+                        <a class="nav-link "
+                            href="{{ url('preview-mandiri') }}"><i class="fas fa-eye" ></i><span>Preview</span></a>
+                    </li>             
+                </ul>    
+        </li>
+
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="https://getstisla.com/docs"
                 class="btn btn-danger btn-lg btn-block btn-icon-split">

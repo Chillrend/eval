@@ -10,7 +10,6 @@ use App\Models\Criteria;
 use App\Models\Prestasi;
 use App\Models\Tempory_Prestasi;
 use Exception;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 
 class CandidatePresController extends Controller 
@@ -81,7 +80,8 @@ class CandidatePresController extends Controller
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->paginate(10);
+            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+            ->paginate(10)->onEachSide(1);
 
         $criteria = Criteria::where('table', 'candidates_pres')->get();
         
