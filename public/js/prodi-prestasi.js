@@ -3,39 +3,7 @@ var collumn = [];
 // document.getElementById("addcollumn").addEventListener("click", addCollumn);
 
 function deleteCollumn(id){
-  console.log(sessionStorage.getItem('collumn'));
-  var urldel = document.getElementById("tambahCriteria").getAttribute('url-del');
-  
-  var formdata = new FormData;
-  formdata.append('id', id);
-
-  var requestOptions = {
-    method: 'POST',
-    body: formdata,
-    redirect: 'follow'
-  };
-  console.log(urldel);
-  fetch(urldel, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-      if(result != null) {
-          var coba = JSON.parse(result)
-          collumn = coba.criteria
-          console.log(collumn);
-          $("#namedkey").empty();
-          for (let index = 0; index < collumn.length; index++) {
-            let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" url="'+urldel+'" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
-            $("#namedkey").append(tag);
-          }
-      }
-      else {
-        alert('null');   
-      }
-    })
-    .catch(error => {
-      alert(erorr);
-  });
-  collumn = collumn.splice(id,0);
+  collumn.splice(id,1);
   addCollumn();
 }
 
@@ -48,7 +16,6 @@ function addCollumn() {
     let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
     $("#namedkey").append(tag);
   }
-  console.log(collumn);
   document.getElementById("nameCollumn").value = ''
   document.getElementById("banyakCollumn").value = collumn.length
 
@@ -83,7 +50,7 @@ function myFunction(){
       .then(result => {
         if(result != null) {
             var coba = JSON.parse(result)
-            var collumn = coba.criteria
+            collumn = coba.criteria
             sessionStorage.setItem('collumn', collumn);
             $("#namedkey").empty();
             for (let index = 0; index < collumn.length; index++) {

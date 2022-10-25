@@ -218,14 +218,14 @@
                             <div class="card-body">
                                 <div class="float-right row">
                                     <span>
-                                        <form method="POST" action="cancelCanPres">
+                                        <form method="POST" action="{{route('cancelCanPres')}}">
                                             @csrf
                                                 <button class="btn btn-lg btn-warning mx-1" href="route('cancelCanPres')">
                                                     <h6 class="my-0">Cancel</h6>
                                                 </button>
                                             </form>
                                     </span>
-                                    <form method="POST" action="saveCanPres">
+                                    <form method="POST" action="{{route('saveCanPres')}}">
                                         @csrf
                                         <button class="btn btn-lg btn-success mx-1"  href="route('saveCanPres')" >
                                             <h6 class="my-0">Save</h6>
