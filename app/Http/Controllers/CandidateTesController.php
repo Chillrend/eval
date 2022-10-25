@@ -72,8 +72,7 @@ class CandidateTesController extends Controller
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-            ->paginate(10)->onEachSide(1);
+            ->paginate(10);
 
         $criteria = Criteria::query()->where('table', 'candidates_tes')->get();
 
