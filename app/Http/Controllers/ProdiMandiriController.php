@@ -97,4 +97,13 @@ class ProdiMandiriController extends Controller
         ProdiMand::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-mandiri');
     }
+
+    public function criteria()
+    {
+        $criteria = Criteria::select('criteria')->where('table', 'prodi_mand')->where('tahun', request('tahun'))->first();
+        session()->put('list', $criteria);
+        return response()->json([
+            'criteria'=>$criteria->criteria,
+        ]);
+    }
 }

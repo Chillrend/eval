@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Session;
 
 class CandidateMandiriController extends Controller 
 {
-    public $q;
-    public $sortBy = 'no_daftar';
-    public $sortAsc = true;
-
-
     public function import (Request $request) 
     {
         if ($request->file('excel') == null ||
@@ -98,5 +93,14 @@ class CandidateMandiriController extends Controller
         CandidateMand::query()->where('status',1)->delete();
         CandidateMand::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-mandiri');
+    }
+
+    public function criteria()
+    {
+        $criteria = Criteria::select('criteria')->where('table', 'candidates_mand')->where('tahun', request('tahun'))->first();
+        session()->put('list', $criteria);
+        return response()->json([
+            'criteria'=>$criteria->criteria,
+        ]);
     }
 }

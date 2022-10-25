@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\ProdiController;
+use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateTesController;
+use App\Http\Controllers\ProdiMandiriController;
 use App\Http\Controllers\ProdiPresController;
 use App\Http\Controllers\ProdiTesController;
 use Illuminate\Http\Request;
@@ -31,3 +33,7 @@ Route::post('/get-criteria-prodi-pres',[ProdiPresController::class,'criteria'])-
 Route::post('/get-criteria-candidates-tes',[CandidateTesController::class,'criteria'])->name('criteriaCanTes');
 
 Route::post('/get-criteria-prodi-tes',[ProdiTesController::class,'criteria'])->name('criteriaProTes');
+
+Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::class,'criteria'])->name('criteriaCanMan');
+
+Route::post('/get-criteria-prodi-mandiri',[ProdiMandiriController::class,'criteria'])->name('criteriaProMan');

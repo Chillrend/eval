@@ -110,7 +110,7 @@
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-primary" type="button" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
+                                                <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanMan')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
                                         </div>
                                         
@@ -130,7 +130,7 @@
             {{-- @if($candidates != '') --}}
             {{-- @if($candidates->first() && $searchbar || $candidates != '') --}}
             {{-- @if($candidates->first() || $searchbar ) --}}
-            @if($candidates != '' || $candidates->first() && $searchbar)
+            @if($candidates->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan di upload
@@ -255,7 +255,7 @@
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
     <script src="../../js/style.js"></script>
-    <script src="../../js/import-candidate.js"></script>
+    <script src="../../js/candidate-mandiri.js"></script>
     <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 

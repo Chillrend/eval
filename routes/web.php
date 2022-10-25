@@ -78,21 +78,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 
-//Mandiri
-Route::get('/candidates-mandiri', [CandidateMandiriController::class,'render']);
-Route::post('/candidates-mandiri', [CandidateMandiriController::class,'import']);
+    //Mandiri
+    Route::get('/candidates-mandiri', [CandidateMandiriController::class,'render']);
+    Route::post('/candidates-mandiri', [CandidateMandiriController::class,'import']);
 
-Route::post('cancelmandiri', [CandidateMandiriController::class,'cancelmandiri'])->name('cancelmandiri');
-Route::post('savemandiri', [CandidateMandiriController::class,'savemandiri'])->name('savemandiri');
+    Route::post('cancelmandiri', [CandidateMandiriController::class,'cancelmandiri'])->name('cancelmandiri');
+    Route::post('savemandiri', [CandidateMandiriController::class,'savemandiri'])->name('savemandiri');
 
-Route::get('/prodi-mandiri', [ProdiMandiriController::class,'render']);
-Route::post('/prodi-mandiri', [ProdiMandiriController::class,'import']);
+    Route::get('/prodi-mandiri', [ProdiMandiriController::class,'render']);
+    Route::post('/prodi-mandiri', [ProdiMandiriController::class,'import']);
 
-Route::post('cancelProMan', [ProdiMandiriController::class,'cancelprodimandiri'])->name('cancelProMan');
-Route::post('saveProMan', [ProdiMandiriController::class,'saveprodimandiri'])->name('saveProMan');
+    Route::post('cancelProMan', [ProdiMandiriController::class,'cancelprodimandiri'])->name('cancelProMan');
+    Route::post('saveProMan', [ProdiMandiriController::class,'saveprodimandiri'])->name('saveProMan');
 
 
-Route::get('/preview-mandiri', [PreviewMandiriController::class,'render']);
+    Route::get('/preview-mandiri', [PreviewMandiriController::class,'render']);
 });
 
 
