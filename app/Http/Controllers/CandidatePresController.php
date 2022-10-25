@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
 use App\Models\CandidatePres;
-use App\Models\Candidates;
 use App\Models\Criteria;
-use App\Models\Prestasi;
-use App\Models\Tempory_Prestasi;
 use Exception;
 use Illuminate\Support\Facades\Session;
 
@@ -80,14 +77,9 @@ class CandidatePresController extends Controller
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-            ->paginate(10)->onEachSide(1);
+            ->paginate(10);
 
-        $criteria = Criteria::where('table', 'candidates_pres')->get();
-        
-        if($request->all() && empty($candidates->first())){
-            Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
-        }
+        $criteria = Criteria::query()->where('table', 'candidates_pres')->get();
 
         return view('halaman.candidate-prestasi',[
             'type_menu' => 'prestasi',

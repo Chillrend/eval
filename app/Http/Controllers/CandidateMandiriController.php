@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\CandidatesImport;
-use App\Models\Candidates;
+use App\Models\CandidateMand;
 use App\Models\Criteria;
-use App\Models\Mandiri;
-use App\Models\Tempory_Mandiri;
 use Exception;
 use Illuminate\Support\Facades\Session;
 
@@ -39,8 +37,8 @@ class CandidateMandiriController extends Controller
             $criteria = array(
                 'tahun' => $periode,
                 'criteria' => $namedkey,
-                'table' => 'candidates',
-                'kode_criteria' => strval($periode).'_candidates',
+                'table' => 'candidates_mand',
+                'kode_criteria' => strval($periode).'_candidates_mand',
             );     
 
             for ($i=0; $i < count($array[0]); $i++) {
@@ -48,17 +46,18 @@ class CandidateMandiriController extends Controller
                     $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
                 };
                 $fil['periode'] = $periode;
+                $fil['status'] = 0;
                 $filtered[] = $fil;
             }
 
-            if (Criteria::where('kode_criteria',strval($periode).'_candidates')->first()) {
-                Criteria::where('kode_criteria',strval($periode).'_candidates')->update($criteria);
+            if (Criteria::query()->where('kode_criteria',strval($periode).'_candidates_mand')->exists()) {
+                Criteria::query()->where('kode_criteria',strval($periode).'_candidates_mand')->update($criteria);
             } else {
                 Criteria::insert($criteria);
             }
 
-            Mandiri::truncate();
-            Mandiri::insert($filtered);
+            CandidateMand::query()->where('status',0)->delete();
+            CandidateMand::insert($filtered);
 
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
             return redirect()->back();
@@ -72,20 +71,15 @@ class CandidateMandiriController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $candidates = Mandiri::query()
-            ->when( $request->all(), function($query) use ($collumn,$search) {
+        $candidates = CandidateMand::query()->where('status',0)
+            ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
                     $query->where($collumn, 'like', '%'.$search . '%');
                 });
             })
-            ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-            ->paginate(10)->onEachSide(1);
+            ->paginate(10);
 
-        $criteria = Criteria::where('table', 'candidates')->get();
-        
-        if($request->all() && empty($candidates->first())){
-            Session::flash('error1','Data Calon Mahasiswa Tidak Tersedia');
-        }
+        $criteria = Criteria::query()->where('table', 'candidates_mand')->get();
 
         return view('halaman.candidate-mandiri',[
             'type_menu' => 'mandiri',
@@ -96,17 +90,13 @@ class CandidateMandiriController extends Controller
     }
 
     public function cancelmandiri(){
-        Mandiri::truncate();
-        Candidates::truncate();
-        Criteria::truncate();
-        Tempory_Mandiri::truncate();
+        CandidateMand::query()->where('status',0)->delete();
         return redirect('/candidates-mandiri');
     }
 
     public function savemandiri(){
-        Tempory_Mandiri::truncate();
+        CandidateMand::query()->where('status',1)->delete();
+        CandidateMand::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-mandiri');
     }
-
-
 }
