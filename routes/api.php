@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\CandidatesController;
 use App\Http\Controllers\Api\ProdiController;
+use App\Http\Controllers\CandidatePresController;
+use App\Http\Controllers\CandidateTesController;
+use App\Http\Controllers\ProdiPresController;
+use App\Http\Controllers\ProdiTesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/get-criteria-prodi',[ProdiController::class,'criteria']);
-Route::post('/get-criteria-candidates',[CandidatesController::class,'criteria']);
+Route::post('/get-criteria-candidates-pres',[CandidatePresController::class,'criteria'])->name('criteriaCanPres');
+Route::post('/del-criteria-candidates-pres',[CandidatePresController::class,'delcriteria'])->name('delcriteriaCanPres');
+
+Route::post('/get-criteria-prodi-pres',[ProdiPresController::class,'criteria'])->name('criteriaProPres');
+
+Route::post('/get-criteria-candidates-tes',[CandidateTesController::class,'criteria'])->name('criteriaCanTes');
+
+Route::post('/get-criteria-prodi-tes',[ProdiTesController::class,'criteria'])->name('criteriaProTes');

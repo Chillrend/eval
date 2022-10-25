@@ -103,4 +103,14 @@ class ProdiPresController extends Controller
         ProdiPres::query()->where('status',0)->update(['status' => 1]);
         return redirect('/preview-prestasi');
     }
+
+    public function criteria()
+    {
+        $criteria = Criteria::select('criteria')->where('table', 'prodi_pres')->where('tahun', request('tahun'))->first();
+        session()->put('list', $criteria);
+        return response()->json([
+            'criteria'=>$criteria->criteria,
+        ]);
+    }
+
 }

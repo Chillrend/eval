@@ -110,7 +110,7 @@
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-primary" type="button" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
+                                                <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanTes')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
                                         </div>
                                         
@@ -236,10 +236,10 @@
     <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 
-    <!-- Page Specific JS File -->
-    <script src="../../js/table.js"></script>
-    <script src="../../js/style.js"></script>
-    <script src="../../js/import-candidate.js"></script>
-    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
+<!-- Page Specific JS File -->
+<script src="../../js/table.js"></script>
+<script src="../../js/style.js"></script>
+<script src="../../js/prodi-prestasi.js"></script>
+<script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 
