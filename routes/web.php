@@ -13,6 +13,7 @@ use App\Http\Controllers\PreviewMandiriController;
 use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateMandiriController;
+use App\Http\Controllers\FilterMandiriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
     Route::get('/preview-mandiri', [PreviewMandiriController::class,'render']);
+
+    Route::get('/filter-mandiri', [FilterMandiriController::class,'render'])->name('renderFilterMan');
 });
 
 
