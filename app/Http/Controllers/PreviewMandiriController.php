@@ -11,8 +11,7 @@ class PreviewMandiriController extends Controller
     public function render()
     {
 
-        $canpres = CandidateMand::query()->where('status',1)->paginate(10);
-            
+        $canpres = CandidateMand::query()->where('status',1)->paginate(10);     
         $propres = ProdiMand::query()->where('status',1)->paginate(10);
 
         $criteriacan = Criteria::query()->where('table', 'candidates_mand')->first();

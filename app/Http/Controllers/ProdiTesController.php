@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Imports\ProdiImport;
 use App\Models\Criteria;
-use App\Models\Prodi;
 use App\Models\ProdiTes;
 use Exception;
 use Illuminate\Http\Request;
