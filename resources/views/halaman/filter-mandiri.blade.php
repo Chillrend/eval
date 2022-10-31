@@ -80,40 +80,35 @@
                                 @endif
 
                             <div class="">
-                            <form action="/candidates-mandiri" method="post" enctype="multipart/form-data">
+                            @php
+                                $abs = $criteria->first();
+                            @endphp  
+                            <form action="/filter-mandiri" method="get">
                                 <div class="card-body">
-                                    @csrf
-                                    <div class="section-title mt-0">Pilih Periode PMB</div>
-                                        <label>Choose One</label>
-                                        <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
-                                            <option selected hidden>Tahun Periode Masuk</option>
-                                            @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
-                                            <option >{{now()->year}}</option>
-                                            @foreach($criteria->reverse() as $periode)
-                                            <option>{{$periode->tahun}}</option>
-                                            @endforeach
-                                            @else
-                                            @foreach($criteria->reverse() as $periode)
-                                            <option>{{$periode->tahun}}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
-                                        
-                                        <div class="section-title">File Browser</div>
-                                        <div class="input-group mb-3">
-                                            <input type="file"  name="excel" class="choose form-control" id="customFile">
-                                            <label class="input-group-text" for="customFile">Upload</label>
-                                        </div>
-                                        
+                                    <!-- @csrf -->
                                         <div class="section-title">Nama Kolom Excel</div>
                                         <label>Cocokkan nama kolom excel dengan nama pada table</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
+                                            <select class="btn selectric" name="kolom" id="kolom" >
+                                                <option selected hidden disabled value="">Pilih Kolom</option>
+                                                @foreach($abs['criteria'] as $criteriaa)
+                                                <option>{{$criteriaa}}</option>
+                                                @endforeach
+                                            </select>
+                                            <select class="btn selectric" name="operator" id="operator">
+                                                <option selected hidden disabled value="">Operasi</option>
+                                                <option value="="> = </option>
+                                                <option value=">"> > </option>
+                                                <option value="<"> < </option>
+                                                <option value=">="> >= </option>
+                                                <option value="<="> <= </option>
+                                                <option value="<>"> <> </option>
+                                            </select>
+                                            <input type="text" class="form-control" id="nilai" name="nilai" placeholder="Nilai">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanMan')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
                                         </div>
-                                        
                                         <div id="namedkey">
                                         </div>
                                         <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" value="0" hidden>
@@ -127,9 +122,6 @@
                     </div>
                 </div>
             </div>
-            {{-- @if($candidates != '') --}}
-            {{-- @if($candidates->first() && $searchbar || $candidates != '') --}}
-            {{-- @if($candidates->first() || $searchbar ) --}}
             @if($candidates->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
@@ -144,10 +136,10 @@
                                 $abs = $criteria->first();
                                 @endphp                       
                                 <div class="card-header-form">
-                                    <form  action="/candidates-mandiri" method="get">
+                                    <form  action="/filter-mandiri" method="get">
                                         <div class="input-group">
                                             <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
-                                                <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
+                                                <option selected hidden disabled>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
                                                 @foreach($abs['criteria'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
                                                 @endforeach
@@ -255,7 +247,7 @@
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
     <script src="../../js/style.js"></script>
-    <script src="../../js/candidate-mandiri.js"></script>
+    <script src="../../js/filter-mandiri.js"></script>
     <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 
