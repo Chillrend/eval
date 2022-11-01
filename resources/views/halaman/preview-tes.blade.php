@@ -84,7 +84,7 @@
                             <div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                        <table class="table-hover table display nowrap" id="table2" style="width: 100%">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>

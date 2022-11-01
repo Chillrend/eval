@@ -1,11 +1,23 @@
-$(document).ready(function () {
+$(document).ready(function() {
     $('#table').DataTable({
         scrollX: true,
         autoWidth: false,
         paging: false,
         info: false,
-        searching:false,
-        responsive:true,
+        searching: false,
+        responsive: true,
+        ordering: false,
+    });
+});
+
+$(document).ready(function() {
+    $('#table2').DataTable({
+        scrollX: true,
+        autoWidth: false,
+        paging: false,
+        info: false,
+        searching: false,
+        responsive: true,
         ordering: false,
     });
 });

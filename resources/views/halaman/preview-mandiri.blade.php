@@ -79,12 +79,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header" >
-                                <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
+                                <h4 class="my-2">Tabel Preview Data Prodi</h4>
                             </div>
                             <div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                        <table class="table-hover table display nowrap" id="table2" style="width: 100%">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
