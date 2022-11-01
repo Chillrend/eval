@@ -27,7 +27,7 @@
                                 <h4>Total Kandidat</h4>
                             </div>
                             <div class="card-body">
-                                
+                                ??
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                                                 aria-valuemin="0"
                                                 aria-valuemax="100">50%</div>
                                         </div>
-                                        <p class="mb-0">Import Program Studi</p>
+                                        <p class="mb-0" >Import Program Studi</p>
                                         <div class="progress mb-3">
                                             <div class="progress-bar"
                                                 role="progressbar"
