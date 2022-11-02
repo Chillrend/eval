@@ -38,9 +38,13 @@ class CandidateMandiriController extends Controller
 
             for ($i=0; $i < count($array[0]); $i++) {
                 for ($ab=0; $ab < count($namedkey); $ab++) { 
-                    $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    if (request('type-'.strval($ab)) == "String") {
+                        $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    } else {
+                        $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
+                    }
                 };
-                $fil['periode'] = $periode;
+                $fil['periode'] = intval($periode);
                 $fil['status'] = 0;
                 $filtered[] = $fil;
             }
