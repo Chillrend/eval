@@ -58,6 +58,7 @@ class FilterMandiriController extends Controller
             'candidates' => $candidates,
             'criteria' => $criteria,
             'searchbar' => [$collumn, $search],
+            'filter' => $filter,
         ]);    
     }
 }

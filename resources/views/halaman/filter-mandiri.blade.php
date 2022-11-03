@@ -114,7 +114,7 @@
                                         <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" value="0" hidden>
                                     </div>
                                     <div class="card-footer text-right">
-                                        <input type="submit" class="btn btn-primary"/>
+                                        <input type="submit" class="btn btn-primary" onclick="simpanFilter()"/>
                                     </div>
                                 </form>
                             </div>    
@@ -235,6 +235,10 @@
 
 @push('scripts')
     <!-- JS Libraies -->
+    <script type="text/javascript">
+        var x = "<?php  echo(json_encode($filter)) ?>";
+        console.log(x);
+    </script>
     <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>

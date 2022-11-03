@@ -2,6 +2,26 @@ var collumn = [];
 
 // document.getElementById("addcollumn").addEventListener("click", addCollumn);
 
+// collumn = sessionStorage.getItem("collumn");
+// console.log(sessionStorage.getItem("collumn"));
+
+if(sessionStorage.getItem("collumn") != null){
+  var a = sessionStorage.getItem("collumn").split(",");
+  for (let b = 0; b < a.length; b) {
+    var e = [];
+    for (let c = 0; c < 3; c++) {
+      e.push(a[b])
+      b++
+    }
+    collumn.push(e)
+  }
+  addCollumn()
+};
+
+function simpanFilter() { 
+  sessionStorage.setItem("collumn",collumn);
+}
+
 function deleteCollumn(id){
   collumn.splice(id,1);
   refreshCollumn();
