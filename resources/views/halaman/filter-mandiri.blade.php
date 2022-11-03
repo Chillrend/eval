@@ -203,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -234,11 +234,11 @@
 @endsection
 
 @push('scripts')
+    @if($filter)
+        <script src="../../js/filter-mandiri1.js"></script>
+    @endif
+
     <!-- JS Libraies -->
-    <script type="text/javascript">
-        var x = "<?php  echo(json_encode($filter)) ?>";
-        console.log(x);
-    </script>
     <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
