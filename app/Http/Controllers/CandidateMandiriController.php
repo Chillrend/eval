@@ -24,28 +24,28 @@ class CandidateMandiriController extends Controller
             $array = (new CandidatesImport())->toArray($request->file('excel')); 
             $namedkey = array();
             for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
-                $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
+                $namedkey[$i]=strtolower(request('collumn-'.strval($i)));
             }
 
             $periode = $request->input('periode');
 
             $criteria = array(
                 'tahun' => $periode,
-                'criteria' => $namedkey,
+                'kolom' => $namedkey,
                 'table' => 'candidates_mand',
                 'kode_criteria' => strval($periode).'_candidates_mand',
             );     
 
             for ($i=0; $i < count($array[0]); $i++) {
                 for ($ab=0; $ab < count($namedkey); $ab++) { 
-                    if (request('type-'.strval($ab)) == "String") {
-                        $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    if (ctype_digit(trim($array[0][$i][$namedkey[$ab]]))) {
+                            $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
                     } else {
-                        $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
+                            $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
                     }
                 };
                 $fil['periode'] = intval($periode);
-                $fil['status'] = 0;
+                $fil['status'] = 'import';
                 $filtered[] = $fil;
             }
 
@@ -70,10 +70,14 @@ class CandidateMandiriController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $candidates = CandidateMand::query()->where('status',0)
+        $candidates = CandidateMand::query()->where('status','import')
             ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
-                    $query->where($collumn, 'like', '%'.$search . '%');
+                    if (is_numeric($search)) {
+                        $query->where($collumn, intval($search));
+                    } else {
+                        $query->where($collumn, 'like', '%'.$search . '%');
+                    }
                 });
             })
             ->paginate(10);
@@ -89,13 +93,13 @@ class CandidateMandiriController extends Controller
     }
 
     public function cancelmandiri(){
-        CandidateMand::query()->where('status',0)->delete();
+        CandidateMand::query()->where('status','import')->delete();
         return redirect('/candidates-mandiri');
     }
 
     public function savemandiri(){
-        CandidateMand::query()->where('status',1)->delete();
-        CandidateMand::query()->where('status',0)->update(['status' => 1]);
+        CandidateMand::query()->where('status','post-import')->delete();
+        CandidateMand::query()->where('status','import')->update(['status' => 'post-import']);
         return redirect('/preview-mandiri');
     }
 

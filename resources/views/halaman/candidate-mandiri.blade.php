@@ -109,12 +109,6 @@
                                         <label>Cocokkan nama kolom excel dengan nama pada table</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
-                                            <div class="input-group mb-3">
-                                            <select class="custom-select " name="data-type" id="data-type">
-                                                <option selected >String</option>
-                                                <option >Number</option>
-                                            </select>                                            
-                                        </div>
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanMan')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
@@ -154,7 +148,7 @@
                                         <div class="input-group">
                                             <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
                                                 <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
                                                 @endforeach
                                             </select>
@@ -187,7 +181,7 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">periode</th>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <th scope="col">{{$criteriaa}}</th>
                                                 @endforeach
                                             </tr>
@@ -197,7 +191,7 @@
                                             <tr>
                                                 <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
                                                 <td>{{$data['periode']}}</td>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
                                                 @endforeach
                                             </tr>

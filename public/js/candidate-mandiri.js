@@ -10,14 +10,12 @@ function deleteCollumn(id){
 function addCollumn() {
   if (document.getElementById("nameCollumn").value != '') {
     var kolom = document.getElementById("nameCollumn").value;
-    var type = document.getElementById("data-type").value;
-    collumn.push([kolom, type]);
+    collumn.push(kolom);
   }
   $("#namedkey").empty();
   for (let index = 0; index < collumn.length; index++) {
     let tag ='<div class="input-group mb-3" id="collumn-'+index+'">'+
-                  '<input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index][0]+'" readonly>'+
-                  '<input type="text" class="form-control" id="type-'+index+'" name="type-'+index+'" value="'+collumn[index][1]+'" readonly>'+
+                  '<input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly>'+
               '<div class="input-group-append" id="collumn-'+index+'">'+
               '<button class="btn btn-outline-danger" type="button" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
     $("#namedkey").append(tag);

@@ -91,7 +91,7 @@
                                         <div class="input-group mb-3">
                                             <select class="btn selectric" name="kolom" id="kolom" >
                                                 <option selected hidden disabled value="">Pilih Kolom</option>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
                                                 @endforeach
                                             </select>
@@ -114,7 +114,7 @@
                                         <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" value="0" hidden>
                                     </div>
                                     <div class="card-footer text-right">
-                                        <input type="submit" class="btn btn-primary" onclick="simpanFilter()"/>
+                                        <input type="submit" class="btn btn-primary" />
                                     </div>
                                 </form>
                             </div>    
@@ -138,9 +138,9 @@
                                 <div class="card-header-form">
                                     <form  action="/filter-mandiri" method="get">
                                         <div class="input-group">
-                                            <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
+                                            <select class="btn selectric" name="kolom" id="periode"">
                                                 <option selected hidden disabled>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
                                                 @endforeach
                                             </select>
@@ -173,7 +173,7 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">periode</th>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <th scope="col">{{$criteriaa}}</th>
                                                 @endforeach
                                             </tr>
@@ -183,7 +183,7 @@
                                             <tr>
                                                 <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
                                                 <td>{{$data['periode']}}</td>
-                                                @foreach($abs['criteria'] as $criteriaa)
+                                                @foreach($abs['kolom'] as $criteriaa)
                                                 <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
                                                 @endforeach
                                             </tr>
@@ -234,10 +234,6 @@
 @endsection
 
 @push('scripts')
-    @if($filter)
-        <script src="../../js/filter-mandiri1.js"></script>
-    @endif
-
     <!-- JS Libraies -->
     <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
@@ -251,7 +247,11 @@
     <!-- Page Specific JS File -->
     <script src="../../js/table.js"></script>
     <script src="../../js/style.js"></script>
-    <script src="../../js/filter-mandiri.js"></script>
+    @if($filter)
+        <script src="../../js/filter-mandiri1.js"></script>
+    @else
+        <script src="../../js/filter-mandiri.js"></script>
+    @endif
     <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 
