@@ -86,6 +86,22 @@
                             <form action="/filter-mandiri" method="get">
                                 <div class="card-body">
                                     <!-- @csrf -->
+                                    <div class="section-title mt-0">Pilih Periode PMB</div>
+                                        <label>Choose One</label>
+                                        <select class="custom-select " name="periode" id="periode" onchange="myFunction()" url="{{route('getFilterMan')}}">
+                                            <option selected hidden>Tahun Periode Masuk</option>
+                                            @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
+                                            <option >{{now()->year}}</option>
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
+                                            @endforeach
+                                            @else
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
+                                            @endforeach
+                                            @endif
+                                        </select>
+
                                         <div class="section-title">Nama Kolom Excel</div>
                                         <label>Cocokkan nama kolom excel dengan nama pada table</label>
                                         <div class="input-group mb-3">
@@ -114,7 +130,7 @@
                                         <input type="text" class="form-control" id="banyakCollumn" name="banyakCollumn" value="0" hidden>
                                     </div>
                                     <div class="card-footer text-right">
-                                        <input type="submit" class="btn btn-primary" />
+                                        <input type="submit" class="btn btn-primary" onclick="simpanFilter()"/>
                                     </div>
                                 </form>
                             </div>    
@@ -210,19 +226,16 @@
                             <div class="card-body">
                                 <div class="float-right row">
                                     <span>
-                                        <form method="POST" action="cancelmandiri">
+                                        <form method="POST" action="">
                                             @csrf
                                                 <button class="btn btn-lg btn-warning mx-1" href="route('cancelmandiri')">
                                                     <h6 class="my-0">Cancel</h6>
                                                 </button>
                                             </form>
                                     </span>
-                                    <form method="POST" action="savemandiri">
-                                        @csrf
-                                        <button class="btn btn-lg btn-success mx-1"  href="route('savemandiri')" >
-                                            <h6 class="my-0">Save</h6>
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-lg btn-success mx-1" id="saveFilter" url="{{route('saveFilterMan')}}" onclick="saveFilter()" >
+                                        <h6 class="my-0">Save</h6>
+                                    </button>
                                 </div>                              
                             </div>
                         </div>

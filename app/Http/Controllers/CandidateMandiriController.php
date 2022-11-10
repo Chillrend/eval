@@ -55,7 +55,7 @@ class CandidateMandiriController extends Controller
                 Criteria::insert($criteria);
             }
 
-            CandidateMand::query()->where('status',0)->delete();
+            CandidateMand::query()->where('status','import')->delete();
             CandidateMand::insert($filtered);
 
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');

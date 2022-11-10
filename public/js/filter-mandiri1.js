@@ -57,39 +57,79 @@ function refreshCollumn() {
   document.getElementById("banyakCollumn").value = collumn.length
 }
 
+function saveFilter() {
+  var url = document.getElementById("saveFilter").getAttribute('url');
+  var banyakCollumn = document.getElementById("banyakCollumn").value;
+
+  var formdata = new FormData;
+  for (let index = 0; index < collumn.length; index++) {
+    formdata.append('kolom-'+index, collumn[index][0]);
+    formdata.append('operator-'+index, collumn[index][1]);
+    formdata.append('nilai-'+index, collumn[index][2]);
+  }
+  formdata.append('banyakCollumn',banyakCollumn)
+
+  var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+  };
+  fetch(url, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      if(result != null) {
+          console.log(result);
+          var coba = JSON.parse(result)
+          console.log(coba);
+          // collumn = coba.criteria
+          // $("#namedkey").empty();
+          // for (let index = 0; index < collumn.length; index++) {
+          //   let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" url="'+urldel+'" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
+          //   $("#namedkey").append(tag);
+          // }
+          // document.getElementById("banyakCollumn").value = collumn.length
+      }
+      else {
+        alert('null');   
+      }
+    })
+    .catch(error => {
+      alert(erorr);
+  });
+}
+
+
 function myFunction(){
 
-    var taun = document.getElementById("periode").value;
-    var url = document.getElementById("tambahCriteria").getAttribute('url');
-    var urldel = document.getElementById("tambahCriteria").getAttribute('url-del');
-    
-    var formdata = new FormData;
-    formdata.append('tahun', taun);
+  var taun = document.getElementById("periode").value;
+  var url = document.getElementById("periode").getAttribute('url');
+  
+  var formdata = new FormData;
+  formdata.append('tahun', taun);
 
-    var requestOptions = {
-      method: 'POST',
-      body: formdata,
-      redirect: 'follow'
-    };
-    console.log(url, formdata);
-    fetch(url, requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        if(result != null) {
-            var coba = JSON.parse(result)
-            collumn = coba.criteria
-            $("#namedkey").empty();
-            for (let index = 0; index < collumn.length; index++) {
-              let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" url="'+urldel+'" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
-              $("#namedkey").append(tag);
-            }
-            document.getElementById("banyakCollumn").value = collumn.length
-        }
-        else {
-          alert('null');   
-        }
-      })
-      .catch(error => {
-        alert(erorr);
-    });
+  var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+  };
+  console.log(url, formdata);
+  fetch(url, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      if(result != null) {
+        var coba = JSON.parse(result)
+        var hasil = coba.kolom
+        console.log(hasil);
+        hasil.forEach(element => {
+          collumn.push([element.kolom, element.operator, element.nilai])          
+        });
+        refreshCollumn()
+      }
+      else {
+        alert('null');   
+      }
+    })
+    .catch(error => {
+      alert(error);
+  });
 }
