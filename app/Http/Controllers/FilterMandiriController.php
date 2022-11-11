@@ -104,11 +104,11 @@ class FilterMandiriController extends Controller
 
             return response()->json([
                 'status'=>'done',
+                'route'=>url('/preview-mandiri'),
             ]);
         } catch (Exception $th) {
             return response()->json([
-                // 'url'=>route(),
-                'status'=>'error: '.$th,
+                'error'=>''.$th,
             ]);        
         }
 
@@ -116,21 +116,27 @@ class FilterMandiriController extends Controller
 
     public function getFilter()
     {
-        $criteria = Criteria::select('kolom')->where('table', 'filter_candidates_mand')->where('tahun', intval(request('tahun')))->first();
-        $kolom = [];
-        foreach($criteria->kolom as $ckolom){
-            match ($ckolom['operator']) {
-                'et' => $ckolom['operator'] = '=',
-                'gt' => $ckolom['operator'] = '>',
-                'lt' => $ckolom['operator'] = '<',
-                'gtet' => $ckolom['operator'] = '>=',
-                'ltet' => $ckolom['operator'] = '<=',
-                'net' => $ckolom['operator'] = '<>',
-            };
-            array_push($kolom,$ckolom);
+        try {
+            $criteria = Criteria::select('kolom')->where('table', 'filter_candidates_mand')->where('tahun', intval(request('tahun')))->first();
+            $kolom = [];
+            foreach($criteria->kolom as $ckolom){
+                match ($ckolom['operator']) {
+                    'et' => $ckolom['operator'] = '=',
+                    'gt' => $ckolom['operator'] = '>',
+                    'lt' => $ckolom['operator'] = '<',
+                    'gtet' => $ckolom['operator'] = '>=',
+                    'ltet' => $ckolom['operator'] = '<=',
+                    'net' => $ckolom['operator'] = '<>',
+                };
+                array_push($kolom,$ckolom);
+            }
+            return response()->json([
+                'kolom'=>$kolom,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'kolom'=>$kolom,
+            ]);
         }
-        return response()->json([
-            'kolom'=>$kolom,
-        ]);
     }
 }

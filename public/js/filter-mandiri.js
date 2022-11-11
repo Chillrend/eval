@@ -44,6 +44,10 @@ function refreshCollumn() {
   document.getElementById("banyakCollumn").value = collumn.length
 }
 
+function saveFilter() {
+
+}
+
 function myFunction(){
 
   var taun = document.getElementById("periode").value;

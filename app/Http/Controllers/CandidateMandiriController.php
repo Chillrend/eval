@@ -71,7 +71,7 @@ class CandidateMandiriController extends Controller
         $search = $request->input('search');
         $collumn = $request->input('kolom');
         $candidates = CandidateMand::query()->where('status','import')
-            ->when( $search && $collumn, function($query) use ($collumn,$search) {
+            ->when( $search && $collumn, function($query) use ($collumn,$search){
                 return $query->where(function($query) use ($collumn,$search) {
                     if (is_numeric($search)) {
                         $query->where($collumn, intval($search));

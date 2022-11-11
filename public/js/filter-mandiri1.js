@@ -81,13 +81,10 @@ function saveFilter() {
           console.log(result);
           var coba = JSON.parse(result)
           console.log(coba);
-          // collumn = coba.criteria
-          // $("#namedkey").empty();
-          // for (let index = 0; index < collumn.length; index++) {
-          //   let tag ='<div class="input-group mb-3" id="collumn-'+index+'"><input type="text" class="form-control" id="collumn-'+index+'" name="collumn-'+index+'" value="'+collumn[index]+'" readonly><div class="input-group-append" id="collumn-'+index+'"><button class="btn btn-outline-danger" type="button" url="'+urldel+'" onclick="deleteCollumn('+index+')"><i class="fa-solid fa-times fa-lg"></i> Hapus</button></div></div>'
-          //   $("#namedkey").append(tag);
-          // }
-          // document.getElementById("banyakCollumn").value = collumn.length
+          var result = JSON.parse(result)
+          var url = result.route
+          console.log(result);
+          window.location.assign(url)
       }
       else {
         alert('null');   
