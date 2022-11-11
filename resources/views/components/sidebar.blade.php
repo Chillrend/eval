@@ -34,7 +34,11 @@
                     <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
                             href="{{ url('preview-prestasi') }}"><i class="fas fa-eye" ></i><span>Preview</span></a>
-                    </li>             
+                    </li>
+                    <li class="{{ Request::is('filter-prestasi') ? 'active' : '' }}">
+                            <a class="nav-link "
+                                href="{{ url('filter-prestasi') }}"><i class="fas fa-eye" ></i><span>Filter</span></a>
+                    </li>                      
                 </ul>
 
             </li>

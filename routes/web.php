@@ -14,6 +14,7 @@ use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\FilterMandiriController;
+use App\Http\Controllers\FilterPresController;
 use App\Http\Controllers\FilterTesController;
 
 /*
@@ -60,6 +61,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/saveProPres', [ProdiPresController::class,'save'])->name('saveProPres');
 
     Route::get('/preview-prestasi', [PreviewPresController::class,'render']);
+
+    Route::get('/filter-prestasi', [FilterPresController::class,'render'])->name('renderFilterPres');
 
 
     //Tes

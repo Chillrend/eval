@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Session;
 
 class CandidatePresController extends Controller 
 {
-    public $q;
-    public $sortBy = 'no_daftar';
-    public $sortAsc = true;
-
-
     public function import (Request $request) 
     {
         if ($request->file('excel') == null ||
@@ -36,17 +31,21 @@ class CandidatePresController extends Controller
 
             $criteria = array(
                 'tahun' => $periode,
-                'criteria' => $namedkey,
+                'kolom' => $namedkey,
                 'table' => 'candidates_pres',
                 'kode_criteria' => strval($periode).'_candidates_pres',
             );     
 
             for ($i=0; $i < count($array[0]); $i++) {
                 for ($ab=0; $ab < count($namedkey); $ab++) { 
-                    $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    if (ctype_digit(trim($array[0][$i][$namedkey[$ab]]))) {
+                            $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
+                    } else {
+                            $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    }
                 };
-                $fil['periode'] = $periode;
-                $fil['status'] = 0;
+                $fil['periode'] = intval($periode);
+                $fil['status'] = 'import';
                 $filtered[] = $fil;
             }
 
@@ -56,7 +55,7 @@ class CandidatePresController extends Controller
                 Criteria::insert($criteria);
             }
 
-            CandidatePres::query()->where('status',0)->delete();
+            CandidatePres::query()->where('status','import')->delete();
             CandidatePres::insert($filtered);
 
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
@@ -71,10 +70,14 @@ class CandidatePresController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $candidates = CandidatePres::query()->where('status',0)
+        $candidates = CandidatePres::query()->where('status','import')
             ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
-                    $query->where($collumn, 'like', '%'.$search . '%');
+                    if (is_numeric($search)) {
+                        $query->where($collumn, intval($search));
+                    } else {
+                        $query->where($collumn, 'like', '%'.$search . '%');
+                    }
                 });
             })
             ->paginate(10);
@@ -90,13 +93,13 @@ class CandidatePresController extends Controller
     }
 
     public function cancelprestasi(){
-        CandidatePres::query()->where('status',0)->delete();
+        CandidatePres::query()->where('status','import')->delete();
         return redirect('/candidates-prestasi');
     }
 
     public function saveprestasi(){
-        CandidatePres::query()->where('status',1)->delete();
-        CandidatePres::query()->where('status',0)->update(['status' => 1]);
+        CandidatePres::query()->where('status','post-import')->delete();
+        CandidatePres::query()->where('status','import')->update(['status' => 'post-import']);
         return redirect('/preview-prestasi');
     }
 
@@ -107,13 +110,5 @@ class CandidatePresController extends Controller
         return response()->json([
             'criteria'=>$criteria->criteria,
         ]);
-    }
-
-    public function delcriteria()
-    {
-        $criteria = session('list');
-        return response()->json([
-            'criteria'=>$criteria,
-        ]);    
     }
 }
