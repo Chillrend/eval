@@ -4,6 +4,8 @@ var collumn = [];
 
 // collumn = sessionStorage.getItem("collumn");
 // console.log(sessionStorage.getItem("collumn"));
+sessionStorage.removeItem("coltes");
+
 
 function simpanFilter() { 
   sessionStorage.setItem("coltes",collumn);
