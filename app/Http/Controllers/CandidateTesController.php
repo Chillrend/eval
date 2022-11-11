@@ -30,17 +30,21 @@ class CandidateTesController extends Controller
 
             $criteria = array(
                 'tahun' => $periode,
-                'criteria' => $namedkey,
+                'kolom' => $namedkey,
                 'table' => 'candidates_tes',
                 'kode_criteria' => strval($periode).'_candidates_tes',
             );
 
             for ($i=0; $i < count($array[0]); $i++) {
                 for ($ab=0; $ab < count($namedkey); $ab++) { 
-                    $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    if (ctype_digit(trim($array[0][$i][$namedkey[$ab]]))) {
+                            $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
+                    } else {
+                            $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
+                    }
                 };
-                $fil['periode'] = $periode;
-                $fil['status'] = 0;
+                $fil['periode'] = intval($periode);
+                $fil['status'] = 'import';
                 $filtered[] = $fil;
             }
 
@@ -50,26 +54,30 @@ class CandidateTesController extends Controller
                 Criteria::insert($criteria);
             }
 
-            CandidateTes::query()->where('status',0)->delete();
+            CandidateTes::query()->where('status','import')->delete();
             CandidateTes::insert($filtered);
 
-            Session::flash('sukses','Data Berhasil ditambahkan');
-            return redirect('/candidates-tes');
-        } catch (Exception $error) {
+            Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
+            return redirect()->back();
+        }catch (Exception $error) {
             Session::flash('error', $error);
-            return redirect()->back();        }
+            return redirect()->back();
+        }
     }
-
 
     public function render(Request $request)
     {
 
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        $candidates = CandidateTes::query()->where('status',0)
+        $candidates = CandidateTes::query()->where('status','import')
             ->when( $search && $collumn, function($query) use ($collumn,$search){
                 return $query->where(function($query) use ($collumn,$search) {
-                    $query->where($collumn, 'like', '%'.$search . '%');
+                    if (is_numeric($search)) {
+                        $query->where($collumn, intval($search));
+                    } else {
+                        $query->where($collumn, 'like', '%'.$search . '%');
+                    }
                 });
             })
             ->paginate(10);
@@ -85,13 +93,13 @@ class CandidateTesController extends Controller
     }
 
     public function cancel(){
-        CandidateTes::query()->where('status',0)->delete();
+        CandidateTes::query()->where('status','import')->delete();
         return redirect('/candidates-tes');
     }
 
     public function save(){
-        CandidateTes::query()->where('status',1)->delete();
-        CandidateTes::query()->where('status',0)->update(['status' => 1]);
+        CandidateTes::query()->where('status','post-import')->delete();
+        CandidateTes::query()->where('status','import')->update(['status' => 'post-import']);
         return redirect('/preview-tes');
     }
 

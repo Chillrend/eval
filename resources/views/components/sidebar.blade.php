@@ -56,6 +56,10 @@
                         <li class="{{ Request::is('preview-tes') ? 'active' : '' }}">
                             <a class="nav-link "
                                 href="{{ url('preview-tes') }}"><i class="fas fa-eye" ></i><span>Preview</span></a>
+                        </li>
+                        <li class="{{ Request::is('filter-tes') ? 'active' : '' }}">
+                            <a class="nav-link "
+                                href="{{ url('filter-tes') }}"><i class="fas fa-eye" ></i><span>Filter</span></a>
                         </li>             
                     </ul>    
             </li>

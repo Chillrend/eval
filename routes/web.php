@@ -14,6 +14,7 @@ use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\FilterMandiriController;
+use App\Http\Controllers\FilterTesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/preview-tes', [PreviewTesController::class,'render']);
 
+    Route::get('/filter-tes', [FilterTesController::class,'render'])->name('renderFilterTes');
 
 
 

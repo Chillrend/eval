@@ -5,6 +5,7 @@ use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\FilterMandiriController;
+use App\Http\Controllers\FilterTesController;
 use App\Http\Controllers\ProdiMandiriController;
 use App\Http\Controllers\ProdiPresController;
 use App\Http\Controllers\ProdiTesController;
@@ -41,3 +42,6 @@ Route::post('/get-criteria-prodi-mandiri',[ProdiMandiriController::class,'criter
 
 Route::post('/filter-mandiri', [FilterMandiriController::class,'save'])->name('saveFilterMan');
 Route::post('/get-filter-mandiri', [FilterMandiriController::class,'getFilter'])->name('getFilterMan');
+
+Route::post('/filter-tes', [FilterTesController::class,'save'])->name('saveFilterTes');
+Route::post('/get-filter-tes', [FilterTesController::class,'getFilter'])->name('getFilterTes');
