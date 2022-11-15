@@ -13,7 +13,8 @@ class CandidateMandiriController extends Controller
 {
     public function import (Request $request) 
     {
-        if ($request->file('excel') == null ||
+        if ($request->input('tahunperiode') == '' ||
+            $request->file('excel') == null ||
             $request->input('periode') == '' ||
             $request->input('banyakCollumn') == 0) {
                 Session::flash('error','Pastikan anda telah mengisi semua input');
@@ -27,7 +28,7 @@ class CandidateMandiriController extends Controller
                 $namedkey[$i]=strtolower(request('collumn-'.strval($i)));
             }
 
-            $periode = $request->input('periode');
+            $periode = $request->input('tahunperiode');
 
             $criteria = array(
                 'tahun' => $periode,
