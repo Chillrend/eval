@@ -1,0 +1,12 @@
+.select {
+    border: 1px solid #e2e2fd;
+    border-radius: 15px;
+    background: #fefeff;
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    font-size: 13px;
+    display: block;
+    height: 31px;
+    color: #666666;
+}

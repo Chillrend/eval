@@ -14,6 +14,10 @@
         href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/css/select.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/css/style.css') }}">
 @endpush
 
 @section('main')
@@ -148,7 +152,7 @@
                                 <div class="card-header-form">
                                     <form  action="/candidates-mandiri" method="get">
                                         <div class="input-group">
-                                            <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
+                                            <select class="select form-control-sm" name="kolom" id="periode" onchange="myFunction()">
                                                 <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
                                                 @foreach($abs['criteria'] as $criteriaa)
                                                 <option>{{$criteriaa}}</option>
