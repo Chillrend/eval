@@ -136,7 +136,7 @@
                                                     <td>
                                                         <div class="row m-0">
                                                             <button type="submit" class="btn btn-icon btn-success m-1" ><i class="fas fa-check"></i></button>
-                                                            <button class="btn btn-icon btn-danger m-1" id="closeBtn" onclick="closeBtn({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-close"></i></button>
+                                                            <button class="btn btn-icon btn-danger m-1 btnclose" id="closeBtn" onclick="closeBtn({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-close"></i></button>
                                                         </div>
                                                     </td>
                                                 </form>
