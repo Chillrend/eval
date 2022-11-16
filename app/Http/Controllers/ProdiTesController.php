@@ -77,6 +77,33 @@ class ProdiTesController extends Controller
         }
     }
 
+    public function cancel($id)
+    {
+        try {
+            $data = ProdiTes::find($id);        
+
+            if (ProdiTes::query()->where('id_prodi',intval(request('id_prodi')))->count() > 1 || 
+                ProdiTes::query()->where('id_prodi',intval(request('id_prodi')))->count() == 1 &&
+                $data->isnot(ProdiTes::query()->where('id_prodi',intval(request('id_prodi')))->first())
+                ) {
+                return redirect()->back()->withInput()->withErrors('id_prodi sudah terdaftar','default');
+            }
+
+            // $data                   = ProdiTes::find($id);        
+            // $data->id_prodi         = intval(request('id_prodi'));
+            // $data->prodi            = request('prodi');
+            // $data->kelompok_bidang  = request('kelompok_bidang');
+            // $data->kuota            = intval(request('kuota'));
+            // $data->save();
+            
+            return redirect()->back();
+        } catch (Exception $error) {
+            return redirect()->back()->withInput()->withErrors($error,'default');
+        }
+    }
+
+
+
     public function import (Request $request) 
     {
         if ($request->file('excel') == null ||
