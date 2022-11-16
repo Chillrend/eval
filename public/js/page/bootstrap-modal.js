@@ -65,7 +65,8 @@ $("#modal-5").fireModal({
   shown: function(modal, form) {
     console.log(form)
   },
-  buttons: [
+  buttons: 
+  [
     {
       text: 'Login',
       submit: true,
