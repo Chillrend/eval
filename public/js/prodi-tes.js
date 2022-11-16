@@ -24,6 +24,10 @@ function editBtn(id){
 }
 
 function closeBtn(id){
+  $(".btnclose").click(function name(params) {
+    
+  })
+  $(this).preventDefault();
   $('#row-'+id).show();
   $('#row-edit-'+id).hide();
 }
