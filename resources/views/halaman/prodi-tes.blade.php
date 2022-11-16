@@ -69,7 +69,6 @@
                                         {{ session('success') }}
                                     </div>
                                 </div>
-                                <br>
                             @endif
 
                             @if ($errors->any())
@@ -84,9 +83,9 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                <br>
                             @endif
 
+                            <br>
                             <div class="">
                                 <table class="table-hover table display nowrap" id="table" style="width: 100%">
                                     <thead>
@@ -102,7 +101,7 @@
                                     <tbody>
                                         @if($prodi->first())
                                             @foreach($prodi as $prodii => $data)
-                                            <tr>
+                                            <tr id="row-{{ $prodii + $prodi->firstItem()}}">
                                                 <td>{{ $prodii + $prodi->firstItem()}}</td>                                              
                                                 <td>{{$data['id_prodi']}}</td>
                                                 <td>{{$data['prodi']}}</td>
@@ -117,6 +116,30 @@
                                                         </form>
                                                     </div>
                                                 </td>
+                                            </tr>
+                                            <tr id="row-edit-{{ $prodii + $prodi->firstItem()}}" style="display: none;">
+                                                <form action="{{route('editProdiTes',['id' => $data['_id']])}}" method="post">
+                                                    @csrf
+                                                    <td>{{ $prodii + $prodi->firstItem()}}</td>                                              
+                                                    <td>
+                                                        <input type="number" class="form-control" placeholder="Id Prodi" name="id_prodi" value="{{$data['id_prodi']}}" required>
+                                                    </td>                                              
+                                                    <td>
+                                                        <input type="text" class="form-control" placeholder="Program Studi" name="prodi" value="{{$data['prodi']}}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" placeholder="Kelompok Bidang" name="kelompok_bidang" value="{{$data['kelompok_bidang']}}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control" placeholder="Kuota" name="kuota" value="{{$data['kuota']}}" required>
+                                                    </td>
+                                                    <td>
+                                                        <div class="row m-0">
+                                                            <button type="submit" class="btn btn-icon btn-success m-1" ><i class="fas fa-check"></i></button>
+                                                            <button class="btn btn-icon btn-danger m-1" id="closeBtn" onclick="closeBtn({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-close"></i></button>
+                                                        </div>
+                                                    </td>
+                                                </form>
                                             </tr>
                                             @endforeach
                                         @else
@@ -204,7 +227,7 @@
 <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-<!-- <script src="{{ asset('js/stisla.js') }}"></script> -->
+<script src="{{ asset('js/stisla.js') }}"></script>
 <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 <!-- Page Specific JS File -->

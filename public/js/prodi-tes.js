@@ -19,15 +19,14 @@ $("#modal-add").fireModal({
 // });
 
 function editBtn(id){
-  $("#table .btn-warning").fireModal({
-    title: 'Tambah Prodi',
-    body: $("#modal-edit-prodi-"+id),
-    center: true,
-    footerClass: 'bg-whitesmoke',
-    autoFocus: true,
-  });
+  $('#row-'+id).hide();
+  $('#row-edit-'+id).show();
 }
 
+function closeBtn(id){
+  $('#row-'+id).show();
+  $('#row-edit-'+id).hide();
+}
 // function deleteCollumn(id){
 //   collumn.splice(id,1);
 //   addCollumn();
