@@ -237,7 +237,7 @@
 <!-- Page Specific JS File -->
 <script src="../../js/table.js"></script>
 <script src="../../js/style.js"></script>
-<script src="../../js/prodi-tes.js"></script>
+<script src="../../js/prodi.js"></script>
 <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 
 @endpush

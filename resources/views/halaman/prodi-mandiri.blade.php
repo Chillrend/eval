@@ -136,10 +136,7 @@
                                                     <td>
                                                         <div class="row m-0">
                                                             <button type="submit" class="btn btn-icon btn-success m-1" ><i class="fas fa-check"></i></button>
-                                                        </form>
-                                                        <form action="{{route('cancelProdiPres',['id' => $data['_id']])}}" method="post">
-                                                            @csrf
-                                                            <button class="btn btn-icon btn-danger m-1 btnclose" id="closeBtn" onclick="closeBtn({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-close"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger m-1 btnclose" id="closeBtn" onclick="closeButton({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-times"></i></button>
                                                         </div>
                                                     </td>
                                                 </form>
@@ -236,7 +233,7 @@
 <!-- Page Specific JS File -->
 <script src="../../js/table.js"></script>
 <script src="../../js/style.js"></script>
-<script src="../../js/prodi-tes.js"></script>
+<script src="../../js/prodi.js"></script>
 <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 
 @endpush
