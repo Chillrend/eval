@@ -10,4 +10,21 @@ class ProdiPres extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
+    protected $table = 'prodi_pres';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id_prodi', 'prodi', 'kelompok_bidang', 'kuota'
+    ];
 }

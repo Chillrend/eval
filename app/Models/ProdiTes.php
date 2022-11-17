@@ -10,6 +10,7 @@ class ProdiTes extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
+    protected $table = 'prodi_tes';
 
     /**
      * Indicates if the model should be timestamped.
