@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('prodi_tes', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_prodi')->unique();
+            $table->string('prodi');
+            $table->string('kelompok_bidang');
+            $table->integer('kuota');
             $table->timestamps();
         });
     }
