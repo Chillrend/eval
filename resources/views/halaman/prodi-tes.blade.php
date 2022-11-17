@@ -45,7 +45,7 @@
                                                 <option selected disabled class="hidden">{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
                                                 <option value="id_prodi">Id Prodi</option>
                                                 <option value="prodi">Prodi</option>
-                                                <option value="kelompok_belajar">Kelompok Belajar</option>
+                                                <option value="kelompok_bidang">Kelompok Bidang</option>
                                                 <option value="kuota">Kuota</option>
                                             </select>
                                             &nbsp; &nbsp;
