@@ -5,7 +5,7 @@ var collumn = [];
 // collumn = sessionStorage.getItem("collumn");
 // console.log(sessionStorage.getItem("collumn"));
 
-if(sessionStorage.getItem("collumn") != null){
+if(sessionStorage.getItem("coltes") != null){
   var a = sessionStorage.getItem("coltes").split(",");
   for (let b = 0; b < a.length; b) {
     var e = [];
