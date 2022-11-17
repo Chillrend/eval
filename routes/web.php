@@ -74,10 +74,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/prodi-tes', [ProdiTesController::class,'render']);
     Route::post('/prodi-tes', [ProdiTesController::class,'insert'])->name('addProdiTes');
-    // Route::post('/prodi-tes', [ProdiTesController::class,'import']);
     Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class,'delete'])->name('delProdiTes');
     Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class,'edit'])->name('editProdiTes');
-    Route::post('/cancel-prodi-tes/{id}', [ProdiTesController::class,'cancel'])->name('cancelProdiTes');
     
     Route::post('cancelProTes', [ProdiTesController::class,'cancel'])->name('cancelProTes');
     Route::post('saveProTes', [ProdiTesController::class,'save'])->name('saveProTes');
