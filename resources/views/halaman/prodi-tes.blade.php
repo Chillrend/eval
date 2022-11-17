@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="align-items-left">
-                                    <button type="submit" class="btn btn-primary" id="modal-add"><i class="fas fa-plus"></i> Add</button>
+                                    <button class="btn btn-primary form-control" id="modal-add"><i class="fas fa-plus"></i> Add</button>
                                 </div>
 
                                 <div class="align-items-right">
@@ -136,7 +136,7 @@
                                                     <td>
                                                         <div class="row m-0">
                                                             <button type="submit" class="btn btn-icon btn-success m-1" ><i class="fas fa-check"></i></button>
-                                                            <button type="button" class="btn btn-icon btn-danger m-1 btnclose" id="closeBtn" onclick="closeButton({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-close"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger m-1 btnclose" id="closeBtn" onclick="closeButton({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-times"></i></button>
                                                         </div>
                                                     </td>
                                                 </form>
