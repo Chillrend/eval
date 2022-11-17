@@ -56,10 +56,6 @@
                         <a class="nav-link "
                             href="{{ url('candidates-prestasi') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
                     </li>
-                    <li class="{{ Request::is('prodi-prestasi-test') ? 'active' : '' }}">
-                        <a class="nav-link "
-                            href="{{ url('prodi-prestasi-test') }}"><i class="fas fa-university"></i><span>Program Studi lama</span></a>
-                    </li>
                     <li class="{{ Request::is('prodi-prestasi') ? 'active' : '' }}">
                         <a class="nav-link "
                             href="{{ url('prodi-prestasi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
@@ -116,10 +112,6 @@
                         <a class="nav-link "
                             href="{{ url('prodi-mandiri') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
                     </li>
-                    <li class="{{ Request::is('prodi-mandiri-test') ? 'active' : '' }}">
-                        <a class="nav-link "
-                            href="{{ url('prodi-mandiri-test') }}"><i class="fas fa-university"></i><span>Program Studi Lama</span></a>
-                    </li>   
                     <li class="{{ Request::is('preview-mandiri') ? 'active' : '' }}">
                         <a class="nav-link "
                             href="{{ url('preview-mandiri') }}"><i class="fas fa-eye" ></i><span>Preview</span></a>
