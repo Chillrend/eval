@@ -84,20 +84,8 @@
                                 <div class="card-body">
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
-                                        <label>Choose One</label>
-                                        <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
-                                            <option selected hidden>Tahun Periode Masuk</option>
-                                            @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
-                                            <option >{{now()->year}}</option>
-                                            @foreach($criteria->reverse() as $periode)
-                                            <option>{{$periode->tahun}}</option>
-                                            @endforeach
-                                            @else
-                                            @foreach($criteria->reverse() as $periode)
-                                            <option>{{$periode->tahun}}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
+                                        <label>Masukkan Tahun Periode</label>
+                                        <input type="text" class="form-control" id="tahunperiode" name="tahunperiode" placeholder="Input Tahun">
                                         
                                         <div class="section-title">File Browser</div>
                                         <div class="input-group mb-3">
@@ -106,7 +94,14 @@
                                         </div>
                                         
                                         <div class="section-title">Nama Kolom Excel</div>
-                                        <label>Cocokkan nama kolom excel dengan nama pada table</label>
+                                        <label>Template Tabel</label>
+                                        <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
+                                            <option selected hidden>Tahun Tabel</option>
+                                            @foreach($criteria->reverse() as $periode)
+                                            <option>{{$periode->tahun}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label class="mt-3">Cocokkan nama kolom excel dengan nama pada table</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
                                             <div class="input-group-append">
