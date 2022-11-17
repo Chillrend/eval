@@ -39,7 +39,7 @@
                                 </div>
 
                                 <div class="align-items-right">
-                                    <form action="/prodi-tes" method="get">
+                                    <form action="/prodi-pres" method="get">
                                         <div class="input-group">
                                             <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
                                                 <option selected disabled class="hidden">{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
@@ -110,7 +110,7 @@
                                                 <td>
                                                     <div class="row m-0">
                                                         <button class="btn btn-icon btn-warning m-1" id="editBtn" onclick="editBtn({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-edit"></i></button>
-                                                        <form action="{{route('delProdiTes',['id' => $data['_id']])}}" method="post">
+                                                        <form action="{{route('delProdiPres',['id' => $data['_id']])}}" method="post">
                                                             @csrf
                                                             <button class="btn btn-icon btn-danger m-1" id="deleteBtn" ><i class="fas fa-trash"></i></button>
                                                         </form>
