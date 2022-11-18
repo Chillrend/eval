@@ -26,29 +26,6 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <!-- <div class="card-header" >
-                                <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
-                                <div class="card-header-form">
-                                <div class="progress mb-3"
-                                    data-height="15">
-                                    <div class="progress-bar"
-                                        role="progressbar"
-                                        data-width="25%"
-                                        aria-valuenow="25"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                                </div>
-                            </div>
-
-                            <div class="card-header d-flex justify-content-center align-items-center">
-                                <h4 class="my-2 col-6">Tabel Preview Data Mahasiswa</h4>
-                                    <div class="progress col-6 p-0" data-height="15" style="height: 15px;">
-                                        <div class="progress-bar" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                                        </div>
-                                    </div>
-                            </div>
-                            -->
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
                                 <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between">
