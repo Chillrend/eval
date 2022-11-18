@@ -85,7 +85,7 @@
                                     @csrf
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
                                         <label>Masukkan Tahun Periode</label>
-                                        <input type="text" class="form-control" id="tahunperiode" name="tahunperiode" placeholder="Input Tahun">
+                                        <input type="number" class="form-control" id="tahunperiode" name="tahunperiode" placeholder="Input Tahun" value="{{now()->year}}">
                                         
                                         <div class="section-title">File Browser</div>
                                         <div class="input-group mb-3">
@@ -95,7 +95,7 @@
                                         
                                         <div class="section-title">Nama Kolom Excel</div>
                                         <label>Template Tabel</label>
-                                        <select class="custom-select " name="periode" id="periode" onchange="myFunction()">
+                                        <select class="form-control " name="periode" id="periode" onchange="myFunction()">
                                             <option selected hidden>Tahun Tabel</option>
                                             @foreach($criteria->reverse() as $periode)
                                             <option>{{$periode->tahun}}</option>
@@ -234,7 +234,7 @@
 <!-- Page Specific JS File -->
 <script src="../../js/table.js"></script>
 <script src="../../js/style.js"></script>
-<script src="../../js/prodi-prestasi.js"></script>
+<script src="../../js/candidate-tes.js"></script>
 <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
 
