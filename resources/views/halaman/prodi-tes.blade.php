@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="align-items-left">
-                                    <button class="btn btn-primary form-control" id="modal-add"><i class="fas fa-plus"></i> Add</button>
+                                    <button class="btn btn-primary " id="modal-add"><i class="fas fa-plus"></i> Add</button>
                                 </div>
 
                                 <div class="align-items-right">
