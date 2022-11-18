@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProdiController;
+use App\Http\Controllers\BindProdiTesController;
 use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateTesController;
@@ -49,3 +50,6 @@ Route::post('/get-filter-tes', [FilterTesController::class,'getFilter'])->name('
 
 Route::post('/filter-pres', [FilterPresController::class,'save'])->name('saveFilterPres');
 Route::post('/get-filter-pres', [FilterPresController::class,'getFilter'])->name('getFilterPres');
+
+Route::get('/bind-prodi-tes', [BindProdiTesController::class,'render_api'])->name('api_renderBindProdiTes');
+Route::post('/bind-prodi-tes', [BindProdiTesController::class,'binding'])->name('api_bindBindProdiTes');
