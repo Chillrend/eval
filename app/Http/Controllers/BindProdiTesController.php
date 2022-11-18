@@ -29,6 +29,6 @@ class BindProdiTesController extends Controller
 
     public function binding()
     {
-        
+        dd(request());
     }
 }
