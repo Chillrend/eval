@@ -56,7 +56,7 @@ class CandidateMandiriController extends Controller
                 Criteria::insert($criteria);
             }
 
-            CandidateMand::query()->where('status','import')->delete();
+            CandidateMand::query()->where('periode',intval($periode))->delete();
             CandidateMand::insert($filtered);
 
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
@@ -106,10 +106,10 @@ class CandidateMandiriController extends Controller
 
     public function criteria()
     {
-        $criteria = Criteria::select('criteria')->where('table', 'candidates_mand')->where('tahun', request('tahun'))->first();
-        session()->put('list', $criteria);
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', request('tahun'))->first();
+
         return response()->json([
-            'criteria'=>$criteria->criteria,
+            'criteria'=>$criteria->kolom,
         ]);
     }
 }

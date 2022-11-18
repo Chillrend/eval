@@ -55,7 +55,7 @@ class CandidateTesController extends Controller
                 Criteria::insert($criteria);
             }
 
-            CandidateTes::query()->where('status','import')->delete();
+            CandidateTes::query()->where('periode',intval($periode))->delete();
             CandidateTes::insert($filtered);
 
             Session::flash('success','Data Calon Mahasiswa Berhasil diimport');
@@ -106,10 +106,9 @@ class CandidateTesController extends Controller
 
     public function criteria()
     {
-        $criteria = Criteria::select('criteria')->where('table', 'candidates_tes')->where('tahun', request('tahun'))->first();
-        session()->put('list', $criteria);
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', request('tahun'))->first();
         return response()->json([
-            'criteria'=>$criteria->criteria,
+            'criteria'=>$criteria->kolom,
         ]);
     }
 }
