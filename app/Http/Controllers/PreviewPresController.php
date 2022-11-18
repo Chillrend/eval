@@ -23,19 +23,37 @@ class PreviewPresController extends Controller
     public function render()
     {
 
-        $canpres = CandidatePres::query()->where('status',1)->paginate(10);
-            
-        $propres = ProdiPres::query()->where('status',1)->paginate(10);
+        $periode = strval(now()->year);
 
-        $criteriacan = Criteria::query()->where('table', 'candidates_pres')->first();
-        $criteriaprodi = Criteria::query()->where('table', 'prodi_pres')->first();
+        $candidates = CandidatePres::query()->where('periode', intval($periode))->paginate(10);
+        $tahun = CandidatePres::select('periode')->groupBy('periode')->get()->toArray();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', $periode)->first();
+        $status = $candidates->first()->status;
 
+        switch ($status) {
+            case 'import':
+                $statuss = 1/4*100;
+                break;
+            case 'post-import':
+                $statuss = 2/4*100;
+                break;
+            case 'filtered':
+                $statuss = 3/4*100;
+                break;
+            case 'done':
+                $statuss = 4/4*100;
+                break;
+                
+            default:
+                $statuss = 0/4*100;
+                break;
+        }
         return view('halaman.preview-prestasi',[
             'type_menu' => 'prestasi',
-            'candidates' => $canpres,
-            'prodi' => $propres,
-            'criteria_can' => $criteriacan,
-            'criteria_pro' => $criteriaprodi
+            'candidates' => $candidates,
+            'tahun' => $tahun,
+            'criteria' =>$criteria->kolom,
+            'status' => [$statuss, $status],
         ]);
     }
 
