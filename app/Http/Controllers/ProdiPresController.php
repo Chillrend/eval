@@ -182,7 +182,7 @@ class ProdiPresController extends Controller
             ->paginate(10);
 
         return view('halaman.prodi-prestasi',[
-            'type_menu' => 'pres',
+            'type_menu' => 'prestasi',
             'prodi' => $prodi,
             'searchbar' => [$collumn, $search],
         ]);

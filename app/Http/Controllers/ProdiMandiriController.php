@@ -182,7 +182,7 @@ class ProdiMandiriController extends Controller
             ->paginate(10);
 
         return view('halaman.prodi-mandiri',[
-            'type_menu' => 'mand',
+            'type_menu' => 'mandiri',
             'prodi' => $prodi,
             'searchbar' => [$collumn, $search],
         ]);

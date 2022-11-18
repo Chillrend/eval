@@ -15,7 +15,6 @@
             <div class="section-header">
                 <h1>Data Mahasiswa Seleksi Tes</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
                     <div class="breadcrumb-item"><a href="#">Preview</a></div>
                     <div class="breadcrumb-item">Data Mahasiswa Seleksi Tes</div>
