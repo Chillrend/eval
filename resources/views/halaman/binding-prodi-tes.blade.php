@@ -14,6 +14,10 @@
     #tbl-bindprodites td {
         vertical-align: middle;
     }
+    #editBtn a{
+        text-decoration: none;
+        color: white;
+    }
 </style>
 @endpush
 
@@ -109,6 +113,76 @@
             </div>
         </div>
     </section>
+
+
+    <section id="binding" hidden>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Binding</h3>
+                    </div>
+                    <form action="{{ route('api_bindBindProdiTes') }}" method="POST">
+                    @csrf
+                        <div class="card-body">
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">id</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="id" name="id" class="form-control" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">prodi</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="prodi" name="prodi" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">prodi baru</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="input_prodi" name="input_prodi" class="form-control" placeholder="Input Prodi" />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">tahun</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="tahun" name="tahun" class="form-control" placeholder="Input Tahun" />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Template tahun</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <select class="custom-select" id="tahuntemplate" >
+                                        <option value="tahun">tahun</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4 d-flex justify-content-center">
+                                <label class="custom-switch col-7 " style="margin-left: 3.6rem">
+                                    <input type="checkbox"
+                                        id="flexCheckDefault"
+                                        name="custom-switch-checkbox"
+                                        class="custom-switch-input" onclick="cek()">
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">Nama Prodi Sesuai</span>
+                                </label>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                <div class="col-sm-12 col-md-7">
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                    <input class="btn btn-danger ml-2"type="button" value="Close" onclick="tutup()">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
 
     
 

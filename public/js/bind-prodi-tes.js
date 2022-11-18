@@ -1,5 +1,4 @@
 var url = document.getElementById("main-content").getAttribute('url');
-console.log(url);
 
 var dataAPI;
 
@@ -47,9 +46,10 @@ fetch(url, requestOptions)
                 // orderable: false,
             },
             {
-                data: "_id",
-                render: function (data) {
-                  return '<button class="btn btn-icon btn-warning m-1" id="editBtn" onclick="editBtn('+ data +')" ><i class="fas fa-edit"></i> Binding</button>';
+              data: null,
+              render: function (data, type, full, meta) {
+                rowww = meta.row
+                  return '<a href=#binding><button class="btn btn-icon btn-warning m-1" id="editBtn" onclick="editBtn('+ rowww +')" ><i class="fas fa-edit"></i>  Binding </button> </a>';
                 },
                 orderable: false,
             }
@@ -57,3 +57,31 @@ fetch(url, requestOptions)
     });
   })
   .catch(error => console.log('error', error));
+
+  function tutup(){
+    document.getElementById('binding').setAttribute('hidden','');
+  }
+
+  function cek(){
+    var a = document.getElementById('flexCheckDefault');
+      if (a.checked == true) {
+        document.getElementById('input_prodi').value=  document.getElementById('prodi').value;
+        document.getElementById('input_prodi').readOnly = true;
+        document.getElementById('tahuntemplate').setAttribute('readonly',true);
+      } else {
+        document.getElementById('input_prodi').value= "";
+        document.getElementById('tahun').value= "";
+        document.getElementById('input_prodi').readOnly = false;
+        document.getElementById('tahuntemplate').removeAttribute('readonly');
+      }
+  }
+
+  function editBtn(id) {
+    document.getElementById('binding').removeAttribute('hidden');
+    document.getElementById('binding').focus();
+    var idbaru = dataAPI['prodi'][id];
+    document.getElementById('id').value= idbaru['id_prodi'];
+    document.getElementById('prodi').value= idbaru['prodi'];
+    document.getElementById('tahun').value= "";
+    
+  }
