@@ -11,19 +11,38 @@ class PreviewMandiriController extends Controller
     public function render()
     {
 
-        $canpres = CandidateMand::query()->where('status',1)->paginate(10);
-            
-        $propres = ProdiMand::query()->where('status',1)->paginate(10);
+        $periode = strval(now()->year);
 
-        $criteriacan = Criteria::query()->where('table', 'candidates_mand')->first();
-        $criteriaprodi = Criteria::query()->where('table', 'prodi_mand')->first();
+        $candidates = CandidateMand::query()->where('periode', intval($periode))->paginate(10);
+        $tahun = CandidateMand::select('periode')->groupBy('periode')->get()->toArray();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', $periode)->first();
+        $status = $candidates->first()->status;
+
+        switch ($status) {
+            case 'import':
+                $statuss = 1/4*100;
+                break;
+            case 'post-import':
+                $statuss = 2/4*100;
+                break;
+            case 'filtered':
+                $statuss = 3/4*100;
+                break;
+            case 'done':
+                $statuss = 4/4*100;
+                break;
+                
+            default:
+                $statuss = 0/4*100;
+                break;
+        }
 
         return view('halaman.preview-mandiri',[
             'type_menu' => 'mandiri',
-            'candidates' => $canpres,
-            'prodi' => $propres,
-            'criteria_can' => $criteriacan,
-            'criteria_pro' => $criteriaprodi
+            'candidates' => $candidates,
+            'tahun' => $tahun,
+            'criteria' =>$criteria->kolom,
+            'status' => [$statuss, $status],
         ]);
     }
 
