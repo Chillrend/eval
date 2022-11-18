@@ -14,20 +14,38 @@ class PreviewTesController extends Controller
     public $sortAsc = true;
     public function render()
     {
+        $periode = strval(now()->year);
 
-        $cantes = CandidateTes::query()->where('status',1)->paginate(10);
-            
-        $protes = ProdiTes::query()->where('status',1)->paginate(10);
+        $candidates = CandidateTes::query()->where('periode', intval($periode))->paginate(10);
+        $tahun = CandidateTes::select('periode')->groupBy('periode')->get()->toArray();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', $periode)->first();
+        $status = $candidates->first()->status;
 
-        $criteriacan = Criteria::query()->where('table', 'candidates_tes')->first();
-        $criteriaprodi = Criteria::query()->where('table', 'prodi_tes')->first();
+        switch ($status) {
+            case 'import':
+                $statuss = 1/4*100;
+                break;
+            case 'post-import':
+                $statuss = 2/4*100;
+                break;
+            case 'filtered':
+                $statuss = 3/4*100;
+                break;
+            case 'done':
+                $statuss = 4/4*100;
+                break;
+                
+            default:
+                $statuss = 0/4*100;
+                break;
+        }
 
         return view('halaman.preview-tes',[
             'type_menu' => 'tes',
-            'candidates' => $cantes,
-            'prodi' => $protes,
-            'criteria_can' => $criteriacan,
-            'criteria_pro' => $criteriaprodi
+            'candidates' => $candidates,
+            'tahun' => $tahun,
+            'criteria' =>$criteria->kolom,
+            'status' => [$statuss, $status],
         ]);
     }
 

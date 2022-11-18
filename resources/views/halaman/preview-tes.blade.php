@@ -13,25 +13,56 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Mahasiswa Seleksi Tes</h1>
+                <h1>Preview Data Mahasiswa Seleksi Tes</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
                     <div class="breadcrumb-item"><a href="#">Preview</a></div>
-                    <div class="breadcrumb-item">Data Mahasiswa Seleksi Tes</div>
+                    <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Tes</div>
                 </div>
             </div>
-            <h2 class="section-title">Preview</h2>
-            <p class="section-lead">
-                Preview data mahasiswa seleksi tes dan kuota program studi
-            </p>
             @if($candidates->first())
             <div id="">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header" >
+                            <!-- <div class="card-header" >
                                 <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
+                                <div class="card-header-form">
+                                <div class="progress mb-3"
+                                    data-height="15">
+                                    <div class="progress-bar"
+                                        role="progressbar"
+                                        data-width="25%"
+                                        aria-valuenow="25"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header d-flex justify-content-center align-items-center">
+                                <h4 class="my-2 col-6">Tabel Preview Data Mahasiswa</h4>
+                                    <div class="progress col-6 p-0" data-height="15" style="height: 15px;">
+                                        <div class="progress-bar" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                        </div>
+                                    </div>
+                            </div>
+                            -->
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
+                                <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between">
+                                    <div class="progress col-8 p-0 mt-1"
+                                        data-height="20">
+                                        <div class="progress-bar"
+                                            role="progressbar"
+                                            data-width="{{$status[0]}}%"
+                                            aria-valuenow="{{$status[0]}}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                    <h5 class="badge badge-primary">{{$status[1]}}</h5>
+                                </div>    
                             </div>
                             <div>
                                 <div class="card-body">
@@ -41,7 +72,7 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">periode</th>
-                                                    @foreach($criteria_can['criteria'] as $criteriaa)
+                                                    @foreach($criteria as $criteriaa)
                                                     <th scope="col">{{$criteriaa}}</th>
                                                     @endforeach
                                                 </tr>
@@ -51,7 +82,7 @@
                                                 <tr>
                                                     <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
                                                     <td>{{$data['periode']}}</td>
-                                                    @foreach($criteria_can['criteria'] as $criteriaa)
+                                                    @foreach($criteria as $criteriaa)
                                                     <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
                                                     @endforeach
                                                 </tr>
@@ -65,54 +96,6 @@
                                     </div>
                                     <div class="col-sm-12 col-md-5 pagination">
                                     {!! $candidates->links("pagination::bootstrap-4") !!}
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-            @if($prodi->first())
-            <div id="">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header" >
-                                <h4 class="my-2">Tabel Preview Data Prodi</h4>
-                            </div>
-                            <div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">periode</th>
-                                                    @foreach($criteria_pro['criteria'] as $criteriaa)
-                                                    <th scope="col">{{$criteriaa}}</th>
-                                                    @endforeach
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($prodi as $candidate => $data)
-                                                <tr>
-                                                    <td>{{ $candidate + $prodi->firstItem()}}</td>                                              
-                                                    <td>{{$data['periode']}}</td>
-                                                    @foreach($criteria_pro['criteria'] as $criteriaa)
-                                                    <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
-                                                    @endforeach
-                                                </tr>
-                                                @endforeach
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <p> {{ $prodi->firstItem() }} of {{ $prodi->lastItem() }} from {{ $prodi->total() }} contents</p>
-                                    </div>
-                                    <div class="col-sm-12 col-md-5 pagination">
-                                    {!! $prodi->links("pagination::bootstrap-4") !!}
                                     </div>
                                 </div> 
                             </div>
