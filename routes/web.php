@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BindProdiTesController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 
@@ -90,6 +91,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class,'delete'])->name('delProdiTes');
     Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class,'edit'])->name('editProdiTes');
     
+    Route::get('/bind-prodi-tes', [BindProdiTesController::class,'render'])->name('renderBindProdiTes');
+
     Route::post('cancelProTes', [ProdiTesController::class,'cancel'])->name('cancelProTes');
     Route::post('saveProTes', [ProdiTesController::class,'save'])->name('saveProTes');
 
