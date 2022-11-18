@@ -22,6 +22,7 @@
             <div class="section-header">
                 <h1>Form Data Calon Mahasiswa</h1>
                 <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Seleksi Mandiri</a></div>
                     <div class="breadcrumb-item"><a href="#">Data Mahasiswa</a></div>
                     <div class="breadcrumb-item">Form Data Calon Mahasiswa</div>
@@ -88,10 +89,8 @@
                                         
                                         <div class="section-title">File Browser</div>
                                         <div class="input-group mb-3">
-                                            <input type="file" class="choose form-control" id="customFile" name="excel" >
-                                            <div class="input-group-append">
-                                                <label class=" input-group-text btn btn-outline-primary" for="customFile">Upload</label>
-                                            </div>
+                                            <input type="file"  name="excel" class="choose form-control" id="customFile">
+                                            <label class="input-group-text" for="customFile">Upload</label>
                                         </div>
                                         
                                         <div class="section-title">Nama Kolom Excel</div>
