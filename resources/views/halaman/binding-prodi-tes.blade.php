@@ -54,14 +54,9 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="myFunction()">
-                                    
+                            <div class="d-flex col-12 col-xl-2 col-lg-4 col-md-6 col-sm-12">
+                                <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="tahun_terdaftar()">
                                 </select>
-                                &nbsp; &nbsp;
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn-lg btn-primary form-control" style="height: 40px;"><i class="fas fa-search"></i></button>
-                                </div>
                             </div>
                         </div>
                     </div>

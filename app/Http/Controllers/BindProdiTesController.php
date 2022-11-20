@@ -31,7 +31,9 @@ class BindProdiTesController extends Controller
                 $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
             }            
         }
-        $criteria = Criteria::select('tahun')->where('table', 'candidates_tes')->groupBy('tahun')->get()->toArray(); 
+        $criteria = Criteria::select('tahun')->where('table', 'candidates_tes')->groupBy('tahun')
+        ->orderBy('tahun', 'desc')
+        ->get()->toArray(); 
 
 
         return response()->json([
