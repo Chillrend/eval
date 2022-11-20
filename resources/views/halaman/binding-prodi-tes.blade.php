@@ -38,8 +38,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-body">
-                            <ul class="nav nav-pills">
+                        <div class="card-header d-flex justify-content-between">
+                            <ul class="nav nav-pills col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12">
                                 <li class="nav-item">
                                     <a class="nav-link active"
                                         href="#">Data</a>
@@ -53,11 +53,22 @@
                                         href="#">Binding</a>
                                 </li>
                             </ul>
+
+                            <div class="d-flex col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="myFunction()">
+                                    
+                                </select>
+                                &nbsp; &nbsp;
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn-lg btn-primary form-control" style="height: 40px;"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-body">
+
                             @if (session()->has('success'))
                                 <div class="alert alert-success alert-dismissible show fade">
                                     <div class="alert-body">
@@ -120,40 +131,41 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Binding</h3>
+                        <h4 class="my-2">Binding Data Program Studi</h4>
                     </div>
                     <form action="{{ route('api_bindBindProdiTes') }}" method="POST">
                     @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">id</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Id Program Studi</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" id="id" name="id" class="form-control" readonly/>
+                                    <input type="text" id="id" name="id_prodi" class="form-control" readonly/>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">prodi</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Program Studi</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input type="text" id="prodi" name="prodi" class="form-control" readonly />
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">prodi baru</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Program Studi (Binding)</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" id="input_prodi" name="input_prodi" class="form-control" placeholder="Input Prodi" />
+                                    <input type="text" id="input_prodi" name="bind_prodi" class="form-control" placeholder="Binding" required/>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">tahun</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tahun</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" id="tahun" name="tahun" class="form-control" placeholder="Input Tahun" />
+                                    <input type="number" id="tahun" name="periode" class="form-control" placeholder="Input Tahun" value="{{now()->year}}" required />
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Template tahun</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select class="custom-select" id="tahuntemplate" >
-                                        <option value="tahun">tahun</option>
+                                    <select class="custom-select" id="tahuntemplate" onclick="">
+                                        <option value="tahun">Tahun Terdata</option>
+                                        <p id="tahuntemplate_select"></p>
                                     </select>
                                 </div>
                             </div>

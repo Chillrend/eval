@@ -30,9 +30,11 @@ class CandidateTesController extends Controller
             $periode = $request->input('tahunperiode');
 
             $criteria = array(
-                'tahun' => intval($periode),
-                'kolom' => $namedkey,
-                'table' => 'candidates_tes',
+                'tahun'         => intval($periode),
+                'kolom'         => $namedkey,
+                'binding'       => null,
+                'bobot'         => null,
+                'table'         => 'candidates_tes',
                 'kode_criteria' => strval($periode).'_candidates_tes',
             );
 
