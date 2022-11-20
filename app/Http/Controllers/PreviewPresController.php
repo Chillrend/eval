@@ -27,7 +27,7 @@ class PreviewPresController extends Controller
 
         $candidates = CandidatePres::query()->where('periode', intval($periode))->paginate(10);
         $tahun = CandidatePres::select('periode')->groupBy('periode')->get()->toArray();
-        $criteria = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', $periode)->first();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', intval($periode))->first();
         $status = $candidates->first()->status;
 
         switch ($status) {

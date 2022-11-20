@@ -98,24 +98,4 @@ class ProdiTesController extends Controller
             'searchbar' => [$collumn, $search],
         ]);
     }
-
-    public function cancelProMan(){
-        ProdiTes::query()->where('status',0)->delete();
-        return redirect('/prodi-tes');
-    }
-
-    public function saveProMan(){
-        ProdiTes::query()->where('status',1)->delete();
-        ProdiTes::query()->where('status',0)->update(['status' => 1]);
-        return redirect('/preview-tes');
-    }
-
-    public function criteria()
-    {
-        $criteria = Criteria::select('criteria')->where('table', 'prodi_tes')->where('tahun', request('tahun'))->first();
-        session()->put('list', $criteria);
-        return response()->json([
-            'criteria'=>$criteria->criteria,
-        ]);
-    }
 }

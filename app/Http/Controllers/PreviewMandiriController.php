@@ -15,7 +15,7 @@ class PreviewMandiriController extends Controller
 
         $candidates = CandidateMand::query()->where('periode', intval($periode))->paginate(10);
         $tahun = CandidateMand::select('periode')->groupBy('periode')->get()->toArray();
-        $criteria = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', $periode)->first();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', intval($periode))->first();
         $status = $candidates->first()->status;
 
         switch ($status) {

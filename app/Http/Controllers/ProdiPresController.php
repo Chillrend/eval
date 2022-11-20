@@ -39,7 +39,6 @@ class ProdiPresController extends Controller
         } catch (Exception $error) {
             return redirect()->back()->withInput()->withErrors($error,'default');
         }
-        // dd(request());
     }
 
     public function delete($id)
@@ -88,77 +87,9 @@ class ProdiPresController extends Controller
                 ) {
                 return redirect()->back()->withInput()->withErrors('id_prodi sudah terdaftar','default');
             }
-
-            // $data                   = ProdiPres::find($id);        
-            // $data->id_prodi         = intval(request('id_prodi'));
-            // $data->prodi            = request('prodi');
-            // $data->kelompok_bidang  = request('kelompok_bidang');
-            // $data->kuota            = intval(request('kuota'));
-            // $data->save();
-            
             return redirect()->back();
         } catch (Exception $error) {
             return redirect()->back()->withInput()->withErrors($error,'default');
-        }
-    }
-
-
-
-    public function import (Request $request) 
-    {
-        if ($request->file('excel') == null ||
-        $request->input('periode') == '' ||
-        $request->input('banyakCollumn') == 0) {
-            Session::flash('error','Pastikan anda telah mengisi semua input');
-            return redirect()->back();
-        }
-
-        try {
-            $array = (new ProdiImport())->toArray($request->file('excel'));
-
-            $namedkey = array();
-            for ($i=0; $i < $request->input('banyakCollumn'); $i++) {
-                $namedkey[$i]=strtolower($request->input('collumn-'.strval($i)));
-            }
-    
-            $periode = $request->input('periode');
-    
-            $criteria = array(
-                'tahun' => $periode,
-                'criteria' => $namedkey,
-                'table' => 'prodi_pres',
-                'kode_criteria' => strval($periode).'_prodi_pres',
-            );
-    
-            for ($i=0; $i < count($array[0]); $i++) {
-                // $fil = array();
-                for ($i=0; $i < count($array[0]); $i++) {
-                    // $fil = array();
-                    for ($ab=0; $ab < count($namedkey); $ab++) { 
-                        $fil[$namedkey[$ab]] = trim($array[0][$i][$namedkey[$ab]]);
-                    };
-                    $fil['periode'] = $periode;
-                    $fil['status'] = 0;
-                    $filtered[] = $fil;
-                }
-        
-                
-                if (Criteria::query()->where('kode_criteria',strval($periode).'_prodi_tes')->exists()) {
-                    Criteria::query()->where('kode_criteria',strval($periode).'_prodi_tes')->update($criteria);
-                } else {
-                    Criteria::insert($criteria);
-                }
-
-                ProdiPres::query()->where('status',0)->delete();
-                ProdiPres::insert($filtered);
-                
-                Session::flash('sukses','Data Berhasil ditambahkan');
-                return redirect()->back();
-            }
-            
-        }catch (Exception $error) {
-            Session::flash('error', $error);
-            return redirect()->back();
         }
     }
 
@@ -166,9 +97,6 @@ class ProdiPresController extends Controller
     {
         $search = $request->input('search');
         $collumn = $request->input('kolom');
-        // dd(
-        //     ProdiPres::query()->where('prodi','like','%'.'Teknik Informatika'.'%')->get(),
-        // );
         $prodi = ProdiPres::query()
             ->when( $search && $collumn, function($query) use ($collumn,$search) {
                 return $query->where(function($query) use ($collumn,$search) {
@@ -185,26 +113,6 @@ class ProdiPresController extends Controller
             'type_menu' => 'prestasi',
             'prodi' => $prodi,
             'searchbar' => [$collumn, $search],
-        ]);
-    }
-
-    public function cancelProMan(){
-        ProdiPres::query()->where('status',0)->delete();
-        return redirect('/prodi-pres');
-    }
-
-    public function saveProMan(){
-        ProdiPres::query()->where('status',1)->delete();
-        ProdiPres::query()->where('status',0)->update(['status' => 1]);
-        return redirect('/preview-pres');
-    }
-
-    public function criteria()
-    {
-        $criteria = Criteria::select('criteria')->where('table', 'prodi_tes')->where('tahun', request('tahun'))->first();
-        session()->put('list', $criteria);
-        return response()->json([
-            'criteria'=>$criteria->criteria,
         ]);
     }
 }

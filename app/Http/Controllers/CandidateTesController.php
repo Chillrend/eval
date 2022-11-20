@@ -30,7 +30,7 @@ class CandidateTesController extends Controller
             $periode = $request->input('tahunperiode');
 
             $criteria = array(
-                'tahun' => $periode,
+                'tahun' => intval($periode),
                 'kolom' => $namedkey,
                 'table' => 'candidates_tes',
                 'kode_criteria' => strval($periode).'_candidates_tes',
@@ -106,7 +106,7 @@ class CandidateTesController extends Controller
 
     public function criteria()
     {
-        $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', request('tahun'))->first();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval(request('tahun')))->first();
         return response()->json([
             'criteria'=>$criteria->kolom,
         ]);
