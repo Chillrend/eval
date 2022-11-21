@@ -26,10 +26,12 @@ class BindProdiTesController extends Controller
         $criteria = $criteria[0]['binding'];
         
         for ($i=0; $i < count($prodis); $i++) { 
-            $key = array_search($prodis[$i]['id_prodi'], array_column($criteria, 'id_prodi'));
-            if (is_numeric($key)) {
-                $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
-            }            
+            if (isset($criteria)) {
+                $key = array_search($prodis[$i]['id_prodi'], array_column($criteria, 'id_prodi'));
+                if (is_numeric($key)) {
+                    $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
+                }
+            }
         }
         $criteria = Criteria::select('tahun')->where('table', 'candidates_tes')->groupBy('tahun')
         ->orderBy('tahun', 'desc')
@@ -50,6 +52,7 @@ class BindProdiTesController extends Controller
         try {
             $data = Criteria::query()->where('kode_criteria',request('periode').'_candidates_tes')->first();
             $array = [
+                'id_obj'    => request('id_obj'),
                 'id_prodi'  => intval(request('id_prodi')),  
                 'bind_prodi'=> request('bind_prodi'), 
             ];
@@ -69,6 +72,32 @@ class BindProdiTesController extends Controller
             return redirect()->back()->with('success','Data Binding Berhasil Ditambahkan')->send();
         } catch (Exception $error) {
             return redirect()->back()->withErrors($error,'default');
+        }
+    }
+
+    public function detail()
+    {
+        try {
+            $prodi = ProdiTes::find(request('id'))->toArray();
+            $criteria = Criteria::select('binding', 'tahun')->where('binding.id_obj', request('id'))->get()->toArray();
+            for ($i=0; $i < count($criteria); $i++) { 
+                if (isset($criteria)) {
+                    $key = array_search(request('id'), array_column($criteria[$i]['binding'], 'id_obj'));
+                    if (is_numeric($key)) {
+                        $prodi['binding'][$i] = [
+                            'tahun' => $criteria[$i]['tahun'],
+                            'bind' => $criteria[$i]['binding'][$key]['bind_prodi']
+                        ];
+                    }
+                }
+            }
+            return response()->json([
+                'prodi'=>$prodi,
+            ]);
+        } catch (Exception $th) {
+            return response()->json([
+                'error'=>$th,
+            ]);
         }
     }
 }

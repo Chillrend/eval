@@ -9,16 +9,13 @@ function refresh(append) {
     method: 'GET',
     redirect: 'follow'
   };
-  console.log(url);
     
   fetch(url+append, requestOptions)
     .then(response => response.text())
     .then(result => {
 
       dataAPI = JSON.parse(result)
-      console.log(dataAPI);
 
-      console.log(datatable);
       if (datatable != 0) {
         $('#tbl-bindprodites').dataTable().fnClearTable();
         $('#tbl-bindprodites').dataTable().fnAddData(dataAPI.prodi);
@@ -100,12 +97,12 @@ function refresh(append) {
       if (a.checked == true) {
         document.getElementById('input_prodi').value=  document.getElementById('prodi').value;
         document.getElementById('input_prodi').readOnly = true;
-        document.getElementById('tahuntemplate').setAttribute('readonly',true);
+        document.getElementById('tahuntemplate').setAttribute('disabled',true);
+        
       } else {
         document.getElementById('input_prodi').value= "";
-        document.getElementById('tahun').value= "";
         document.getElementById('input_prodi').readOnly = false;
-        document.getElementById('tahuntemplate').removeAttribute('readonly');
+        document.getElementById('tahuntemplate').removeAttribute('disabled');
       }
   }
 
@@ -114,8 +111,9 @@ function refresh(append) {
     document.getElementById('binding').focus();
     var idbaru = dataAPI['prodi'][id];
     document.getElementById('id').value= idbaru['id_prodi'];
+    document.getElementById('id_obj').value= idbaru['_id'];
     document.getElementById('prodi').value= idbaru['prodi'];
-    document.getElementById('tahun').value= "";
+    document.getElementById('tahun').value= document.getElementById('tahun_terdaftar').value;
     
   }
 

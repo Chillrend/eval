@@ -30,17 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/get-criteria-candidates-pres',[CandidatePresController::class,'criteria'])->name('criteriaCanPres');
-Route::post('/del-criteria-candidates-pres',[CandidatePresController::class,'delcriteria'])->name('delcriteriaCanPres');
-
-Route::post('/get-criteria-prodi-pres',[ProdiPresController::class,'criteria'])->name('criteriaProPres');
-
 Route::post('/get-criteria-candidates-tes',[CandidateTesController::class,'criteria'])->name('criteriaCanTes');
-
-Route::post('/get-criteria-prodi-tes',[ProdiTesController::class,'criteria'])->name('criteriaProTes');
-
 Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::class,'criteria'])->name('criteriaCanMan');
-
-Route::post('/get-criteria-prodi-mandiri',[ProdiMandiriController::class,'criteria'])->name('criteriaProMan');
 
 Route::post('/filter-mandiri', [FilterMandiriController::class,'save'])->name('saveFilterMan');
 Route::post('/get-filter-mandiri', [FilterMandiriController::class,'getFilter'])->name('getFilterMan');
@@ -52,4 +43,5 @@ Route::post('/filter-pres', [FilterPresController::class,'save'])->name('saveFil
 Route::post('/get-filter-pres', [FilterPresController::class,'getFilter'])->name('getFilterPres');
 
 Route::get('/bind-prodi-tes', [BindProdiTesController::class,'render_api'])->name('api_renderBindProdiTes');
+Route::post('/bind-prodi-tes/detail', [BindProdiTesController::class,'detail'])->name('api_detailBindProdiTes');
 Route::post('/bind-prodi-tes', [BindProdiTesController::class,'binding'])->name('api_bindBindProdiTes');

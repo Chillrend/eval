@@ -70,7 +70,7 @@
                                         <button class="close"
                                             data-dismiss="alert">
                                             <span>&times;</span>
-                                        </button>
+                                        </button>                                        
                                         {{ session('success') }}
                                     </div>
                                 </div>
@@ -135,6 +135,7 @@
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Id Program Studi</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input type="text" id="id" name="id_prodi" class="form-control" readonly/>
+                                    <input type="text" id="id_obj" name="id_obj" class="form-control" hidden/>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
