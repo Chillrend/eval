@@ -128,7 +128,7 @@
                     <div class="card-header">
                         <h4 class="my-2">Binding Data Program Studi</h4>
                     </div>
-                    <form action="{{ route('api_bindBindProdiTes') }}" method="POST">
+                    <form id="bindingFrom" url="{{ route('api_detailBindProdiTes') }}" onsubmit="binding()">
                     @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
