@@ -142,26 +142,12 @@ function refresh(append) {
         var thn = API["prodi"]["binding"][0]["tahun"]
         var bind = API["prodi"]["binding"][0]["bind"]
         var selector = document.getElementById("tahuntemplate");
-        // && selector[1] == null
         if(API["prodi"]["binding"] != null) {
-          let tag ='<option >'+thn + '-' + bind+'</option>'
+          let tag ='<option>'+thn + '-' + bind+'</option>'
+          $("#tahuntemplate").empty();
+          $("#tahuntemplate").append('<option>Tahun Terdata</option>');
           $("#tahuntemplate").append(tag);
-          // if (condition) {
-          //   let tag ='<option >'+thn + '-' + bind+'</option>'
-          //   $("#tahuntemplate").append(tag);
-          // }
-          // for(i = 0; i < selector.length; ++i) {
-          //   console.log(selector.options[i]);
-          // }
         }
-        
-        
-        // if (document.getElementById("tahuntemplate").options[index].value != thn + '-' + bind) {
-        //   console.log(document.getElementById("tahuntemplate").options[index])
-        //   let tag ='<option >'+thn + '-' + bind+'</option>'
-        //   $("#tahuntemplate").append(tag);
-        // }
-        // console.log(coba);
         
       })
       .catch(error => console.log('error', error));
