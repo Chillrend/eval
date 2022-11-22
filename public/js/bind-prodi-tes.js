@@ -89,7 +89,8 @@ function refresh(append) {
 
 
   function tutup(){
-    document.getElementById('binding').setAttribute('hidden');
+    document.getElementById('binding').setAttribute('hidden',true);
+    sessionStorage.clear();
   }
 
   function cek(){
@@ -114,10 +115,78 @@ function refresh(append) {
     document.getElementById('id_obj').value= idbaru['_id'];
     document.getElementById('prodi').value= idbaru['prodi'];
     document.getElementById('tahun').value= document.getElementById('tahun_terdaftar').value;
+    templatetahun();
     
   }
 
   function tahun_terdaftar() {
     var append = '?tahun='+document.getElementById('tahun_terdaftar').value
     refresh(append);
+  }
+
+  function templatetahun() {
+    var idprodi = document.getElementById('id_obj').value;
+    var formdata = new FormData();
+    formdata.append("id", idprodi);
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8000/api/bind-prodi-tes/detail", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        var API = JSON.parse(result)
+        var thn = API["prodi"]["binding"][0]["tahun"]
+        var bind = API["prodi"]["binding"][0]["bind"]
+        var selector = document.getElementById("tahuntemplate");
+        // && selector[1] == null
+        if(API["prodi"]["binding"] != null) {
+          let tag ='<option >'+thn + '-' + bind+'</option>'
+          $("#tahuntemplate").append(tag);
+          // if (condition) {
+          //   let tag ='<option >'+thn + '-' + bind+'</option>'
+          //   $("#tahuntemplate").append(tag);
+          // }
+          // for(i = 0; i < selector.length; ++i) {
+          //   console.log(selector.options[i]);
+          // }
+        }
+        
+        
+        // if (document.getElementById("tahuntemplate").options[index].value != thn + '-' + bind) {
+        //   console.log(document.getElementById("tahuntemplate").options[index])
+        //   let tag ='<option >'+thn + '-' + bind+'</option>'
+        //   $("#tahuntemplate").append(tag);
+        // }
+        // console.log(coba);
+        
+      })
+      .catch(error => console.log('error', error));
+
+  }
+
+  function pilihtahun() {
+    var idprodi = document.getElementById('id_obj').value;
+    var formdata = new FormData();
+    formdata.append("id", idprodi);
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8000/api/bind-prodi-tes/detail", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        var data = JSON.parse(result)
+        var bind = data["prodi"]["binding"][0]["bind"]
+        document.getElementById('input_prodi').value= bind;
+        
+        
+      })
+      .catch(error => console.log('error', error));
   }

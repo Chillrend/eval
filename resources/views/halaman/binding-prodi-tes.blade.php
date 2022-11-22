@@ -128,7 +128,7 @@
                     <div class="card-header">
                         <h4 class="my-2">Binding Data Program Studi</h4>
                     </div>
-                    <form id="bindingFrom" url="{{ route('api_detailBindProdiTes') }}" onsubmit="binding()">
+                    <form id="bindingFrom" url="{{ route('api_detailBindProdiTes') }}" action="{{ route('api_bindBindProdiTes') }}" method="POST">
                     @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
@@ -159,9 +159,9 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Template tahun</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select class="custom-select" id="tahuntemplate" onclick="">
-                                        <option value="tahun">Tahun Terdata</option>
-                                        <p id="tahuntemplate_select"></p>
+                                    <select class="custom-select" id="tahuntemplate" onchange="pilihtahun()">
+                                        <option>Tahun Terdata</option>
+                                            
                                     </select>
                                 </div>
                             </div>
