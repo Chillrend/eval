@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BindProdiTesController;
+use App\Http\Controllers\BindProdiMandController;
+use App\Http\Controllers\BindProdiPresController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +66,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/delete-prodi-prestasi/{id}', [ProdiPresController::class,'delete'])->name('delProdiPres');
     Route::post('/edit-prodi-prestasi/{id}', [ProdiPresController::class,'edit'])->name('editProdiPres');
     Route::post('/cancel-prodi-prestasi/{id}', [ProdiPresController::class,'cancel'])->name('cancelProdiPres');
+
+    Route::get('/bind-prodi-prestasi', [BindProdiPresController::class,'render'])->name('renderBindProdiPrestasi');
     
     Route::post('cancelProPres', [ProdiPresController::class,'cancel'])->name('cancelProPres');
     Route::post('saveProPres', [ProdiPresController::class,'save'])->name('saveProPres');
@@ -118,6 +122,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/delete-prodi-mandiri/{id}', [ProdiMandiriController::class,'delete'])->name('delProdiMand');
     Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class,'edit'])->name('editProdiMand');
     Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class,'cancel'])->name('cancelProdiMand');
+
+    Route::get('/bind-prodi-prestasi', [BindProdiMandController::class,'render'])->name('renderBindProdiMand');
 
     Route::post('cancelProMan', [ProdiMandiriController::class,'cancelprodimandiri'])->name('cancelProMan');
     Route::post('saveProMan', [ProdiMandiriController::class,'saveprodimandiri'])->name('saveProMan');
