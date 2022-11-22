@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             @if($candidates->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">

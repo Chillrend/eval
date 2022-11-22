@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ProdiTesSeeder::class,
-            // ProdiMandiriSeeder::class,
-            // ProdiPresSeeder::class
+            ProdiMandiriSeeder::class,
+            ProdiPrestasiSeeder::class
         ]);
     }
 }

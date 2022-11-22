@@ -123,7 +123,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class,'edit'])->name('editProdiMand');
     Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class,'cancel'])->name('cancelProdiMand');
 
-    Route::get('/bind-prodi-prestasi', [BindProdiMandController::class,'render'])->name('renderBindProdiMand');
+    Route::get('/bind-prodi-mandiri', [BindProdiMandController::class,'render'])->name('renderBindProdiMand');
 
     Route::post('cancelProMan', [ProdiMandiriController::class,'cancelprodimandiri'])->name('cancelProMan');
     Route::post('saveProMan', [ProdiMandiriController::class,'saveprodimandiri'])->name('saveProMan');

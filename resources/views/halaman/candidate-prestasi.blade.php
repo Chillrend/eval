@@ -106,7 +106,8 @@
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nameCollumn" name="nameCollumn" placeholder="Nama Kolom pada Excel">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanPres')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
+                                                {{-- <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanPres')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button> --}}
+                                                <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanPres')}}" url-del="" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
                                         </div>
                                         

@@ -1,18 +1,37 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Criteria;
-use App\Models\ProdiTes;
+use App\Models\ProdiPres;
+use Illuminate\Http\Request;
 use Exception;
-use Hamcrest\Type\IsNumeric;
 
-class BindProdiTesController extends Controller
+class BindProdiPresController extends Controller
 {
     public function render()
     {
-        return view('halaman.binding-prodi-tes',[
-            'type_menu' => 'tes',
+        $tahun = (request('tahun')) ? request('tahun') : strval(date("Y")) ;
+        $prodis = ProdiPres::all();
+        $criteria = Criteria::select('binding')->where('kode_criteria', $tahun.'_candidates_tes')->get()->toArray();
+        $criteria = $criteria[0]['binding'];
+        
+        for ($i=0; $i < count($prodis); $i++) { 
+            if (isset($criteria)) {
+                $key = array_search($prodis[$i]['id_prodi'], array_column($criteria, 'id_prodi'));
+                if (is_numeric($key)) {
+                    $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
+                }
+            }
+        }
+        $criteria = Criteria::select('tahun')->where('table', 'candidates_tes')->groupBy('tahun')
+        ->orderBy('tahun', 'desc')
+        ->get()->toArray(); 
+        // dd([
+        //     'prodi'=>$prodis,
+        //     'tahun'=>$criteria,
+        // ]);
+        return view('halaman.binding-prodi-pres',[
+            'type_menu' => 'prestasi',
             'prodi' => '',
             'searchbar' =>'',
         ]);
@@ -21,7 +40,7 @@ class BindProdiTesController extends Controller
     public function render_api()
     {
         $tahun = (request('tahun')) ? request('tahun') : strval(date("Y")) ;
-        $prodis = ProdiTes::all();
+        $prodis = ProdiPres::all();
         $criteria = Criteria::select('binding')->where('kode_criteria', $tahun.'_candidates_tes')->get()->toArray();
         $criteria = $criteria[0]['binding'];
         
@@ -42,6 +61,8 @@ class BindProdiTesController extends Controller
             'prodi'=>$prodis,
             'tahun'=>$criteria,
         ]);
+
+        
     }
 
     public function binding()
@@ -78,7 +99,7 @@ class BindProdiTesController extends Controller
     public function detail()
     {
         try {
-            $prodi = ProdiTes::find(request('id'))->toArray();
+            $prodi = ProdiPres::find(request('id'))->toArray();
             $criteria = Criteria::select('binding', 'tahun')->where('binding.id_obj', request('id'))->get()->toArray();
             for ($i=0; $i < count($criteria); $i++) { 
                 if (isset($criteria)) {
@@ -89,7 +110,7 @@ class BindProdiTesController extends Controller
                             'bind' => $criteria[$i]['binding'][$key]['bind_prodi']
                         ];
                     }
-                } 
+                }
             }
             return response()->json([
                 'prodi'=>$prodi,
@@ -101,4 +122,3 @@ class BindProdiTesController extends Controller
         }
     }
 }
-
