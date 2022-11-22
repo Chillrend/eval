@@ -27,8 +27,8 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
-                                <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between">
-                                    <div class="progress col-8 p-0 mt-1"
+                                <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between align-items-center">
+                                    <div class="progress col-4 p-0"
                                         data-height="20">
                                         <div class="progress-bar"
                                             role="progressbar"
@@ -37,13 +37,23 @@
                                             aria-valuemin="0"
                                             aria-valuemax="100"></div>
                                     </div>
-                                    <h5 class="badge badge-primary">{{$status[1]}}</h5>
+                                    <h5 class="badge badge-primary col-3 m-0">{{$status[1]}}</h5>
+                                    <form action="{{route('renderBindProdiTes')}}" method="get">
+                                    @csrf
+                                    <select class="form-control col-3" name="tahun" id="tahun">
+                                        <option selected hidden>{{($status[2]) ? $status[2] : $tahun[0]['periode']}}</option>
+                                        @foreach($tahun as $tahunn)
+                                        <option>{{$tahunn['periode']}}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn btn-primary form-control col-2"><i class="fas fa-search"></i></button>
+                                    </form>
                                 </div>    
                             </div>
                             <div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                        <table class="table-hover table display nowrap" id="tbl-preview" style="width: 100%">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -91,6 +101,7 @@
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
+    <script src="../../preview-tes.js"></script>
     <script src="../../js/table.js"></script>
     <script src="../../js/style.js"></script>
 @endpush

@@ -9,16 +9,13 @@ use App\Models\ProdiTes;
 class PreviewTesController extends Controller
 {
 
-    public $q;
-    public $sortBy = 'no_daftar';
-    public $sortAsc = true;
     public function render()
     {
-        $periode = strval(now()->year);
+        $periode = (request('tahun')) ? request('tahun') : strval(date("Y"));
 
         $candidates = CandidateTes::query()->where('periode', intval($periode))->paginate(10);
-        $tahun = CandidateTes::select('periode')->groupBy('periode')->get()->toArray();
-        $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($periode))->first();
+        $tahun = CandidateTes::select('periode')->groupBy('periode')->get();
+        $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($periode))->first()->toArray();
         $status = $candidates->first()->status;
 
         switch ($status) {
@@ -44,9 +41,8 @@ class PreviewTesController extends Controller
             'type_menu' => 'tes',
             'candidates' => $candidates,
             'tahun' => $tahun,
-            'criteria' =>$criteria->kolom,
-            'status' => [$statuss, $status],
+            'criteria' =>$criteria['kolom'],
+            'status' => [$statuss, $status, request('tahun')],
         ]);
     }
-
 }

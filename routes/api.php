@@ -8,6 +8,7 @@ use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\FilterMandiriController;
 use App\Http\Controllers\FilterPresController;
 use App\Http\Controllers\FilterTesController;
+use App\Http\Controllers\PreviewTesController;
 use App\Http\Controllers\ProdiMandiriController;
 use App\Http\Controllers\ProdiPresController;
 use App\Http\Controllers\ProdiTesController;
@@ -32,6 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/get-criteria-candidates-pres',[CandidatePresController::class,'criteria'])->name('criteriaCanPres');
 Route::post('/get-criteria-candidates-tes',[CandidateTesController::class,'criteria'])->name('criteriaCanTes');
 Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::class,'criteria'])->name('criteriaCanMan');
+
+Route::get('/preview-tes', [PreviewTesController::class, 'render_api'])->name('api_renderPreviewTes');
 
 Route::post('/filter-mandiri', [FilterMandiriController::class,'save'])->name('saveFilterMan');
 Route::post('/get-filter-mandiri', [FilterMandiriController::class,'getFilter'])->name('getFilterMan');
