@@ -41,15 +41,15 @@
                         <div class="card-header d-flex justify-content-between">
                             <ul class="nav nav-pills col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12">
                                 <li class="nav-item">
-                                    <a class="nav-link active"
-                                        href="#">Data</a>
+                                    <a class="nav-link"
+                                    href="{{route('renderProdiTes')}}">Data</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link"
                                         href="">Kuota</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link"
+                                    <a class="nav-link active"
                                         href="#">Binding</a>
                                 </li>
                             </ul>

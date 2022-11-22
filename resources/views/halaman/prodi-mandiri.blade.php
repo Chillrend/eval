@@ -87,7 +87,7 @@
 
                             <br>
                             <div class="">
-                                <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                <table class="table-hover table-md table display nowrap" id="table" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
