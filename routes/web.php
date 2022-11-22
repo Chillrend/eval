@@ -86,7 +86,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('cancelCanTes', [CandidateTesController::class,'cancel'])->name('cancelCanTes');
     Route::post('saveCanTes', [CandidateTesController::class,'save'])->name('saveCanTes');
 
-    Route::get('/prodi-tes', [ProdiTesController::class,'render']);
+    Route::get('/prodi-tes', [ProdiTesController::class,'render'])->name('renderProdiTes');
     Route::post('/prodi-tes', [ProdiTesController::class,'insert'])->name('addProdiTes');
     Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class,'delete'])->name('delProdiTes');
     Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class,'edit'])->name('editProdiTes');
