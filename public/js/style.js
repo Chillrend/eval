@@ -18,6 +18,10 @@ $('#row-prodi').on('click', function(e) {
     $("#row-tabel-prodi").toggle(800);
 });
 
+$("#bt-close-alert").click(function() {
+    $("#alert-notif").toggle("blind", 800);
+})
+
 
 
 //modal

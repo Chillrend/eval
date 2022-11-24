@@ -66,12 +66,12 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="card-footer row">
+                                <div class="card-footer">
                                     <div class="col-sm-12 col-md-5">
                                         <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
                                     </div>
-                                    <div class="col-sm-12 col-md-5 pagination">
-                                    {!! $candidates->links("pagination::bootstrap-4") !!}
+                                    <div class="pagination" style="justify-content: center">
+                                        {!! $candidates->links("pagination::bootstrap-4") !!}
                                     </div>
                                 </div> 
                             </div>
@@ -86,7 +86,7 @@
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script> --}}
+    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 

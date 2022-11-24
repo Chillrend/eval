@@ -76,11 +76,11 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="card-footer row">
+                                <div class="card-footer">
                                     <div class="col-sm-12 col-md-5">
                                         <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
                                     </div>
-                                    <div class="col-sm-12 col-md-5 pagination">
+                                    <div class="pagination" style="justify-content: center">
                                     {!! $candidates->links("pagination::bootstrap-4") !!}
                                     </div>
                                 </div> 
