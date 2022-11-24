@@ -13,7 +13,7 @@ class PreviewTesController extends Controller
     {
         $periode = (request('tahun')) ? request('tahun') : strval(date("Y"));
 
-        $candidates = CandidateTes::query()->where('periode', intval($periode))->paginate(10);
+        $candidates = CandidateTes::query()->where('periode', intval($periode))->where('periode', intval($periode))->paginate(10);
         $tahun = CandidateTes::select('periode')->groupBy('periode')->get();
         $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($periode))->first()->toArray();
         $status = $candidates->first()->status;

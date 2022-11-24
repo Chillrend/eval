@@ -10,7 +10,7 @@
 @endpush
 
 @section('main')
-    <div class="main-content">
+    <div class="main-content" id="main-content" url="{{route('previewTes')}}">
         <section class="section">
             <div class="section-header">
                 <h1>Preview Data Mahasiswa Seleksi Tes</h1>
@@ -28,7 +28,7 @@
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
                                 <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between align-items-center">
-                                    <div class="progress col-4 p-0"
+                                    <div class="progress col-3 col-xl-3 col-lg-3 col-md-3 col-sm-8 p-0"
                                         data-height="20">
                                         <div class="progress-bar"
                                             role="progressbar"
@@ -38,16 +38,14 @@
                                             aria-valuemax="100"></div>
                                     </div>
                                     <h5 class="badge badge-primary col-3 m-0">{{$status[1]}}</h5>
-                                    <form action="{{route('renderBindProdiTes')}}" method="get">
-                                    @csrf
-                                    <select class="form-control col-3" name="tahun" id="tahun">
-                                        <option selected hidden>{{($status[2]) ? $status[2] : $tahun[0]['periode']}}</option>
-                                        @foreach($tahun as $tahunn)
-                                        <option>{{$tahunn['periode']}}</option>
-                                        @endforeach
-                                    </select>
-                                    <button type="submit" class="btn btn-primary form-control col-2"><i class="fas fa-search"></i></button>
-                                    </form>
+                                    <div class="d-flex col-12 col-xl-5 col-lg-5 col-md-5 col-sm-12 my-2 p-0">
+                                        <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="gantiTahun()">
+                                            <option selected hidden>{{($status[2]) ? $status[2] : $tahun[0]['periode']}}</option>
+                                            @foreach($tahun as $tahunn)
+                                            <option>{{$tahunn['periode']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>    
                             </div>
                             <div>
@@ -101,7 +99,7 @@
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="../../preview-tes.js"></script>
+    <script src="../../js/preview-tes.js"></script>
     <script src="../../js/table.js"></script>
     <script src="../../js/style.js"></script>
 @endpush

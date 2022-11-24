@@ -96,7 +96,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('cancelProTes', [ProdiTesController::class,'cancel'])->name('cancelProTes');
     Route::post('saveProTes', [ProdiTesController::class,'save'])->name('saveProTes');
 
-    Route::get('/preview-tes', [PreviewTesController::class,'render']);
+    Route::get('/preview-tes', [PreviewTesController::class,'render'])->name('previewTes');
 
     Route::get('/filter-tes', [FilterTesController::class,'render'])->name('renderFilterTes');
 
