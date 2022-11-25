@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="align-items-right">
-                                    <form action="/prodi-pres" method="get">
+                                    <form action="/prodi-tes" method="get">
                                         <div class="input-group">
                                             <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
                                                 <option selected disabled class="hidden">{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>

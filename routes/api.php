@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\ProdiController;
 use App\Http\Controllers\BindProdiTesController;
+use App\Http\Controllers\BindProdiPresController;
+use App\Http\Controllers\BindProdiMandController;
 use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateTesController;
@@ -48,3 +50,11 @@ Route::post('/get-filter-pres', [FilterPresController::class,'getFilter'])->name
 Route::get('/bind-prodi-tes', [BindProdiTesController::class,'render_api'])->name('api_renderBindProdiTes');
 Route::post('/bind-prodi-tes/detail', [BindProdiTesController::class,'detail'])->name('api_detailBindProdiTes');
 Route::post('/bind-prodi-tes', [BindProdiTesController::class,'binding'])->name('api_bindBindProdiTes');
+
+Route::get('/bind-prodi-prestasi', [BindProdiPresController::class,'render_api'])->name('api_renderBindProdiPres');
+Route::post('/bind-prodi-prestasi/detail', [BindProdiPresController::class,'detail'])->name('api_detailBindProdiPres');
+Route::post('/bind-prodi-prestasi', [BindProdiPresController::class,'binding'])->name('api_bindBindProdiPres');
+
+Route::get('/bind-prodi-mandiri', [BindProdiMandController::class,'render_api'])->name('api_renderBindProdiMand');
+Route::post('/bind-prodi-mandiri/detail', [BindProdiMandController::class,'detail'])->name('api_detailBindProdiMand');
+Route::post('/bind-prodi-mandiri', [BindProdiMandController::class,'binding'])->name('api_bindBindProdiMand');

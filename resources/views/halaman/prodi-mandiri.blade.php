@@ -33,6 +33,24 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link active"
+                                        href="{{  url('prodi-mandiri') }}">Data</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                        href="#">Kuota</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                        href="{{route('renderBindProdiMand')}}">Binding</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="align-items-left">
                                     <button type="submit" class="btn btn-primary" id="modal-add"><i class="fas fa-plus"></i> Add</button>

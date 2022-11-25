@@ -54,25 +54,25 @@
                                 <h4 class="my-2">Upload Data Calon Mahasiswa</h4>
                             </div>
                                 @if(session()->has('success'))
-                                <div class="alert alert-success alert-has-icon alert-dismissible show fade">
+                                <div class="alert alert-success alert-has-icon alert-dismissible show fade" id="alert-notif">
                                     <div class="alert-icon"><i class="fas fa-check"></i></div>
                                     <div class="alert-body">
                                         <div class="alert-title">Impor Berhasil</div>
                                         {{session('success')}}
                                     </div>
-                                    <button class="close" data-dismiss="alert">
+                                    <button id="bt-close-alert" class="close" data-dismiss="alert">
                                         <i class="fas fa-times fa-lg"></i>
                                     </button>
                                 </div>
                                 @endif
                                 @if(session()->has('error'))
-                                <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade">
+                                <div class="mx-4 alert alert-danger alert-has-icon alert-dismissible show fade" id="alert-notif">
                                     <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
                                     <div class="alert-body">
                                         <div class="alert-title">Impor Gagal</div>
                                         {{session('error')}}
                                     </div>
-                                    <button class="close" data-dismiss="alert">
+                                    <button id="bt-close-alert" class="close" data-dismiss="alert">
                                         <i class="fas fa-times fa-lg"></i>
                                     </button>
                                 </div>
@@ -122,11 +122,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             @if($candidates->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
-                    Preview data mahasiswa yang akan di upload
+                    Preview data mahasiswa yang akan diupload
                 </p>
                 <div class="row">
                     <div class="col-12">
@@ -179,11 +179,11 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="card-footer row">
+                            <div class="card-footer">
                                 <div class="col-sm-12 col-md-5">
                                     <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
                                 </div>
-                                <div class="col-sm-12 col-md-5 pagination">
+                                <div class="pagination" style="justify-content: center">
                                 {!! $candidates->links("pagination::bootstrap-4") !!}
                                 </div>
                             </div> 
