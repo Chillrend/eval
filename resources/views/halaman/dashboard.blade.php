@@ -42,7 +42,7 @@
                                 <h4>Seleksi Prestasi</h4>
                             </div>
                             <div class="card-body">
-                                522
+                                {{ $prestasi = DB::table('candidate_pres')->count(); }}
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <h4>Seleksi Tes</h4>
                             </div>
                             <div class="card-body">
-                                1,201
+                                {{ $tes = DB::table('candidate_tes')->count(); }}
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 <h4>Seleksi Mandiri</h4>
                             </div>
                             <div class="card-body">
-                                1399
+                                {{ $mandiri = DB::table('candidate_mand')->count(); }}
                             </div>
                         </div>
                     </div>
