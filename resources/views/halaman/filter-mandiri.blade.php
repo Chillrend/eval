@@ -121,7 +121,7 @@
                                             </select>
                                             <input type="text" class="form-control" id="nilai" name="nilai" placeholder="Nilai">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanMan')}}" url-del="{{route('delcriteriaCanPres')}}" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
+                                                <button class="btn btn-outline-primary" type="button" url="{{route('criteriaCanMan')}}" url-del="" id="tambahCriteria" onclick="addCollumn()"><i class="fa-solid fa-plus fa-lg"></i> Tambah</button>
                                             </div>
                                         </div>
                                         <div id="namedkey">
