@@ -251,10 +251,19 @@ class CandidatePresController extends Controller
 
     public function criteria()
     {
-        $criteria = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', intval(request('tahun')))->first();
+        try {
+            $this->validate(request(),[
+                'tahun' => 'required|numeric',
+            ]);
+            $criteria = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', intval(request('tahun')))->first();
 
-        return response()->json([
-            'criteria'=>$criteria->kolom,
-        ]);
+            return response()->json([
+                'criteria'=>$criteria->kolom,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error'=>$th->getMessage(),
+            ]);
+        }
     }
 }
