@@ -54,7 +54,10 @@ Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::clas
 
 
 //Prodi Tes
-
+Route::get('/prodi-tes', [ProdiTesController::class, 'api_render'])->name('api_renderProTes');
+Route::post('/prodi-tes/insert', [ProdiTesController::class, 'api_insert'])->name('api_insertProTes');
+Route::post('/prodi-tes/delete', [ProdiTesController::class, 'api_delete'])->name('api_deleteProTes');
+Route::post('/prodi-tes/edit', [ProdiTesController::class, 'api_edit'])->name('api_editProTes');
 
 //Prodi Mandiri
 
