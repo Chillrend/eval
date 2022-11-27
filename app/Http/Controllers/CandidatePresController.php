@@ -156,10 +156,14 @@ class CandidatePresController extends Controller
             }
 
             if (CandidatePres::query()->where('status','import')->exists()) {
-                $tahun = (request('tahun')) ? request('tahun') : CandidatePres::select('periode')
+                if (request('tahun')) {
+                    $tahun = request('tahun');
+                } else {
+                    $tahun = CandidatePres::select('periode')
                     ->where('status','import')
                     ->first()->toArray();
-                $tahun = $tahun['tahun'];
+                    $tahun = $tahun['periode'];
+                }
                 
                 $candidates = CandidatePres::query()->where('status','import')->where('periode', intval($tahun))->get();
                 
