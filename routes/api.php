@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ProdiController;
 use App\Http\Controllers\BindProdiTesController;
 use App\Http\Controllers\BindProdiPresController;
 use App\Http\Controllers\BindProdiMandController;
+use App\Http\Controllers\BobotController;
 use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateTesController;
@@ -58,3 +59,9 @@ Route::post('/bind-prodi-prestasi', [BindProdiPresController::class,'binding'])-
 Route::get('/bind-prodi-mandiri', [BindProdiMandController::class,'render_api'])->name('api_renderBindProdiMand');
 Route::post('/bind-prodi-mandiri/detail', [BindProdiMandController::class,'detail'])->name('api_detailBindProdiMand');
 Route::post('/bind-prodi-mandiri', [BindProdiMandController::class,'binding'])->name('api_bindBindProdiMand');
+
+Route::get('/pembobotan/tahun', [BobotController::class, 'getTahun'])->name('api_tahunBobot');
+Route::post('/pembobotan/pend', [BobotController::class, 'getPend'])->name('api_pendBobot');
+Route::post('/pembobotan/tahap', [BobotController::class, 'getTahap'])->name('api_tahapBobot');
+Route::post('/pembobotan/kolom', [BobotController::class, 'render_api'])->name('api_dataBobot');
+Route::post('/pembobotan/nilai', [BobotController::class, 'getnilai'])->name('api_nilaiBobot');

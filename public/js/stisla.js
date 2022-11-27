@@ -170,8 +170,8 @@
   // Bootstrap Modal Destroyer
   $.destroyModal = function(modal) {
     modal.modal('hide');
-    // modal.on('hidden.bs.modal', function() {
-    // });
+    modal.on('hidden.bs.modal', function() {
+    });
   }
 
   // Card Progress Controller

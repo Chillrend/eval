@@ -3,6 +3,7 @@
 use App\Http\Controllers\BindProdiTesController;
 use App\Http\Controllers\BindProdiMandController;
 use App\Http\Controllers\BindProdiPresController;
+use App\Http\Controllers\BobotController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 
@@ -132,6 +133,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/preview-mandiri', [PreviewMandiriController::class,'render']);
 
     Route::get('/filter-mandiri', [FilterMandiriController::class,'render'])->name('renderFilterMan');
+
+
+    //PEMBOBOTAN
+    Route::get('/pembobotan', [BobotController::class, 'render'])->name('renderBobot');
 });
 
 
