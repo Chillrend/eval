@@ -156,9 +156,8 @@ class CandidatePresController extends Controller
             }
 
             if (CandidatePres::query()->where('status','import')->exists()) {
-                $tahun = (request('tahun')) ? request('tahun') : Criteria::select('tahun')
-                    ->where('table', 'candidates_tes')
-                    ->groupBy('tahun')
+                $tahun = (request('tahun')) ? request('tahun') : CandidatePres::select('periode')
+                    ->where('status','import')
                     ->first()->toArray();
                 $tahun = $tahun['tahun'];
                 
