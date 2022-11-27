@@ -8,6 +8,7 @@ function deleteCollumn(id){
 }
 
 function addCollumn() {
+  
   if (document.getElementById("nameCollumn").value != '') {
     collumn[collumn.length] = document.getElementById("nameCollumn").value;
   }
@@ -22,7 +23,7 @@ function addCollumn() {
 
 
 
-
+console.log(collumn);
   //KASIH ALERT ATAU APAPUN ITU
 
 
