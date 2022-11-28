@@ -98,7 +98,8 @@ Route::post('/get-filter-pres', [FilterPresController::class,'getFilter'])->name
 
 
 //Filter Tes
-Route::post('/filter-tes', [FilterTesController::class,'save'])->name('saveFilterTes');
+Route::get('/filter-tes', [FilterTesController::class,'api_render'])->name('api_renderFilterTes');
+Route::post('/filter-tes', [FilterTesController::class,'api_save'])->name('saveFilterTes');
 Route::post('/get-filter-tes', [FilterTesController::class,'getFilter'])->name('getFilterTes');
 
 
