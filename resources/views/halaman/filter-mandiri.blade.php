@@ -86,23 +86,20 @@
                                 <div class="card-body">
                                     <!-- @csrf -->
                                     <div class="section-title mt-0">Pilih Periode PMB</div>
-                                        <label>Choose One</label>
+                                        <label>Masukkan Tahun Periode</label>
+                                        <input type="number" class="form-control" id="tahunperiode" name="tahunperiode" placeholder="Input Tahun" value="{{now()->year}}">
+
+                                        
+                                        <div class="section-title">Nama Kolom Excel</div>
+                                        <label>Template Table</label>
                                         <select class="custom-select " name="periode" id="periode" onchange="myFunction()" url="{{route('getFilterMan')}}">
-                                            <option selected hidden>Tahun Periode Masuk</option>
-                                            @if(count($criteria) == 0 || $criteria[count($criteria) -1]["tahun"] != now()->year)
-                                            <option >{{now()->year}}</option>
+                                            <option selected hidden>Tahun Tabel</option>
                                             @foreach($criteria->reverse() as $periode)
                                             <option>{{$periode->tahun}}</option>
                                             @endforeach
-                                            @else
-                                            @foreach($criteria->reverse() as $periode)
-                                            <option>{{$periode->tahun}}</option>
-                                            @endforeach
-                                            @endif
                                         </select>
 
-                                        <div class="section-title">Nama Kolom Excel</div>
-                                        <label>Cocokkan nama kolom excel dengan nama pada table</label>
+                                        <label class="mt-3">Cocokkan nama kolom excel dengan nama pada table</label>
                                         <div class="input-group mb-3">
                                             <select class="btn selectric" name="kolom" id="kolom" >
                                                 <option selected hidden disabled value="">Pilih Kolom</option>
