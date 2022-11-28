@@ -85,7 +85,7 @@ Route::post('/bind-prodi-mandiri', [BindProdiMandController::class,'binding'])->
 
 
 //Preview Tes
-Route::get('/preview-tes', [PreviewTesController::class, 'render_api'])->name('api_renderPreviewTes');
+Route::get('/preview-tes', [PreviewTesController::class, 'api_render'])->name('api_renderPreviewTes');
 
 
 //Preview Mandiri
