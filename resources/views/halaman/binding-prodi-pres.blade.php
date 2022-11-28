@@ -27,9 +27,9 @@
         <div class="section-header">
             <h1>Data Kuota Program Studi</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Seleksi Prestasi</a></div>
-                <div class="breadcrumb-item">Data Kuota Program Studi</div>
+                <div class="breadcrumb-item active"><a href="">Seleksi Prestasi</a></div>
+                <div class="breadcrumb-item"><a href="">Data Kuota Program Studi</a></div>
+                <div class="breadcrumb-item">Binding</div>
             </div>
         </div>
 
@@ -53,9 +53,8 @@
                                     href="{{route('renderBindProdiPrestasi')}}">Binding</a>
                                 </li>
                             </ul>
-
                             <div class="d-flex col-12 col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                                <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="tahun_terdaftar()">
+                                <select class="btn selectric form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="tahun_terdaftar()">
                                 </select>
                             </div>
                         </div>

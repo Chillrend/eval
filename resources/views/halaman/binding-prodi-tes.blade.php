@@ -27,9 +27,9 @@
         <div class="section-header">
             <h1>Data Kuota Program Studi</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
                 <div class="breadcrumb-item">Data Kuota Program Studi</div>
+                <div class="breadcrumb-item">Binding</div>
             </div>
         </div>
 

@@ -23,7 +23,8 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item"><a href="#">Seleksi Prestasi</a></div>
                 <div class="breadcrumb-item"><a href="#">Program Studi</a></div>
-                <div class="breadcrumb-item">Data Kuota Program Studi</div>
+                <div class="breadcrumb-item"><a href="#">Data Kuota Program Studi</a></div>
+                <div class="breadcrumb-item">Data</div>
             </div>
         </div>
 

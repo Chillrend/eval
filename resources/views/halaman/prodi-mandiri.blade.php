@@ -23,7 +23,8 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item"><a href="#">Seleksi Mandiri</a></div>
                 <div class="breadcrumb-item"><a href="#">Program Studi</a></div>
-                <div class="breadcrumb-item">Data Kuota Program Studi</div>
+                <div class="breadcrumb-item"><a href="#">Data Kuota Program Studi</a></div>
+                <div class="breadcrumb-item">Data</div>
             </div>
         </div>
 
@@ -105,7 +106,7 @@
 
                             <br>
                             <div class="">
-                                <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                <table class="table-hover table-md table display nowrap" id="table" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
