@@ -10,6 +10,6 @@ class CandidateMand extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $table = 'candidates_mand';
+    protected $table = 'candidate_mand';
 
 }

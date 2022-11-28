@@ -48,7 +48,11 @@ Route::post('/candidates-tes/save', [CandidateTesController::class,'api_save'])-
 Route::post('/candidates-tes/cancel', [CandidateTesController::class,'api_cancel'])->name('api_cancelCanTes');
 
 //Candidate Mandiri
+Route::get('/candidates-mandiri', [CandidateMandiriController::class,'api_render'])->name('api_renderCanMan');
 Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::class,'criteria'])->name('criteriaCanMan');
+Route::post('/candidates-mandiri/import', [CandidateMandiriController::class,'api_import'])->name('api_importCanMan');
+Route::post('/candidates-mandiri/save', [CandidateMandiriController::class,'api_save'])->name('api_saveCanMan');
+Route::post('/candidates-mandiri/cancel', [CandidateMandiriController::class,'api_cancel'])->name('api_cancelCanMan');
 
 
 //Prodi Prestasi
