@@ -237,6 +237,24 @@ class CandidateMandiriController extends Controller
         CandidateMand::query()->where('status','import')->update(['status' => 'post-import']);
         return redirect('/preview-mandiri');
     }
+    
+    public function api_save()
+    {
+        try {
+            $this->validate(request(),[
+                'tahun' => 'required|numeric',
+            ]);
+            CandidateMand::query()->where('status','post-import')->where('periode', intval(request('tahun')))->delete();
+            CandidateMand::query()->where('status','import')->where('periode', intval(request('tahun')))->update(['status' => 'post-import']);
+            return response()->json([
+                'status' => 'Data Calon Mahasiswa Tahun '.request('tahun').' Berhasil Disimpan',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error'=>$th->getMessage(),
+            ]);
+        }
+    }
 
     public function criteria()
     {
