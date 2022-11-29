@@ -76,23 +76,6 @@ class ProdiPresController extends Controller
         }
     }
 
-    public function cancel($id)
-    {
-        try {
-            $data = ProdiPres::find($id);        
-
-            if (ProdiPres::query()->where('id_prodi',intval(request('id_prodi')))->count() > 1 || 
-                ProdiPres::query()->where('id_prodi',intval(request('id_prodi')))->count() == 1 &&
-                $data->isnot(ProdiPres::query()->where('id_prodi',intval(request('id_prodi')))->first())
-                ) {
-                return redirect()->back()->withInput()->withErrors('id_prodi sudah terdaftar','default');
-            }
-            return redirect()->back();
-        } catch (Exception $error) {
-            return redirect()->back()->withInput()->withErrors($error,'default');
-        }
-    }
-
     public function render(Request $request)
     {
         $search = $request->input('search');

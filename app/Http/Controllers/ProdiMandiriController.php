@@ -42,13 +42,12 @@ class ProdiMandiriController extends Controller
         // dd(request());
     }
 
-
     public function api_insert()
     {
         try {
             $this->validate(request(),
             [
-                'id_prodi' => 'required|numeric|unique:prodimand,id_prodi',
+                'id_prodi' => 'required|numeric',
                 'prodi' => 'required',
                 'kelompok_bidang' => 'required',
                 'kuota' => 'required|numeric',
@@ -76,7 +75,6 @@ class ProdiMandiriController extends Controller
             ]);        
         }    
     }
-
 
     public function delete($id)
     {
@@ -172,6 +170,7 @@ class ProdiMandiriController extends Controller
             ]);        
         }    
     }
+
 
     public function render(Request $request)
     {

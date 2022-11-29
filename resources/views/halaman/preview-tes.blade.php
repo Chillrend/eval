@@ -4,13 +4,13 @@
 
 @push('style')
     <!-- CSS Libraries -->
-    <link rel="stylesheet"
-    href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap4.min.css" />
 @endpush
 
 @section('main')
-    <div class="main-content" id="main-content" url="{{route('previewTes')}}">
+    <div class="main-content" id="main-content" url="{{route('api_renderPreviewTes')}}">
         <section class="section">
             <div class="section-header">
                 <h1>Preview Data Mahasiswa Seleksi Tes</h1>
@@ -20,7 +20,6 @@
                     <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Tes</div>
                 </div>
             </div>
-            @if($candidates->first())
             <div id="">
                 <div class="row">
                     <div class="col-12">
@@ -31,71 +30,42 @@
                                     <div class="progress col-3 col-xl-3 col-lg-3 col-md-3 col-sm-8 p-0"
                                         data-height="20">
                                         <div class="progress-bar"
+                                            id="progress-bar"
                                             role="progressbar"
-                                            data-width="{{$status[0]}}%"
-                                            aria-valuenow="{{$status[0]}}"
+                                            data-width="0%"
+                                            aria-valuenow="0"
                                             aria-valuemin="0"
                                             aria-valuemax="100"></div>
                                     </div>
-                                    <h5 class="badge badge-primary col-3 m-0">{{$status[1]}}</h5>
+                                    <h5 class="badge badge-primary col-3 m-0" id="status"></h5>
                                     <div class="d-flex col-12 col-xl-5 col-lg-5 col-md-5 col-sm-12 my-2 p-0">
                                         <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="gantiTahun()">
-                                            <option selected hidden>{{($status[2]) ? $status[2] : $tahun[0]['periode']}}</option>
-                                            @foreach($tahun as $tahunn)
-                                            <option>{{$tahunn['periode']}}</option>
-                                            @endforeach
                                         </select>
                                     </div>
                                 </div>    
                             </div>
                             <div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" id="table-responsive">
                                         <table class="table-hover table display nowrap" id="tbl-preview" style="width: 100%">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">periode</th>
-                                                    @foreach($criteria as $criteriaa)
-                                                    <th scope="col">{{$criteriaa}}</th>
-                                                    @endforeach
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($candidates as $candidate => $data)
-                                                <tr>
-                                                    <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
-                                                    <td>{{$data['periode']}}</td>
-                                                    @foreach($criteria as $criteriaa)
-                                                    <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
-                                                    @endforeach
-                                                </tr>
-                                                @endforeach
+
                                         </table>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="col-sm-12 col-md-5">
-                                        <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
-                                    </div>
-                                    <div class="pagination" style="justify-content: center">
-                                    {!! $candidates->links("pagination::bootstrap-4") !!}
-                                    </div>
-                                </div> 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @endif
         </section>
     </div>
 @endsection
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script> --}}
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/select.bootstrap4.js"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->

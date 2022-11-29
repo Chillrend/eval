@@ -56,6 +56,65 @@ class FilterTesController extends Controller
         ]);    
     }
 
+    public function api_render()
+    {
+        try {
+            if (CandidateTes::query()->where('status','post-import')->exists()) {
+
+                $filter = request('filter') ? request('filter') : null;
+                if (request('tahun')) {
+                    $tahun = request('tahun');
+                } else {
+                    $tahun = CandidateTes::select('periode')
+                    ->where('status','post-import')
+                    ->first()->toArray();
+                    $tahun = $tahun['periode'];
+                }
+
+                $candidates = CandidateTes::query()->where('status','post-import')->where('periode', intval($tahun))
+                ->when( $filter, function($query) use ($filter) {
+                    return $query->where(function($query) use ($filter) {
+                        for ($a=0; $a < count($filter); $a++) { 
+                            $query->where($filter[$a][0], $filter[$a][1] , intval($filter[$a][2]));
+                        }
+                    });
+                })->get();
+
+                $list_tahun = CandidateTes::select('periode')
+                                ->where('status','post-import')
+                                ->groupBy('periode')
+                                ->orderBy('periode', 'desc')
+                                ->get()->toArray();
+                for ($x=0; $x < count($list_tahun); $x++) { 
+                    $list_tahun[$x] = $list_tahun[$x]['periode'];
+                }
+                    
+                $kolom = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun',intval($tahun))->get();
+                for ($x=0; $x < count($kolom); $x++) { 
+                    $kolom[$x] = $kolom[$x]['kolom'];
+                }
+
+                return response()->json([
+                    'candidates' => $candidates,
+                    'kolom' => $kolom,
+                    'list_tahun' => $list_tahun,
+                    'filter' => $filter,
+                    'status' => [
+                        'tahun' => $tahun,
+                    ],
+                ]);
+            } else{
+                return response()->json([
+                    'eror'=> 'Silahkan untuk menyimpan hasil import calon mahasiswa'
+                ]);
+            }
+        } catch (Exception $th) {
+            return response()->json([
+                'error'=>$th->getMessage(),
+            ]);
+        }
+    }
+
     public function save(Request $request) 
     {
         try {
@@ -106,7 +165,7 @@ class FilterTesController extends Controller
                 'status'=>'done',
                 'route'=>url('/preview-tes'),
             ]);
-    } catch (Exception $th) {
+        } catch (Exception $th) {
             return response()->json([
                 'error'=>''.$th,
             ]);        
@@ -114,9 +173,72 @@ class FilterTesController extends Controller
 
     }
 
+    public function api_save()
+    {
+        try {
+
+            $this->validate(request(),[
+                'tahun' => 'required|numeric',
+            ]);
+            $tahun = request('tahun');
+
+            $filteri = request('filter') ? request('filter') : null;
+            $operator = [];
+            $filter = [];
+
+            for ($i=0; $i < count($filteri); $i++) {
+                $filter[$i]['kolom'] = $filteri[$i][0]; 
+                $filter[$i]['nilai'] = $filteri[$i][2]; 
+                match ($filteri[$i][1]) {
+                    '=' => $filter[$i]['operator'] = 'et',
+                    '>' => $filter[$i]['operator'] = 'gt',
+                    '<' => $filter[$i]['operator'] = 'lt',
+                    '>=' => $filter[$i]['operator'] = 'gtet',
+                    '<=' => $filter[$i]['operator'] = 'ltet',
+                    '<>' => $filter[$i]['operator'] = 'net',
+                };
+                $operator[$i]=strtolower($filteri[$i][1]);
+            }
+            $criteria = array(
+                'tahun' => intval($tahun),
+                'kolom' => $filter,
+                'table' => 'filter_candidates_tes',
+                'kode_criteria' => strval($tahun).'_filter_candidates_tes',
+            );
+            
+            CandidateTes::query()->where('status','post-import')->where('periode', intval($tahun))
+            ->when( request('banyakCollumn'), function($query) use ($filter, $operator) {
+                return $query->where(function($query) use ($filter, $operator) {
+                    for ($a=0; $a < count($operator); $a++) { 
+                        $query->where($filter[$a]['kolom'], $operator[$a] , intval($filter[$a]['nilai']));
+                    }
+                });
+            })
+            ->update(['status' => 'filtered']);
+
+
+            if (Criteria::query()->where('kode_criteria',strval($tahun).'_filter_candidates_tes')->exists()) {
+                Criteria::query()->where('kode_criteria',strval($tahun).'_filter_candidates_tes')->update($criteria);
+            } else {
+                Criteria::insert($criteria);
+            }
+
+            return response()->json([
+                'status' => 'Filter Calon Mahasiswa '.request('tahun').' Berhasil',
+            ]);
+        } catch (Exception $th) {
+            return response()->json([
+                'error'=>$th->getMessage(),
+            ]);
+        }
+    }
+
     public function getFilter()
     {
         try {
+            $this->validate(request(),[
+                'tahun' => 'required|numeric',
+            ]);
             $criteria = Criteria::select('kolom')->where('table', 'filter_candidates_tes')->where('tahun', intval(request('tahun')))->first();
             $kolom = [];
             foreach($criteria->kolom as $ckolom){
@@ -135,7 +257,7 @@ class FilterTesController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'kolom'=>$kolom,
+                'error'=>$th->getMessage(),
             ]);
         }
     }
