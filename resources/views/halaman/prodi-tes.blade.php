@@ -88,7 +88,7 @@
 
                             <br>
                             <div class="">
-                                <table class="table-hover table-md table display nowrap" id="table-prodi-tes" style="width: 100%">
+                                <table class="table-hover table-md table display nowrap" id="table-prodi-tes" style="width: 100%" url="{{ route('api_deleteProTes') }}">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -226,6 +226,8 @@
 <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 <script src="{{ asset('js/stisla.js') }}"></script>
 <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script>
+
 
 <!-- Page Specific JS File -->
 <script src="../../js/table.js"></script>
