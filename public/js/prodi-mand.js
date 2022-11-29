@@ -26,6 +26,7 @@ function refresh(append) {
                     responsive: true,
                     pageLength: 10,
                     autoWidth: false,
+                    scrollX: true,
                     // order: [[1, "desc"]],
                     columnDefs: [
                         { targets: [5], className: 'dt-center' }
@@ -55,9 +56,10 @@ function refresh(append) {
                             data: '_id',
                             render: function(data, type, full, meta) {
                                 rowww = meta.row
+                                idpanjang = data
                                 editbtn = '<button class="btn btn-icon btn-warning m-1" id="editBtn" onclick="editBtn(' + rowww + ')" ><i class="fas fa-edit"></i> </button>';
-                                deletebtn = '<button class="btn btn-icon btn-danger m-1" id="deleteBtn" onclick="editBtn(' + data + ')" ><i class="fas fa-trash"></i> </button>';
-                                return '<a href=#prodi-tes-edit>' + editbtn + deletebtn + '</a>';
+                                deletebtn = '<button class="btn btn-icon btn-danger m-1" id="deleteBtn" idpanjang="' + data + '" onclick="prodidel(' + rowww + ')" ><i class="fas fa-trash"></i> </button>';
+                                return '<a href=#prodi-mandiri-edit>' + editbtn + deletebtn + '</a>';
                             },
                             orderable: false,
                         }
@@ -72,6 +74,35 @@ function refresh(append) {
 function tutup() {
     document.getElementById('prodi-mandiri-edit').setAttribute('hidden', true);
     sessionStorage.clear();
+}
+
+function prodidel(id) {
+    console.log(urldel);
+    console.log(id);
+    var id_panjang = dataAPI['prodi'][id]['_id']
+    var urldel = document.getElementById("table-prodi-mandiri").getAttribute('url');
+    var formdata = new FormData();
+    formdata.append("id_panjang", id_panjang);
+
+
+    console.log(urldel);
+    console.log(id);
+    console.log(id_panjang);
+
+    var requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch(urldel, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            console.log(result)
+            refresh('')
+        })
+        .catch(error => console.log('error', error));
+
 }
 
 function submit() {

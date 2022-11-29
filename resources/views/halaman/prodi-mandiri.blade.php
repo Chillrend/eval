@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="align-items-left">
-                                    <button type="submit" class="btn btn-primary" id="modal-add"><i class="fas fa-plus"></i> Add</button>
+                                    <button class="btn btn-primary " id="modal-add"><i class="fas fa-plus"></i> Add</button>
                                 </div>
                             </div>
                             <br>
@@ -87,7 +87,7 @@
 
                             <br>
                             <div class="">
-                                <table class="table-hover table-md table display nowrap" id="table-prodi-mandiri" style="width: 100%">
+                                <table class="table-hover table-md table display nowrap" id="table-prodi-mandiri" style="width: 100%" url="{{ route('api_deleteProMand') }}">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -104,7 +104,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="card-footer row">
                             
                         </div>
                     </div>
