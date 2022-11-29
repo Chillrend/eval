@@ -112,7 +112,8 @@ Route::post('/filter-tes', [FilterTesController::class,'api_save'])->name('saveF
 Route::post('/get-filter-tes', [FilterTesController::class,'getFilter'])->name('getFilterTes');
 
 //Filter Mandiri
-Route::post('/filter-mandiri', [FilterMandiriController::class,'save'])->name('saveFilterMan');
+Route::get('/filter-mandiri', [FilterMandiriController::class,'api_render'])->name('api_renderFilterMan');
+Route::post('/filter-mandiri', [FilterMandiriController::class,'api_save'])->name('saveFilterMan');
 Route::post('/get-filter-mandiri', [FilterMandiriController::class,'getFilter'])->name('getFilterMan');
 
 
