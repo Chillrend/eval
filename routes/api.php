@@ -51,7 +51,10 @@ Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::clas
 
 
 //Prodi Prestasi
-
+Route::get('/prodi-prestasi', [ProdiPresController::class, 'api_render'])->name('api_renderProPres');
+Route::post('/prodi-prestasi/insert', [ProdiPresController::class, 'api_insert'])->name('api_insertProPres');
+Route::post('/prodi-prestasi/delete', [ProdiPresController::class, 'api_delete'])->name('api_deleteProPres');
+Route::post('/prodi-prestasi/edit', [ProdiPresController::class, 'api_edit'])->name('api_editProPres');
 
 //Prodi Tes
 Route::get('/prodi-tes', [ProdiTesController::class, 'api_render'])->name('api_renderProTes');
