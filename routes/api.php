@@ -106,6 +106,8 @@ Route::post('/get-filter-tes', [FilterTesController::class,'getFilter'])->name('
 Route::post('/filter-mandiri', [FilterMandiriController::class,'save'])->name('saveFilterMan');
 Route::post('/get-filter-mandiri', [FilterMandiriController::class,'getFilter'])->name('getFilterMan');
 
+//Prodi Tes
+
 
 
 
