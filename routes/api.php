@@ -102,7 +102,8 @@ Route::get('/preview-mandiri', [PreviewMandiriController::class, 'api_render'])-
 
 
 //Filter Prestasi
-Route::post('/filter-pres', [FilterPresController::class,'save'])->name('saveFilterPres');
+Route::get('/filter-pres', [FilterPresController::class,'api_render'])->name('api_renderFilterPres');
+Route::post('/filter-pres', [FilterPresController::class,'api_save'])->name('saveFilterPres');
 Route::post('/get-filter-pres', [FilterPresController::class,'getFilter'])->name('getFilterPres');
 
 //Filter Tes

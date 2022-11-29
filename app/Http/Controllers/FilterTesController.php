@@ -99,6 +99,9 @@ class FilterTesController extends Controller
                     'kolom' => $kolom,
                     'list_tahun' => $list_tahun,
                     'filter' => $filter,
+                    'status' => [
+                        'tahun' => $tahun,
+                    ],
                 ]);
             } else{
                 return response()->json([
