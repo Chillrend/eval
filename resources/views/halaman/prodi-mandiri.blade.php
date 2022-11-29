@@ -12,11 +12,12 @@
         href="assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css"> --}}
 <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
 <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
 
 @endpush
 
 @section('main')
-<div class="main-content">
+<div class="main-content" id="main-content" url="{{ route('api_renderProMand') }}">
     <section class="section">
         <div class="section-header">
             <h1>Data Kuota Program Studi</h1>
@@ -55,25 +56,6 @@
                                 <div class="align-items-left">
                                     <button type="submit" class="btn btn-primary" id="modal-add"><i class="fas fa-plus"></i> Add</button>
                                 </div>
-
-                                <div class="align-items-right">
-                                    <form action="/prodi-mandiri" method="get">
-                                        <div class="input-group">
-                                            <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
-                                                <option selected disabled class="hidden">{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
-                                                <option value="id_prodi">Id Prodi</option>
-                                                <option value="prodi">Prodi</option>
-                                                <option value="kelompok_belajar">Kelompok Belajar</option>
-                                                <option value="kuota">Kuota</option>
-                                            </select>
-                                            &nbsp; &nbsp;
-                                            <input type="text" class="form-control" name="search" placeholder="Search" value="{{$searchbar[1]}}">
-                                            <div class="input-group-btn">
-                                                <button type="submit" class="btn btn-primary form-control"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                             <br>
 
@@ -105,7 +87,7 @@
 
                             <br>
                             <div class="">
-                                <table class="table-hover table-md table display nowrap" id="table" style="width: 100%">
+                                <table class="table-hover table-md table display nowrap" id="table-prodi-mandiri" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -117,67 +99,62 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if($prodi->first())
-                                            @foreach($prodi as $prodii => $data)
-                                            <tr id="row-{{ $prodii + $prodi->firstItem()}}">
-                                                <td>{{ $prodii + $prodi->firstItem()}}</td>                                              
-                                                <td>{{$data['id_prodi']}}</td>
-                                                <td>{{$data['prodi']}}</td>
-                                                <td>{{$data['kelompok_bidang']}}</td>
-                                                <td>{{$data['kuota']}}</td>
-                                                <td>
-                                                    <div class="row m-0">
-                                                        <button class="btn btn-icon btn-warning m-1" id="editBtn" onclick="editBtn({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-edit"></i></button>
-                                                        <form action="{{route('delProdiMand',['id' => $data['_id']])}}" method="post">
-                                                            @csrf
-                                                            <button class="btn btn-icon btn-danger m-1" id="deleteBtn" ><i class="fas fa-trash"></i></button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr id="row-edit-{{ $prodii + $prodi->firstItem()}}" style="display: none;">
-                                                <form action="{{route('editProdiMand',['id' => $data['_id']])}}" method="post">
-                                                    @csrf
-                                                    <td>{{ $prodii + $prodi->firstItem()}}</td>                                              
-                                                    <td>
-                                                        <input type="number" class="form-control" placeholder="Id Prodi" name="id_prodi" value="{{$data['id_prodi']}}" required>
-                                                    </td>                                              
-                                                    <td>
-                                                        <input type="text" class="form-control" placeholder="Program Studi" name="prodi" value="{{$data['prodi']}}" required>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" placeholder="Kelompok Bidang" name="kelompok_bidang" value="{{$data['kelompok_bidang']}}" required>
-                                                    </td>
-                                                    <td>
-                                                        <input type="number" class="form-control" placeholder="Kuota" name="kuota" value="{{$data['kuota']}}" required>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row m-0">
-                                                            <button type="submit" class="btn btn-icon btn-success m-1" ><i class="fas fa-check"></i></button>
-                                                            <button type="button" class="btn btn-icon btn-danger m-1 btnclose" id="closeBtn" onclick="closeButton({{ $prodii + $prodi->firstItem()}})" ><i class="fas fa-times"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </form>
-                                            </tr>
-                                            @endforeach
-                                        @else
-                                        <tr>
-                                            <td colspan=6 >
-                                                <div class="alert alert-danger">
-                                                    <div class="d-flex justify-content-center">
-                                                        Data Kosong
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        @endif
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <input type="submit" class="btn btn-primary" />
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prodi-mandiri-edit" hidden>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="my-2">Binding Data Program Studi</h4>
+                    </div>
+                    <div id="edit-prodi-mandiri" url="{{ route('api_editProMand') }}">
+                    @csrf
+                        <div class="card-body">
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Id Program Studi</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="id" name="id_prodi" class="form-control"/>
+                                    <input type="text" id="id_obj" name="id_obj" class="form-control" hidden/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Program Studi</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="prodi" name="prodi" class="form-control" required/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kelompok Bidang</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="bidang" name="bidang" class="form-control" required/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kuota</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" id="kuota" name="kuota" class="form-control" placeholder="Kuota" required/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input class="btn btn-success" type="button" onclick="submit()" value="Submit">
+                                    <input class="btn btn-danger ml-2"type="button" value="Close" onclick="tutup()">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,11 +224,13 @@
 <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 <script src="{{ asset('js/stisla.js') }}"></script>
 <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page Specific JS File -->
 <script src="../../js/table.js"></script>
 <script src="../../js/style.js"></script>
 <script src="../../js/prodi.js"></script>
+<script src="../../js/prodi-mand.js"></script>
 <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 
 @endpush

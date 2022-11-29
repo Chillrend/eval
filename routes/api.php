@@ -60,7 +60,10 @@ Route::post('/prodi-tes/delete', [ProdiTesController::class, 'api_delete'])->nam
 Route::post('/prodi-tes/edit', [ProdiTesController::class, 'api_edit'])->name('api_editProTes');
 
 //Prodi Mandiri
-
+Route::get('/prodi-mandiri', [ProdiMandiriController::class, 'api_render'])->name('api_renderProMand');
+Route::post('/prodi-mandiri/insert', [ProdiMandiriController::class, 'api_insert'])->name('api_insertProMand');
+Route::post('/prodi-mandiri/delete', [ProdiMandiriController::class, 'api_delete'])->name('api_deleteProMand');
+Route::post('/prodi-mandiri/edit', [ProdiMandiriController::class, 'api_edit'])->name('api_editProMand');
 
 
 //Binding Prodi Prestasi
