@@ -218,22 +218,22 @@ class FilterTesController extends Controller
                 'kode_criteria' => strval($tahun) . '_filter_candidates_tes',
             );
 
-            CandidateTes::query()->where('status', 'post-import')->where('periode', intval($tahun))
-                ->when(request('banyakCollumn'), function ($query) use ($filter, $operator) {
-                    return $query->where(function ($query) use ($filter, $operator) {
-                        for ($a = 0; $a < count($operator); $a++) {
-                            $query->where($filter[$a]['kolom'], $operator[$a], intval($filter[$a]['nilai']));
-                        }
-                    });
-                })
-                ->update(['status' => 'filtered']);
+            // CandidateTes::query()->where('status', 'post-import')->where('periode', intval($tahun))
+            //     ->when(request('banyakCollumn'), function ($query) use ($filter, $operator) {
+            //         return $query->where(function ($query) use ($filter, $operator) {
+            //             for ($a = 0; $a < count($operator); $a++) {
+            //                 $query->where($filter[$a]['kolom'], $operator[$a], intval($filter[$a]['nilai']));
+            //             }
+            //         });
+            //     })
+            //     ->update(['status' => 'filtered']);
 
 
-            if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->exists()) {
-                Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->update($criteria);
-            } else {
-                Criteria::insert($criteria);
-            }
+            // if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->exists()) {
+            //     Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->update($criteria);
+            // } else {
+            //     Criteria::insert($criteria);
+            // }
 
             return response()->json([
                 'status' => 'Filter Calon Mahasiswa ' . request('tahun') . ' Berhasil',
