@@ -34,25 +34,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Candidate Prestasi
-Route::get('/candidates-prestasi', [CandidatePresController::class,'api_render'])->name('api_renderCanPres');
-Route::post('/get-criteria-candidates-pres',[CandidatePresController::class,'criteria'])->name('criteriaCanPres');
-Route::post('/candidates-prestasi/import', [CandidatePresController::class,'api_import'])->name('api_importCanPres');
-Route::post('/candidates-prestasi/save', [CandidatePresController::class,'api_save'])->name('api_saveCanPres');
-Route::post('/candidates-prestasi/cancel', [CandidatePresController::class,'api_cancel'])->name('api_cancelCanPres');
+Route::get('/candidates-prestasi', [CandidatePresController::class, 'api_render'])->name('api_renderCanPres');
+Route::post('/get-criteria-candidates-pres', [CandidatePresController::class, 'criteria'])->name('criteriaCanPres');
+Route::post('/candidates-prestasi/import', [CandidatePresController::class, 'api_import'])->name('api_importCanPres');
+Route::post('/candidates-prestasi/save', [CandidatePresController::class, 'api_save'])->name('api_saveCanPres');
+Route::post('/candidates-prestasi/cancel', [CandidatePresController::class, 'api_cancel'])->name('api_cancelCanPres');
 
 //Candidate Tes
-Route::get('/candidates-tes', [CandidateTesController::class,'api_render'])->name('api_renderCanTes');
-Route::post('/get-criteria-candidates-tes',[CandidateTesController::class,'criteria'])->name('criteriaCanTes');
-Route::post('/candidates-tes/import', [CandidateTesController::class,'api_import'])->name('api_importCanTes');
-Route::post('/candidates-tes/save', [CandidateTesController::class,'api_save'])->name('api_saveCanTes');
-Route::post('/candidates-tes/cancel', [CandidateTesController::class,'api_cancel'])->name('api_cancelCanTes');
+Route::get('/candidates-tes', [CandidateTesController::class, 'api_render'])->name('api_renderCanTes');
+Route::post('/get-criteria-candidates-tes', [CandidateTesController::class, 'criteria'])->name('criteriaCanTes');
+Route::post('/candidates-tes/import', [CandidateTesController::class, 'api_import'])->name('api_importCanTes');
+Route::post('/candidates-tes/save', [CandidateTesController::class, 'api_save'])->name('api_saveCanTes');
+Route::post('/candidates-tes/cancel', [CandidateTesController::class, 'api_cancel'])->name('api_cancelCanTes');
 
 //Candidate Mandiri
-Route::get('/candidates-mandiri', [CandidateMandiriController::class,'api_render'])->name('api_renderCanMan');
-Route::post('/get-criteria-candidates-mandiri',[CandidateMandiriController::class,'criteria'])->name('criteriaCanMan');
-Route::post('/candidates-mandiri/import', [CandidateMandiriController::class,'api_import'])->name('api_importCanMan');
-Route::post('/candidates-mandiri/save', [CandidateMandiriController::class,'api_save'])->name('api_saveCanMan');
-Route::post('/candidates-mandiri/cancel', [CandidateMandiriController::class,'api_cancel'])->name('api_cancelCanMan');
+Route::get('/candidates-mandiri', [CandidateMandiriController::class, 'api_render'])->name('api_renderCanMan');
+Route::post('/get-criteria-candidates-mandiri', [CandidateMandiriController::class, 'criteria'])->name('criteriaCanMan');
+Route::post('/candidates-mandiri/import', [CandidateMandiriController::class, 'api_import'])->name('api_importCanMan');
+Route::post('/candidates-mandiri/save', [CandidateMandiriController::class, 'api_save'])->name('api_saveCanMan');
+Route::post('/candidates-mandiri/cancel', [CandidateMandiriController::class, 'api_cancel'])->name('api_cancelCanMan');
 
 
 //Prodi Prestasi
@@ -75,19 +75,19 @@ Route::post('/prodi-mandiri/edit', [ProdiMandiriController::class, 'api_edit'])-
 
 
 //Binding Prodi Prestasi
-Route::get('/bind-prodi-prestasi', [BindProdiPresController::class,'render_api'])->name('api_renderBindProdiPres');
-Route::post('/bind-prodi-prestasi/detail', [BindProdiPresController::class,'detail'])->name('api_detailBindProdiPres');
-Route::post('/bind-prodi-prestasi', [BindProdiPresController::class,'binding'])->name('api_bindBindProdiPres');
+Route::get('/bind-prodi-prestasi', [BindProdiPresController::class, 'render_api'])->name('api_renderBindProdiPres');
+Route::post('/bind-prodi-prestasi/detail', [BindProdiPresController::class, 'detail'])->name('api_detailBindProdiPres');
+Route::post('/bind-prodi-prestasi', [BindProdiPresController::class, 'binding'])->name('api_bindBindProdiPres');
 
 //Binding Prodi Tes
-Route::get('/bind-prodi-tes', [BindProdiTesController::class,'render_api'])->name('api_renderBindProdiTes');
-Route::post('/bind-prodi-tes/detail', [BindProdiTesController::class,'detail'])->name('api_detailBindProdiTes');
-Route::post('/bind-prodi-tes', [BindProdiTesController::class,'api_binding'])->name('api_bindBindProdiTes');
+Route::get('/bind-prodi-tes', [BindProdiTesController::class, 'render_api'])->name('api_renderBindProdiTes');
+Route::post('/bind-prodi-tes/detail', [BindProdiTesController::class, 'detail'])->name('api_detailBindProdiTes');
+Route::post('/bind-prodi-tes', [BindProdiTesController::class, 'api_binding'])->name('api_bindBindProdiTes');
 
 //Binding Prodi Mandiri
-Route::get('/bind-prodi-mandiri', [BindProdiMandController::class,'render_api'])->name('api_renderBindProdiMand');
-Route::post('/bind-prodi-mandiri/detail', [BindProdiMandController::class,'detail'])->name('api_detailBindProdiMand');
-Route::post('/bind-prodi-mandiri', [BindProdiMandController::class,'api_binding'])->name('api_bindBindProdiMand');
+Route::get('/bind-prodi-mandiri', [BindProdiMandController::class, 'render_api'])->name('api_renderBindProdiMand');
+Route::post('/bind-prodi-mandiri/detail', [BindProdiMandController::class, 'detail'])->name('api_detailBindProdiMand');
+Route::post('/bind-prodi-mandiri', [BindProdiMandController::class, 'api_binding'])->name('api_bindBindProdiMand');
 
 
 //Preview Prestasi
@@ -101,27 +101,18 @@ Route::get('/preview-mandiri', [PreviewMandiriController::class, 'api_render'])-
 
 
 //Filter Prestasi
-Route::get('/filter-pres', [FilterPresController::class,'api_render'])->name('api_renderFilterPres');
-Route::post('/filter-pres', [FilterPresController::class,'api_save'])->name('saveFilterPres');
-Route::post('/get-filter-pres', [FilterPresController::class,'getFilter'])->name('getFilterPres');
+Route::get('/filter-pres', [FilterPresController::class, 'api_render'])->name('api_renderFilterPres');
+Route::post('/filter-pres', [FilterPresController::class, 'api_save'])->name('saveFilterPres');
+Route::post('/get-filter-pres', [FilterPresController::class, 'getFilter'])->name('getFilterPres');
 
 //Filter Tes
-Route::get('/filter-tes', [FilterTesController::class,'api_render'])->name('api_renderFilterTes');
-Route::post('/filter-tes', [FilterTesController::class,'api_save'])->name('saveFilterTes');
-Route::post('/get-filter-tes', [FilterTesController::class,'getFilter'])->name('getFilterTes');
+Route::get('/filter-tes', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
+Route::post('/filter-tes', [FilterTesController::class, 'api_save'])->name('saveFilterTes');
+Route::post('/get-filter-tes', [FilterTesController::class, 'getFilter'])->name('getFilterTes');
 
 //Filter Mandiri
-Route::get('/filter-mandiri', [FilterMandiriController::class,'api_render'])->name('api_renderFilterMan');
-Route::post('/filter-mandiri', [FilterMandiriController::class,'api_save'])->name('saveFilterMan');
-Route::post('/get-filter-mandiri', [FilterMandiriController::class,'getFilter'])->name('getFilterMan');
+Route::get('/filter-mandiri', [FilterMandiriController::class, 'api_render'])->name('api_renderFilterMan');
+Route::post('/filter-mandiri', [FilterMandiriController::class, 'api_save'])->name('saveFilterMan');
+Route::post('/get-filter-mandiri', [FilterMandiriController::class, 'getFilter'])->name('getFilterMan');
 
 //Prodi Tes
-
-
-
-
-
-
-
-
-

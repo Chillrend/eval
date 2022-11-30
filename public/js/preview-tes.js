@@ -70,7 +70,7 @@ function refresh(append) {
                 scrollX: true,
                 responsive: true,
                 pageLength: 10,
-                autoWidth: false,
+                autoWidth: true,
             });
         })
         .catch((error) => console.log("error", error));
