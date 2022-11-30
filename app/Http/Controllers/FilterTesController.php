@@ -101,17 +101,17 @@ class FilterTesController extends Controller
                 $kolom = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($tahun))->first()->toArray();
                 $kolom = $kolom['kolom'];
 
-                //     return response()->json([
-                //         'candidates' => $candidates,
-                //         'kolom' => $kolom,
-                //         'list_tahun' => $list_tahun,
-                //         'tahun_template' => $tahun_template,
-                //         'filter' => $filter,
-                //         'status' => [
-                //             'tahun' => $tahun,
-                //         ],
-                //     ]);
-                // } else {
+                return response()->json([
+                    'candidates' => $candidates,
+                    'kolom' => $kolom,
+                    'list_tahun' => $list_tahun,
+                    'tahun_template' => $tahun_template,
+                    'filter' => $filter,
+                    'status' => [
+                        'tahun' => $tahun,
+                    ],
+                ]);
+            } else {
                 return response()->json([
                     'eror' => 'Silahkan untuk menyimpan hasil import calon mahasiswa'
                 ]);
@@ -218,25 +218,26 @@ class FilterTesController extends Controller
                 'kode_criteria' => strval($tahun) . '_filter_candidates_tes',
             );
 
-            CandidateTes::query()->where('status', 'post-import')->where('periode', intval($tahun))
-                ->when(request('banyakCollumn'), function ($query) use ($filter, $operator) {
-                    return $query->where(function ($query) use ($filter, $operator) {
-                        for ($a = 0; $a < count($operator); $a++) {
-                            $query->where($filter[$a]['kolom'], $operator[$a], intval($filter[$a]['nilai']));
-                        }
-                    });
-                })
-                ->update(['status' => 'filtered']);
+            // CandidateTes::query()->where('status', 'post-import')->where('periode', intval($tahun))
+            //     ->when(request('banyakCollumn'), function ($query) use ($filter, $operator) {
+            //         return $query->where(function ($query) use ($filter, $operator) {
+            //             for ($a = 0; $a < count($operator); $a++) {
+            //                 $query->where($filter[$a]['kolom'], $operator[$a], intval($filter[$a]['nilai']));
+            //             }
+            //         });
+            //     })
+            //     ->update(['status' => 'filtered']);
 
 
-            if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->exists()) {
-                Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->update($criteria);
-            } else {
-                Criteria::insert($criteria);
-            }
+            // if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->exists()) {
+            //     Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->update($criteria);
+            // } else {
+            //     Criteria::insert($criteria);
+            // }
 
             return response()->json([
                 'status' => 'Filter Calon Mahasiswa ' . request('tahun') . ' Berhasil',
+                'redirect' => route('previewTes')
             ]);
         } catch (Exception $th) {
             return response()->json([

@@ -256,6 +256,7 @@ function saveFilter() {
                 .then((result) => {
                     var result = JSON.parse(result);
                     swal("Success", result.status, "success");
+                    window.location.replace(result.redirect);
                 })
                 .catch((error) => {
                     swal("Error", "Terjadi Kesalahan", "error");
