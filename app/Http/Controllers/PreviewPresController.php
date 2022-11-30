@@ -7,10 +7,10 @@ use App\Models\Criteria;
 use Exception;
 
 class PreviewPresController extends Controller
-{ 
+{
     public function render()
     {
-        return view('halaman.preview-prestasi',[
+        return view('halaman.preview-prestasi', [
             'type_menu' => 'prestasi',
         ]);
     }
@@ -23,13 +23,13 @@ class PreviewPresController extends Controller
                     $periode = request('tahun');
                 } else {
                     $periode = CandidatePres::select('periode')
-                    ->groupBy('periode')
-                    ->first()->toArray();
+                        ->groupBy('periode')
+                        ->first()->toArray();
                     $periode = $periode['periode'];
                 }
                 $candidates = CandidatePres::query()->where('periode', intval($periode))->where('periode', intval($periode))->get();
                 $tahun = CandidatePres::select('periode')->groupBy('periode')->get();
-                for ($x=0; $x < count($tahun); $x++) { 
+                for ($x = 0; $x < count($tahun); $x++) {
                     $tahun[$x] = $tahun[$x]['periode'];
                 }
 
@@ -38,31 +38,31 @@ class PreviewPresController extends Controller
 
                 switch ($status) {
                     case 'import':
-                        $statuss = 1/4*100;
+                        $statuss = 1 / 4 * 100;
                         break;
                     case 'post-import':
-                        $statuss = 2/4*100;
+                        $statuss = 2 / 4 * 100;
                         break;
                     case 'filtered':
-                        $statuss = 3/4*100;
+                        $statuss = 3 / 4 * 100;
                         break;
                     case 'done':
-                        $statuss = 4/4*100;
+                        $statuss = 4 / 4 * 100;
                         break;
-                        
+
                     default:
-                        $statuss = 0/4*100;
+                        $statuss = 0 / 4 * 100;
                         break;
                 }
 
                 return response()->json([
                     'candidates' => $candidates,
                     'tahun' => $tahun,
-                    'criteria' =>$criteria['kolom'],
+                    'criteria' => $criteria['kolom'],
                     'status' => [
-                        'progress'=> $statuss, 
-                        'status'=> $status, 
-                        'periode'=> $periode
+                        'progress' => $statuss,
+                        'status' => $status,
+                        'periode' => $periode
                     ],
                 ]);
             } else {
@@ -72,7 +72,7 @@ class PreviewPresController extends Controller
             }
         } catch (Exception $th) {
             return response()->json([
-                'error'=>$th->getMessage(),
+                'error' => $th->getMessage(),
             ]);
         }
     }
