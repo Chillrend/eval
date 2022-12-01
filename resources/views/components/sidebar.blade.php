@@ -13,35 +13,6 @@
                 <a class="nav-link"
                     href="{{ url('dashboard') }}"><i class="fas fa-house"></i><span>Dashboard</span></a>
             </li>
-            
-            <li class="menu-header">Kriteria</li>
-
-            <li class="nav-item dropdown {{ $type_menu === 'prestasi' ? 'active' : '' }}">
-
-                <a href="#"
-                    class="nav-link has-dropdown"
-                    data-toggle="dropdown"><i class="fas fa-graduation-cap"></i><span>Seleksi Prestasi</span></a>
-                
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::is('candidates-prestasi') ? 'active' : '' }}">
-                        <a class="nav-link "
-                            href="{{ url('candidates-prestasi') }}"><i class="fas fa-users"></i><span>Data Mahasiswa</span></a>
-                    </li>
-                    <li class="{{ Request::is('prodi-prestasi') ? 'active' : '' }}">
-                        <a class="nav-link "
-                            href="{{ url('prodi-prestasi') }}"><i class="fas fa-university"></i><span>Program Studi</span></a>
-                    </li>  
-                    <li class="{{ Request::is('preview-prestasi') ? 'active' : '' }}">
-                        <a class="nav-link "
-                            href="{{ url('preview-prestasi') }}"><i class="fas fa-eye" ></i><span>Preview</span></a>
-                    </li>
-                    <li class="{{ Request::is('filter-prestasi') ? 'active' : '' }}">
-                            <a class="nav-link "
-                                href="{{ url('filter-prestasi') }}"><i class="fas fa-eye" ></i><span>Filter</span></a>
-                    </li>                      
-                </ul>
-
-            </li>
 
             <li class="menu-header">Seleksi</li>
 
