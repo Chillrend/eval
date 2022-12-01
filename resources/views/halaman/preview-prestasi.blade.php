@@ -10,7 +10,7 @@
 @endpush
 
 @section('main')
-    <div class="main-content">
+    <div class="main-content" id="main-content" url="{{route('api_renderPreviewPres')}}">
         <section class="section">
             <div class="section-header">
                 <h1>Preview Data Mahasiswa Seleksi Prestasi</h1>
@@ -20,7 +20,6 @@
                     <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Prestasi</div>
                 </div>
             </div>
-            @if($candidates->first())
             <div id="">
                 <div class="row">
                     <div class="col-12">
@@ -43,43 +42,25 @@
                             <div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                        <table class="table table-striped" id="tabel-preview" style="width: 100%">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">periode</th>
-                                                    @foreach($criteria as $criteriaa)
-                                                    <th scope="col">{{$criteriaa}}</th>
-                                                    @endforeach
+                                                <tr id="head-col">
+                                                    
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                @foreach($candidates as $candidate => $data)
-                                                <tr>
-                                                    <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
-                                                    <td>{{$data['periode']}}</td>
-                                                    @foreach($criteria as $criteriaa)
-                                                    <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
-                                                    @endforeach
-                                                </tr>
-                                                @endforeach
+                                            <tbody id="table-content">
+                                               
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="col-sm-12 col-md-5">
-                                        <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
-                                    </div>
-                                    <div class="pagination" style="justify-content: center">
-                                        {!! $candidates->links("pagination::bootstrap-4") !!}
-                                    </div>
                                 </div> 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @endif
         </section>
     </div>
 @endsection
@@ -91,6 +72,7 @@
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
+    <script src="../../js/preview-prestasi.js"></script>
     <script src="../../js/table.js"></script>
     <script src="../../js/style.js"></script>
 @endpush
