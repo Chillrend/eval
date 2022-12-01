@@ -125,7 +125,7 @@
             {{-- @if($candidates != '') --}}
             {{-- @if($candidates->first() && $searchbar || $candidates != '') --}}
             {{-- @if($candidates->first() || $searchbar ) --}}
-            <div id="preview" >
+            <div id="preview">
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan diupload

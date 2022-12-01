@@ -123,6 +123,7 @@
                     </div>
                 </div>
             </div> 
+            <div id="preview">
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan diupload
@@ -178,6 +179,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </section>
     </div>
 @endsection
