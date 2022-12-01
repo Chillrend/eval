@@ -89,18 +89,26 @@ class FilterMandiriController extends Controller
                     $list_tahun[$x] = $list_tahun[$x]['periode'];
                 }
 
-                $kolom = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', intval($tahun))->get();
-                for ($x = 0; $x < count($kolom); $x++) {
-                    $kolom[$x] = $kolom[$x]['kolom'];
+                $tahun_template = Criteria::select('tahun')
+                    ->where('table', 'filter_candidates_mand')
+                    ->groupBy('tahun')
+                    ->orderBy('tahun', 'desc')
+                    ->get()->toArray();
+                for ($x = 0; $x < count($tahun_template); $x++) {
+                    $tahun_template[$x] = $tahun_template[$x]['tahun'];
                 }
+
+                $kolom = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', intval($tahun))->first()->toArray();
+                $kolom = $kolom['kolom'];
 
                 return response()->json([
                     'candidates' => $candidates,
                     'kolom' => $kolom,
                     'list_tahun' => $list_tahun,
+                    'tahun_template' => $tahun_template,
                     'filter' => $filter,
                     'status' => [
-                        'periode' => $tahun,
+                        'tahun' => $tahun,
                     ],
                 ]);
             } else {
@@ -114,7 +122,6 @@ class FilterMandiriController extends Controller
             ]);
         }
     }
-
 
     public function save(Request $request)
     {
@@ -186,19 +193,24 @@ class FilterMandiriController extends Controller
             $operator = [];
             $filter = [];
 
-            for ($i = 0; $i < count($filteri); $i++) {
-                $filter[$i]['kolom'] = $filteri[$i][0];
-                $filter[$i]['nilai'] = $filteri[$i][2];
-                match ($filteri[$i][1]) {
-                    '=' => $filter[$i]['operator'] = 'et',
-                    '>' => $filter[$i]['operator'] = 'gt',
-                    '<' => $filter[$i]['operator'] = 'lt',
-                    '>=' => $filter[$i]['operator'] = 'gtet',
-                    '<=' => $filter[$i]['operator'] = 'ltet',
-                    '<>' => $filter[$i]['operator'] = 'net',
-                };
-                $operator[$i] = strtolower($filteri[$i][1]);
+            if ($filteri != null) {
+                for ($i = 0; $i < count($filteri); $i++) {
+                    $filter[$i]['kolom'] = $filteri[$i][0];
+                    $filter[$i]['nilai'] = $filteri[$i][2];
+                    match ($filteri[$i][1]) {
+                        '=' => $filter[$i]['operator'] = 'et',
+                        '>' => $filter[$i]['operator'] = 'gt',
+                        '<' => $filter[$i]['operator'] = 'lt',
+                        '>=' => $filter[$i]['operator'] = 'gtet',
+                        '<=' => $filter[$i]['operator'] = 'ltet',
+                        '<>' => $filter[$i]['operator'] = 'net',
+                    };
+                    $operator[$i] = strtolower($filteri[$i][1]);
+                }
+            } else {
+                $filter = null;
             }
+
             $criteria = array(
                 'tahun' => intval($tahun),
                 'kolom' => $filter,
@@ -225,6 +237,7 @@ class FilterMandiriController extends Controller
 
             return response()->json([
                 'status' => 'Filter Calon Mahasiswa ' . request('tahun') . ' Berhasil',
+                'redirect' => route('previewMandiri')
             ]);
         } catch (Exception $th) {
             return response()->json([
