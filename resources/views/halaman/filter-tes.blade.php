@@ -14,14 +14,18 @@
 <div class="main-content" id="main-content" url="{{route('api_renderFilterTes')}}">
     <section class="section">
         <div class="section-header">
-            <h1>Form Data Calon Mahasiswa</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
-                <div class="breadcrumb-item"><a href="#">Filter</a></div>
-                <div class="breadcrumb-item">Filter Data Calon Mahasiswa</div>
+            <h1>Form Filter Calon Mahasiswa - Tahap Tes</h1>
+        </div>
+        <div id="data-kosong">
+            <div class="alert alert-danger alert-has-icon">
+                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Data Kosong</div>
+                    <p id="alert-text"></p>
+                </div>
             </div>
         </div>
-        <div id="formfilter" hidden>
+        <div id="formfilter">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -75,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div id="card-table" hidden>
+        <div id="card-table">
             <h2 class="section-title">Preview</h2>
             <p class="section-lead">
                 Preview data mahasiswa yang akan di upload

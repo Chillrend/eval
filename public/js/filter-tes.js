@@ -4,21 +4,37 @@ refresh("");
 var datatable = 0;
 
 function refresh(append) {
+    document.getElementById("data-kosong").setAttribute("hidden", true);
+    document.getElementById("card-table").setAttribute("hidden", true);
+    document.getElementById("formfilter").setAttribute("hidden", true);
+
     var url = document.getElementById("main-content").getAttribute("url");
     var requestOptions = {
         method: "GET",
         redirect: "follow",
     };
-    console.log(url + append);
 
     fetch(url + append, requestOptions)
         .then((response) => response.text())
         .then((result) => {
             var dataAPI = JSON.parse(result);
 
-            if (typeof dataAPI.eror == "undefined") {
+            if (
+                typeof dataAPI.eror == "undefined" &&
+                dataAPI.candidates == ""
+            ) {
+                document.getElementById("formfilter").removeAttribute("hidden");
+                swal(
+                    "Data Kosong",
+                    "Pastikan anda telah menentukan filter pada kolom yang berisi angka",
+                    "error"
+                );
+            } else if (typeof dataAPI.eror == "undefined") {
                 document.getElementById("card-table").removeAttribute("hidden");
                 document.getElementById("formfilter").removeAttribute("hidden");
+                $("#namedkey").empty();
+                refreshCollumn();
+
                 let tag = null;
                 //select tahun
                 var tahun_template = dataAPI["tahun_template"];
@@ -99,6 +115,10 @@ function refresh(append) {
                     autoWidth: false,
                 });
             } else {
+                document.getElementById("alert-text").innerHTML = dataAPI.eror;
+                document
+                    .getElementById("data-kosong")
+                    .removeAttribute("hidden");
                 swal("Data Kosong", dataAPI.eror, "warning");
             }
         })
