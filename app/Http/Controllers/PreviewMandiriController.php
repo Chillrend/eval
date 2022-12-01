@@ -56,17 +56,17 @@ class PreviewMandiriController extends Controller
                         break;
                 }
 
-                return response()->json([
-                    'candidates' => $candidates,
-                    'tahun' => $tahun,
-                    'criteria' => $criteria['kolom'],
-                    'status' => [
-                        'progress' => $statuss,
-                        'status' => $status,
-                        'periode' => $periode
-                    ],
-                ]);
-            } else {
+                //     return response()->json([
+                //         'candidates' => $candidates,
+                //         'tahun' => $tahun,
+                //         'criteria' => $criteria['kolom'],
+                //         'status' => [
+                //             'progress' => $statuss,
+                //             'status' => $status,
+                //             'periode' => $periode
+                //         ],
+                //     ]);
+                // } else {
                 return response()->json([
                     'error' => 'Data Calon Mahasiswa Kosong. Silahkan Lakukan Import',
                 ]);

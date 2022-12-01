@@ -74,6 +74,12 @@ function refresh(append) {
                     tag = tag + "</tr>";
                     $("#tbl-body").append(tag);
                 }
+                $("#tbl-preview").DataTable({
+                    scrollX: true,
+                    responsive: true,
+                    pageLength: 10,
+                    autoWidth: true,
+                });
             } else {
                 document.getElementById("alert-text").innerHTML = dataAPI.error;
                 document
@@ -81,14 +87,10 @@ function refresh(append) {
                     .removeAttribute("hidden");
                 swal("Data Kosong", dataAPI.error, "warning");
             }
-            $("#tbl-preview").DataTable({
-                scrollX: true,
-                responsive: true,
-                pageLength: 10,
-                autoWidth: true,
-            });
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => {
+            swal("Error", "Terjadi Kesalahan", "error");
+        });
 }
 
 function gantiTahun() {

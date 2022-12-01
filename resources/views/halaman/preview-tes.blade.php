@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Default Layout')
+@section('title', 'Preview')
 
 @push('style')
 <!-- CSS Libraries -->
@@ -64,9 +64,10 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.3/js/select.bootstrap4.js"></script>
 <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+
 
 <!-- Page Specific JS File -->
 <script src="../../js/preview-tes.js"></script>
-<script src="../../js/table.js"></script>
 <script src="../../js/style.js"></script>
 @endpush

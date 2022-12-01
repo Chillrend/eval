@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Default Layout')
+@section('title', 'Preview')
 
 @push('style')
 <!-- CSS Libraries -->
@@ -15,13 +15,17 @@
     <section class="section">
         <div class="section-header">
             <h1>Data Mahasiswa Seleksi Mandiri</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item"><a href="#">Seleksi Mandiri</a></div>
-                <div class="breadcrumb-item"><a href="#">Preview</a></div>
-                <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Mandiri</div>
+        </div>
+        <div id="data-kosong">
+            <div class="alert alert-danger alert-has-icon">
+                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Data Kosong</div>
+                    <p id="alert-text"></p>
+                </div>
             </div>
         </div>
-        <div id="">
+        <div id="card-table">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -61,9 +65,10 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.3/js/select.bootstrap4.js"></script>
 <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+
 
 <!-- Page Specific JS File -->
-<script src="../../js/preview-tes.js"></script>
-<script src="../../js/table.js"></script>
+<script src="../../js/preview-mandiri.js"></script>
 <script src="../../js/style.js"></script>
 @endpush

@@ -4,7 +4,6 @@
 
 @push('style')
 <!-- CSS Libraries -->
-<link rel="stylesheet" rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
 <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap4.min.css" />
@@ -131,7 +130,6 @@
 <script src="https://cdn.datatables.net/select/1.3.3/js/select.bootstrap4.js"></script>
 <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
-<script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 <script src="{{ asset('js/stisla.js') }}"></script>
 <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
@@ -139,5 +137,4 @@
 <!-- Page Specific JS File -->
 <script src="../../js/style.js"></script>
 <script src="../../js/filter-tes.js"></script>
-<script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 @endpush
