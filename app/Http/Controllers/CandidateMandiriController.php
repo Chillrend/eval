@@ -62,6 +62,7 @@ class CandidateMandiriController extends Controller
             CandidateMand::insert($filtered);
 
             Session::flash('success', 'Data Calon Mahasiswa Berhasil diimport');
+
             return redirect()->back();
         } catch (Exception $error) {
             Session::flash('error', $error);

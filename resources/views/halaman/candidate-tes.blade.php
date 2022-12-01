@@ -17,7 +17,7 @@
 @endpush
 
 @section('main')
-    <div class="main-content">
+    <div class="main-content" id="main-content" url="{{route('api_renderCanTes')}}">
         <section class="section">
             <div class="section-header">
                 <h1>Form Data Calon Mahasiswa</h1>
@@ -123,7 +123,6 @@
                     </div>
                 </div>
             </div> 
-            @if($candidates->first() || $searchbar[0])
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan diupload
@@ -133,59 +132,22 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="my-2">Tabel Preview Data Mahasiswa</h4>
-                                @php
-                                $abs = $criteria->first();
-                                @endphp
-                                <div class="card-header-form">
-                                    <form action="/candidates-tes" method="get">
-                                        <div class="input-group">
-                                            <select class="btn selectric" name="kolom" id="periode" onchange="myFunction()">
-                                                <option selected hidden>{{$searchbar[0]  == null ? 'Pilih Kolom' : $searchbar[0]}}</option>
-                                                @foreach($abs['kolom'] as $criteriaa)
-                                                <option>{{$criteriaa}}</option>
-                                                @endforeach
-                                            </select>
-                                            <input type="text" class="form-control" name="search" placeholder="Search" value="{{$searchbar[1]}}">
-                                            <div class="input-group-btn">
-                                                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table-hover table display nowrap" id="table" style="width: 100%">
+                                    <table class="table table-striped" id="table-candidatetes" style="width: 100%">
                                         <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">periode</th>
-                                                @foreach($abs['kolom'] as $criteriaa)
-                                                <th scope="col">{{$criteriaa}}</th>
-                                                @endforeach
+                                            <tr id="head-col">
+                                                
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach($candidates as $candidate => $data)
-                                            <tr>
-                                                <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
-                                                <td>{{$data['periode']}}</td>
-                                                @foreach($abs['kolom'] as $criteriaa)
-                                                <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
-                                                @endforeach
-                                            </tr>
-                                            @endforeach
+                                        <tbody id="table-content">
+                                           
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <div class="col-sm-12 col-md-5">
-                                    <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
-                                </div>
-                                <div class="pagination" style="justify-content: center">
-                                {!! $candidates->links("pagination::bootstrap-4") !!}
-                                </div>
                             </div> 
                         </div>
                     </div>
@@ -215,7 +177,6 @@
                         </div>
                     </div>
                 </div>
-            @endif
             </div>
         </section>
     </div>

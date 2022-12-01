@@ -50,7 +50,9 @@ function refresh(append) {
                 });
 
                 for (
-                    let index = 0; index < dataAPI.candidates.length; index++
+                    let index = 0;
+                    index < dataAPI.candidates.length;
+                    index++
                 ) {
                     tag = null;
                     tag = "<tr>";
