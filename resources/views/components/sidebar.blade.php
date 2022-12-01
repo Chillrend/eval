@@ -37,7 +37,7 @@
                     </li>
                     <li class="{{ Request::is('filter-prestasi') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('filter-prestasi') }}"><i class="fas fa-eye" ></i><span>Filter</span></a>
+                                href="{{ url('filter-prestasi') }}"><i class="fas fa-filter" ></i><span>Filter</span></a>
                     </li>                      
                 </ul>
 
@@ -63,7 +63,7 @@
                         </li>
                         <li class="{{ Request::is('filter-tes') ? 'active' : '' }}">
                             <a class="nav-link "
-                                href="{{ url('filter-tes') }}"><i class="fas fa-eye" ></i><span>Filter</span></a>
+                                href="{{ url('filter-tes') }}"><i class="fas fa-filter" ></i><span>Filter</span></a>
                         </li>             
                     </ul>    
             </li>
@@ -89,7 +89,7 @@
                     </li>    
                     <li class="{{ Request::is('filter-mandiri') ? 'active' : '' }}">
                         <a class="nav-link "
-                            href="{{ url('filter-mandiri') }}"><i class="fas fa-eye" ></i><span>Filter</span></a>
+                            href="{{ url('filter-mandiri') }}"><i class="fas fa-filter" ></i><span>Filter</span></a>
                     </li>             
                 </ul>    
         </li>
