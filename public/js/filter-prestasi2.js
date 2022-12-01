@@ -4,22 +4,11 @@ var collumn = [];
 
 // collumn = sessionStorage.getItem("collumn");
 // console.log(sessionStorage.getItem("collumn"));
+sessionStorage.removeItem("colpres");
 
-if(sessionStorage.getItem("coltes") != null){
-  var a = sessionStorage.getItem("coltes").split(",");
-  for (let b = 0; b < a.length; b) {
-    var e = [];
-    for (let c = 0; c < 3; c++) {
-      e.push(a[b])
-      b++
-    }
-    collumn.push(e)
-  }
-  refreshCollumn()
-};
 
 function simpanFilter() { 
-  sessionStorage.setItem("coltes",collumn);
+  sessionStorage.setItem("colpres",collumn);
 }
 
 function deleteCollumn(id){
@@ -58,38 +47,7 @@ function refreshCollumn() {
 }
 
 function saveFilter() {
-  var url = document.getElementById("saveFilter").getAttribute('url');
-  var banyakCollumn = document.getElementById("banyakCollumn").value;
 
-  var formdata = new FormData;
-  for (let index = 0; index < collumn.length; index++) {
-    formdata.append('kolom-'+index, collumn[index][0]);
-    formdata.append('operator-'+index, collumn[index][1]);
-    formdata.append('nilai-'+index, collumn[index][2]);
-  }
-  formdata.append('banyakCollumn',banyakCollumn)
-
-  var requestOptions = {
-    method: 'POST',
-    body: formdata,
-    redirect: 'follow'
-  };
-  fetch(url, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-      if(result != null) {
-          var result = JSON.parse(result)
-          var url = result.route
-          console.log(result);
-          window.location.assign(url)
-      }
-      else {
-        alert('null');   
-      }
-    })
-    .catch(error => {
-      alert(erorr);
-  });
 }
 
 

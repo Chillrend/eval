@@ -14,21 +14,17 @@
     #tbl-bindprodites td {
         vertical-align: middle;
     }
-    #editBtn a{
-        text-decoration: none;
-        color: white;
-    }
 </style>
 @endpush
 
 @section('main')
-<div class="main-content" id="main-content" url="{{route('api_renderBindProdiTes')}}">
+<div class="main-content" id="main-content" url="{{route('api_renderBindProdiMand')}}">
     <section class="section">
         <div class="section-header">
             <h1>Data Kuota Program Studi</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
+                <div class="breadcrumb-item"><a href="#">Seleksi Prestasi</a></div>
                 <div class="breadcrumb-item">Data Kuota Program Studi</div>
             </div>
         </div>
@@ -38,39 +34,33 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <ul class="nav nav-pills col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card-body">
+                            <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="nav-link"
-                                    href="{{route('renderProdiTes')}}">Data</a>
+                                    <a class="nav-link "
+                                        href="{{ url('prodi-mandiri') }}">Data</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link"
                                         href="">Kuota</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item ">
                                     <a class="nav-link active"
-                                    href="{{route('renderBindProdiTes')}}">Binding</a>
+                                        href="{{route('renderBindProdiMand')}}">Binding</a>
                                 </li>
                             </ul>
-
-                            <div class="d-flex col-12 col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                                <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="tahun_terdaftar()">
-                                </select>
-                            </div>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-body">
-
                             @if (session()->has('success'))
                                 <div class="alert alert-success alert-dismissible show fade">
                                     <div class="alert-body">
                                         <button class="close"
                                             data-dismiss="alert">
                                             <span>&times;</span>
-                                        </button>                                        
+                                        </button>
                                         {{ session('success') }}
                                     </div>
                                 </div>
@@ -93,7 +83,7 @@
                             <br>
                             <div class="">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="tbl-bindprodites">
+                                    <table class="table table-striped" id="tbl-bindprodimandiri">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -120,7 +110,6 @@
         </div>
     </section>
 
-
     <section id="binding" hidden>
         <div class="row">
             <div class="col-12">
@@ -128,14 +117,14 @@
                     <div class="card-header">
                         <h4 class="my-2">Binding Data Program Studi</h4>
                     </div>
-                    <form id="bindingFrom" url="{{ route('api_detailBindProdiTes') }}" action="{{ route('api_bindBindProdiTes') }}" method="POST">
+                    <form id="bindingFrom" url="{{ route('api_detailBindProdiMand') }}" onsubmit="binding()">
                     @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Id Program Studi</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input type="text" id="id" name="id_prodi" class="form-control" readonly/>
-                                    x
+                                    <input type="text" id="id_obj" name="id_obj" class="form-control" hidden/>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
@@ -159,9 +148,9 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Template tahun</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select class="custom-select" id="tahuntemplate" onchange="pilihtahun()">
-                                        <option>Tahun Terdata</option>
-                                            
+                                    <select class="custom-select" id="tahuntemplate" onclick="">
+                                        <option value="tahun">Tahun Terdata</option>
+                                        <p id="tahuntemplate_select"></p>
                                     </select>
                                 </div>
                             </div>
@@ -188,9 +177,6 @@
             </div>
         </div>
     </section>
-    
-
-
 
     
 
@@ -213,7 +199,7 @@
 <!-- <script src="../../js/table.js"></script> -->
 <script src="../../js/style.js"></script>
 <!-- <script src="../../js/prodi.js"></script> -->
-<script src="../../js/bind-prodi-tes.js"></script>
+<script src="../../js/bind-prodi-mandiri.js"></script>
 <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
 
 @endpush

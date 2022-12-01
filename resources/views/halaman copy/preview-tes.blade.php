@@ -1,31 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Preview')
+@section('title', 'Default Layout')
 
 @push('style')
 <!-- CSS Libraries -->
 <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap4.min.css" />
-
 @endpush
 
 @section('main')
-<div class="main-content" id="main-content" url="{{route('api_renderPreviewMand')}}">
+<div class="main-content" id="main-content" url="{{route('api_renderPreviewTes')}}">
     <section class="section">
         <div class="section-header">
-            <h1>Data Mahasiswa Seleksi Mandiri</h1>
-        </div>
-        <div id="data-kosong">
-            <div class="alert alert-danger alert-has-icon">
-                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
-                <div class="alert-body">
-                    <div class="alert-title">Data Kosong</div>
-                    <p id="alert-text"></p>
-                </div>
+            <h1>Preview Data Mahasiswa Seleksi Tes</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
+                <div class="breadcrumb-item"><a href="#">Preview</a></div>
+                <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Tes</div>
             </div>
         </div>
-        <div id="card-table">
+        <div id="">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -65,10 +60,9 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.3/js/select.bootstrap4.js"></script>
 <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
-
 
 <!-- Page Specific JS File -->
-<script src="../../js/preview-mandiri.js"></script>
+<script src="../../js/preview-tes.js"></script>
+<script src="../../js/table.js"></script>
 <script src="../../js/style.js"></script>
 @endpush

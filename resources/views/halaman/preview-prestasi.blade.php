@@ -1,96 +1,73 @@
 @extends('layouts.app')
 
-@section('title', 'Default Layout')
+@section('title', 'Preview')
 
 @push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet"
-    href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
-
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap4.min.css" />
 @endpush
 
 @section('main')
-    <div class="main-content">
-        <section class="section">
-            <div class="section-header">
-                <h1>Preview Data Mahasiswa Seleksi Prestasi</h1>
-                <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="#">Seleksi Prestasi</a></div>
-                    <div class="breadcrumb-item"><a href="#">Preview</a></div>
-                    <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Prestasi</div>
+<div class="main-content" id="main-content" url="{{route('api_renderPreviewTes')}}">
+    <section class="section">
+        <div class="section-header">
+            <h1>Preview Data Mahasiswa Seleksi Prestasi</h1>
+        </div>
+        <div id="data-kosong">
+            <div class="alert alert-danger alert-has-icon">
+                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Data Kosong</div>
+                    <p id="alert-text"></p>
                 </div>
             </div>
-            @if($candidates->first())
-            <div id="">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
-                                <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between">
-                                    <div class="progress col-8 p-0 mt-1"
-                                        data-height="20">
-                                        <div class="progress-bar"
-                                            role="progressbar"
-                                            data-width="{{$status[0]}}%"
-                                            aria-valuenow="{{$status[0]}}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"></div>
-                                    </div>
-                                    <h5 class="badge badge-primary">{{$status[1]}}</h5>
-                                </div>    
-                            </div>
-                            <div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table-hover table display nowrap" id="table" style="width: 100%">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">periode</th>
-                                                    @foreach($criteria as $criteriaa)
-                                                    <th scope="col">{{$criteriaa}}</th>
-                                                    @endforeach
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($candidates as $candidate => $data)
-                                                <tr>
-                                                    <td>{{ $candidate + $candidates->firstItem()}}</td>                                              
-                                                    <td>{{$data['periode']}}</td>
-                                                    @foreach($criteria as $criteriaa)
-                                                    <td>{{$data[$criteriaa] == null ? '-' : $data[$criteriaa]}}</td>
-                                                    @endforeach
-                                                </tr>
-                                                @endforeach
-                                        </table>
-                                    </div>
+        </div>
+        <div id="card-table">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
+                            <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between align-items-center">
+                                <div class="progress col-3 col-xl-3 col-lg-3 col-md-3 col-sm-8 p-0" data-height="20">
+                                    <div class="progress-bar" id="progress-bar" role="progressbar" data-width="0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="col-sm-12 col-md-5">
-                                        <p> {{ $candidates->firstItem() }} of {{ $candidates->lastItem() }} from {{ $candidates->total() }} contents</p>
-                                    </div>
-                                    <div class="pagination" style="justify-content: center">
-                                        {!! $candidates->links("pagination::bootstrap-4") !!}
-                                    </div>
-                                </div> 
+                                <h5 class="badge badge-primary col-3 m-0" id="status"></h5>
+                                <div class="d-flex col-12 col-xl-5 col-lg-5 col-md-5 col-sm-12 my-2 p-0">
+                                    <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="gantiTahun()">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card-body">
+                                <div class="table-responsive" id="table-responsive">
+                                    <table class="table-hover table display nowrap" id="tbl-preview" style="width: 100%">
+
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @endif
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
-    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/select.bootstrap4.js"></script>
+<script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="../../js/table.js"></script>
-    <script src="../../js/style.js"></script>
+
+<!-- Page Specific JS File -->
+<script src="../../js/preview-prestasi.js"></script>
+<script src="../../js/style.js"></script>
 @endpush
