@@ -12,7 +12,6 @@ function refresh(append) {
         .then((response) => response.text())
         .then((result) => {
             var dataAPI = JSON.parse(result);
-            console.log(dataAPI);
 
             //status progress
             document.getElementById("progress-bar").style.width =

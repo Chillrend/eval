@@ -14,13 +14,17 @@
     <section class="section">
         <div class="section-header">
             <h1>Preview Data Mahasiswa Seleksi Tes</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item"><a href="#">Seleksi Tes</a></div>
-                <div class="breadcrumb-item"><a href="#">Preview</a></div>
-                <div class="breadcrumb-item">Preview Data Mahasiswa Seleksi Tes</div>
+        </div>
+        <div id="data-kosong">
+            <div class="alert alert-danger alert-has-icon">
+                <div class="alert-icon"><i class="fas fa-exclamation"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Data Kosong</div>
+                    <p id="alert-text"></p>
+                </div>
             </div>
         </div>
-        <div id="">
+        <div id="card-table">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
