@@ -126,7 +126,7 @@
             {{-- @if($candidates != '') --}}
             {{-- @if($candidates->first() && $searchbar || $candidates != '') --}}
             {{-- @if($candidates->first() || $searchbar ) --}}
-            <div>
+            <div id="preview">
                 <h2 class="section-title">Preview</h2>
                 <p class="section-lead">
                     Preview data mahasiswa yang akan diupload
@@ -135,9 +135,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header my-2">
-                                <h4>Tabel Preview</h4>                        
-                                <div class="card-header-form">
-                                </div>
+                                <h4>Tabel Preview</h4>
                             </div>
                             <div class="card-body">
                                 @if(session()->has('error1'))

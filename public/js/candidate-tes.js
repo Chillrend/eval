@@ -1,13 +1,12 @@
 var collumn = [];
-var url = document.getElementById("main-content").getAttribute('url');
 var dataAPI;
 var datatable = 0;
 refresh('');
 
 
-
-
 function refresh(append) {
+  document.getElementById("preview").setAttribute("hidden", true);
+  var url = document.getElementById("main-content").getAttribute('url');
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -16,13 +15,9 @@ function refresh(append) {
   fetch(url+append, requestOptions)
     .then(response => response.text())
     .then(result => {
-
       dataAPI = JSON.parse(result)
+      if (typeof dataAPI.error == "undefined") {
       console.log(dataAPI);
-      // var jumlah = bis.kolom.length - 2;
-      // for(i= 2; i < bis.kolom.length; i ++){
-      // console.log(bis.kolom[i]);
-      // }
 
       if (datatable != 0) {
         $('#table-candidatetes').dataTable().fnClearTable();
@@ -53,12 +48,14 @@ function refresh(append) {
         $("#table-content").append(tags);
         }
         
+      document.getElementById('preview').removeAttribute('hidden');
         $("#table-candidatetes").DataTable({
           responsive: true,
           pageLength: 10,
           autoWidth: false,
           // order: [[1, "desc"]],
         });
+      }
       }
     })
     .catch(error => console.log('error', error));
@@ -96,6 +93,7 @@ function addCollumn() {
 }
 
 function myFunction(){
+  
     var taun = document.getElementById("periode").value;
     var url = document.getElementById("tambahCriteria").getAttribute('url');
     var urldel = document.getElementById("tambahCriteria").getAttribute('url-del');

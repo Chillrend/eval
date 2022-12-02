@@ -1,11 +1,12 @@
 var collumn = [];
-var url = document.getElementById("main-content").getAttribute('url');
 var dataAPI;
 var datatable = 0;
 refresh('');
 
 
 function refresh(append) {
+  document.getElementById("preview").setAttribute("hidden", true);
+  var url = document.getElementById("main-content").getAttribute('url');
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -14,13 +15,9 @@ function refresh(append) {
   fetch(url+append, requestOptions)
     .then(response => response.text())
     .then(result => {
-
       dataAPI = JSON.parse(result)
+      if (typeof dataAPI.error == "undefined") {
       console.log(dataAPI);
-      // var jumlah = bis.kolom.length - 2;
-      // for(i= 2; i < bis.kolom.length; i ++){
-      // console.log(bis.kolom[i]);
-      // }
 
       if (datatable != 0) {
         $('#table-candidatemand').dataTable().fnClearTable();
@@ -51,6 +48,7 @@ function refresh(append) {
         $("#table-content").append(tags);
         }
         
+      document.getElementById('preview').removeAttribute('hidden');
         $("#table-candidatemand").DataTable({
           responsive: true,
           pageLength: 10,
@@ -58,15 +56,11 @@ function refresh(append) {
           // order: [[1, "desc"]],
         });
       }
+      }
     })
     .catch(error => console.log('error', error));
   }
 // document.getElementById("addcollumn").addEventListener("click", addCollumn);
-function preview(){
-  console.log("berhasil");
-  document.getElementById('preview').removeAttribute('hidden');
-  document.getElementById('preview').focus();
-}
 
 function deleteCollumn(id){
   collumn.splice(id,1);
