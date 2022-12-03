@@ -10,7 +10,7 @@
 @endpush
 
 @section('main')
-<div class="main-content" id="main-content" url="{{route('api_renderPreviewTes')}}">
+<div class="main-content" id="main-content" url="{{route('api_renderPreviewPres')}}">
     <section class="section">
         <div class="section-header">
             <h1>Preview Data Mahasiswa Seleksi Prestasi</h1>
