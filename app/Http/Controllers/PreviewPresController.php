@@ -18,7 +18,8 @@ class PreviewPresController extends Controller
     public function api_render()
     {
         try {
-            if (CandidatePres::query()->exists()) {
+            $check = CandidatePres::all()->toArray();
+            if ($check != null) {
                 if (request('tahun')) {
                     $periode = request('tahun');
                 } else {

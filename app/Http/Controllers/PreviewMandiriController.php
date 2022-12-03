@@ -18,7 +18,8 @@ class PreviewMandiriController extends Controller
     public function api_render()
     {
         try {
-            if (CandidateMand::query()->exists()) {
+            $check = CandidateMand::all()->toArray();
+            if ($check != null) {
                 if (request('tahun')) {
                     $periode = request('tahun');
                 } else {

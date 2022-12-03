@@ -6,6 +6,8 @@ use App\Models\CandidateTes;
 use App\Models\Criteria;
 use Exception;
 
+use function PHPUnit\Framework\isNull;
+
 class PreviewTesController extends Controller
 {
 
@@ -19,7 +21,8 @@ class PreviewTesController extends Controller
     public function api_render()
     {
         try {
-            if (CandidateTes::query()->exists()) {
+            $check = CandidateTes::all()->toArray();
+            if ($check != null) {
                 if (request('tahun')) {
                     $periode = request('tahun');
                 } else {
