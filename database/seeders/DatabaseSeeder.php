@@ -27,14 +27,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // User::create([
-        //     'name' => "Admin",
-        //     'role' => "Admin",
-        //     'email' => "admin@pnj.ac.id",
-        //     'email_verified_at' => date('Y-m-d H:i:s', time()),
-        //     'password' => Hash::make('magangUTD2022'),
+        User::create([
+            'name' => "Admin",
+            'role' => "Admin",
+            'email' => "admin@pnj.ac.id",
+            'email_verified_at' => date('Y-m-d H:i:s', time()),
+            'password' => Hash::make('magangUTD2022'),
 
-        // ]);
+        ]);
 
         $this->call([
             ProdiTesSeeder::class,
