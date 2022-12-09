@@ -7,6 +7,8 @@ use App\Models\CandidatePres;
 use App\Models\CandidateTes;
 use App\Models\Criteria;
 use Exception;
+use Hamcrest\Type\IsInteger;
+use Hamcrest\Type\IsNumeric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -184,9 +186,67 @@ class BobotController extends Controller
 
             if (Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->exists()) {
                 $criteria = Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->first();
+                // dd(request());
                 switch (request('pembobotan')) {
                     case 'prioritas':
-                        $bobot = BobotController::insert_prioritas($data, $criteria);
+                        $array = [
+                            'kolom'     => $data[0],
+                            'nilai'     => $data[1],
+                        ];
+                        $bobot = (array) $criteria->bobot;
+
+                        if (isset($bobot['prioritas']) == false) {
+                            $bobot = (array) $criteria->bobot;
+                            $bobot['prioritas'] = [];
+                        }
+
+                        if (is_numeric(array_search($array, $bobot['prioritas']))) {
+                            return response()->json(['error' => "Data Telah Ditambahkan",]);
+                        } else {
+                            array_push($bobot['prioritas'], $array);
+                            $criteria->bobot = $bobot;
+                        }
+                        break;
+
+                    case 'pembobotan':
+                        $array = [
+                            'kolom'     => $data[0],
+                            'nilai'     => $data[1],
+                            'bobot'     => $data[2],
+                        ];
+                        $bobot = (array) $criteria->bobot;
+
+                        if (isset($bobot['pembobotan']) == false) {
+                            $bobot = (array) $criteria->bobot;
+                            $bobot['pembobotan'] = [];
+                        }
+
+
+                        if (is_numeric(array_search($array, $bobot['pembobotan']))) {
+                            return response()->json(['error' => "Data Telah Ditambahkan",]);
+                        } else {
+                            array_push($bobot['pembobotan'], $array);
+                            $criteria->bobot = $bobot;
+                        }
+                        break;
+
+                    case 'tambahan':
+                        $array = [
+                            'kolom'     => $data[0],
+                        ];
+                        $bobot = (array) $criteria->bobot;
+
+                        if (isset($bobot['tambahan']) == false) {
+                            $bobot = (array) $criteria->bobot;
+                            $bobot['tambahan'] = [];
+                        }
+
+                        if (is_numeric(array_search($array, $bobot['tambahan']))) {
+                            return response()->json(['error' => "Data Telah Ditambahkan",]);
+                        } else {
+                            array_push($bobot['tambahan'], $array);
+                            $criteria->bobot = $bobot;
+                        }
                         break;
 
                     default:
@@ -195,7 +255,8 @@ class BobotController extends Controller
                         ]);
                         break;
                 }
-
+                // dd($criteria->toArray());
+                $criteria->save();
                 return response()->json([
                     'status' => "Data " . ucfirst(request('pembobotan')) . " Berhasil Ditambahkan",
                 ]);
@@ -209,26 +270,5 @@ class BobotController extends Controller
                 'error' => $th->getMessage(),
             ]);
         }
-    }
-
-    public function insert_prioritas($data, $criteria)
-    {
-        $array = [
-            'kolom'     => $data[0],
-            'nilai'     => $data[1],
-        ];
-        $bobot = (isset($criteria->bobot->prioritas)) ? (array) $data->bobot->prioritas : array();
-
-        $key = array_search($data[0], array_column($bobot, 'kolom'));
-        if (is_numeric($key)) {
-            $bobot[$key] = $array;
-        } else {
-            $array=[
-                "pembobotan"=>
-            ];
-            array_push($binding, $array);
-        }
-        $criteria->bobot = $binding;
-        $data->save();
     }
 }
