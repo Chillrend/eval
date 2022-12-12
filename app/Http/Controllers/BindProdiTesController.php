@@ -21,9 +21,17 @@ class BindProdiTesController extends Controller
     public function render_api()
     {
         try {
-            $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
+            if (request('tahun')) {
+                $tahun = request('tahun');
+            } else {
+                $tahun = Criteria::select('tahun')
+                    ->where('table', 'candidates_tes')
+                    ->first();
+                $tahun = $tahun->tahun;
+            }
             $prodis = ProdiTes::all();
             $criteria = Criteria::select('binding')->where('kode_criteria', $tahun . '_candidates_tes')->get()->toArray();
+
             $criteria = $criteria[0]['binding'];
 
             for ($i = 0; $i < count($prodis); $i++) {
