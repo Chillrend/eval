@@ -186,70 +186,29 @@ class BobotController extends Controller
 
             if (Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->exists()) {
                 $criteria = Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->first();
-                // dd(request());
                 switch (request('pembobotan')) {
                     case 'prioritas':
                         $array = [
-                            'id'        => rand(),
                             'kolom'     => $data[0],
                             'nilai'     => $data[1],
+                            'tipe'      => 'prioritas',
                         ];
-                        $bobot = (array) $criteria->bobot;
-
-                        if (isset($bobot['prioritas']) == false) {
-                            $bobot = (array) $criteria->bobot;
-                            $bobot['prioritas'] = [];
-                        }
-
-                        if (is_numeric(array_search($array, $bobot['prioritas']))) {
-                            return response()->json(['error' => "Data Telah Ditambahkan",]);
-                        } else {
-                            array_push($bobot['prioritas'], $array);
-                            $criteria->bobot = $bobot;
-                        }
                         break;
 
                     case 'pembobotan':
                         $array = [
-                            'id'        => rand(),
                             'kolom'     => $data[0],
                             'nilai'     => $data[1],
                             'bobot'     => $data[2],
+                            'tipe'      => 'pembobotan',
                         ];
-                        $bobot = (array) $criteria->bobot;
-
-                        if (isset($bobot['pembobotan']) == false) {
-                            $bobot = (array) $criteria->bobot;
-                            $bobot['pembobotan'] = [];
-                        }
-
-
-                        if (is_numeric(array_search($array, $bobot['pembobotan']))) {
-                            return response()->json(['error' => "Data Telah Ditambahkan",]);
-                        } else {
-                            array_push($bobot['pembobotan'], $array);
-                            $criteria->bobot = $bobot;
-                        }
                         break;
 
                     case 'tambahan':
                         $array = [
-                            'id'        => rand(),
                             'kolom'     => $data[0],
+                            'tipe'      => 'tambahan',
                         ];
-                        $bobot = (array) $criteria->bobot;
-
-                        if (isset($bobot['tambahan']) == false) {
-                            $bobot = (array) $criteria->bobot;
-                            $bobot['tambahan'] = [];
-                        }
-
-                        if (is_numeric(array_search($array, $bobot['tambahan']))) {
-                            return response()->json(['error' => "Data Telah Ditambahkan",]);
-                        } else {
-                            array_push($bobot['tambahan'], $array);
-                            $criteria->bobot = $bobot;
-                        }
                         break;
 
                     default:
@@ -258,7 +217,15 @@ class BobotController extends Controller
                         ]);
                         break;
                 }
-                // dd($criteria->toArray());
+                $bobot = (array) $criteria->bobot;
+
+                if (is_numeric(array_search($array, $bobot))) {
+                    return response()->json(['error' => "Data Telah Ditambahkan",]);
+                } else {
+                    array_push($bobot, $array);
+                    $criteria->bobot = $bobot;
+                }
+
                 $criteria->save();
                 return response()->json([
                     'status' => "Data " . ucfirst(request('pembobotan')) . " Berhasil Ditambahkan",
