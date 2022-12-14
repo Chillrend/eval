@@ -190,6 +190,7 @@ class BobotController extends Controller
                 switch (request('pembobotan')) {
                     case 'prioritas':
                         $array = [
+                            'id'        => rand(),
                             'kolom'     => $data[0],
                             'nilai'     => $data[1],
                         ];
@@ -210,6 +211,7 @@ class BobotController extends Controller
 
                     case 'pembobotan':
                         $array = [
+                            'id'        => rand(),
                             'kolom'     => $data[0],
                             'nilai'     => $data[1],
                             'bobot'     => $data[2],
@@ -232,6 +234,7 @@ class BobotController extends Controller
 
                     case 'tambahan':
                         $array = [
+                            'id'        => rand(),
                             'kolom'     => $data[0],
                         ];
                         $bobot = (array) $criteria->bobot;
