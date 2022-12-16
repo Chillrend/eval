@@ -14,7 +14,8 @@
     #tbl-bindprodites td {
         vertical-align: middle;
     }
-    #editBtn a{
+
+    #editBtn a {
         text-decoration: none;
         color: white;
     }
@@ -41,16 +42,13 @@
                         <div class="card-header d-flex justify-content-between">
                             <ul class="nav nav-pills col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12">
                                 <li class="nav-item">
-                                    <a class="nav-link"
-                                    href="{{route('renderProdiTes')}}">Data</a>
+                                    <a class="nav-link" href="{{route('renderProdiTes')}}">Data</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link"
-                                        href="">Kuota</a>
+                                    <a class="nav-link" href="">Kuota</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active"
-                                    href="{{route('renderBindProdiTes')}}">Binding</a>
+                                    <a class="nav-link active" href="{{route('renderBindProdiTes')}}">Binding</a>
                                 </li>
                             </ul>
 
@@ -65,29 +63,27 @@
                         <div class="card-body">
 
                             @if (session()->has('success'))
-                                <div class="alert alert-success alert-dismissible show fade">
-                                    <div class="alert-body">
-                                        <button class="close"
-                                            data-dismiss="alert">
-                                            <span>&times;</span>
-                                        </button>                                        
-                                        {{ session('success') }}
-                                    </div>
+                            <div class="alert alert-success alert-dismissible show fade">
+                                <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                        <span>&times;</span>
+                                    </button>
+                                    {{ session('success') }}
                                 </div>
+                            </div>
                             @endif
 
                             @if ($errors->any())
-                                @foreach ($errors->all() as $error)
-                                <div class="alert alert-danger alert-dismissible show fade">
-                                    <div class="alert-body">
-                                        <button class="close"
-                                            data-dismiss="alert">
-                                            <span>&times;</span>
-                                        </button>
-                                        {{ $error }}
-                                    </div>
+                            @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible show fade">
+                                <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                        <span>&times;</span>
+                                    </button>
+                                    {{ $error }}
                                 </div>
-                                @endforeach
+                            </div>
+                            @endforeach
                             @endif
 
                             <br>
@@ -107,13 +103,13 @@
                                         <tbody>
                                         </tbody>
                                     </table>
-                                </div>        
+                                </div>
 
                             </div>
                         </div>
                         <div class="card-footer row">
 
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,12 +125,12 @@
                         <h4 class="my-2">Binding Data Program Studi</h4>
                     </div>
                     <form id="bindingFrom" url="{{ route('api_detailBindProdiTes') }}" action="{{ route('api_bindBindProdiTes') }}" method="POST">
-                    @csrf
+                        @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Id Program Studi</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" id="id" name="id_prodi" class="form-control" readonly/>
+                                    <input type="text" id="id" name="id_prodi" class="form-control" readonly />
                                     x
                                 </div>
                             </div>
@@ -147,7 +143,7 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Program Studi (Binding)</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" id="input_prodi" name="bind_prodi" class="form-control" placeholder="Binding" required/>
+                                    <input type="text" id="input_prodi" name="bind_prodi" class="form-control" placeholder="Binding" required />
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
@@ -161,16 +157,13 @@
                                 <div class="col-sm-12 col-md-7">
                                     <select class="custom-select" id="tahuntemplate" onchange="pilihtahun()">
                                         <option>Tahun Terdata</option>
-                                            
+
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row mb-4 d-flex justify-content-center">
                                 <label class="custom-switch col-7 " style="margin-left: 3.6rem">
-                                    <input type="checkbox"
-                                        id="flexCheckDefault"
-                                        name="custom-switch-checkbox"
-                                        class="custom-switch-input" onclick="cek()">
+                                    <input type="checkbox" id="flexCheckDefault" name="custom-switch-checkbox" class="custom-switch-input" onclick="cek()">
                                     <span class="custom-switch-indicator"></span>
                                     <span class="custom-switch-description">Nama Prodi Sesuai</span>
                                 </label>
@@ -179,7 +172,7 @@
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                 <div class="col-sm-12 col-md-7">
                                     <button class="btn btn-success" type="submit">Submit</button>
-                                    <input class="btn btn-danger ml-2"type="button" value="Close" onclick="tutup()">
+                                    <input class="btn btn-danger ml-2" type="button" value="Close" onclick="tutup()">
                                 </div>
                             </div>
                         </div>
@@ -188,11 +181,11 @@
             </div>
         </div>
     </section>
-    
 
 
 
-    
+
+
 
 
 </div>

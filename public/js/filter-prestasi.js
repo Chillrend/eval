@@ -18,7 +18,6 @@ function refresh(append) {
         .then((response) => response.text())
         .then((result) => {
             var dataAPI = JSON.parse(result);
-
             if (
                 typeof dataAPI.eror == "undefined" &&
                 dataAPI.candidates == ""
@@ -265,7 +264,7 @@ function saveFilter() {
                     );
                 }
             }
-
+            console.log(url);
             var requestOptions = {
                 method: "POST",
                 body: formdata,
@@ -275,11 +274,13 @@ function saveFilter() {
             fetch(url, requestOptions)
                 .then((response) => response.text())
                 .then((result) => {
+                    console.log(result);
                     var result = JSON.parse(result);
                     swal("Success", result.status, "success");
                     window.location.replace(result.redirect);
                 })
                 .catch((error) => {
+                    console.log(error);
                     swal("Error", "Terjadi Kesalahan", "error");
                 });
         } else {
