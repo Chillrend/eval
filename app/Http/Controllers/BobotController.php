@@ -100,6 +100,10 @@ class BobotController extends Controller
             $criterias = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first()->toArray();
             $criterias = $criterias['bobot'];
 
+            for ($index = 0; $index < count($criterias); $index++) {
+                $criterias[$index]['id'] = $index;
+            };
+
             $order = array('prioritas', 'pembobotan', 'tambahan');
 
             usort($criterias, function ($a, $b) use ($order) {
