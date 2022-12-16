@@ -261,9 +261,13 @@ class BobotController extends Controller
             $id = request('id');
 
             $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
-            $criteria = $criteria->bobot;
-            $key = array_search($id, $criteria[$pembobotan]);
-            dd($criteria[$pembobotan][$key]);
+            $bobot = $criteria->bobot;
+
+            unset($bobot[$id]);
+            $bobot = array_values($bobot);
+            $criteria->bobot = $bobot;
+            $criteria->save();
+            dd($criteria);
             return response()->json([
                 'status' => "Data " . ucfirst(request('pembobotan')) . " Berhasil Ditambahkan",
             ]);
