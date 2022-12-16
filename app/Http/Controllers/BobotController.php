@@ -254,14 +254,12 @@ class BobotController extends Controller
                 'tahun' => 'required|numeric',
                 'pendidikan' => 'required',
                 'tahap' => 'required',
-                'pembobotan' => 'required',
                 'id' => 'required|numeric'
             ]);
 
             $pend = request('pendidikan');
             $tahun = request('tahun');
             $tahap = request('tahap');
-            $pembobotan = request('pembobotan');
             $id = request('id');
 
             $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
@@ -271,9 +269,9 @@ class BobotController extends Controller
             $bobot = array_values($bobot);
             $criteria->bobot = $bobot;
             $criteria->save();
-            dd($criteria);
+
             return response()->json([
-                'status' => "Data " . ucfirst(request('pembobotan')) . " Berhasil Ditambahkan",
+                'status' => "Data Berhasil Dihapuskan",
             ]);
         } catch (Exception $th) {
             return response()->json([
