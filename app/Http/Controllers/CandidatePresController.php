@@ -33,9 +33,11 @@ class CandidatePresController extends Controller
             $periode = $request->input('tahunperiode');
 
             $criteria = array(
-                'tahun' => intval($periode),
-                'kolom' => $namedkey,
-                'table' => 'candidates_pres',
+                'tahun'         => intval($periode),
+                'kolom'         => $namedkey,
+                'binding'       => null,
+                'bobot'         => null,
+                'table'         => 'candidates_pres',
                 'kode_criteria' => strval($periode) . '_candidates_pres',
             );
 
@@ -84,9 +86,11 @@ class CandidatePresController extends Controller
             $periode = request('tahunperiode');
 
             $criteria = array(
-                'tahun' => intval($periode),
-                'kolom' => $namedkey,
-                'table' => 'candidates_pres',
+                'tahun'         => intval($periode),
+                'kolom'         => $namedkey,
+                'binding'       => null,
+                'bobot'         => null,
+                'table'         => 'candidates_pres',
                 'kode_criteria' => strval($periode) . '_candidates_pres',
             );
 
@@ -111,8 +115,7 @@ class CandidatePresController extends Controller
 
             CandidatePres::query()->where('periode', intval($periode))->delete();
             CandidatePres::insert($filtered);
-            $response = CandidatePresController::api_render();
-            $response = $response->original;
+
             return response()->json([
                 'status' => 'Data Calon Mahasiswa Tahun ' . request('tahun') . ' Berhasil Diupload',
             ]);
@@ -178,10 +181,8 @@ class CandidatePresController extends Controller
                     $tahun_import[$x] = $tahun_import[$x]['periode'];
                 }
 
-                $kolom = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($tahun))->get();
-                for ($x = 0; $x < count($kolom); $x++) {
-                    $kolom[$x] = $kolom[$x]['kolom'];
-                }
+                $kolom = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', intval($tahun))->get();
+                $kolom[0] = $kolom[0]['kolom'];
 
                 return response()->json([
                     'tahun_template' => $tahun_template,

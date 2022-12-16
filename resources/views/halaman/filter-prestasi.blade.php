@@ -40,7 +40,7 @@
                                     <input type="number" class="form-control" id="tahunperiode" name="tahunperiode" readonly>
                                     <div class="section-title">Nama Kolom Excel</div>
                                     <label>Template Table</label>
-                                    <select class="custom-select " name="periode" id="periode" onchange="myFunction()" url="{{route('getFilterMan')}}">
+                                    <select class="custom-select " name="periode" id="periode" onchange="myFunction()" url="{{route('getFilterPres')}}">
 
                                     </select>
                                     <label class="mt-3">Cocokkan nama kolom excel dengan nama pada table</label>
@@ -110,7 +110,7 @@
                                 <button class="btn btn-lg btn-warning mx-1" id="cancelBtn" onclick="cancelFilter()">
                                     <h6 class="my-0">Cancel</h6>
                                 </button>
-                                <button class="btn btn-lg btn-success mx-1" id="saveBtn" onclick="saveFilter()" url="{{route('saveFilterMan')}}">
+                                <button class="btn btn-lg btn-success mx-1" id="saveBtn" onclick="saveFilter()" url="{{route('saveFilterPres')}}">
                                     <h6 class="my-0">Save</h6>
                                 </button>
                             </div>

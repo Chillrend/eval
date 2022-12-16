@@ -89,18 +89,26 @@ class FilterPresController extends Controller
                     $list_tahun[$x] = $list_tahun[$x]['periode'];
                 }
 
-                $kolom = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', intval($tahun))->get();
-                for ($x = 0; $x < count($kolom); $x++) {
-                    $kolom[$x] = $kolom[$x]['kolom'];
+                $tahun_template = Criteria::select('tahun')
+                    ->where('table', 'filter_candidates_tes')
+                    ->groupBy('tahun')
+                    ->orderBy('tahun', 'desc')
+                    ->get()->toArray();
+                for ($x = 0; $x < count($tahun_template); $x++) {
+                    $tahun_template[$x] = $tahun_template[$x]['tahun'];
                 }
+
+                $kolom = Criteria::select('kolom')->where('table', 'candidates_pres')->where('tahun', intval($tahun))->first();
+                $kolom = $kolom['kolom'];
 
                 return response()->json([
                     'candidates' => $candidates,
                     'kolom' => $kolom,
                     'list_tahun' => $list_tahun,
+                    'tahun_template' => $tahun_template,
                     'filter' => $filter,
                     'status' => [
-                        'periode' => $tahun,
+                        'tahun' => $tahun,
                     ],
                 ]);
             } else {
@@ -181,23 +189,28 @@ class FilterPresController extends Controller
             ]);
             $tahun = request('tahun');
 
-            $filteri = request('filter') ? request('filter') : null;
             $operator = [];
             $filter = [];
 
-            for ($i = 0; $i < count($filteri); $i++) {
-                $filter[$i]['kolom'] = $filteri[$i][0];
-                $filter[$i]['nilai'] = $filteri[$i][2];
-                match ($filteri[$i][1]) {
-                    '=' => $filter[$i]['operator'] = 'et',
-                    '>' => $filter[$i]['operator'] = 'gt',
-                    '<' => $filter[$i]['operator'] = 'lt',
-                    '>=' => $filter[$i]['operator'] = 'gtet',
-                    '<=' => $filter[$i]['operator'] = 'ltet',
-                    '<>' => $filter[$i]['operator'] = 'net',
-                };
-                $operator[$i] = strtolower($filteri[$i][1]);
+            if (request('filter')) {
+                $filteri = request('filter');
+                for ($i = 0; $i < count($filteri); $i++) {
+                    $filter[$i]['kolom'] = $filteri[$i][0];
+                    $operator[$i] = strtolower($filteri[$i][1]);
+                    $filter[$i]['nilai'] = $filteri[$i][2];
+                    match ($filteri[$i][1]) {
+                        '=' => $filter[$i]['operator'] = 'et',
+                        '>' => $filter[$i]['operator'] = 'gt',
+                        '<' => $filter[$i]['operator'] = 'lt',
+                        '>=' => $filter[$i]['operator'] = 'gtet',
+                        '<=' => $filter[$i]['operator'] = 'ltet',
+                        '<>' => $filter[$i]['operator'] = 'net',
+                    };
+                }
+            } else {
+                $filteri = null;
             }
+
             $criteria = array(
                 'tahun' => intval($tahun),
                 'kolom' => $filter,
@@ -206,15 +219,14 @@ class FilterPresController extends Controller
             );
 
             CandidatePres::query()->where('status', 'post-import')->where('periode', intval($tahun))
-                ->when(request('banyakCollumn'), function ($query) use ($filter, $operator) {
-                    return $query->where(function ($query) use ($filter, $operator) {
-                        for ($a = 0; $a < count($operator); $a++) {
-                            $query->where($filter[$a]['kolom'], $operator[$a], intval($filter[$a]['nilai']));
+                ->when($filteri, function ($query) use ($filteri) {
+                    return $query->where(function ($query) use ($filteri) {
+                        for ($a = 0; $a < count($filteri); $a++) {
+                            $query->where($filteri[$a][0], $filteri[$a][1], intval($filteri[$a][2]));
                         }
                     });
                 })
                 ->update(['status' => 'filtered']);
-
 
             if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_pres')->exists()) {
                 Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_pres')->update($criteria);
@@ -222,8 +234,11 @@ class FilterPresController extends Controller
                 Criteria::insert($criteria);
             }
 
+            CandidatePres::query()->where('status', 'post-import')->where('periode', intval($tahun))->delete();
+
             return response()->json([
                 'status' => 'Filter Calon Mahasiswa ' . request('tahun') . ' Berhasil',
+                'redirect' => route('previewPres')
             ]);
         } catch (Exception $th) {
             return response()->json([

@@ -79,7 +79,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
     Route::post('/saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
 
-    Route::get('/preview-prestasi', [PreviewPresController::class, 'render']);
+    Route::get('/preview-prestasi', [PreviewPresController::class, 'render'])->name('previewPres');
 
     Route::get('/filter-prestasi', [FilterPresController::class, 'render'])->name('renderFilterPres');
 
@@ -130,7 +130,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('saveProMan', [ProdiMandiriController::class, 'saveprodimandiri'])->name('saveProMan');
 
 
-    Route::get('/preview-mandiri', [PreviewMandiriController::class, 'render']);
+    Route::get('/preview-mandiri', [PreviewMandiriController::class, 'render'])->name('previewMan');
 
     Route::get('/filter-mandiri', [FilterMandiriController::class, 'render'])->name('renderFilterMan');
 
