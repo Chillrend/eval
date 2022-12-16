@@ -97,15 +97,17 @@ class BobotController extends Controller
             $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
             $tahap = (request('tahap')) ? request('tahap') : 'candidates_tes';
 
-            $criterias = Criteria::select('kolom')->where('kode_criteria', $tahun . '_' . $tahap)->get()->toArray();
-            $criterias = $criterias[0]['kolom'];
+            $criterias = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first()->toArray();
+            $criterias = $criterias['bobot'];
 
-            $year = Criteria::select('tahun')->where('table', 'like', 'candidate%')->groupBy('tahun')
-                ->orderBy('tahun', 'desc')
-                ->get()->toArray();
-            for ($x = 0; $x < count($year); $x++) {
-                $year[$x] = $year[$x]['tahun'];
-            }
+            $order = array('prioritas', 'pembobotan', 'tambahan');
+
+            usort($criterias, function ($a, $b) use ($order) {
+                $pos_a = array_search($a['tipe'], $order);
+                $pos_b = array_search($b['tipe'], $order);
+                return $pos_a - $pos_b;
+            });
+            dd($criterias);
 
             return response()->json([
                 'criteria'  => $criterias,
@@ -235,6 +237,36 @@ class BobotController extends Controller
                     'error' => "Data tidak ditemukan, Pastikan anda telah memasukkan data dengan benar",
                 ]);
             }
+        } catch (Exception $th) {
+            return response()->json([
+                'error' => $th->getMessage(),
+            ]);
+        }
+    }
+    public function api_delete()
+    {
+        try {
+            $this->validate(request(), [
+                'tahun' => 'required|numeric',
+                'pendidikan' => 'required',
+                'tahap' => 'required',
+                'pembobotan' => 'required',
+                'id' => 'required|numeric'
+            ]);
+
+            $pend = request('pendidikan');
+            $tahun = request('tahun');
+            $tahap = request('tahap');
+            $pembobotan = request('pembobotan');
+            $id = request('id');
+
+            $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
+            $criteria = $criteria->bobot;
+            $key = array_search($id, $criteria[$pembobotan]);
+            dd($criteria[$pembobotan][$key]);
+            return response()->json([
+                'status' => "Data " . ucfirst(request('pembobotan')) . " Berhasil Ditambahkan",
+            ]);
         } catch (Exception $th) {
             return response()->json([
                 'error' => $th->getMessage(),
