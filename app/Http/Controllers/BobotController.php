@@ -247,6 +247,7 @@ class BobotController extends Controller
             ]);
         }
     }
+
     public function api_delete()
     {
         try {
@@ -272,6 +273,81 @@ class BobotController extends Controller
 
             return response()->json([
                 'status' => "Data Berhasil Dihapuskan",
+            ]);
+        } catch (Exception $th) {
+            return response()->json([
+                'error' => $th->getMessage(),
+            ]);
+        }
+    }
+
+    public function api_edit()
+    {
+        try {
+            $this->validate(request(), [
+                'tahun'         => 'required|numeric',
+                'pendidikan'    => 'required',
+                'tahap'         => 'required',
+                'pembobotan'    => 'required',
+                'id'            => 'required|numeric',
+                'data'          => 'required',
+            ]);
+
+            $pend   = request('pendidikan');
+            $tahun  = request('tahun');
+            $tahap  = request('tahap');
+            $id     = request('id');
+            $data   = request('data');
+
+            $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
+            $bobot = $criteria->bobot;
+
+            //Masukin data ke template
+            switch (request('pembobotan')) {
+                case 'prioritas':
+                    $array = [
+                        'kolom'     => $data[0],
+                        'nilai'     => $data[1],
+                        'tipe'      => 'prioritas',
+                    ];
+                    break;
+
+                case 'pembobotan':
+                    $array = [
+                        'kolom'     => $data[0],
+                        'nilai'     => $data[1],
+                        'bobot'     => $data[2],
+                        'tipe'      => 'pembobotan',
+                    ];
+                    break;
+
+                case 'tambahan':
+                    $array = [
+                        'kolom'     => $data[0],
+                        'tipe'      => 'tambahan',
+                    ];
+                    break;
+
+                default:
+                    return response()->json([
+                        'error' => "pembobotan: attribute must whether 'prioritas', 'bobot', 'tambahan'",
+                    ]);
+                    break;
+            }
+
+            //Cek bobot[id]
+            if (array_key_exists($id, $bobot) == false) {
+                return response()->json([
+                    'error' => "id: attribute is not registered",
+                ]);
+            }
+
+            $bobot[$id] = $array;
+            $criteria->bobot = $bobot;
+            $criteria->save();
+
+            return response()->json([
+                'status' => "Data Berhasil Diedit",
             ]);
         } catch (Exception $th) {
             return response()->json([

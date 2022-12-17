@@ -124,3 +124,4 @@ Route::post('/pembobotan/kolom', [BobotController::class, 'render_api'])->name('
 Route::post('/pembobotan/nilai', [BobotController::class, 'getnilai'])->name('api_nilaiBobot');
 Route::post('/pembobotan', [BobotController::class, 'api_insert'])->name('api_insertBobot');
 Route::post('/pembobotan/delete', [BobotController::class, 'api_delete'])->name('api_deleteBobot');
+Route::post('/pembobotan/edit', [BobotController::class, 'api_edit'])->name('api_editBobot');
