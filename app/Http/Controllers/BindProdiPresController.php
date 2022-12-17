@@ -4,29 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Criteria;
 use App\Models\ProdiPres;
-use Illuminate\Http\Request;
 use Exception;
 
 class BindProdiPresController extends Controller
 {
     public function render()
     {
-        $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
-        $prodis = ProdiPres::all();
-        $criteria = Criteria::select('binding')->where('kode_criteria', $tahun . '_candidates_tes')->get()->toArray();
-        $criteria = $criteria[0]['binding'];
-
-        for ($i = 0; $i < count($prodis); $i++) {
-            if (isset($criteria)) {
-                $key = array_search($prodis[$i]['id_prodi'], array_column($criteria, 'id_prodi'));
-                if (is_numeric($key)) {
-                    $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
-                }
-            }
-        }
-        $criteria = Criteria::select('tahun')->where('table', 'candidates_tes')->groupBy('tahun')
-            ->orderBy('tahun', 'desc')
-            ->get()->toArray();
         return view('halaman.binding-prodi-pres', [
             'type_menu' => 'prestasi',
             'prodi' => '',
@@ -36,37 +19,53 @@ class BindProdiPresController extends Controller
 
     public function render_api()
     {
-        $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
-        $prodis = ProdiPres::all();
-        $criteria = Criteria::select('binding')->where('kode_criteria', $tahun . '_candidates_tes')->get()->toArray();
-        $criteria = $criteria[0]['binding'];
+        try {
+            if (request('tahun')) {
+                $tahun = request('tahun');
+            } else {
+                $tahun = Criteria::select('tahun')
+                    ->where('table', 'candidates_pres')
+                    ->first();
+                $tahun = $tahun->tahun;
+            }
+            $prodis = ProdiPres::all();
+            $criteria = Criteria::select('binding')->where('kode_criteria', $tahun . '_candidates_pres')->get()->toArray();
 
-        for ($i = 0; $i < count($prodis); $i++) {
-            if (isset($criteria)) {
-                $key = array_search($prodis[$i]['id_prodi'], array_column($criteria, 'id_prodi'));
-                if (is_numeric($key)) {
-                    $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
+            $criteria = $criteria[0]['binding'];
+
+            for ($i = 0; $i < count($prodis); $i++) {
+                if (isset($criteria)) {
+                    $key = array_search($prodis[$i]['id_prodi'], array_column($criteria, 'id_prodi'));
+                    if (is_numeric($key)) {
+                        $prodis[$i]['binding'] = $criteria[$key]['bind_prodi'];
+                    }
                 }
             }
+            $criteria = Criteria::select('tahun')->where('table', 'candidates_pres')->groupBy('tahun')
+                ->orderBy('tahun', 'desc')
+                ->get()->toArray();
+            for ($x = 0; $x < count($criteria); $x++) {
+                $criteria[$x] = $criteria[$x]['tahun'];
+            }
+            return response()->json([
+                'prodi' => $prodis,
+                'tahun' => $criteria,
+                'status' => intval($tahun),
+            ]);
+        } catch (Exception $th) {
+            return response()->json([
+                'error' => $th->getMessage(),
+            ]);
         }
-        $criteria = Criteria::select('tahun')->where('table', 'candidates_tes')->groupBy('tahun')
-            ->orderBy('tahun', 'desc')
-            ->get()->toArray();
-
-
-        return response()->json([
-            'prodi' => $prodis,
-            'tahun' => $criteria,
-        ]);
     }
 
     public function binding()
     {
-        if (Criteria::query()->where('kode_criteria', request('periode') . '_candidates_tes')->doesntExist()) {
+        if (Criteria::query()->where('kode_criteria', request('periode') . '_candidates_pres')->doesntExist()) {
             return redirect()->back()->withErrors('Silahkan lakukan import terlebih dahulu', 'default');
         }
         try {
-            $data = Criteria::query()->where('kode_criteria', request('periode') . '_candidates_tes')->first();
+            $data = Criteria::query()->where('kode_criteria', request('periode') . '_candidates_pres')->first();
             $array = [
                 'id_obj'    => request('id_obj'),
                 'id_prodi'  => intval(request('id_prodi')),
@@ -91,9 +90,55 @@ class BindProdiPresController extends Controller
         }
     }
 
+    public function api_binding()
+    {
+        try {
+            $this->validate(request(), [
+                'id_obj' => 'required',
+                'periode' => 'required|numeric',
+                'id_prodi' => 'required|numeric',
+                'bind_prodi' => 'required',
+            ]);
+            if (Criteria::query()->where('kode_criteria', request('periode') . '_candidates_pres')->doesntExist()) {
+                return response()->json([
+                    'error' => 'Tidak ada data untuk ' . request('periode') . '. Silahkan lakukan import data mahasiswa terlebih dahulu',
+                ]);
+            }
+
+            $data = Criteria::query()->where('kode_criteria', request('periode') . '_candidates_pres')->first();
+            $array = [
+                'id_obj'    => request('id_obj'),
+                'id_prodi'  => intval(request('id_prodi')),
+                'bind_prodi' => request('bind_prodi'),
+            ];
+
+            $binding = (isset($data->binding)) ? (array) $data->binding : array();
+
+            $key = array_search(intval(request('id_prodi')), array_column($binding, 'id_prodi'));
+            if (is_numeric($key)) {
+                $binding[$key] = $array;
+            } else {
+                array_push($binding, $array);
+            }
+            $data->binding = $binding;
+            $data->save();
+
+            return response()->json([
+                'status' => 'Binding Prodi ' . request('bind_prodi') . ' Berhasil',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => $th->getMessage(),
+            ]);
+        }
+    }
+
     public function detail()
     {
         try {
+            $this->validate(request(), [
+                'id' => 'required',
+            ]);
             $prodi = ProdiPres::find(request('id'))->toArray();
             $criteria = Criteria::select('binding', 'tahun')->where('binding.id_obj', request('id'))->get()->toArray();
             for ($i = 0; $i < count($criteria); $i++) {
@@ -112,7 +157,7 @@ class BindProdiPresController extends Controller
             ]);
         } catch (Exception $th) {
             return response()->json([
-                'error' => $th,
+                'error' => $th->getMessage(),
             ]);
         }
     }
