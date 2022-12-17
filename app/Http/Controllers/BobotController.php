@@ -93,9 +93,9 @@ class BobotController extends Controller
                 'tahap' => 'required',
             ]);
 
-            $pend = (request('pendidikan')) ? request('pendidikan') : 'S1';
-            $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
-            $tahap = (request('tahap')) ? request('tahap') : 'candidates_tes';
+            $pend   = request('pendidikan');
+            $tahun  = request('tahun');
+            $tahap  = request('tahap');
 
             $criterias = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first()->toArray();
             $criterias = $criterias['bobot'];
@@ -178,16 +178,16 @@ class BobotController extends Controller
     {
         try {
             $this->validate(request(), [
-                'tahun' => 'required|numeric',
-                'pendidikan' => 'required',
-                'tahap' => 'required',
-                'pembobotan' => 'required',
-                'data' => 'required'
+                'tahun'         => 'required|numeric',
+                'pendidikan'    => 'required',
+                'tahap'         => 'required',
+                'pembobotan'    => 'required',
+                'data'          => 'required'
             ]);
 
-            $pend = (request('pendidikan')) ? request('pendidikan') : 'S1';
-            $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
-            $tahap = (request('tahap')) ? request('tahap') : 'candidates_tes';
+            $pend   = request('pendidikan');
+            $tahun  = request('tahun');
+            $tahap  = request('tahap');
             $data = request('data');
 
             if (Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->exists()) {
@@ -252,16 +252,16 @@ class BobotController extends Controller
     {
         try {
             $this->validate(request(), [
-                'tahun' => 'required|numeric',
-                'pendidikan' => 'required',
-                'tahap' => 'required',
-                'id' => 'required|numeric'
+                'tahun'         => 'required|numeric',
+                'pendidikan'    => 'required',
+                'tahap'         => 'required',
+                'id'            => 'required|numeric'
             ]);
 
-            $pend = request('pendidikan');
-            $tahun = request('tahun');
-            $tahap = request('tahap');
-            $id = request('id');
+            $pend   = request('pendidikan');
+            $tahun  = request('tahun');
+            $tahap  = request('tahap');
+            $id     = request('id');
 
             $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
             $bobot = $criteria->bobot;
