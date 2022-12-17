@@ -96,6 +96,11 @@ class CandidatePresController extends Controller
 
             for ($i = 0; $i < count($array[0]); $i++) {
                 for ($ab = 0; $ab < count($namedkey); $ab++) {
+                    if (array_key_exists($namedkey[$ab], $array[0][$i]) == false) {
+                        return response()->json([
+                            'error' => 'Kolom ' . strval($namedkey[$ab]) . ' tidak ditemukan',
+                        ]);
+                    }
                     if (ctype_digit(trim($array[0][$i][$namedkey[$ab]]))) {
                         $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
                     } else {
@@ -106,7 +111,7 @@ class CandidatePresController extends Controller
                 $fil['status'] = 'import';
                 $filtered[] = $fil;
             }
-
+            dd();
             if (Criteria::query()->where('kode_criteria', strval($periode) . '_candidates_pres')->exists()) {
                 Criteria::query()->where('kode_criteria', strval($periode) . '_candidates_pres')->update($criteria);
             } else {

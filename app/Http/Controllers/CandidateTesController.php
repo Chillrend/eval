@@ -22,13 +22,14 @@ class CandidateTesController extends Controller
             Session::flash('error', 'Pastikan anda telah mengisi semua input');
             return redirect()->back();
         }
+
         try {
             $array = (new CandidatesImport())->toArray($request->file('excel'));
-
             $namedkey = array();
             for ($i = 0; $i < $request->input('banyakCollumn'); $i++) {
                 $namedkey[$i] = strtolower($request->input('collumn-' . strval($i)));
             }
+
             $periode = $request->input('tahunperiode');
 
             $criteria = array(
@@ -42,6 +43,11 @@ class CandidateTesController extends Controller
 
             for ($i = 0; $i < count($array[0]); $i++) {
                 for ($ab = 0; $ab < count($namedkey); $ab++) {
+                    if (array_key_exists($namedkey[$ab], $array[0][$i]) == false) {
+                        return response()->json([
+                            'error' => 'Kolom ' . strval($namedkey[$ab]) . ' tidak ditemukan',
+                        ]);
+                    }
                     if (ctype_digit(trim($array[0][$i][$namedkey[$ab]]))) {
                         $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
                     } else {
@@ -114,8 +120,7 @@ class CandidateTesController extends Controller
 
             CandidateTes::query()->where('periode', intval($periode))->delete();
             CandidateTes::insert($filtered);
-            $response = CandidateTesController::api_render();
-            $response = $response->original;
+
             return response()->json([
                 'status' => 'Data Calon Mahasiswa Tahun ' . request('tahun') . ' Berhasil Diupload',
             ]);
@@ -128,7 +133,6 @@ class CandidateTesController extends Controller
 
     public function render(Request $request)
     {
-
         $search = $request->input('search');
         $collumn = $request->input('kolom');
         $candidates = CandidateTes::query()->where('status', 'import')
@@ -183,9 +187,7 @@ class CandidateTesController extends Controller
                 }
 
                 $kolom = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($tahun))->get();
-                for ($x = 0; $x < count($kolom); $x++) {
-                    $kolom[$x] = $kolom[$x]['kolom'];
-                }
+                $kolom[0] = $kolom[0]['kolom'];
 
                 return response()->json([
                     'tahun_template' => $tahun_template,
@@ -194,7 +196,6 @@ class CandidateTesController extends Controller
                     'kolom' => $kolom,
                     'status' => [
                         'tahun' => $tahun,
-                        'atahun' => request('tahun'),
                     ]
                 ]);
             } else {
@@ -211,7 +212,6 @@ class CandidateTesController extends Controller
             ]);
         }
     }
-
 
     public function cancel()
     {
@@ -260,6 +260,7 @@ class CandidateTesController extends Controller
             ]);
         }
     }
+
 
     public function criteria()
     {

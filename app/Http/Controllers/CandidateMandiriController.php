@@ -33,9 +33,11 @@ class CandidateMandiriController extends Controller
             $periode = $request->input('tahunperiode');
 
             $criteria = array(
-                'tahun' => intval($periode),
-                'kolom' => $namedkey,
-                'table' => 'candidates_mand',
+                'tahun'         => intval($periode),
+                'kolom'         => $namedkey,
+                'binding'       => null,
+                'bobot'         => null,
+                'table'         => 'candidates_mand',
                 'kode_criteria' => strval($periode) . '_candidates_mand',
             );
 
@@ -95,6 +97,11 @@ class CandidateMandiriController extends Controller
 
             for ($i = 0; $i < count($array[0]); $i++) {
                 for ($ab = 0; $ab < count($namedkey); $ab++) {
+                    if (array_key_exists($namedkey[$ab], $array[0][$i]) == false) {
+                        return response()->json([
+                            'error' => 'Kolom ' . strval($namedkey[$ab]) . ' tidak ditemukan',
+                        ]);
+                    }
                     if (ctype_digit(trim($array[0][$i][$namedkey[$ab]]))) {
                         $fil[$namedkey[$ab]] = intval($array[0][$i][$namedkey[$ab]]);
                     } else {
@@ -181,9 +188,7 @@ class CandidateMandiriController extends Controller
                 }
 
                 $kolom = Criteria::select('kolom')->where('table', 'candidates_mand')->where('tahun', intval($tahun))->get();
-                for ($x = 0; $x < count($kolom); $x++) {
-                    $kolom[$x] = $kolom[$x]['kolom'];
-                }
+                $kolom[0] = $kolom[0]['kolom'];
 
                 return response()->json([
                     'tahun_template' => $tahun_template,
@@ -192,7 +197,6 @@ class CandidateMandiriController extends Controller
                     'kolom' => $kolom,
                     'status' => [
                         'tahun' => $tahun,
-                        'atahun' => request('tahun'),
                     ]
                 ]);
             } else {
@@ -258,6 +262,7 @@ class CandidateMandiriController extends Controller
             ]);
         }
     }
+
 
     public function criteria()
     {
