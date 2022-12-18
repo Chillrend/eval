@@ -100,19 +100,21 @@ class BobotController extends Controller
             $criterias = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first()->toArray();
             $criterias = $criterias['bobot'];
 
-            for ($index = 0; $index < count($criterias); $index++) {
-                $criterias[$index]['id'] = $index;
+            if ($criterias) {
+                for ($index = 0; $index < count($criterias); $index++) {
+                    $criterias[$index]['id'] = $index;
+                };
+
+                $order = array('prioritas', 'pembobotan', 'tambahan');
+
+                usort($criterias, function ($a, $b) use ($order) {
+                    $pos_a = array_search($a['tipe'], $order);
+                    $pos_b = array_search($b['tipe'], $order);
+                    return $pos_a - $pos_b;
+                });
+            } else {
+                $criterias = [];
             };
-
-            $order = array('prioritas', 'pembobotan', 'tambahan');
-
-            usort($criterias, function ($a, $b) use ($order) {
-                $pos_a = array_search($a['tipe'], $order);
-                $pos_b = array_search($b['tipe'], $order);
-                return $pos_a - $pos_b;
-            });
-            dd($criterias);
-
             return response()->json([
                 'criteria'  => $criterias,
             ]);
@@ -142,23 +144,29 @@ class BobotController extends Controller
                 case 'candidates_tes':
                     $candidate = CandidateTes::select(strval($kolom))
                         ->where('periode', intval($tahun))
-                        ->groupBy(strval($kolom))
+                        ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
                         ->get();
                     break;
 
                 case 'candidates_pres':
                     $candidate = CandidatePres::select(strval($kolom))
                         ->where('periode', intval($tahun))
-                        ->groupBy(strval($kolom))
+                        ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
                         ->get();
                     break;
 
                 case 'candidates_mand':
                     $candidate = CandidateMand::select(strval($kolom))
                         ->where('periode', intval($tahun))
-                        ->groupBy(strval($kolom))
+                        ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
                         ->get();
                     break;
+            }
+
+            if ($candidate[0][strval($kolom)] == null) {
+                return response()->json([
+                    'error' => 'Kolom tidak ditemukan',
+                ]);
             }
             for ($x = 0; $x < count($candidate); $x++) {
                 $candidate[$x] = $candidate[$x][strval($kolom)];
