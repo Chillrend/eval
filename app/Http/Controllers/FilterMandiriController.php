@@ -61,6 +61,9 @@ class FilterMandiriController extends Controller
     public function api_render()
     {
         try {
+            $this->validate(request(), [
+                'jurusan_kolom' => 'required',
+            ]);
 
             if (CandidateMand::query()->where('status', 'post-import')->exists()) {
 
@@ -74,7 +77,7 @@ class FilterMandiriController extends Controller
                     $tahun = $tahun['periode'];
                 }
 
-                $criteria = Criteria::select('bobot', 'binding')->where('table', 'candidates_mand')->where('tahun', intval($tahun))->first();
+                $criteria = Criteria::select('bobot', 'kolom', 'binding')->where('table', 'candidates_mand')->where('tahun', intval($tahun))->first();
                 $bind = $criteria->binding;
 
                 $prodi = ProdiMand::all()->toArray();
@@ -128,6 +131,7 @@ class FilterMandiriController extends Controller
                     })
                     ->get()->toArray();
 
+                //total
                 for ($i = 0; $i < count($nonprio); $i++) {
                     $total = 0;
                     if ($bobobot['pembobotan']) {
@@ -171,19 +175,28 @@ class FilterMandiriController extends Controller
                 }
 
                 //kuota
-                $final = [];
-                foreach ($bind as $binds) {
-                    for ($i = 0; $i < $binds['kuota']; $i++) {
-                        $a = array_search($binds['bind_prodi'], array_column($candidates, 'jurusan'));
-                        array_push($final, $candidates[$a]);
-                        unset($candidates[$a]);
-                        $candidates = array_values($candidates);
+                try {
+                    $final = [];
+                    foreach ($bind as $binds) {
+                        for ($i = 0; $i < $binds['kuota']; $i++) {
+                            $a = array_search($binds['bind_prodi'], array_column($candidates, request('jurusan_kolom')));
+                            if (is_numeric($a)) {
+                                array_push($final, $candidates[$a]);
+                                unset($candidates[$a]);
+                                $candidates = array_values($candidates);
+                            }
+                        }
                     }
+                } catch (\Throwable $th) {
+                    return response()->json([
+                        'error' => 'Silahkan pilih kolom yang lain untuk jurusan'
+                    ]);
                 }
 
-                return response()->json([
-                    'candidates' => $final,
-                ]);
+                $kolom_filter = [];
+                foreach ($bobobot['tambahan'] as $bobott) {
+                    array_push($kolom_filter, $bobott['kolom']);
+                }
 
                 $list_tahun = CandidateMand::select('periode')
                     ->where('status', 'post-import')
@@ -207,9 +220,9 @@ class FilterMandiriController extends Controller
                 $kolom = $kolom['kolom'];
 
                 return response()->json([
-                    'candidates' => $candidates,
+                    'candidates' => $final,
                     'kolom' => $kolom,
-                    'kolom_filter' => $kolom,
+                    'kolom_filter' => $kolom_filter,
                     'list_tahun' => $list_tahun,
                     'tahun_template' => $tahun_template,
                     'filter' => $filter,
