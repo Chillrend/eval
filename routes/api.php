@@ -78,7 +78,7 @@ Route::post('/prodi-mandiri/edit', [ProdiMandiriController::class, 'api_edit'])-
 //Binding Prodi Prestasi
 Route::get('/bind-prodi-prestasi', [BindProdiPresController::class, 'render_api'])->name('api_renderBindProdiPres');
 Route::post('/bind-prodi-prestasi/detail', [BindProdiPresController::class, 'detail'])->name('api_detailBindProdiPres');
-Route::post('/bind-prodi-prestasi', [BindProdiPresController::class, 'binding'])->name('api_bindBindProdiPres');
+Route::post('/bind-prodi-prestasi', [BindProdiPresController::class, 'api_binding'])->name('api_bindBindProdiPres');
 
 //Binding Prodi Tes
 Route::get('/bind-prodi-tes', [BindProdiTesController::class, 'render_api'])->name('api_renderBindProdiTes');

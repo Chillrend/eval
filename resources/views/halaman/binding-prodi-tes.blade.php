@@ -61,32 +61,6 @@
 
                     <div class="card">
                         <div class="card-body">
-
-                            @if (session()->has('success'))
-                            <div class="alert alert-success alert-dismissible show fade">
-                                <div class="alert-body">
-                                    <button class="close" data-dismiss="alert">
-                                        <span>&times;</span>
-                                    </button>
-                                    {{ session('success') }}
-                                </div>
-                            </div>
-                            @endif
-
-                            @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger alert-dismissible show fade">
-                                <div class="alert-body">
-                                    <button class="close" data-dismiss="alert">
-                                        <span>&times;</span>
-                                    </button>
-                                    {{ $error }}
-                                </div>
-                            </div>
-                            @endforeach
-                            @endif
-
-                            <br>
                             <div class="">
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tbl-bindprodites">
@@ -104,11 +78,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
-                        </div>
-                        <div class="card-footer row">
-
                         </div>
                     </div>
                 </div>
@@ -131,7 +101,7 @@
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Id Program Studi</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input type="text" id="id" name="id_prodi" class="form-control" readonly />
-                                    x
+                                    <input type="text" id="id_obj" name="id_obj" class="form-control" hidden />
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
@@ -156,8 +126,8 @@
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Template tahun</label>
                                 <div class="col-sm-12 col-md-7">
                                     <select class="custom-select" id="tahuntemplate" onchange="pilihtahun()">
-                                        <option>Tahun Terdata</option>
-
+                                        <option value="tahun">Tahun Terdata</option>
+                                        <p id="tahuntemplate_select"></p>
                                     </select>
                                 </div>
                             </div>
@@ -171,7 +141,7 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                 <div class="col-sm-12 col-md-7">
-                                    <button class="btn btn-success" type="submit">Submit</button>
+                                    <button class="btn btn-success" type="button" onclick="binding()">Submit</button>
                                     <input class="btn btn-danger ml-2" type="button" value="Close" onclick="tutup()">
                                 </div>
                             </div>
@@ -199,7 +169,6 @@
 <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-<script src="{{ asset('js/stisla.js') }}"></script>
 <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 <!-- Page Specific JS File -->
