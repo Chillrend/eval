@@ -111,7 +111,6 @@ class CandidatePresController extends Controller
                 $fil['status'] = 'import';
                 $filtered[] = $fil;
             }
-            dd();
             if (Criteria::query()->where('kode_criteria', strval($periode) . '_candidates_pres')->exists()) {
                 Criteria::query()->where('kode_criteria', strval($periode) . '_candidates_pres')->update($criteria);
             } else {
@@ -133,27 +132,8 @@ class CandidatePresController extends Controller
 
     public function render(Request $request)
     {
-        $search = $request->input('search');
-        $collumn = $request->input('kolom');
-        $candidates = CandidatePres::query()->where('status', 'import')
-            ->when($search && $collumn, function ($query) use ($collumn, $search) {
-                return $query->where(function ($query) use ($collumn, $search) {
-                    if (is_numeric($search)) {
-                        $query->where($collumn, intval($search));
-                    } else {
-                        $query->where($collumn, 'like', '%' . $search . '%');
-                    }
-                });
-            })
-            ->paginate(10);
-
-        $criteria = Criteria::query()->where('table', 'candidates_pres')->get();
-
         return view('halaman.candidate-prestasi', [
-            'type_menu' => 'prestasi',
-            'candidates' => $candidates,
-            'criteria' => $criteria,
-            'searchbar' => [$collumn, $search],
+            'type_menu' => 'prestasi'
         ]);
     }
 
