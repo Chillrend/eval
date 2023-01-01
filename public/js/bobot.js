@@ -1,13 +1,12 @@
-var criteria_bobot = [];
-var criteria_prioritas = [];
-var criteria = [];
+var fullData;
 var kolom;
-var bobot;
-var toggle = false;
+var datatable = 0;
 refresh("", "", "");
 
 function refresh() {
     document.getElementById("datatable").setAttribute("hidden", true);
+    document.getElementById("form-bobot").setAttribute("hidden", true);
+
     var url = document.getElementById("main-content").getAttribute("url");
 
     var requestOptions = {
@@ -48,8 +47,8 @@ function sendTahun() {
             var pend = JSON.parse(result);
 
             document.getElementById("pendidikan").removeAttribute("disabled");
-            document.getElementById("tahap").setAttribute("disabled", true);
             document.getElementById("datatable").setAttribute("hidden", true);
+            document.getElementById("form-bobot").setAttribute("hidden", true);
 
             $("#pendidikan").empty();
             let tag =
@@ -64,6 +63,12 @@ function sendTahun() {
 }
 
 function sendPend() {
+    table();
+    document.getElementById("datatable").removeAttribute("hidden");
+    document.getElementById("form-bobot").setAttribute("hidden", true);
+}
+
+function table() {
     var url = document.getElementById("pendidikan").getAttribute("url");
 
     var formdata = new FormData();
@@ -75,101 +80,122 @@ function sendPend() {
         body: formdata,
         redirect: "follow",
     };
-
     fetch(url, requestOptions)
         .then((response) => response.text())
         .then((result) => {
-            var tahap = JSON.parse(result);
+            dataAPI = JSON.parse(result);
+            if (dataAPI.criteria != null) {
+                fullData = dataAPI.criteria;
+            } else {
+                fullData = null;
+            }
 
-            document.getElementById("tahap").removeAttribute("disabled");
-            document.getElementById("datatable").setAttribute("hidden", true);
-
-            $("#tahap").empty();
-            let tag = "<option selected hidden disabled>Pilih Tahap</option>";
-            $("#tahap").append(tag);
-            tahap.tahap.forEach((element) => {
-                switch (element) {
-                    case "candidates_tes":
-                        tag = '<option value="' + element + '" >Tes</option>';
-                        break;
-                    case "candidates_pres":
-                        tag =
-                            '<option value="' +
-                            element +
-                            '" >Prestasi</option>';
-                        break;
-                    case "candidates_mand":
-                        tag =
-                            '<option value="' + element + '" >Mandiri</option>';
-                        break;
-                }
-                $("#tahap").append(tag);
+            kolom = dataAPI.kolom;
+            $("#kolom").empty();
+            let tag = "<option selected hidden>Pilih Kolom</option>";
+            kolom.forEach((element) => {
+                tag += "<option>" + element + "</option>";
             });
+            $("#kolom").append(tag);
+
+            if (datatable != 0) {
+                $("#tbl-bobot").dataTable().fnClearTable();
+                $("#tbl-bobot").dataTable().fnAddData(fullData);
+            } else {
+                datatable++;
+                $("#tbl-bobot").DataTable({
+                    data: fullData,
+                    responsive: true,
+                    pageLength: 10,
+                    autoWidth: false,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, full, meta) {
+                                return meta.row + 1;
+                            },
+                        },
+                        {
+                            data: "kolom",
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, full, meta) {
+                                if (full.nilai) {
+                                    return full.nilai;
+                                } else {
+                                    return "-";
+                                }
+                            },
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, full, meta) {
+                                let a;
+                                switch (full.tipe) {
+                                    case "prioritas":
+                                        a =
+                                            "<span class='badge badge-primary'>" +
+                                            full.tipe +
+                                            "</span>";
+                                        break;
+
+                                    case "pembobotan":
+                                        a =
+                                            "<span class='badge badge-success'>" +
+                                            full.bobot +
+                                            "</span>";
+                                        break;
+
+                                    case "tambahan":
+                                        a =
+                                            "<span class='badge badge-info'>" +
+                                            full.tipe +
+                                            "</span>";
+                                        break;
+                                }
+                                return a;
+                            },
+                            orderable: false,
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, full, meta) {
+                                let tag =
+                                    '<div class="btn-group m-1" role="group" aria-label="Basic example">';
+                                tag +=
+                                    '<button class="btn btn-sm btn-icon btn-warning" id="editBtn" onclick="editBtn(' +
+                                    meta.row +
+                                    ')" ><i class="fas fa-edit"></i> Edit</button>';
+                                tag +=
+                                    '<button class="btn btn-sm btn-icon btn-danger" id="editBtn" onclick="deleteBtn(' +
+                                    full.id +
+                                    ')" ><i class="fas fa-edit"></i> Delete</button>';
+
+                                tag += "</div>";
+
+                                return tag;
+                            },
+                            orderable: false,
+                        },
+                    ],
+                });
+            }
         })
-        .catch((error) => console.log("error", error));
-}
-
-function sendTahap() {
-    table();
-    document.getElementById("datatable").removeAttribute("hidden");
-
-    document.getElementById("nilai").setAttribute("disabled", true);
-    document.getElementById("bobot").setAttribute("disabled", true);
-    document.getElementById("prioritas").setAttribute("disabled", true);
-}
-
-function table() {
-    $("#table-responsive").empty();
-
-    let tag =
-        '<table class="table-hover table-md table display nowrap" id="tbl-bobot">';
-    tag += "<thead>";
-    tag += "<tr>";
-    tag += '<th scope="col">#</i></th>';
-    tag += '<th scope="col">Kolom</th>';
-    tag += '<th scope="col">Nilai</th>';
-    tag += '<th scope="col"><i class="fas fa-star"></i></th>';
-    tag += '<th scope="col">Action</th>';
-    tag += "</tr>";
-    tag += "</thead>";
-    tag += '<tbody id="table-body">';
-    tag += "</tbody>";
-    tag += "</table>";
-    $("#table-responsive").append(tag);
-
-    for (let index = 0; index < criteria.length; index++) {
-        let tag = null;
-        tag += "<tr>";
-        tag += "<td>" + (index + 1) + "</td>";
-        tag += "<td>" + criteria[index][0] + "</td>";
-        tag += "<td>" + criteria[index][1] + "</td>";
-        if (criteria[index][3] == true) {
-            tag += "<td><code>Prioritas</code></td>";
-        } else {
-            tag += "<td>" + criteria[index][2] + "</td>";
-        }
-        tag += "<td>1</td>";
-        tag += "</tr>";
-        $("#table-body").append(tag);
-    }
-
-    $("#tbl-bobot").DataTable({
-        scrollX: true,
-        responsive: false,
-        pageLength: 10,
-        autoWidth: false,
-    });
+        .catch((error) => {
+            console.log(error);
+            swal("Error", "Terjadi Kesalahan", "error");
+        });
 }
 
 function sendKolom() {
+    console.log("sd");
     var url = document.getElementById("kolom").getAttribute("url");
 
     var formdata = new FormData();
     formdata.append("tahun", document.getElementById("tahun_terdaftar").value);
     formdata.append("pendidikan", document.getElementById("pendidikan").value);
-    formdata.append("tahap", document.getElementById("tahap").value);
     formdata.append("kolom", document.getElementById("kolom").value);
-
     var requestOptions = {
         method: "POST",
         body: formdata,
@@ -182,11 +208,6 @@ function sendKolom() {
             dataAPI = JSON.parse(result);
             nilai = dataAPI.nilai;
 
-            document.getElementById("datatable").removeAttribute("hidden");
-            document.getElementById("nilai").removeAttribute("disabled");
-            document.getElementById("bobot").setAttribute("disabled", true);
-            document.getElementById("prioritas").setAttribute("disabled", true);
-
             $("#nilai").empty();
             let tag = "<option selected hidden>Pilih Nilai</option>";
             $("#nilai").append(tag);
@@ -198,87 +219,272 @@ function sendKolom() {
         .catch((error) => console.log("error", error));
 }
 
-function sendNilai() {
-    document.getElementById("bobot").removeAttribute("disabled");
-    document.getElementById("prioritas").removeAttribute("disabled");
-}
+function sendTipe() {
+    switch (document.querySelector('input[name="tipe"]:checked').value) {
+        case "prioritas":
+            document.getElementById("nilai").removeAttribute("disabled");
+            document.getElementById("bobot").setAttribute("disabled", true);
+            break;
 
-function setPrioritas() {
-    if (toggle == false) {
-        document.getElementById("bobot").setAttribute("disabled", true);
-        toggle = true;
-    } else {
-        document.getElementById("bobot").removeAttribute("disabled");
-        toggle = false;
+        case "pembobotan":
+            document.getElementById("nilai").removeAttribute("disabled");
+            document.getElementById("bobot").removeAttribute("disabled");
+            break;
+
+        case "tambahan":
+            document.getElementById("nilai").setAttribute("disabled", true);
+            document.getElementById("bobot").setAttribute("disabled", true);
+            break;
+
+        default:
+            break;
     }
 }
 
 function showForm() {
-    var url = document.getElementById("tahap").getAttribute("url");
-
-    var formdata = new FormData();
-    formdata.append("tahun", document.getElementById("tahun_terdaftar").value);
-    formdata.append("pendidikan", document.getElementById("pendidikan").value);
-    formdata.append("tahap", document.getElementById("tahap").value);
-
-    var requestOptions = {
-        method: "POST",
-        body: formdata,
-        redirect: "follow",
-    };
-
-    fetch(url, requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            dataAPI = JSON.parse(result);
-            kolom = dataAPI.criteria;
-
-            $("#kolom").empty();
-            let tag = "<option selected hidden>Pilih Kolom</option>";
-            $("#kolom").append(tag);
-            kolom.forEach((element) => {
-                let tag = "<option >" + element + "</option>";
-                $("#kolom").append(tag);
-            });
-            document.getElementById("form-bobot").removeAttribute("hidden");
-            document.getElementById("form-bobot").focus();
-        })
-        .catch((error) => console.log("error", error));
+    document.getElementById("form-bobot").removeAttribute("hidden");
+    document.getElementById("form-bobot").focus();
+    document.getElementById("tambahanbtn").checked = true;
+    document
+        .querySelectorAll("input[name='tipe']")
+        .forEach((el) => el.removeAttribute("disabled"));
 }
 
 function tutup() {
-    $("#kolom").empty();
-    let tag1 = "<option selected hidden>Pilih Kolom</option>";
-    $("#kolom").append(tag1);
+    document.getElementById("kolom").value = "Pilih Kolom";
+
+    document.getElementById("tambahanbtn").checked = true;
+    document
+        .querySelectorAll("input[name='tipe']")
+        .forEach((el) => el.setAttribute("disabled", true));
 
     $("#nilai").empty();
     let tag = "<option selected hidden>Pilih Nilai</option>";
     $("#nilai").append(tag);
 
-    document.getElementById("nilai").value = 0;
-
-    document.getElementById("datatable").removeAttribute("hidden");
     document.getElementById("nilai").setAttribute("disabled", true);
     document.getElementById("bobot").setAttribute("disabled", true);
-    document.getElementById("prioritas").setAttribute("disabled", true);
 
     document.getElementById("form-bobot").setAttribute("hidden", true);
 }
 
 function addCriteria() {
-    var kolom = document.getElementById("kolom").value;
-    var nilai = document.getElementById("nilai").value;
-    var bobot = document.getElementById("bobot").value;
-    var priotity = toggle;
-    // criteria.push([kolom, nilai, bobot, priotity]);
-    // console.log(criteria);
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Pastikan data sudah benar! ",
+        icon: "warning",
+        buttons: true,
+    }).then((saveData) => {
+        if (saveData) {
+            var url = document.getElementById("submitBtn").getAttribute("url");
 
-    if (priotity == true) {
-        criteria_prioritas.push([kolom, nilai, bobot, priotity]);
-    } else {
-        criteria_bobot.push([kolom, nilai, bobot, priotity]);
+            var kolominput = document.getElementById("kolom").value;
+            var tipe = document.querySelector(
+                'input[name="tipe"]:checked'
+            ).value;
+            var nilai = document.getElementById("nilai").value;
+            var bobot = document.getElementById("bobot").value;
+
+            let formdata = new FormData();
+            if (kolominput == null) {
+                swal("Error", "Pastikan kolom telah terisi", "error");
+            } else {
+                switch (tipe) {
+                    case "prioritas":
+                        formdata.append("data[1]", nilai);
+                        break;
+
+                    case "pembobotan":
+                        formdata.append("data[1]", nilai);
+                        formdata.append("data[2]", bobot);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            formdata.append(
+                "tahun",
+                document.getElementById("tahun_terdaftar").value
+            );
+            formdata.append(
+                "pendidikan",
+                document.getElementById("pendidikan").value
+            );
+            formdata.append("pembobotan", tipe);
+            formdata.append("data[0]", kolominput);
+
+            var requestOptions = {
+                method: "POST",
+                body: formdata,
+                redirect: "follow",
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    dataAPI = JSON.parse(result);
+                    if (dataAPI.status) {
+                        swal("Success", dataAPI.status, "success");
+                        tutup();
+                        table();
+                    } else if (dataAPI.error) {
+                        swal("Error", dataAPI.error, "error");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    swal("Error", "Telah terjadi Error", "error");
+                });
+        } else {
+            swal("Proses Insert dibatalkan", {
+                timer: 3000,
+            });
+        }
+    });
+}
+
+function deleteBtn(id) {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Proses ini tidak dibatalkan. Pastikan data sudah benar! ",
+        icon: "warning",
+        buttons: true,
+    }).then((saveData) => {
+        if (saveData) {
+            url = document.getElementById("link-delete").getAttribute("url");
+
+            let formdata = new FormData();
+            formdata.append(
+                "tahun",
+                document.getElementById("tahun_terdaftar").value
+            );
+            formdata.append(
+                "pendidikan",
+                document.getElementById("pendidikan").value
+            );
+            formdata.append("id", id);
+
+            var requestOptions = {
+                method: "POST",
+                body: formdata,
+                redirect: "follow",
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    dataAPI = JSON.parse(result);
+                    if (dataAPI.status) {
+                        swal("Success", dataAPI.status, "success");
+                        table();
+                    } else if (dataAPI.error) {
+                        swal("Error", dataAPI.error, "error");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    swal("Error", "Telah terjadi Error", "error");
+                });
+        } else {
+            swal("Proses Delete dibatalkan", {
+                timer: 3000,
+            });
+        }
+    });
+}
+
+function editBtn(id) {
+    document.getElementById("form-bobot").removeAttribute("hidden");
+    document.getElementById("form-bobot").focus();
+    document
+        .querySelectorAll("input[name='tipe']")
+        .forEach((el) => el.removeAttribute("disabled"));
+
+    document.getElementById("id-bobot").value = fullData[id]["id"];
+
+    document.getElementById("kolom").value = fullData[id]["kolom"];
+    sendKolom();
+
+    document.querySelectorAll("input[name='tipe']").forEach((el) => {
+        if (el.value == fullData[id]["tipe"]) {
+            el.checked = true;
+        }
+    });
+    switch (fullData[id]["tipe"]) {
+        case "prioritas":
+            document.getElementById("nilai").removeAttribute("disabled");
+            document.getElementById("bobot").setAttribute("disabled", true);
+
+            document.getElementById("nilai").value = fullData[id]["nilai"];
+            break;
+
+        case "pembobotan":
+            document.getElementById("nilai").removeAttribute("disabled");
+            document.getElementById("bobot").removeAttribute("disabled");
+
+            document.getElementById("nilai").value = fullData[id]["nilai"];
+            document.getElementById("bobot").value = fullData[id]["bobot"];
+
+            break;
+
+        case "tambahan":
+            document.getElementById("nilai").setAttribute("disabled", true);
+            document.getElementById("bobot").setAttribute("disabled", true);
+            break;
+
+        default:
+            break;
     }
-    criteria = criteria_prioritas.concat(criteria_bobot);
-    tutup();
-    table();
+}
+
+function ediitCriteria() {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Proses ini tidak dibatalkan. Pastikan data sudah benar! ",
+        icon: "warning",
+        buttons: true,
+    }).then((saveData) => {
+        if (saveData) {
+            url = document.getElementById("link-delete").getAttribute("url");
+
+            let formdata = new FormData();
+            formdata.append(
+                "tahun",
+                document.getElementById("tahun_terdaftar").value
+            );
+            formdata.append(
+                "pendidikan",
+                document.getElementById("pendidikan").value
+            );
+            formdata.append("id", id);
+
+            var requestOptions = {
+                method: "POST",
+                body: formdata,
+                redirect: "follow",
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    dataAPI = JSON.parse(result);
+                    if (dataAPI.status) {
+                        swal("Success", dataAPI.status, "success");
+                        table();
+                    } else if (dataAPI.error) {
+                        swal("Error", dataAPI.error, "error");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    swal("Error", "Telah terjadi Error", "error");
+                });
+        } else {
+            swal("Proses Delete dibatalkan", {
+                timer: 3000,
+            });
+        }
+    });
 }

@@ -119,7 +119,6 @@ Route::post('/get-filter-mandiri', [FilterMandiriController::class, 'getFilter']
 //Pembobotan
 Route::get('/pembobotan/tahun', [BobotController::class, 'getTahun'])->name('api_tahunBobot');
 Route::post('/pembobotan/pend', [BobotController::class, 'getPend'])->name('api_pendBobot');
-Route::post('/pembobotan/tahap', [BobotController::class, 'getTahap'])->name('api_tahapBobot');
 Route::post('/pembobotan/kolom', [BobotController::class, 'render_api'])->name('api_dataBobot');
 Route::post('/pembobotan/nilai', [BobotController::class, 'getnilai'])->name('api_nilaiBobot');
 Route::post('/pembobotan', [BobotController::class, 'api_insert'])->name('api_insertBobot');

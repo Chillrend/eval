@@ -24,7 +24,8 @@ class BobotController extends Controller
     public function getTahun()
     {
         try {
-            $year = Criteria::select('tahun')->groupBy('tahun')->orderBy('tahun', 'desc')->get()->toArray();
+            $year = Criteria::select('tahun')->where('table', 'candidates_mand')
+                ->groupBy('tahun')->orderBy('tahun', 'desc')->get()->toArray();
             for ($x = 0; $x < count($year); $x++) {
                 $year[$x] = $year[$x]['tahun'];
             }
@@ -57,48 +58,19 @@ class BobotController extends Controller
         }
     }
 
-    public function getTahap()
-    {
-        try {
-            $this->validate(request(), [
-                'tahun' => 'required|numeric',
-                'pendidikan' => 'required',
-            ]);
-            $tahun = request('tahun');
-            $pend = request('pendidikan');
-            $tahap = Criteria::select('table')
-                ->where('tahun', intval($tahun))
-                ->where('table', 'like', 'candidate%')
-                ->groupBy('table')
-                ->get();
-            for ($x = 0; $x < count($tahap); $x++) {
-                $tahap[$x] = $tahap[$x]['table'];
-            }
-            return response()->json([
-                'tahap' => $tahap,
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'error' => $th->getMessage(),
-            ]);
-        }
-    }
-
     public function render_api()
     {
         try {
             $this->validate(request(), [
                 'tahun' => 'required|numeric',
                 'pendidikan' => 'required',
-                'tahap' => 'required',
             ]);
 
             $pend   = request('pendidikan');
             $tahun  = request('tahun');
-            $tahap  = request('tahap');
 
-            $criterias = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first()->toArray();
-            $criterias = $criterias['bobot'];
+            $criteria = Criteria::select('bobot', 'kolom')->where('kode_criteria', $tahun . '_candidates_mand')->first()->toArray();
+            $criterias = $criteria['bobot'];
 
             if ($criterias) {
                 for ($index = 0; $index < count($criterias); $index++) {
@@ -115,8 +87,12 @@ class BobotController extends Controller
             } else {
                 $criterias = [];
             };
+
+            $kolom = $criteria['kolom'];
+
             return response()->json([
                 'criteria'  => $criterias,
+                'kolom'     => $kolom,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -131,37 +107,18 @@ class BobotController extends Controller
             $this->validate(request(), [
                 'tahun' => 'required|numeric',
                 'pendidikan' => 'required',
-                'tahap' => 'required',
                 'kolom' => 'required',
             ]);
 
             $pend = (request('pendidikan')) ? request('pendidikan') : 'S1';
             $tahun = (request('tahun')) ? request('tahun') : strval(date("Y"));
-            $tahap = (request('tahap')) ? request('tahap') : 'candidates_tes';
             $kolom = request('kolom');
 
-            switch ($tahap) {
-                case 'candidates_tes':
-                    $candidate = CandidateTes::select(strval($kolom))
-                        ->where('periode', intval($tahun))
-                        ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
-                        ->get();
-                    break;
+            $candidate = CandidateMand::select(strval($kolom))
+                ->where('periode', intval($tahun))
+                ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
+                ->get();
 
-                case 'candidates_pres':
-                    $candidate = CandidatePres::select(strval($kolom))
-                        ->where('periode', intval($tahun))
-                        ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
-                        ->get();
-                    break;
-
-                case 'candidates_mand':
-                    $candidate = CandidateMand::select(strval($kolom))
-                        ->where('periode', intval($tahun))
-                        ->groupBy(strval($kolom))->orderBy(strval($kolom), 'desc')
-                        ->get();
-                    break;
-            }
 
             if ($candidate[0][strval($kolom)] == null) {
                 return response()->json([
@@ -188,18 +145,16 @@ class BobotController extends Controller
             $this->validate(request(), [
                 'tahun'         => 'required|numeric',
                 'pendidikan'    => 'required',
-                'tahap'         => 'required',
                 'pembobotan'    => 'required',
                 'data'          => 'required'
             ]);
 
             $pend   = request('pendidikan');
             $tahun  = request('tahun');
-            $tahap  = request('tahap');
             $data = request('data');
 
-            if (Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->exists()) {
-                $criteria = Criteria::query()->where('kode_criteria', $tahun . '_' . $tahap)->first();
+            if (Criteria::query()->where('kode_criteria', $tahun . '_candidates_mand')->exists()) {
+                $criteria = Criteria::query()->where('kode_criteria', $tahun . '_candidates_mand')->first();
                 switch (request('pembobotan')) {
                     case 'prioritas':
                         $array = [
@@ -262,16 +217,14 @@ class BobotController extends Controller
             $this->validate(request(), [
                 'tahun'         => 'required|numeric',
                 'pendidikan'    => 'required',
-                'tahap'         => 'required',
                 'id'            => 'required|numeric'
             ]);
 
             $pend   = request('pendidikan');
             $tahun  = request('tahun');
-            $tahap  = request('tahap');
             $id     = request('id');
 
-            $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
+            $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_candidates_mand')->first();
             $bobot = $criteria->bobot;
 
             unset($bobot[$id]);
