@@ -248,6 +248,9 @@ function showForm() {
     document
         .querySelectorAll("input[name='tipe']")
         .forEach((el) => el.removeAttribute("disabled"));
+
+    document.getElementById("submitBtn").removeAttribute("hidden");
+    document.getElementById("submit-editBtn").setAttribute("hidden", true);
 }
 
 function tutup() {
@@ -396,6 +399,9 @@ function deleteBtn(id) {
 }
 
 function editBtn(id) {
+    document.getElementById("submit-editBtn").removeAttribute("hidden");
+    document.getElementById("submitBtn").setAttribute("hidden", true);
+
     document.getElementById("form-bobot").removeAttribute("hidden");
     document.getElementById("form-bobot").focus();
     document
@@ -439,7 +445,7 @@ function editBtn(id) {
     }
 }
 
-function ediitCriteria() {
+function editCriteria() {
     swal({
         title: "Apakah Anda Yakin?",
         text: "Proses ini tidak dibatalkan. Pastikan data sudah benar! ",
@@ -447,7 +453,14 @@ function ediitCriteria() {
         buttons: true,
     }).then((saveData) => {
         if (saveData) {
-            url = document.getElementById("link-delete").getAttribute("url");
+            url = document.getElementById("submit-editBtn").getAttribute("url");
+
+            var kolominput = document.getElementById("kolom").value;
+            var tipe = document.querySelector(
+                'input[name="tipe"]:checked'
+            ).value;
+            var nilai = document.getElementById("nilai").value;
+            var bobot = document.getElementById("bobot").value;
 
             let formdata = new FormData();
             formdata.append(
@@ -458,7 +471,27 @@ function ediitCriteria() {
                 "pendidikan",
                 document.getElementById("pendidikan").value
             );
-            formdata.append("id", id);
+            formdata.append("id", document.getElementById("id-bobot").value);
+
+            if (kolominput == null) {
+                swal("Error", "Pastikan kolom telah terisi", "error");
+            } else {
+                switch (tipe) {
+                    case "prioritas":
+                        formdata.append("data[1]", nilai);
+                        break;
+
+                    case "pembobotan":
+                        formdata.append("data[1]", nilai);
+                        formdata.append("data[2]", bobot);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            formdata.append("pembobotan", tipe);
+            formdata.append("data[0]", kolominput);
 
             var requestOptions = {
                 method: "POST",
@@ -472,6 +505,7 @@ function ediitCriteria() {
                     dataAPI = JSON.parse(result);
                     if (dataAPI.status) {
                         swal("Success", dataAPI.status, "success");
+                        tutup();
                         table();
                     } else if (dataAPI.error) {
                         swal("Error", dataAPI.error, "error");

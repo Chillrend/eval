@@ -248,7 +248,6 @@ class BobotController extends Controller
             $this->validate(request(), [
                 'tahun'         => 'required|numeric',
                 'pendidikan'    => 'required',
-                'tahap'         => 'required',
                 'pembobotan'    => 'required',
                 'id'            => 'required|numeric',
                 'data'          => 'required',
@@ -260,7 +259,7 @@ class BobotController extends Controller
             $id     = request('id');
             $data   = request('data');
 
-            $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_' . $tahap)->first();
+            $criteria = Criteria::select('bobot')->where('kode_criteria', $tahun . '_candidates_mand')->first();
             $bobot = $criteria->bobot;
 
             //Masukin data ke template

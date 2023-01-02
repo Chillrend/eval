@@ -79,7 +79,7 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kolom</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" class="form-control" name="id-bobot" id="id-bobot">
+                                    <input type="text" class="form-control" name="id-bobot" id="id-bobot" readonly hidden>
 
                                     <select type="number" class="form-control" name="kolom" id="kolom" onchange="sendKolom()" url="{{route('api_nilaiBobot')}}" required>
                                         <option selected hidden>Pilih Kolom</option>
