@@ -81,11 +81,12 @@
                     </div>
                 </div>
 
+
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Statistik Program Studi</h4>
+                                <h4>Statistik Pendaftar</h4>
                             </div>
                             <div class="card-body">
                                 <canvas id="myChart"></canvas>
@@ -95,10 +96,14 @@
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Statistik Pendaftar</h4>
+                                <h4>Progres Kegiatan</h4>
                             </div>
                             <div class="card-body">
-                                <canvas id="myChart2"></canvas>
+                                <canvas id="chartProgress"></canvas>
+                            </div>
+                            <br>
+                            <div>
+                                <p><center>Import Data Calon Mahasiswa Seleksi Mandir</center></p>
                             </div>
                         </div>
                     </div>
@@ -161,13 +166,17 @@
                                                 id="data"
                                                 role="tabpanel"
                                                 aria-labelledby="data-tab">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non
-                                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                               <p><b>Cara Penggunaan Untuk Halaman Data Mahasiswa:</b></p>
+                                               <ol>
+                                                <li>Masukkan tahun periode pendaftaran</li>
+                                                <li>Masukkan data calon mahasiswa dengan file excel ke dalam form yang sudah disediakan.</li>
+                                                <li>tahun tabel ?</li>
+                                                <li>Tambahkan nama kolom excel yang akan diinput</li>
+                                                <li>Menekan tombol submit. Data akan ditampilkan pada tabel, silahkan cek kembali</li>
+                                                <li>Jika data salah, silahkan tekan tombol "Cancel" dan lakukan kegiatan penginputan data dari awal</li>
+                                                <li>Jika data benar, silahkan tekan tombol "Save"</li>
+                                                <li>Data akan tersimpan</li>
+                                             </ol>
                                             </div>
                                             <div class="tab-pane fade"
                                                 id="prodi"
@@ -220,4 +229,5 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/statistik.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 @endpush
