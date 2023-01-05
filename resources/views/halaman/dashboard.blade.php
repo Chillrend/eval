@@ -101,9 +101,8 @@
                             <div class="card-body">
                                 <canvas id="chartProgress"></canvas>
                             </div>
-                            <br>
-                            <div>
-                                <p><center>Import Data Calon Mahasiswa Seleksi Mandir</center></p>
+                            <div class="card-body">
+                                <p>Keterangan :</p>
                             </div>
                         </div>
                     </div>
@@ -150,12 +149,21 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    id="filter-tab4"
+                                                    id="filter-tab"
                                                     data-toggle="tab"
                                                     href="#filter"
                                                     role="tab"
                                                     aria-controls="filter"
                                                     aria-selected="false">Filter</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                    id="bobot-tab"
+                                                    data-toggle="tab"
+                                                    href="#bobot"
+                                                    role="tab"
+                                                    aria-controls="bobot"
+                                                    aria-selected="false">Pembobotan</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -172,7 +180,7 @@
                                                <ol>
                                                 <li>Masukkan tahun periode pendaftaran</li>
                                                 <li>Masukkan data calon mahasiswa dengan file excel ke dalam form yang sudah disediakan.</li>
-                                                <li>tahun tabel ?</li>
+                                                <li>Masukkan tahun tabel.</li>
                                                 <li>Tambahkan nama kolom excel yang akan diinput</li>
                                                 <li>Menekan tombol submit. Data akan ditampilkan pada tabel, silahkan cek kembali</li>
                                                 <li>Jika data salah, silahkan tekan tombol "Cancel" dan lakukan kegiatan penginputan data dari awal</li>
@@ -276,6 +284,24 @@
                                                         <li>Menekan tombol "Save" untuk menyimpan hasil data yang telah difilter.</li>
                                                     </ol>
                                                 </div>
+                                            </div>
+                                            <div class="tab-pane fade"
+                                                id="bobot"
+                                                role="tabpanel"
+                                                aria-labelledby="bobot-tab">
+                                            <div class="card-body">
+                                                <h6 style="color: #6777ef">Cara Penggunaan Pembobotan Data Mahasiswa:</h6>
+                                                <br>
+                                                <p>Pada menu pembobotan ini hanya ditunjukan untuk data calon mahasiswa yang menggunakan jalur <b>Seleksi Mandiri</b>. 
+                                                    Berikut langkah-langkah dalam pembobotan data calon mahasiswa:
+                                                </p>
+                                                <ol>
+                                                    <li>Memastikan data calon mahasiswa jalur seleksi mandiri sudah diinput.</li>
+                                                    <li>Memastikan data calon mahasiswa jalur seleksi mandiri belum melalui proses filtering.</li>
+                                                    <li>Menentukan bobot sesuai dengan kriteria yang telah ditentukan.</li>
+                                                    <li>Setelah melalui proses pembobotan, data dapat melalui proses filter.</li>
+                                                </ol>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
