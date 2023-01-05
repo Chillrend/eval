@@ -178,13 +178,13 @@
                                                 <h6 style="color: #6777ef">Cara Penggunaan Untuk Halaman Data Mahasiswa:</h6>
                                                </div>
                                                <ol>
-                                                <li>Masukkan tahun periode pendaftaran</li>
+                                                <li>Masukkan tahun periode pendaftaran.</li>
                                                 <li>Masukkan data calon mahasiswa dengan file excel ke dalam form yang sudah disediakan.</li>
                                                 <li>Masukkan tahun tabel.</li>
-                                                <li>Tambahkan nama kolom excel yang akan diinput</li>
-                                                <li>Menekan tombol submit. Data akan ditampilkan pada tabel, silahkan cek kembali</li>
-                                                <li>Jika data salah, silahkan tekan tombol "Cancel" dan lakukan kegiatan penginputan data dari awal</li>
-                                                <li>Jika data benar, silahkan tekan tombol "Save" dan data akan tersimpan</li>
+                                                <li>Tambahkan nama kolom excel yang akan diinput.</li>
+                                                <li>Menekan tombol submit. Data akan ditampilkan pada tabel, silahkan cek kembali.</li>
+                                                <li>Jika data salah, silahkan tekan tombol "Cancel" dan lakukan kegiatan penginputan data dari awal.</li>
+                                                <li>Jika data benar, silahkan tekan tombol "Save" dan data akan tersimpan.</li>
                                              </ol>
                                             </div>
                                             <div class="tab-pane fade"
@@ -216,7 +216,7 @@
                                                                 <p><b>Langkah-Langkah Mengubah Data:</b></p>
                                                                 <ol>
                                                                     <li>Menekan tombol edit yang ditandai dengan simbol pena dengan warna tombol yaitu oranye.</li>
-                                                                    <li>Mengubah data sesuai dengan yang sudah ditentukan</li>
+                                                                    <li>Mengubah data sesuai dengan yang sudah ditentukan.</li>
                                                                     <li>Menekan tombol "Submit", jika data sudah benar.</li>
                                                                     <li>Menekan tombol "Close", jika data tidak ingin diubah.</li>
                                                                 </ol>
@@ -277,7 +277,7 @@
                                                         <li>Memasukkan tahun terdaftar.</li>
                                                         <li>Masukkan nama kolom excel yang ingin difilter.</li>
                                                         <li>Masukkan operasi perbandingan yang telah ditentukan sebelumnya.</li>
-                                                        <li>Menekan tombol "Tambah" untuk menambahkan filter</li>
+                                                        <li>Menekan tombol "Tambah" untuk menambahkan filter.</li>
                                                         <li>Lakukan kegiatan untuk memasukkan kolom excel kembali jika ingin menambah data yang ingin difilter.</li>
                                                         <li>Menekan tombol "Filter" untuk melakukan filter data.</li>
                                                         <li>Menekan tombol "Save" untuk menyimpan hasil data yang telah difilter.</li>
