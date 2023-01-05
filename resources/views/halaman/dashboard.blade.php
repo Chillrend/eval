@@ -184,8 +184,7 @@
                                                 <li>Tambahkan nama kolom excel yang akan diinput</li>
                                                 <li>Menekan tombol submit. Data akan ditampilkan pada tabel, silahkan cek kembali</li>
                                                 <li>Jika data salah, silahkan tekan tombol "Cancel" dan lakukan kegiatan penginputan data dari awal</li>
-                                                <li>Jika data benar, silahkan tekan tombol "Save"</li>
-                                                <li>Data akan tersimpan</li>
+                                                <li>Jika data benar, silahkan tekan tombol "Save" dan data akan tersimpan</li>
                                              </ol>
                                             </div>
                                             <div class="tab-pane fade"
