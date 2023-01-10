@@ -322,7 +322,7 @@ class FilterMandiriController extends Controller
                 'kode_criteria' => strval($tahun) . '_filter_candidates_mand',
             );
 
-            $response = FilterMandiriController::filtering($jurusan_kolom, $tahun, $pendidikan, $filter);
+            $response = FilterMandiriController::filtering($jurusan_kolom, $tahun, $pendidikan, $filteri);
             $response = $response->original;
             $candidates = $response['candidates'];
 
@@ -343,7 +343,7 @@ class FilterMandiriController extends Controller
                 'status' => 'Filter Calon Mahasiswa ' . $tahun . ' Berhasil',
                 'redirect' => route('api_renderPreviewMand')
             ]);
-        } catch (Exception $th) {
+        } catch (\Throwable $th) {
             return response()->json([
                 'error' => $th->getMessage(),
             ]);

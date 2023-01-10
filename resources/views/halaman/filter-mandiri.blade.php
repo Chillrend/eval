@@ -26,7 +26,7 @@
         </div>
 
         <!-- Card Pembobotan + Pendidikan -->
-        <div class="card">
+        <div class="card" id="headfilter" hidden>
             <div class="card-header d-flex justify-content-between">
 
                 <div class="d-flex align-items-center col-12 col-xl-3 col-lg-4 col-md-4 col-sm-12 my-1">
