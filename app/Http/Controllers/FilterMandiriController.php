@@ -195,7 +195,7 @@ class FilterMandiriController extends Controller
                     }
                 })
                 ->when($filter, function ($query) use ($filter) {
-                    return $query->orWhere(function ($query) use ($filter) {
+                    return $query->where(function ($query) use ($filter) {
                         for ($a = 0; $a < count($filter); $a++) {
                             $query->where($filter[$a][0], $filter[$a][1], intval($filter[$a][2]));
                         }
