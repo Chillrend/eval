@@ -6,8 +6,6 @@ use App\Models\CandidateMand;
 use App\Models\Criteria;
 use App\Models\ProdiMand;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class FilterMandiriController extends Controller
 {
