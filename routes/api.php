@@ -102,10 +102,6 @@ Route::get('/preview-mandiri', [PreviewMandiriController::class, 'api_render'])-
 
 
 //Filter Prestasi
-// Route::get('/filter-pres', [FilterPresController::class, 'api_render'])->name('api_renderFilterPres');
-// Route::post('/filter-pres', [FilterPresController::class, 'api_save'])->name('saveFilterPres');
-// Route::post('/get-filter-pres', [FilterPresController::class, 'getFilter'])->name('getFilterPres');
-
 Route::get('/filter-pres', [FilterPresController::class, 'getTahun'])->name('api_tahunFilterPres');
 Route::post('/filter-pres/pend', [FilterPresController::class, 'getPend'])->name('api_pendFilterPres');
 Route::post('/filter-pres/kolom', [FilterPresController::class, 'getKolom'])->name('api_kolomFilterPres');
@@ -114,9 +110,17 @@ Route::post('/filter-pres', [FilterPresController::class, 'api_save'])->name('sa
 Route::post('/get-filter-pres', [FilterPresController::class, 'getFilter'])->name('getFilterPres');
 
 //Filter Tes
-Route::get('/filter-tes', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
+// Route::get('/filter-tes', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
+// Route::post('/filter-tes', [FilterTesController::class, 'api_save'])->name('saveFilterTes');
+// Route::post('/get-filter-tes', [FilterTesController::class, 'getFilter'])->name('getFilterTes');
+
+Route::get('/filter-tes', [FilterTesController::class, 'getTahun'])->name('api_tahunFilterTes');
+Route::post('/filter-tes/pend', [FilterTesController::class, 'getPend'])->name('api_pendFilterTes');
+Route::post('/filter-tes/kolom', [FilterTesController::class, 'getKolom'])->name('api_kolomFilterTes');
+Route::post('/filter-tes/render', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
 Route::post('/filter-tes', [FilterTesController::class, 'api_save'])->name('saveFilterTes');
 Route::post('/get-filter-tes', [FilterTesController::class, 'getFilter'])->name('getFilterTes');
+
 
 //Filter Mandiri
 Route::get('/filter-mandiri', [FilterMandiriController::class, 'getTahun'])->name('api_tahunFilterMan');
