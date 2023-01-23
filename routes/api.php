@@ -10,6 +10,7 @@ use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\FilterMandiriController;
 use App\Http\Controllers\FilterPresController;
 use App\Http\Controllers\FilterTesController;
+use App\Http\Controllers\FinishController;
 use App\Http\Controllers\PreviewMandiriController;
 use App\Http\Controllers\PreviewPresController;
 use App\Http\Controllers\PreviewTesController;
@@ -110,10 +111,6 @@ Route::post('/filter-pres', [FilterPresController::class, 'api_save'])->name('sa
 Route::post('/get-filter-pres', [FilterPresController::class, 'getFilter'])->name('getFilterPres');
 
 //Filter Tes
-// Route::get('/filter-tes', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
-// Route::post('/filter-tes', [FilterTesController::class, 'api_save'])->name('saveFilterTes');
-// Route::post('/get-filter-tes', [FilterTesController::class, 'getFilter'])->name('getFilterTes');
-
 Route::get('/filter-tes', [FilterTesController::class, 'getTahun'])->name('api_tahunFilterTes');
 Route::post('/filter-tes/pend', [FilterTesController::class, 'getPend'])->name('api_pendFilterTes');
 Route::post('/filter-tes/kolom', [FilterTesController::class, 'getKolom'])->name('api_kolomFilterTes');
@@ -138,3 +135,9 @@ Route::post('/pembobotan/nilai', [BobotController::class, 'getnilai'])->name('ap
 Route::post('/pembobotan', [BobotController::class, 'api_insert'])->name('api_insertBobot');
 Route::post('/pembobotan/delete', [BobotController::class, 'api_delete'])->name('api_deleteBobot');
 Route::post('/pembobotan/edit', [BobotController::class, 'api_edit'])->name('api_editBobot');
+
+//Finish
+Route::get('/finish/tahun', [FinishController::class, 'getTahun'])->name('api_tahunFinish');
+Route::post('/finish/pend', [FinishController::class, 'getPend'])->name('api_pendFinish');
+Route::post('/finish/kolom', [FinishController::class, 'getKolom'])->name('api_kolomFinish');
+Route::post('/finish/pres', [FinishController::class, 'getPres'])->name('api_presFinish');

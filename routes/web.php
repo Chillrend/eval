@@ -21,6 +21,7 @@ use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\FilterMandiriController;
 use App\Http\Controllers\FilterPresController;
 use App\Http\Controllers\FilterTesController;
+use App\Http\Controllers\FinishController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,11 +60,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/saveCanPres', [CandidatePresController::class, 'saveprestasi'])->name('saveCanPres');
 
 
-    // Route::get('/prodi-prestasi', [ProdiPresController::class,'render']);
-    // Route::post('/prodi-prestasi', [ProdiPresController::class,'import']);
     Route::get('/prodi-prestasi', [ProdiPresController::class, 'render']);
     Route::post('/prodi-prestasi', [ProdiPresController::class, 'insert'])->name('addProdiPres');
-    // Route::post('/prodi-tes', [ProdiPresController::class,'import']);
     Route::post('/delete-prodi-prestasi/{id}', [ProdiPresController::class, 'delete'])->name('delProdiPres');
     Route::post('/edit-prodi-prestasi/{id}', [ProdiPresController::class, 'edit'])->name('editProdiPres');
     Route::post('/cancel-prodi-prestasi/{id}', [ProdiPresController::class, 'cancel'])->name('cancelProdiPres');
@@ -114,12 +112,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('cancelmandiri', [CandidateMandiriController::class, 'cancelmandiri'])->name('cancelmandiri');
     Route::post('savemandiri', [CandidateMandiriController::class, 'savemandiri'])->name('savemandiri');
 
-    // Route::get('/prodi-mandiri', [ProdiMandiriController::class,'render']);
-    // Route::post('/prodi-mandiri', [ProdiMandiriController::class,'import']);
-
     Route::get('/prodi-mandiri', [ProdiMandiriController::class, 'render']);
     Route::post('/prodi-mandiri', [ProdiMandiriController::class, 'insert'])->name('addProdiMand');
-    // Route::post('/prodi-mandiri', [ProdiMandiriController::class,'import']);
     Route::post('/delete-prodi-mandiri/{id}', [ProdiMandiriController::class, 'delete'])->name('delProdiMand');
     Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class, 'edit'])->name('editProdiMand');
     Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class, 'cancel'])->name('cancelProdiMand');
@@ -137,7 +131,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     //PEMBOBOTAN
     Route::get('/pembobotan', [BobotController::class, 'render'])->name('renderBobot');
+
+    //PENUTUPAN
+    Route::get('/finish', function () {
+        return view('halaman.finish', [
+            'type_menu' => '',
+        ]);
+    })->name('finish');
 });
+
 
 
 /*
