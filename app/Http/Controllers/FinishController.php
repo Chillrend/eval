@@ -108,7 +108,7 @@ class FinishController extends Controller
         }
     }
 
-    public function getPres()
+    public function getData()
     {
         try {
             $this->validate(request(), [
@@ -118,17 +118,46 @@ class FinishController extends Controller
                 'nama' => 'required',
                 'jurusan' => 'required',
                 'alamat' => 'required',
+                'tahap' => 'required',
             ]);
             $tahun = request('tahun');
             $pendidikan = request('pendidikan');
+            $tahap = request('tahap');
             $kolom = [request('id'), request('nama'), request('jurusan'), request('alamat')];
 
-            $data = CandidatePres::query()->where('periode', $tahun)->get();
-            dd($data);
+            switch ($tahap) {
+                case 'pres':
+                    $data = CandidatePres::query()
+                        ->select($kolom[0], $kolom[1], $kolom[2], $kolom[3])
+                        ->where('status', 'filtered')
+                        ->where('periode', intval($tahun))
+                        ->get()->toArray();
+                    break;
+
+                case 'tes':
+                    $data = CandidateTes::query()
+                        ->select($kolom[0], $kolom[1], $kolom[2], $kolom[3])
+                        ->where('status', 'filtered')
+                        ->where('periode', intval($tahun))
+                        ->get()->toArray();
+                    break;
+
+                case 'mand':
+                    $data = CandidateMand::query()
+                        ->select($kolom[0], $kolom[1], $kolom[2], $kolom[3])
+                        ->where('status', 'filtered')
+                        ->where('periode', intval($tahun))
+                        ->get()->toArray();
+                    break;
+
+                default:
+                    throw new Exception("Pastikan Tahap Telah Benar", 1);
+                    break;
+            }
+
             return response()->json([
-                'pendidikan' => [
-                    'D2', 'D3', 'S1', 'S2'
-                ],
+                "data" => $data,
+                "tahap" => $tahap,
             ]);
         } catch (\Throwable $th) {
             return response()->json([

@@ -140,4 +140,4 @@ Route::post('/pembobotan/edit', [BobotController::class, 'api_edit'])->name('api
 Route::get('/finish/tahun', [FinishController::class, 'getTahun'])->name('api_tahunFinish');
 Route::post('/finish/pend', [FinishController::class, 'getPend'])->name('api_pendFinish');
 Route::post('/finish/kolom', [FinishController::class, 'getKolom'])->name('api_kolomFinish');
-Route::post('/finish/pres', [FinishController::class, 'getPres'])->name('api_presFinish');
+Route::post('/finish/data', [FinishController::class, 'getData'])->name('api_dataFinish');

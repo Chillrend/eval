@@ -105,13 +105,19 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-lg btn-success m-1" id="savebtn" url="{{route('api_saveCanMan')}}" onclick="save()">
+                            <button class="btn btn-lg btn-success m-1" id="savebtn" onclick="sendKolom('pres')">
                                 <h6 class="my-0">Search</h6>
                             </button>
                         </div>
-                        <div class="table-responsive" id="table-responsive">
+                        <br>
+                        <div class="table-responsive" id="table-responsive-pres">
                             <table class="table table-striped" id="table-pres">
+                                <thead>
+                                    <tr id="tbl-header-pres"></tr>
+                                </thead>
+                                <tbody id="tbl-body-pres">
 
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -165,13 +171,19 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-lg btn-success m-1" id="savebtn" url="{{route('api_saveCanMan')}}" onclick="save()">
+                            <button class="btn btn-lg btn-success m-1" id="savebtn" onclick="sendKolom('tes')">
                                 <h6 class="my-0">Search</h6>
                             </button>
                         </div>
-                        <div class="table-responsive" id="table-responsive">
-                            <table class="table table-striped" id="table-pres">
+                        <br>
+                        <div class="table-responsive" id="table-responsive-tes">
+                            <table class="table table-striped" id="table-tes">
+                                <thead>
+                                    <tr id="tbl-header-tes"></tr>
+                                </thead>
+                                <tbody id="tbl-body-tes">
 
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -214,7 +226,7 @@
                                     <option selected hidden disabled>Kolom Jurusan</option>
                                 </select>
                             </div>
-
+                            <br>
                             <div class="d-flex align-items-center col-12 col-xl-3 col-lg-6 col-md-6 col-sm-12 my-1">
                                 <label class="my-0" for="alamat_mand">
                                     <h6 class="my-0 mr-3">Alamat</h6>
@@ -225,19 +237,26 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-lg btn-success m-1" id="savebtn" url="{{route('api_saveCanMan')}}" onclick="save()">
+                            <button class="btn btn-lg btn-success m-1" id="savebtn" onclick="sendKolom('mand')">
                                 <h6 class="my-0">Search</h6>
                             </button>
                         </div>
-                        <div class="table-responsive" id="table-responsive">
-                            <table class="table table-striped" id="table-pres">
+                        <br>
+                        <div class="table-responsive" id="table-responsive-mand">
+                            <table class="table table-striped" id="table-mand">
+                                <thead>
+                                    <tr id="tbl-header-mand"></tr>
+                                </thead>
+                                <tbody id="tbl-body-mand">
 
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div id="link-sendkolom" url="{{route('api_dataFinish')}}"></div>
 </div>
 </section>
 </div>
