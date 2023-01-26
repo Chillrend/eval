@@ -81,7 +81,7 @@
             </li>
 
             <div class="hide-sidebar-mini mt-4 mb-4 p-3">
-                <a href="https://getstisla.com/docs" class="btn btn-danger btn-lg btn-block btn-icon-split">
+                <a href="{{ url('finish') }}" class="btn btn-danger btn-lg btn-block btn-icon-split">
                     <i class="fas fa-check-circle"></i> SELESAI
                 </a>
             </div>

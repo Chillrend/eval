@@ -141,3 +141,4 @@ Route::get('/finish/tahun', [FinishController::class, 'getTahun'])->name('api_ta
 Route::post('/finish/pend', [FinishController::class, 'getPend'])->name('api_pendFinish');
 Route::post('/finish/kolom', [FinishController::class, 'getKolom'])->name('api_kolomFinish');
 Route::post('/finish/data', [FinishController::class, 'getData'])->name('api_dataFinish');
+Route::post('/finish/export', [FinishController::class, 'export'])->name('api_expFinish');

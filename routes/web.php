@@ -140,6 +140,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('finish');
 });
 
+Route::get('/finish/export', [FinishController::class, 'export'])->name('api_expFinish');
 
 
 /*

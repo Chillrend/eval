@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CandidatesExport;
 use App\Models\CandidateMand;
 use App\Models\CandidatePres;
 use App\Models\CandidateTes;
 use App\Models\Criteria;
 use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FinishController extends Controller
 {
@@ -157,8 +159,64 @@ class FinishController extends Controller
 
             return response()->json([
                 "data" => $data,
-                "tahap" => $tahap,
             ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => $th->getMessage(),
+            ]);
+        }
+    }
+
+    public function export()
+    {
+        try {
+            // $this->validate(request(), [
+            //     'tahun' => 'required|numeric',
+            //     'pendidikan' => 'required',
+            //     'id' => 'required',
+            //     'nama' => 'required',
+            //     'jurusan' => 'required',
+            //     'alamat' => 'required',
+            //     'tahap' => 'required',
+            // ]);
+            $tahun = 2100;
+            $pendidikan = 'S1';
+            $tahap = 'pres';
+            $kolom = ['id', 'nama', 'jurusan', 'sekolah'];
+
+            switch ($tahap) {
+                case 'pres':
+                    $data = CandidatePres::query()
+                        ->select($kolom[0], $kolom[1], $kolom[2], $kolom[3])
+                        ->project(['_id' => 0])
+                        ->where('status', 'filtered')
+                        ->where('periode', intval($tahun))
+                        ->get()->toArray();
+                    break;
+
+                case 'tes':
+                    $data = CandidateTes::query()
+                        ->select($kolom[0], $kolom[1], $kolom[2], $kolom[3])
+                        ->where('status', 'filtered')
+                        ->where('periode', intval($tahun))
+                        ->get()->toArray();
+                    break;
+
+                case 'mand':
+                    $data = CandidateMand::query()
+                        ->select($kolom[0], $kolom[1], $kolom[2], $kolom[3])
+                        ->where('status', 'filtered')
+                        ->where('periode', intval($tahun))
+                        ->get()->toArray();
+                    break;
+
+                default:
+                    throw new Exception("Pastikan Tahap Telah Benar", 1);
+                    break;
+            }
+            array_unshift($data, $kolom);
+            $export = new CandidatesExport($data);
+            return Excel::download($export, 'invoices.xlsx', null, $kolom);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => $th->getMessage(),
