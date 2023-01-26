@@ -19,8 +19,21 @@ class FilterPresController extends Controller
     public function getTahun()
     {
         try {
+            $filter = CandidatePres::select('periode')
+                ->where(function ($query) {
+                    $query->where('status', 'filtered')
+                        ->orWhere('status', 'done');
+                })
+                ->groupBy('periode')
+                ->orderBy('periode', 'desc')
+                ->get()->toArray();
             $list_tahun = CandidatePres::select('periode')
                 ->where('status', 'post-import')
+                ->where(function ($query) use ($filter) {
+                    foreach ($filter as $wherenot) {
+                        $query->where('periode', '!=', $wherenot['periode']);
+                    }
+                })
                 ->groupBy('periode')
                 ->orderBy('periode', 'desc')
                 ->get()->toArray();
@@ -230,7 +243,6 @@ class FilterPresController extends Controller
                 $candidates[$i]['status'] = "filtered";
             }
 
-            CandidatePres::query()->where('status', 'post-import')->where('periode', intval($tahun))->delete();
             CandidatePres::insert($candidates);
 
             if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_pres')->exists()) {

@@ -19,8 +19,21 @@ class FilterTesController extends Controller
     public function getTahun()
     {
         try {
+            $filter = CandidateTes::select('periode')
+                ->where(function ($query) {
+                    $query->where('status', 'filtered')
+                        ->orWhere('status', 'done');
+                })
+                ->groupBy('periode')
+                ->orderBy('periode', 'desc')
+                ->get()->toArray();
             $list_tahun = CandidateTes::select('periode')
                 ->where('status', 'post-import')
+                ->where(function ($query) use ($filter) {
+                    foreach ($filter as $wherenot) {
+                        $query->where('periode', '!=', $wherenot['periode']);
+                    }
+                })
                 ->groupBy('periode')
                 ->orderBy('periode', 'desc')
                 ->get()->toArray();
@@ -230,7 +243,6 @@ class FilterTesController extends Controller
                 $candidates[$i]['status'] = "filtered";
             }
 
-            CandidateTes::query()->where('status', 'post-import')->where('periode', intval($tahun))->delete();
             CandidateTes::insert($candidates);
 
             if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->exists()) {

@@ -19,8 +19,21 @@ class FilterMandiriController extends Controller
     public function getTahun()
     {
         try {
+            $filter = CandidateMand::select('periode')
+                ->where(function ($query) {
+                    $query->where('status', 'filtered')
+                        ->orWhere('status', 'done');
+                })
+                ->groupBy('periode')
+                ->orderBy('periode', 'desc')
+                ->get()->toArray();
             $list_tahun = CandidateMand::select('periode')
                 ->where('status', 'post-import')
+                ->where(function ($query) use ($filter) {
+                    foreach ($filter as $wherenot) {
+                        $query->where('periode', '!=', $wherenot['periode']);
+                    }
+                })
                 ->groupBy('periode')
                 ->orderBy('periode', 'desc')
                 ->get()->toArray();
@@ -328,7 +341,6 @@ class FilterMandiriController extends Controller
                 $candidates[$i]['status'] = "filtered";
             }
 
-            CandidateMand::query()->where('status', 'post-import')->where('periode', intval($tahun))->delete();
             CandidateMand::insert($candidates);
 
             if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_mand')->exists()) {
@@ -339,7 +351,6 @@ class FilterMandiriController extends Controller
 
             return response()->json([
                 'status' => 'Filter Calon Mahasiswa ' . $tahun . ' Berhasil',
-                'redirect' => route('api_renderPreviewMand')
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -372,7 +383,7 @@ class FilterMandiriController extends Controller
             return response()->json([
                 'kolom' => $kolom,
             ]);
-        } catch (Exception $th) {
+        } catch (\Throwable $th) {
             return response()->json([
                 'error' => $th->getMessage(),
             ]);
