@@ -3,7 +3,10 @@ var datatable = 0;
 
 function refresh(append) {
     document.getElementById("data-kosong").setAttribute("hidden", true);
-    document.getElementById("card-table").setAttribute("hidden", true);
+    document.getElementById("card-done").setAttribute("hidden", true);
+    document.getElementById("card-filter").setAttribute("hidden", true);
+    document.getElementById("card-import").setAttribute("hidden", true);
+
     var url = document.getElementById("main-content").getAttribute("url");
     var requestOptions = {
         method: "GET",
@@ -14,82 +17,118 @@ function refresh(append) {
         .then((response) => response.text())
         .then((result) => {
             var dataAPI = JSON.parse(result);
-            if (typeof dataAPI.error == "undefined") {
-                document.getElementById("card-table").removeAttribute("hidden");
-                //status progress
-                document.getElementById("progress-bar").style.width =
-                    dataAPI.status.progress + "%";
+            if (dataAPI.error) {
+                throw dataAPI.error;
+            }
+            //select tahun
+            $("#tahun_terdaftar").empty();
+            for (let index = 0; index < dataAPI.tahun.length; index++) {
+                let tag = "<option >" + dataAPI.tahun[index] + "</option>";
+                $("#tahun_terdaftar").append(tag);
+            }
+            document.getElementById("tahun_terdaftar").value = dataAPI.periode;
 
-                //status proses
-                document.getElementById("status").innerHTML =
-                    dataAPI.status.status;
-
-                //select tahun
-                $("#tahun_terdaftar").empty();
-                for (let index = 0; index < dataAPI.tahun.length; index++) {
-                    let tag = "<option >" + dataAPI.tahun[index] + "</option>";
-                    $("#tahun_terdaftar").append(tag);
-                }
-                document.getElementById("tahun_terdaftar").value =
-                    dataAPI.status.periode;
-
-                //reset tabel
-                $("#table-responsive").empty();
-                let tag =
-                    '<table class="table-hover table display nowrap" id="tbl-preview" style="width: 100%"><thead><tr id="tbl-header"></tr></thead><tbody id="tbl-body"></tbody></table>';
-                $("#table-responsive").append(tag);
-
-                //deklar kolom
-                tag = null;
-                tag = '<th scope="col">#</th>';
-                tag = tag + '<th scope="col">periode</th>';
-                $("#tbl-header").append(tag);
-                dataAPI.criteria.forEach((element) => {
-                    let tag = '<th scope="col">' + element + "</th>";
-                    $("#tbl-header").append(tag);
-                });
-
-                for (
-                    let index = 0;
-                    index < dataAPI.candidates.length;
-                    index++
-                ) {
-                    tag = null;
-                    tag = "<tr>";
-                    tag += "<td>" + (index + 1) + "</td>";
-                    tag +=
-                        "<td>" +
-                        dataAPI["candidates"][index]["periode"] +
-                        "</td>";
-                    dataAPI.criteria.forEach((element) => {
-                        if (dataAPI["candidates"][index][element] != "") {
-                            tag +=
-                                "<td>" +
-                                dataAPI["candidates"][index][element] +
-                                "</td>";
-                        } else {
-                            tag += "<td>-</td>";
-                        }
+            let vari = ["import", "filter", "done"];
+            //proses looping buat 3 tahap
+            for (let i = 0; i < vari.length; i++) {
+                if (dataAPI[vari[i]]) {
+                    //bikin kolom
+                    let taghead = '<th scope="col">#</th>';
+                    // console.log(dataAPI[vari[i]]["kolom"]);
+                    dataAPI[vari[i]]["kolom"].forEach((element) => {
+                        taghead += '<th scope="col">' + element + "</th>";
                     });
-                    tag = tag + "</tr>";
-                    $("#tbl-body").append(tag);
+
+                    //isi nilai
+                    tag = null;
+                    for (
+                        let index = 0;
+                        index < dataAPI[vari[i]]["candidates"].length;
+                        index++
+                    ) {
+                        tag += "<tr>";
+                        tag += "<td>" + (index + 1) + "</td>";
+                        dataAPI[vari[i]]["kolom"].forEach((element) => {
+                            if (
+                                dataAPI[vari[i]]["candidates"][index][
+                                    element
+                                ] != ""
+                            ) {
+                                tag +=
+                                    "<td>" +
+                                    dataAPI[vari[i]]["candidates"][index][
+                                        element
+                                    ] +
+                                    "</td>";
+                            } else {
+                                tag += "<td>-</td>";
+                            }
+                        });
+                        tag = tag + "</tr>";
+                    }
+
+                    //deklar table
+                    switch (vari[i]) {
+                        case "done":
+                            $("#table-responsive-done").empty();
+                            temp =
+                                '<table class="table table-striped" id="table-done"><thead><tr id="tbl-header-done"></tr></thead><tbody id="tbl-body-done"></tbody></table>';
+                            $("#table-responsive-done").append(temp);
+                            $("#tbl-header-done").append(taghead);
+                            $("#tbl-body-done").append(tag);
+                            $("#table-done").DataTable({
+                                responsive: true,
+                                pageLength: 10,
+                                autoWidth: false,
+                            });
+                            document
+                                .getElementById("card-done")
+                                .removeAttribute("hidden");
+
+                            break;
+
+                        case "filter":
+                            $("#table-responsive-filter").empty();
+                            temp =
+                                '<table class="table table-striped" id="table-filter"><thead><tr id="tbl-header-filter"></tr></thead><tbody id="tbl-body-filter"></tbody></table>';
+                            $("#table-responsive-filter").append(temp);
+                            $("#tbl-header-filter").append(taghead);
+                            $("#tbl-body-filter").append(tag);
+                            $("#table-filter").DataTable({
+                                responsive: true,
+                                pageLength: 10,
+                                autoWidth: false,
+                            });
+                            document
+                                .getElementById("card-filter")
+                                .removeAttribute("hidden");
+
+                            break;
+
+                        case "import":
+                            $("#table-responsive-import").empty();
+                            temp =
+                                '<table class="table table-striped" id="table-import"><thead><tr id="tbl-header-import"></tr></thead><tbody id="tbl-body-import"></tbody></table>';
+                            $("#table-responsive-import").append(temp);
+                            $("#tbl-header-import").append(taghead);
+                            $("#tbl-body-import").append(tag);
+                            $("#table-import").DataTable({
+                                responsive: true,
+                                pageLength: 10,
+                                autoWidth: true,
+                            });
+                            document
+                                .getElementById("card-import")
+                                .removeAttribute("hidden");
+
+                            break;
+                    }
                 }
-                $("#tbl-preview").DataTable({
-                    scrollX: true,
-                    responsive: true,
-                    pageLength: 10,
-                    autoWidth: true,
-                });
-            } else {
-                document.getElementById("alert-text").innerHTML = dataAPI.error;
-                document
-                    .getElementById("data-kosong")
-                    .removeAttribute("hidden");
-                swal("Data Kosong", dataAPI.error, "warning");
             }
         })
         .catch((error) => {
             swal("Error", "Terjadi Kesalahan", "error");
+            console.log(error);
         });
 }
 
