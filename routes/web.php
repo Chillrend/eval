@@ -54,28 +54,28 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Prestasi
     Route::get('/candidates-prestasi', [CandidatePresController::class, 'render']);
-    Route::post('/candidates-prestasi', [CandidatePresController::class, 'import']);
+    // Route::post('/candidates-prestasi', [CandidatePresController::class, 'import']);
 
-    Route::post('/cancelCanPres', [CandidatePresController::class, 'cancelprestasi'])->name('cancelCanPres');
-    Route::post('/saveCanPres', [CandidatePresController::class, 'saveprestasi'])->name('saveCanPres');
+    // Route::post('/cancelCanPres', [CandidatePresController::class, 'cancelprestasi'])->name('cancelCanPres');
+    // Route::post('/saveCanPres', [CandidatePresController::class, 'saveprestasi'])->name('saveCanPres');
 
 
     Route::get('/prodi-prestasi', [ProdiPresController::class, 'render']);
-    Route::post('/prodi-prestasi', [ProdiPresController::class, 'insert'])->name('addProdiPres');
-    Route::post('/delete-prodi-prestasi/{id}', [ProdiPresController::class, 'delete'])->name('delProdiPres');
-    Route::post('/edit-prodi-prestasi/{id}', [ProdiPresController::class, 'edit'])->name('editProdiPres');
-    Route::post('/cancel-prodi-prestasi/{id}', [ProdiPresController::class, 'cancel'])->name('cancelProdiPres');
+    // Route::post('/prodi-prestasi', [ProdiPresController::class, 'insert'])->name('addProdiPres');
+    // Route::post('/delete-prodi-prestasi/{id}', [ProdiPresController::class, 'delete'])->name('delProdiPres');
+    // Route::post('/edit-prodi-prestasi/{id}', [ProdiPresController::class, 'edit'])->name('editProdiPres');
+    // Route::post('/cancel-prodi-prestasi/{id}', [ProdiPresController::class, 'cancel'])->name('cancelProdiPres');
 
     Route::get('/bind-prodi-prestasi', [BindProdiPresController::class, 'render'])->name('renderBindProdiPrestasi');
 
-    Route::post('cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
-    Route::post('saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
+    // Route::post('cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
+    // Route::post('saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
 
     Route::get('/prodi-prestasi-test', [ProdiPresController1::class, 'render']);
-    Route::post('/prodi-prestasi-test', [ProdiPresController1::class, 'import']);
+    // Route::post('/prodi-prestasi-test', [ProdiPresController1::class, 'import']);
 
-    Route::post('/cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
-    Route::post('/saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
+    // Route::post('/cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
+    // Route::post('/saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
 
     Route::get('/preview-prestasi', [PreviewPresController::class, 'render'])->name('previewPres');
 
@@ -84,20 +84,20 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     //Tes
     Route::get('/candidates-tes', [CandidateTesController::class, 'render']);
-    Route::post('/candidates-tes', [CandidateTesController::class, 'import']);
+    // Route::post('/candidates-tes', [CandidateTesController::class, 'import']);
 
-    Route::post('cancelCanTes', [CandidateTesController::class, 'cancel'])->name('cancelCanTes');
-    Route::post('saveCanTes', [CandidateTesController::class, 'save'])->name('saveCanTes');
+    // Route::post('cancelCanTes', [CandidateTesController::class, 'cancel'])->name('cancelCanTes');
+    // Route::post('saveCanTes', [CandidateTesController::class, 'save'])->name('saveCanTes');
 
     Route::get('/prodi-tes', [ProdiTesController::class, 'render'])->name('renderProdiTes');
-    Route::post('/prodi-tes', [ProdiTesController::class, 'insert'])->name('addProdiTes');
-    Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class, 'delete'])->name('delProdiTes');
-    Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class, 'edit'])->name('editProdiTes');
+    // Route::post('/prodi-tes', [ProdiTesController::class, 'insert'])->name('addProdiTes');
+    // Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class, 'delete'])->name('delProdiTes');
+    // Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class, 'edit'])->name('editProdiTes');
 
     Route::get('/bind-prodi-tes', [BindProdiTesController::class, 'render'])->name('renderBindProdiTes');
 
-    Route::post('cancelProTes', [ProdiTesController::class, 'cancel'])->name('cancelProTes');
-    Route::post('saveProTes', [ProdiTesController::class, 'save'])->name('saveProTes');
+    // Route::post('cancelProTes', [ProdiTesController::class, 'cancel'])->name('cancelProTes');
+    // Route::post('saveProTes', [ProdiTesController::class, 'save'])->name('saveProTes');
 
     Route::get('/preview-tes', [PreviewTesController::class, 'render'])->name('previewTes');
 
@@ -107,21 +107,20 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     //Mandiri
     Route::get('/candidates-mandiri', [CandidateMandiriController::class, 'render']);
-    Route::post('/candidates-mandiri', [CandidateMandiriController::class, 'import']);
+    // Route::post('/candidates-mandiri', [CandidateMandiriController::class, 'import']);
 
-    Route::post('cancelmandiri', [CandidateMandiriController::class, 'cancelmandiri'])->name('cancelmandiri');
-    Route::post('savemandiri', [CandidateMandiriController::class, 'savemandiri'])->name('savemandiri');
+    // Route::post('cancelmandiri', [CandidateMandiriController::class, 'cancelmandiri'])->name('cancelmandiri');
+    // Route::post('savemandiri', [CandidateMandiriController::class, 'savemandiri'])->name('savemandiri');
 
     Route::get('/prodi-mandiri', [ProdiMandiriController::class, 'render']);
-    Route::post('/prodi-mandiri', [ProdiMandiriController::class, 'insert'])->name('addProdiMand');
-    Route::post('/delete-prodi-mandiri/{id}', [ProdiMandiriController::class, 'delete'])->name('delProdiMand');
-    Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class, 'edit'])->name('editProdiMand');
-    Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class, 'cancel'])->name('cancelProdiMand');
-
+    // Route::post('/prodi-mandiri', [ProdiMandiriController::class, 'insert'])->name('addProdiMand');
+    // Route::post('/delete-prodi-mandiri/{id}', [ProdiMandiriController::class, 'delete'])->name('delProdiMand');
+    // Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class, 'edit'])->name('editProdiMand');
+    // Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class, 'cancel'])->name('cancelProdiMand');
     Route::get('/bind-prodi-mandiri', [BindProdiMandController::class, 'render'])->name('renderBindProdiMand');
 
-    Route::post('cancelProMan', [ProdiMandiriController::class, 'cancelprodimandiri'])->name('cancelProMan');
-    Route::post('saveProMan', [ProdiMandiriController::class, 'saveprodimandiri'])->name('saveProMan');
+    // Route::post('cancelProMan', [ProdiMandiriController::class, 'cancelprodimandiri'])->name('cancelProMan');
+    // Route::post('saveProMan', [ProdiMandiriController::class, 'saveprodimandiri'])->name('saveProMan');
 
 
     Route::get('/preview-mandiri', [PreviewMandiriController::class, 'render'])->name('previewMan');
