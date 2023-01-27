@@ -25,6 +25,10 @@ class CandidateTesController extends Controller
 
             $periode = request('tahunperiode');
 
+            if (CandidateTes::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
+                throw new Exception("Data telah dikunci dan tidak bisa diiput lagi", 1);
+            }
+
             $criteria = array(
                 'tahun'         => intval($periode),
                 'kolom'         => $namedkey,
