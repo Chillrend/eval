@@ -7,6 +7,7 @@ use App\Http\Controllers\BobotController;
 use App\Http\Controllers\CandidateMandiriController;
 use App\Http\Controllers\CandidatePresController;
 use App\Http\Controllers\CandidateTesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FilterMandiriController;
 use App\Http\Controllers\FilterPresController;
 use App\Http\Controllers\FilterTesController;
@@ -142,3 +143,6 @@ Route::post('/finish/pend', [FinishController::class, 'getPend'])->name('api_pen
 Route::post('/finish/kolom', [FinishController::class, 'getKolom'])->name('api_kolomFinish');
 Route::post('/finish/data', [FinishController::class, 'getData'])->name('api_dataFinish');
 Route::post('/finish/export', [FinishController::class, 'export'])->name('api_expFinish');
+
+//Dashboard
+Route::get('/dashboard', [DashboardController::class, 'api_render'])->name('api_dashboard');

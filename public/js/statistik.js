@@ -1,72 +1,228 @@
-var ctx = document.getElementById("myChart");
-var chart = new Chart(ctx, {
-    type: "bar",
-    data: {
-        labels: ["Seleksi Prestasi", "Seleksi Tes", "seleksi Mandiri"],
-        datasets: [{
+refresh("");
+
+function refresh(append) {
+    var url = document.getElementById("main-content").getAttribute("url");
+    console.log(url);
+    var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+    };
+
+    fetch(url + append, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+            var data = JSON.parse(result);
+
+            document.getElementById("total-candidates").innerHTML = data.total;
+            document.getElementById("total-prestasi").innerHTML =
+                data.pres.import;
+            document.getElementById("total-tes").innerHTML = data.tes.import;
+            document.getElementById("total-mandiri").innerHTML =
+                data.mandiri.import;
+
+            //select tahun
+            $("#tahun_terdaftar").empty();
+            data.tahun.list.forEach((element) => {
+                let tag = "<option >" + element + "</option>";
+                $("#tahun_terdaftar").append(tag);
+            });
+            document.getElementById("tahun_terdaftar").value =
+                data.tahun.status;
+
+            console.log(data);
+
+            $("#chart-statistik").empty();
+            $("#chart-statistik").append('<canvas id="myChart"></canvas>');
+
+            new Chart("myChart", {
                 type: "bar",
-                backgroundColor: "rgba(54, 162, 235, 0.2)",
-                borderColor: "rgba(54, 162, 235, 1)",
-                borderWidth: 1,
-                label: "Jumlah Pendaftar",
-                data: [60, 49, 72]
-            },
-            {
-                type: "line",
-                label: "Program Studi",
-                borderWidth: 2,
-                backgroundColor: '#6777ef',
-                borderColor: '#6777ef',
-                data: [25, 13, 30],
-                lineTension: 0,
-                fill: true
-            }
-        ]
-    }
-});
-var myChartCircle = new Chart('chartProgress', {
-    type: 'doughnut',
-    data: {
-        datasets: [{
-            label: 'Progres Kegiatan',
-            percent: 68,
-            backgroundColor: ['#5283ff']
-        }]
-    },
-    plugins: [{
-            beforeInit: (chart) => {
-                const dataset = chart.data.datasets[0];
-                chart.data.labels = [dataset.label];
-                dataset.data = [dataset.percent, 100 - dataset.percent];
-            }
-        },
-        {
-            beforeDraw: (chart) => {
-                var width = chart.chart.width,
-                    height = chart.chart.height,
-                    ctx = chart.chart.ctx;
-                ctx.restore();
-                var fontSize = (height / 150).toFixed(2);
-                ctx.font = fontSize + "em sans-serif";
-                ctx.fillStyle = "#9b9b9b";
-                ctx.textBaseline = "middle";
-                var text = chart.data.datasets[0].percent + "%",
-                    textX = Math.round((width - ctx.measureText(text).width) / 2),
-                    textY = height / 2;
-                ctx.fillText(text, textX, textY);
-                ctx.save();
-            }
-        }
-    ],
-    options: {
-        maintainAspectRatio: false,
-        cutoutPercentage: 85,
-        rotation: Math.PI / 2,
-        legend: {
-            display: false,
-        },
-        tooltips: {
-            filter: tooltipItem => tooltipItem.index == 0
-        }
-    }
-});
+                data: {
+                    labels: [
+                        "Seleksi Prestasi",
+                        "Seleksi Tes",
+                        "Seleksi Mandiri",
+                    ],
+                    datasets: [
+                        {
+                            label: "Import",
+                            data: [
+                                data.pres.import,
+                                data.tes.import,
+                                data.mandiri.import,
+                            ],
+                            backgroundColor: "rgba(255, 99, 132, 0.7)",
+                            borderWidth: 1,
+                        },
+                        {
+                            label: "Filter",
+                            data: [
+                                data.pres.filter,
+                                data.tes.filter,
+                                data.mandiri.filter,
+                            ],
+                            backgroundColor: "rgba(255, 159, 64, 0.7)",
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                fontFamily: '"Nunito", "Segoe UI", "arial"',
+                                fontSize: 13,
+                                fontStyle: "normal",
+                                padding: 0,
+                            },
+                            position: "top",
+                            onClick() {},
+                        },
+                        title: {
+                            display: true,
+                            text: "Statistika Pendaftar",
+                        },
+                    },
+                },
+            });
+
+            var backColor = [
+                "rgba(255, 255, 255, 1)",
+                "rgba(103, 119, 239, 0.7)",
+                "rgba(255, 255, 255, 1)",
+                "rgba(252, 84, 75, 0.7)",
+                "rgba(255, 255, 255, 1)",
+                "rgba(255, 164, 38, 0.7)",
+                "rgba(255, 255, 255, 1)",
+                "rgba(71, 195, 99, 0.7)",
+            ];
+
+            $("#chart-progress").empty();
+            $("#chart-progress").append('<canvas id="chartProgress"></canvas>');
+            new Chart("chartProgress", {
+                type: "pie",
+                data: {
+                    labels: [
+                        "",
+                        "Keseluruhan",
+                        "",
+                        "Tahap Prestasi",
+                        "",
+                        "Tahap Tes",
+                        "",
+                        "Tahap Mandri",
+                    ],
+                    datasets: [
+                        {
+                            label: "Keseluruhan",
+                            backgroundColor: backColor,
+                            data: [
+                                100 - data.status.total,
+                                data.status.total,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                            ],
+                        },
+                        {
+                            label: "Tahap Prestasi",
+                            backgroundColor: backColor,
+                            data: [
+                                0,
+                                0,
+                                100 - data.status.pres,
+                                data.status.pres,
+                                0,
+                                0,
+                                0,
+                                0,
+                            ],
+                        },
+                        {
+                            label: "Tahap Tes",
+                            backgroundColor: backColor,
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                100 - data.status.tes,
+                                data.status.tes,
+                                0,
+                                0,
+                            ],
+                        },
+                        {
+                            label: "Tahap Mandri",
+                            backgroundColor: backColor,
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                100 - data.status.mandiri,
+                                data.status.mandiri,
+                            ],
+                        },
+                        {
+                            data: [],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                    legend: {
+                        labels: {
+                            fontFamily: '"Nunito", "Segoe UI", "arial"',
+                            fontSize: 13,
+                            fontStyle: "normal",
+                            padding: 0,
+                        },
+                        position: "right",
+                        onClick() {},
+                    },
+                    tooltips: {
+                        mode: "point",
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                if (
+                                    tooltipItem.index % 2 !== 0 &&
+                                    tooltipItem.index !== 0
+                                ) {
+                                    var label =
+                                        data.datasets[tooltipItem.datasetIndex]
+                                            .label;
+                                } else {
+                                    var label =
+                                        "Sisa Progress " +
+                                        data.datasets[tooltipItem.datasetIndex]
+                                            .label;
+                                }
+                                label += ": ";
+                                label +=
+                                    data.datasets[tooltipItem.datasetIndex]
+                                        .data[tooltipItem.index] + "%";
+                                return label;
+                            },
+                        },
+                    },
+                },
+            });
+        })
+        .catch((error) => console.log("error", error));
+}
+
+function gantiTahun() {
+    var tahun_terdaftar = document.getElementById("tahun_terdaftar").value;
+    refresh("?tahun=" + tahun_terdaftar);
+}
