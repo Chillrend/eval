@@ -6,11 +6,8 @@ use App\Models\CandidateTes;
 use App\Models\Criteria;
 use Exception;
 
-use function PHPUnit\Framework\isNull;
-
 class PreviewTesController extends Controller
 {
-
     public function render()
     {
         return view('halaman.preview-tes', [
@@ -32,48 +29,63 @@ class PreviewTesController extends Controller
                     $periode = $periode['periode'];
                 }
 
-                $candidates = CandidateTes::query()->where('periode', intval($periode))->where('periode', intval($periode))->get();
+                if (CandidateTes::query()->where('periode', intval($periode))->doesntExist()) {
+                    throw new Exception("Data Tahun " . strval($periode) . " Seleksi Periode Tidak Ditemukan ", 1);
+                }
                 $tahun = CandidateTes::select('periode')->groupBy('periode')->get();
                 for ($x = 0; $x < count($tahun); $x++) {
                     $tahun[$x] = $tahun[$x]['periode'];
                 }
+                $respones = [
+                    'tahun' => $tahun,
+                    'periode' => $periode,
+                ];
 
-                $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($periode))->first();
-                $status = $candidates->first()->status;
+                // Import - PostImport
+                $import = CandidateTes::query()
+                    ->where('periode', intval($periode))
+                    ->where(function ($query) {
+                        $query->where('status', 'import')
+                            ->orWhere('status', 'post-import');
+                    })->get();
+                $criteria = Criteria::select('kolom')->where('table', 'candidates_tes')->where('tahun', intval($periode))->first()->toArray();
+                $status = $import->first()->status;
 
-                switch ($status) {
-                    case 'import':
-                        $statuss = 1 / 4 * 100;
-                        break;
-                    case 'post-import':
-                        $statuss = 2 / 4 * 100;
-                        break;
-                    case 'filtered':
-                        $statuss = 3 / 4 * 100;
-                        break;
-                    case 'done':
-                        $statuss = 4 / 4 * 100;
-                        break;
+                $respones += [
+                    'import' => [
+                        'candidates' => $import,
+                        'kolom' => $criteria['kolom'],
+                        'status' => $status,
+                    ],
+                ];
 
-                    default:
-                        $statuss = 0 / 4 * 100;
-                        break;
+                //filter
+                if (CandidateTes::query()->where('periode', intval($periode))->where('status', 'filtered')->exists()) {
+                    $filter = CandidateTes::query()->where('periode', intval($periode))->where('status', 'filtered')->get();
+
+                    $respones += [
+                        'filter' => [
+                            'candidates' => $filter,
+                            'kolom' => $criteria['kolom'],
+                        ],
+                    ];
                 }
 
-                return response()->json([
-                    'candidates' => $candidates,
-                    'tahun' => $tahun,
-                    'criteria' => $criteria['kolom'],
-                    'status' => [
-                        'progress' => $statuss,
-                        'status' => $status,
-                        'periode' => $periode
-                    ],
-                ]);
+                //done
+                if (CandidateTes::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
+                    $done = CandidateTes::query()->where('periode', intval($periode))->where('status', 'done')->get();
+
+                    $respones += [
+                        'done' => [
+                            'candidates' => $done,
+                            'kolom' => $criteria['kolom'],
+                        ],
+                    ];
+                }
+
+                return response()->json($respones);
             } else {
-                return response()->json([
-                    'error' => 'Data Calon Mahasiswa Kosong. Silahkan Lakukan Import',
-                ]);
+                throw new Exception('Data Calon Mahasiswa Kosong. Silahkan Lakukan Import', 1);
             }
         } catch (Exception $th) {
             return response()->json([

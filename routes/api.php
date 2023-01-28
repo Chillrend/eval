@@ -10,6 +10,7 @@ use App\Http\Controllers\CandidateTesController;
 use App\Http\Controllers\FilterMandiriController;
 use App\Http\Controllers\FilterPresController;
 use App\Http\Controllers\FilterTesController;
+use App\Http\Controllers\FinishController;
 use App\Http\Controllers\PreviewMandiriController;
 use App\Http\Controllers\PreviewPresController;
 use App\Http\Controllers\PreviewTesController;
@@ -102,17 +103,27 @@ Route::get('/preview-mandiri', [PreviewMandiriController::class, 'api_render'])-
 
 
 //Filter Prestasi
-Route::get('/filter-pres', [FilterPresController::class, 'api_render'])->name('api_renderFilterPres');
+Route::get('/filter-pres', [FilterPresController::class, 'getTahun'])->name('api_tahunFilterPres');
+Route::post('/filter-pres/pend', [FilterPresController::class, 'getPend'])->name('api_pendFilterPres');
+Route::post('/filter-pres/kolom', [FilterPresController::class, 'getKolom'])->name('api_kolomFilterPres');
+Route::post('/filter-pres/render', [FilterPresController::class, 'api_render'])->name('api_renderFilterPres');
 Route::post('/filter-pres', [FilterPresController::class, 'api_save'])->name('saveFilterPres');
 Route::post('/get-filter-pres', [FilterPresController::class, 'getFilter'])->name('getFilterPres');
 
 //Filter Tes
-Route::get('/filter-tes', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
+Route::get('/filter-tes', [FilterTesController::class, 'getTahun'])->name('api_tahunFilterTes');
+Route::post('/filter-tes/pend', [FilterTesController::class, 'getPend'])->name('api_pendFilterTes');
+Route::post('/filter-tes/kolom', [FilterTesController::class, 'getKolom'])->name('api_kolomFilterTes');
+Route::post('/filter-tes/render', [FilterTesController::class, 'api_render'])->name('api_renderFilterTes');
 Route::post('/filter-tes', [FilterTesController::class, 'api_save'])->name('saveFilterTes');
 Route::post('/get-filter-tes', [FilterTesController::class, 'getFilter'])->name('getFilterTes');
 
+
 //Filter Mandiri
-Route::get('/filter-mandiri', [FilterMandiriController::class, 'api_render'])->name('api_renderFilterMan');
+Route::get('/filter-mandiri', [FilterMandiriController::class, 'getTahun'])->name('api_tahunFilterMan');
+Route::post('/filter-mandiri/pend', [FilterMandiriController::class, 'getPend'])->name('api_pendFilterMan');
+Route::post('/filter-mandiri/kolom', [FilterMandiriController::class, 'getKolom'])->name('api_kolomFilterMan');
+Route::post('/filter-mandiri/render', [FilterMandiriController::class, 'api_render'])->name('api_renderFilterMan');
 Route::post('/filter-mandiri', [FilterMandiriController::class, 'api_save'])->name('saveFilterMan');
 Route::post('/get-filter-mandiri', [FilterMandiriController::class, 'getFilter'])->name('getFilterMan');
 
@@ -124,3 +135,10 @@ Route::post('/pembobotan/nilai', [BobotController::class, 'getnilai'])->name('ap
 Route::post('/pembobotan', [BobotController::class, 'api_insert'])->name('api_insertBobot');
 Route::post('/pembobotan/delete', [BobotController::class, 'api_delete'])->name('api_deleteBobot');
 Route::post('/pembobotan/edit', [BobotController::class, 'api_edit'])->name('api_editBobot');
+
+//Finish
+Route::get('/finish/tahun', [FinishController::class, 'getTahun'])->name('api_tahunFinish');
+Route::post('/finish/pend', [FinishController::class, 'getPend'])->name('api_pendFinish');
+Route::post('/finish/kolom', [FinishController::class, 'getKolom'])->name('api_kolomFinish');
+Route::post('/finish/data', [FinishController::class, 'getData'])->name('api_dataFinish');
+Route::post('/finish/export', [FinishController::class, 'export'])->name('api_expFinish');

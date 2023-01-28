@@ -12,8 +12,14 @@
 @section('main')
 <div class="main-content" id="main-content" url="{{route('api_renderPreviewPres')}}">
     <section class="section">
-        <div class="section-header">
+        <div class="section-header  d-flex justify-content-between align-items-center">
             <h1>Preview Data Mahasiswa Seleksi Prestasi</h1>
+            <div class="col-12 col-xl-2 col-lg-3 col-md-4 col-sm-4 p-0 ml-1 align-items-end">
+                <div class="d-flex col-12 p-0">
+                    <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="gantiTahun()">
+                    </select>
+                </div>
+            </div>
         </div>
         <div id="data-kosong">
             <div class="alert alert-danger alert-has-icon">
@@ -24,30 +30,45 @@
                 </div>
             </div>
         </div>
-        <div id="card-table">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="my-2 ">Tabel Preview Data Mahasiswa</h4>
-                            <div class="col-12 col-xl-4 col-lg-5 col-md-6 col-sm-12 p-0 m-0 row justify-content-between align-items-center">
-                                <div class="progress col-3 col-xl-3 col-lg-3 col-md-3 col-sm-8 p-0" data-height="20">
-                                    <div class="progress-bar" id="progress-bar" role="progressbar" data-width="0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h5 class="badge badge-primary col-3 m-0" id="status"></h5>
-                                <div class="d-flex col-12 col-xl-5 col-lg-5 col-md-5 col-sm-12 my-2 p-0">
-                                    <select class="form-control" name="tahun_terdaftar" id="tahun_terdaftar" onchange="gantiTahun()">
-                                    </select>
-                                </div>
+        <div class="row" id="card-done">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="my-2 ">Preview Finish</h4>
+                    </div>
+                    <div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="table-responsive-done">
                             </div>
                         </div>
-                        <div>
-                            <div class="card-body">
-                                <div class="table-responsive" id="table-responsive">
-                                    <table class="table-hover table display nowrap" id="tbl-preview" style="width: 100%">
-
-                                    </table>
-                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="card-filter">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="my-2 ">Preview Filter</h4>
+                    </div>
+                    <div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="table-responsive-filter">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="card-import">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="my-2" id="header-card-import">Preview Import</h4>
+                    </div>
+                    <div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="table-responsive-import">
                             </div>
                         </div>
                     </div>
