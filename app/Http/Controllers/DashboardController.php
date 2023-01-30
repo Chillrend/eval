@@ -95,34 +95,21 @@ class DashboardController extends Controller
                 CandidatePres::query()
                 ->select('status')
                 ->where('periode', intval($periode))
-                ->where(function ($query) {
-                    $query->where('status', 'done')
-                        ->orWhere('status', 'filtered')
-                        ->orWhere('status', 'import')
-                        ->orWhere('status', 'post-import');
-                })->first();
+                ->get()->last();
 
             $status[1] =
                 CandidateTes::query()
                 ->select('status')
                 ->where('periode', intval($periode))
-                ->where(function ($query) {
-                    $query->where('status', 'done')
-                        ->orWhere('status', 'filtered')
-                        ->orWhere('status', 'import')
-                        ->orWhere('status', 'post-import');
-                })->first();
+                ->get()->last();
+
 
             $status[2] =
                 CandidateMand::query()
                 ->select('status')
                 ->where('periode', intval($periode))
-                ->where(function ($query) {
-                    $query->where('status', 'done')
-                        ->orWhere('status', 'filtered')
-                        ->orWhere('status', 'post-import')
-                        ->orWhere('status', 'import');
-                })->first();
+                ->get()->last();
+
 
             $total = 0;
 

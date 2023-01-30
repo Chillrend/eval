@@ -15,23 +15,7 @@
         <div class="section-header">
             <h1>Selesai Penerimaan</h1>
         </div>
-        <div class="row" id="hero-awal">
-            <div class="col-12 mb-0">
-                <div class="alert alert-primary alert-dismissible show fade">
-                    <div class="alert-body">
-                        <div class="hero bg-primary text-white">
-                            <button class="close" id="bt-close" data-dismiss="hero">
-                                <i class="fa fa-times fa-sm"></i>
-                            </button>
-                            <div class="hero-inner" id="hero-inner">
-                                <h2>Selamat Datang di Halaman Selesai Penerimaan</h2>
-                                <p class="lead">Pastikan data yang akan anda export telah melalui tahap filter</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -60,7 +44,7 @@
         </div>
 
         <!-- Tabel Seleksi Prestasi -->
-        <div class="row">
+        <div class="row" id="card-pres" hidden>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header my-2 d-flex justify-content-between align-items-center">
@@ -105,8 +89,14 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-lg btn-success m-1" id="savebtn" onclick="sendKolom('pres')">
+                            <button class="btn btn-lg btn-primary m-1" id="searchbtn-pres" onclick="sendKolom('pres')">
                                 <h6 class="my-0">Search</h6>
+                            </button>
+                            <button class="btn btn-lg btn-warning m-1" id="savebtn-pres" onclick="saveKolom('pres')">
+                                <h6 class="my-0">Save</h6>
+                            </button>
+                            <button class="btn btn-lg btn-success m-1" id="expbtn-pres" onclick="expKolom('pres')">
+                                <h6 class="my-0">Export</h6>
                             </button>
                         </div>
                         <br>
@@ -126,7 +116,7 @@
         </div>
 
         <!-- Tabel Seleksi Tes -->
-        <div class="row">
+        <div class="row" id="card-tes" hidden>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header my-2 d-flex justify-content-between align-items-center">
@@ -171,8 +161,14 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-lg btn-success m-1" id="savebtn" onclick="sendKolom('tes')">
+                            <button class="btn btn-lg btn-primary m-1" id="searchbtn-tes" onclick="sendKolom('tes')">
                                 <h6 class="my-0">Search</h6>
+                            </button>
+                            <button class="btn btn-lg btn-warning m-1" id="savebtn-tes" onclick="saveKolom('tes')">
+                                <h6 class="my-0">Save</h6>
+                            </button>
+                            <button class="btn btn-lg btn-success m-1" id="expbtn-tes" onclick="expKolom('tes')">
+                                <h6 class="my-0">Export</h6>
                             </button>
                         </div>
                         <br>
@@ -192,7 +188,7 @@
         </div>
 
         <!-- Tabel Seleksi Mandiri -->
-        <div class="row">
+        <div class="row" id="card-mand" hidden>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header my-2 d-flex justify-content-between align-items-center">
@@ -237,8 +233,14 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-lg btn-success m-1" id="savebtn" onclick="sendKolom('mand')">
+                            <button class="btn btn-lg btn-primary m-1" id="searchbtn-mand" onclick="sendKolom('mand')">
                                 <h6 class="my-0">Search</h6>
+                            </button>
+                            <button class="btn btn-lg btn-warning m-1" id="savebtn-mand" onclick="saveKolom('mand')">
+                                <h6 class="my-0">Save</h6>
+                            </button>
+                            <button class="btn btn-lg btn-success m-1" id="expbtn-mand" onclick="expKolom('mand')">
+                                <h6 class="my-0">Export</h6>
                             </button>
                         </div>
                         <br>
@@ -257,6 +259,8 @@
             </div>
         </div>
         <div id="link-sendkolom" url="{{route('api_dataFinish')}}"></div>
+        <div id="link-savekolom" url="{{route('api_saveFinish')}}"></div>
+        <div id="link-export" url="{{route('exportData')}}"></div>
 </div>
 </section>
 </div>

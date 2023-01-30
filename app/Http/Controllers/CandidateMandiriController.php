@@ -25,7 +25,7 @@ class CandidateMandiriController extends Controller
 
             $periode = request('tahunperiode');
 
-            if (CandidatePres::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
+            if (CandidateMand::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
                 throw new Exception("Data telah dikunci dan tidak bisa diiput lagi", 1);
             }
 

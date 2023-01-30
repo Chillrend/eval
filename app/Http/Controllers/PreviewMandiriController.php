@@ -74,6 +74,7 @@ class PreviewMandiriController extends Controller
                 //done
                 if (CandidateMand::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
                     $done = CandidateMand::query()->where('periode', intval($periode))->where('status', 'done')->get();
+                    $criteria = Criteria::select('kolom')->where('table', 'finish_candidates_mand')->where('tahun', intval($periode))->first()->toArray();
 
                     $respones += [
                         'done' => [

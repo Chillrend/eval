@@ -74,6 +74,7 @@ class PreviewPresController extends Controller
                 //done
                 if (CandidatePres::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
                     $done = CandidatePres::query()->where('periode', intval($periode))->where('status', 'done')->get();
+                    $criteria = Criteria::select('kolom')->where('table', 'finish_candidates_pres')->where('tahun', intval($periode))->first()->toArray();
 
                     $respones += [
                         'done' => [

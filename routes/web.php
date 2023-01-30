@@ -61,10 +61,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
     Route::get('/prodi-prestasi', [ProdiPresController::class, 'render']);
-    // Route::post('/prodi-prestasi', [ProdiPresController::class, 'insert'])->name('addProdiPres');
-    // Route::post('/delete-prodi-prestasi/{id}', [ProdiPresController::class, 'delete'])->name('delProdiPres');
-    // Route::post('/edit-prodi-prestasi/{id}', [ProdiPresController::class, 'edit'])->name('editProdiPres');
-    // Route::post('/cancel-prodi-prestasi/{id}', [ProdiPresController::class, 'cancel'])->name('cancelProdiPres');
+    Route::post('/prodi-prestasi', [ProdiPresController::class, 'insert'])->name('addProdiPres');
+    Route::post('/delete-prodi-prestasi/{id}', [ProdiPresController::class, 'delete'])->name('delProdiPres');
+    Route::post('/edit-prodi-prestasi/{id}', [ProdiPresController::class, 'edit'])->name('editProdiPres');
+    Route::post('/cancel-prodi-prestasi/{id}', [ProdiPresController::class, 'cancel'])->name('cancelProdiPres');
 
     Route::get('/bind-prodi-prestasi', [BindProdiPresController::class, 'render'])->name('renderBindProdiPrestasi');
 
@@ -72,10 +72,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::post('saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
 
     Route::get('/prodi-prestasi-test', [ProdiPresController1::class, 'render']);
-    // Route::post('/prodi-prestasi-test', [ProdiPresController1::class, 'import']);
+    Route::post('/prodi-prestasi-test', [ProdiPresController1::class, 'import']);
 
-    // Route::post('/cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
-    // Route::post('/saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
+    Route::post('/cancelProPres', [ProdiPresController::class, 'cancel'])->name('cancelProPres');
+    Route::post('/saveProPres', [ProdiPresController::class, 'save'])->name('saveProPres');
 
     Route::get('/preview-prestasi', [PreviewPresController::class, 'render'])->name('previewPres');
 
@@ -90,9 +90,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::post('saveCanTes', [CandidateTesController::class, 'save'])->name('saveCanTes');
 
     Route::get('/prodi-tes', [ProdiTesController::class, 'render'])->name('renderProdiTes');
-    // Route::post('/prodi-tes', [ProdiTesController::class, 'insert'])->name('addProdiTes');
-    // Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class, 'delete'])->name('delProdiTes');
-    // Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class, 'edit'])->name('editProdiTes');
+    Route::post('/prodi-tes', [ProdiTesController::class, 'insert'])->name('addProdiTes');
+    Route::post('/delete-prodi-tes/{id}', [ProdiTesController::class, 'delete'])->name('delProdiTes');
+    Route::post('/edit-prodi-tes/{id}', [ProdiTesController::class, 'edit'])->name('editProdiTes');
 
     Route::get('/bind-prodi-tes', [BindProdiTesController::class, 'render'])->name('renderBindProdiTes');
 
@@ -113,10 +113,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::post('savemandiri', [CandidateMandiriController::class, 'savemandiri'])->name('savemandiri');
 
     Route::get('/prodi-mandiri', [ProdiMandiriController::class, 'render']);
-    // Route::post('/prodi-mandiri', [ProdiMandiriController::class, 'insert'])->name('addProdiMand');
-    // Route::post('/delete-prodi-mandiri/{id}', [ProdiMandiriController::class, 'delete'])->name('delProdiMand');
-    // Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class, 'edit'])->name('editProdiMand');
-    // Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class, 'cancel'])->name('cancelProdiMand');
+    Route::post('/prodi-mandiri', [ProdiMandiriController::class, 'insert'])->name('addProdiMand');
+    Route::post('/delete-prodi-mandiri/{id}', [ProdiMandiriController::class, 'delete'])->name('delProdiMand');
+    Route::post('/edit-prodi-mandiri/{id}', [ProdiMandiriController::class, 'edit'])->name('editProdiMand');
+    Route::post('/cancel-prodi-mandiri/{id}', [ProdiMandiriController::class, 'cancel'])->name('cancelProdiMand');
     Route::get('/bind-prodi-mandiri', [BindProdiMandController::class, 'render'])->name('renderBindProdiMand');
 
     // Route::post('cancelProMan', [ProdiMandiriController::class, 'cancelprodimandiri'])->name('cancelProMan');
@@ -139,7 +139,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('finish');
 });
 
-Route::get('/finish/export', [FinishController::class, 'export'])->name('api_expFinish');
+
+Route::get('/finish/export/', [FinishController::class, 'export'])->name('exportData');
+
 
 
 /*

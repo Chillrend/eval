@@ -44,7 +44,7 @@ function refresh(append) {
                     ],
                     datasets: [
                         {
-                            label: "Import",
+                            label: "Data Masuk",
                             data: [
                                 data.pres.import,
                                 data.tes.import,
@@ -54,7 +54,7 @@ function refresh(append) {
                             borderWidth: 1,
                         },
                         {
-                            label: "Filter",
+                            label: "Penyaringan",
                             data: [
                                 data.pres.filter,
                                 data.tes.filter,
@@ -209,9 +209,14 @@ function refresh(append) {
                                             .label;
                                 }
                                 label += ": ";
-                                label +=
+                                num =
                                     data.datasets[tooltipItem.datasetIndex]
-                                        .data[tooltipItem.index] + "%";
+                                        .data[tooltipItem.index];
+                                label +=
+                                    Math.round((num + Number.EPSILON) * 100) /
+                                        100 +
+                                    "%";
+
                                 return label;
                             },
                         },

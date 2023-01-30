@@ -74,6 +74,7 @@ class PreviewTesController extends Controller
                 //done
                 if (CandidateTes::query()->where('periode', intval($periode))->where('status', 'done')->exists()) {
                     $done = CandidateTes::query()->where('periode', intval($periode))->where('status', 'done')->get();
+                    $criteria = Criteria::select('kolom')->where('table', 'finish_candidates_tes')->where('tahun', intval($periode))->first()->toArray();
 
                     $respones += [
                         'done' => [
