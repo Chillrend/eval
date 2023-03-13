@@ -124,6 +124,7 @@ class FilterTesController extends Controller
             return response()->json([
                 'candidates'     => $response['candidates'],
                 'kolom'          => $response['kolom'],
+                'kuota'          => $response['kuota'],
             ]);
         } catch (Exception $th) {
             return response()->json([
@@ -140,11 +141,10 @@ class FilterTesController extends Controller
             $bind = $criteria->binding;
 
             $prodi = ProdiTes::all()->toArray();
-
             //binding - kuota
             if ($bind) {
                 for ($index = 0; $index < count($bind); $index++) {
-                    $i = array_search($bind[$index]['id_obj'], array_column($prodi, 'id'));
+                    $i = array_search($bind[$index]['id_prodi'], array_column($prodi, 'id_prodi'));
                     $bind[$index]['kuota'] = $prodi[$i]['kuota'];
                     $bind[$index]['nama'] = $prodi[$i]['prodi'];
                 }
@@ -152,29 +152,89 @@ class FilterTesController extends Controller
                 throw new Exception("Pastikan telah melakukan binding prodi");
             }
 
-            //ambil candidates
-            $candidates = CandidateTes::query()->where('periode', intval($tahun))
+            //ambil candidates sesuai filter
+            $filtered = CandidateTes::query()->where('periode', intval($tahun))
                 ->when($filter, function ($query) use ($filter) {
                     return $query->where(function ($query) use ($filter) {
                         for ($a = 0; $a < count($filter); $a++) {
-                            $query->where($filter[$a][0], $filter[$a][1], intval($filter[$a][2]));
+                            $query->where($filter[$a][0], $filter[$a][1], intval($filter[$a][2]))->orderBy($filter[$a][0], 'desc');
+                        }
+                    });
+                })
+                ->when($bind, function ($query) use ($bind, $jurusan_kolom) {
+                    return $query->where(function ($query) use ($bind, $jurusan_kolom) {
+                        foreach ($bind as $binds) {
+                            $query->orWhere($jurusan_kolom, $binds['bind_prodi']);
                         }
                     });
                 })
                 ->get()->toArray();
 
-            //kuota
+            //ambil all canfifates
+            $candidates = CandidateTes::query()->where('periode', intval($tahun))
+                ->when($filter, function ($query) use ($filter) {
+                    return $query->where(function ($query) use ($filter) {
+                        for ($a = 0; $a < count($filter); $a++) {
+                            $query->orderBy($filter[$a][0], 'desc');
+                        }
+                    });
+                })
+                ->when($bind, function ($query) use ($bind, $jurusan_kolom) {
+                    return $query->where(function ($query) use ($bind, $jurusan_kolom) {
+                        foreach ($bind as $binds) {
+                            $query->orWhere($jurusan_kolom, $binds['bind_prodi']);
+                        }
+                    });
+                })
+                ->get()->toArray();
+
+            // // ambil candidates diluar filter
+            // $unfilter = array_diff(array_map('json_encode', $candidates), array_map('json_encode', $filtered));
+            // $unfilter = array_map('json_decode', $unfilter);
+            // $unfilter = json_decode(json_encode($unfilter), true);
+            // $unfilter = array_values($unfilter);
+
             try {
+                $kuota = [];
                 $final = [];
                 foreach ($bind as $binds) {
+                    // counter
+                    $x = 0;
+                    $y = 0;
+                    //masukin ke kuota
                     for ($i = 0; $i < $binds['kuota']; $i++) {
-                        $a = array_search($binds['bind_prodi'], array_column($candidates, $jurusan_kolom));
+                        $a = array_search($binds['bind_prodi'], array_column($filtered, $jurusan_kolom));
+                        // $b = array_search($binds['bind_prodi'], array_column($unfilter, $jurusan_kolom));
                         if (is_numeric($a)) {
-                            array_push($final, $candidates[$a]);
-                            unset($candidates[$a]);
-                            $candidates = array_values($candidates);
+
+                            $filtered[$a]["checklist"] = true;
+                            $data = $filtered[$a];
+
+                            unset($filtered[$a]);
+                            $filtered = array_values($filtered);
+
+                            $x++;
+                            // } else if (is_numeric($b)) {
+
+                            //     $unfilter[$b]["checklist"] = false;
+                            //     $data = $unfilter[$b];
+
+                            //     unset($unfilter[$b]);
+                            //     $unfilter = array_values($unfilter);
+
+                            //     $y++;
+                        } else {
+                            continue;
                         }
+                        array_push($final, $data);
                     }
+                    array_push($kuota, [
+                        "jurusan" => $binds['bind_prodi'],
+                        "kuota tersedia" => $binds['kuota'],
+                        "kuota filter" => $x,
+                        "kuota non-filter" => $y,
+                        "kuota terpenuhi" => $y + $x,
+                    ]);
                 }
             } catch (\Throwable $th) {
                 return response()->json([
@@ -182,10 +242,22 @@ class FilterTesController extends Controller
                 ]);
             }
 
+            // ambil candidates diluar filter
+            $unfilter = array_diff(array_map('json_encode', $candidates), array_map('json_encode', $final));
+            $unfilter = array_map('json_decode', $unfilter);
+            $unfilter = json_decode(json_encode($unfilter), true);
+            $unfilter = array_values($unfilter);
+
+            foreach ($unfilter as $un) {
+                $un['checklist'] = false;
+                array_push($final, $un);
+            }
+
             $kolom = $criteria->kolom;
             return response()->json([
                 'candidates' => $final,
                 'kolom' => $kolom,
+                'kuota' => $kuota,
             ]);
         } else {
             return response()->json([
@@ -194,6 +266,7 @@ class FilterTesController extends Controller
         }
     }
 
+
     public function api_save()
     {
         try {
@@ -201,12 +274,18 @@ class FilterTesController extends Controller
                 'jurusan_kolom' => 'required',
                 'tahun' => 'required|numeric',
                 'pendidikan' => 'required',
+                'candidates.*' => 'required',
+                'candidates.*.checklist' => 'required',
             ]);
+
+            //place request to variable
+            $candidates = request('candidates');
             $jurusan_kolom = request('jurusan_kolom');
             $tahun = request('tahun');
             $pendidikan = request('pendidikan');
             $filteri = request('filter') ? request('filter') : null;
 
+            //Benerin Filter
             $operator = [];
             $filter = [];
 
@@ -235,15 +314,26 @@ class FilterTesController extends Controller
                 'kode_criteria' => strval($tahun) . '_filter_candidates_tes',
             );
 
-            $response = FilterTesController::filtering($jurusan_kolom, $tahun, $pendidikan, $filteri);
-            $response = $response->original;
-            $candidates = $response['candidates'];
+            //Penyaringan checklist true
+            $aaaaa = json_decode($candidates);
+            $aaaa = json_decode(json_encode($aaaaa), true);
 
-            for ($i = 0; $i < count($candidates); $i++) {
-                $candidates[$i]['status'] = "filtered";
+            $filteredData = array_filter($aaaa, function ($candidate) {
+                return $candidate['checklist'] === true;
+            });
+            $filteredData = array_values($filteredData);
+
+
+            if (count($filteredData) == 0) {
+                throw new Exception("Pastikan Data Telah Dicentang!", 1);
             }
 
-            CandidateTes::insert($candidates);
+            for ($i = 0; $i < count($filteredData); $i++) {
+                $filteredData[$i]['status'] = "filtered";
+            }
+
+            //Save to db
+            CandidateTes::insert($filteredData);
 
             if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->exists()) {
                 Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_tes')->update($criteria);
@@ -260,6 +350,8 @@ class FilterTesController extends Controller
             ]);
         }
     }
+
+
 
     public function getFilter()
     {

@@ -102,8 +102,23 @@
         <div id="card-table" hidden>
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive" id="table-responsive">
-
+                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="filter-tab2" data-toggle="tab" href="#filter" role="tab" aria-controls="filter-prev" aria-selected="true">Filter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="kuota-tab2" data-toggle="tab" href="#kuota" role="tab" aria-controls="kuota" aria-selected="false">Kuota</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-bordered" id="myTab3Content">
+                        <div class="tab-pane fade show active" id="filter" role="tabpanel" aria-labelledby="filter-tab2">
+                            <div class="table-filter-responsive" id="table-filter-responsive">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="kuota" role="tabpanel" aria-labelledby="kuota-tab2">
+                            <div class="table-kuota-responsive" id="table-kuota-responsive">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

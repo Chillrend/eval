@@ -322,6 +322,8 @@ class FilterPresController extends Controller
             $filteredData = array_filter($aaaa, function ($candidate) {
                 return $candidate['checklist'] === true;
             });
+            $filteredData = array_values($filteredData);
+
 
             if (count($filteredData) == 0) {
                 throw new Exception("Pastikan Data Telah Dicentang!", 1);
@@ -350,72 +352,7 @@ class FilterPresController extends Controller
         }
     }
 
-    public function api_saaaave()
-    {
-        try {
-            $this->validate(request(), [
-                'jurusan_kolom' => 'required',
-                'tahun' => 'required|numeric',
-                'pendidikan' => 'required',
-            ]);
-            $jurusan_kolom = request('jurusan_kolom');
-            $tahun = request('tahun');
-            $pendidikan = request('pendidikan');
-            $filteri = request('filter') ? request('filter') : null;
 
-            $operator = [];
-            $filter = [];
-
-            if ($filteri != null) {
-                for ($i = 0; $i < count($filteri); $i++) {
-                    $filter[$i]['kolom'] = $filteri[$i][0];
-                    $filter[$i]['nilai'] = $filteri[$i][2];
-                    match ($filteri[$i][1]) {
-                        '=' => $filter[$i]['operator'] = 'et',
-                        '>' => $filter[$i]['operator'] = 'gt',
-                        '<' => $filter[$i]['operator'] = 'lt',
-                        '>=' => $filter[$i]['operator'] = 'gtet',
-                        '<=' => $filter[$i]['operator'] = 'ltet',
-                        '<>' => $filter[$i]['operator'] = 'net',
-                    };
-                    $operator[$i] = strtolower($filteri[$i][1]);
-                }
-            } else {
-                $filter = null;
-            }
-
-            $criteria = array(
-                'tahun' => intval($tahun),
-                'kolom' => $filter,
-                'table' => 'filter_candidates_pres',
-                'kode_criteria' => strval($tahun) . '_filter_candidates_pres',
-            );
-
-            $response = FilterPresController::filtering($jurusan_kolom, $tahun, $pendidikan, $filteri);
-            $response = $response->original;
-            $candidates = $response['candidates'];
-
-            for ($i = 0; $i < count($candidates); $i++) {
-                $candidates[$i]['status'] = "filtered";
-            }
-
-            CandidatePres::insert($candidates);
-
-            if (Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_pres')->exists()) {
-                Criteria::query()->where('kode_criteria', strval($tahun) . '_filter_candidates_pres')->update($criteria);
-            } else {
-                Criteria::insert($criteria);
-            }
-
-            return response()->json([
-                'status' => 'Filter Calon Mahasiswa ' . $tahun . ' Berhasil',
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'error' => $th->getMessage(),
-            ]);
-        }
-    }
 
     public function getFilter()
     {
