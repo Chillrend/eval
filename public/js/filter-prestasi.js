@@ -1,5 +1,7 @@
 var collumn = [];
 
+let dataKuota, dataCalon, kolomJurusan;
+
 refresh();
 
 function refresh() {
@@ -155,11 +157,11 @@ function getKolom() {
 function kirimFilter() {
     var tahun = document.getElementById("tahun_terdaftar").value;
     var pend = document.getElementById("pendidikan").value;
-    var jurusan = document.getElementById("jurusan").value;
+    kolomJurusan = document.getElementById("jurusan").value;
     var url = document.getElementById("btnFilter").getAttribute("url");
 
     var formdata = new FormData();
-    formdata.append("jurusan_kolom", jurusan);
+    formdata.append("jurusan_kolom", kolomJurusan);
     formdata.append("tahun", tahun);
     formdata.append("pendidikan", pend);
 
@@ -192,61 +194,23 @@ function kirimFilter() {
                     "error"
                 );
             } else if (typeof dataAPI.error == "undefined") {
+                //TABEL PREVIEW CANDIDATES
+
                 document.getElementById("card-table").removeAttribute("hidden");
                 document.getElementById("formfilter").removeAttribute("hidden");
 
                 refreshCollumn();
 
-                //reset tabel
-                $("#table-responsive").empty();
-                tag =
-                    '<table class="table-hover table display nowrap" id="tbl-filter" style="width: 100%"><thead><tr id="tbl-header"></tr></thead><tbody id="tbl-body"></tbody></table>';
-                $("#table-responsive").append(tag);
-
-                //deklar kolom table
-                tag = null;
-                tag += '<th scope="col">#</th>';
-                tag += '<th scope="col">periode</th>';
-                dataAPI.kolom.forEach((element) => {
-                    tag += '<th scope="col">' + element + "</th>";
-                });
-                $("#tbl-header").append(tag);
-
-                for (
-                    let index = 0;
-                    index < dataAPI.candidates.length;
-                    index++
-                ) {
-                    tag = null;
-                    tag = "<tr>";
-                    tag += "<td>" + (index + 1) + "</td>";
-                    tag +=
-                        "<td>" +
-                        dataAPI["candidates"][index]["periode"] +
-                        "</td>";
-                    dataAPI.kolom.forEach((element) => {
-                        if (
-                            typeof dataAPI["candidates"][index][element] !=
-                            "undefined"
-                        ) {
-                            tag +=
-                                "<td>" +
-                                dataAPI["candidates"][index][element] +
-                                "</td>";
-                        } else {
-                            tag += "<td>-</td>";
-                        }
-                    });
-                    tag += "</tr>";
-                    $("#tbl-body").append(tag);
+                dataKuota = dataAPI.kuota;
+                for (let a = 0; a < dataKuota.length; a++) {
+                    dataKuota[a]["kuota terpilih"] =
+                        dataKuota[a]["kuota filter"];
                 }
+                dataCalon = dataAPI.candidates;
 
-                $("#tbl-filter").DataTable({
-                    scrollX: true,
-                    responsive: false,
-                    pageLength: 10,
-                    autoWidth: false,
-                });
+                refreshTablePreview(dataCalon, dataAPI.kolom);
+
+                refreshTableKuota(dataKuota);
             } else {
                 swal("Data Kosong", dataAPI.error, "warning");
             }
@@ -255,6 +219,123 @@ function kirimFilter() {
             console.log(error);
             swal("Error", "Terjadi Kesalahan", "error");
         });
+}
+
+function refreshTableKuota(kuota) {
+    //reset tabel
+    $("#table-kuota-responsive").empty();
+    tag =
+        '<table class="table-hover table display nowrap" id="tbl-kuota" style="width: 100%"><thead><tr id="tbl-header1"></tr></thead><tbody id="tbl-body1"></tbody></table>';
+    $("#table-kuota-responsive").append(tag);
+
+    //deklar kolom table
+    kolomkuota = [
+        "Jurusan",
+        "Kuota",
+        "Kuota Terpilih",
+        "Kuota Filter",
+        "Kuota Non Filter",
+    ];
+    tag = null;
+    tag += '<th scope="col">#</th>';
+    kolomkuota.forEach((element) => {
+        tag += '<th scope="col">' + element + "</th>";
+    });
+    $("#tbl-header1").append(tag);
+
+    kolomkuota = [
+        "jurusan",
+        "kuota tersedia",
+        "kuota terpilih",
+        "kuota filter",
+        "kuota non-filter",
+    ];
+    for (let index = 0; index < kuota.length; index++) {
+        tag = null;
+        tag = "<tr>";
+        tag += "<td>" + (index + 1) + "</td>";
+
+        kolomkuota.forEach((element) => {
+            if (typeof kuota[index][element] != "undefined") {
+                tag += "<td>" + kuota[index][element] + "</td>";
+            }
+        });
+        tag += "</tr>";
+        $("#tbl-body1").append(tag);
+    }
+
+    $("#tbl-kuota").DataTable({
+        scrollX: true,
+        responsive: false,
+        pageLength: 10,
+        autoWidth: true,
+    });
+}
+
+function refreshTablePreview(candidates, kolom) {
+    //reset tabel
+    $("#table-filter-responsive").empty();
+    tag =
+        '<table class="table-hover table display nowrap" id="tbl-filter" style="width: 100%"><thead><tr id="tbl-header"></tr></thead><tbody id="tbl-body"></tbody></table>';
+    $("#table-filter-responsive").append(tag);
+
+    //deklar kolom table
+    tag = null;
+    tag += '<th scope="col">#</th>';
+    tag += '<th scope="col"></th>';
+    tag += '<th scope="col">periode</th>';
+    kolom.forEach((element) => {
+        tag += '<th scope="col">' + element + "</th>";
+    });
+    $("#tbl-header").append(tag);
+
+    for (let index = 0; index < candidates.length; index++) {
+        tag = null;
+        tag = "<tr>";
+        tag += "<td>" + (index + 1) + "</td>";
+        if (candidates[index]["checklist"] === true) {
+            tag +=
+                "<td>" +
+                "<p  id='text-" +
+                index +
+                "' hidden>true</p>" +
+                '<input type="checkbox" id="checklist-' +
+                index +
+                '" checked onclick="checklist(' +
+                index +
+                ')"></input>' +
+                "</td>";
+        } else if (candidates[index]["checklist"] === false) {
+            tag +=
+                "<td>" +
+                "<p id='text-" +
+                index +
+                "' hidden>false</p>" +
+                '<input type="checkbox" id="checklist-' +
+                index +
+                '" onclick="checklist(' +
+                index +
+                ')" ></input>' +
+                "</td>";
+        }
+        tag += "<td>" + candidates[index]["periode"] + "</td>";
+        kolom.forEach((element) => {
+            if (typeof candidates[index][element] != "undefined") {
+                tag += "<td>" + candidates[index][element] + "</td>";
+            } else {
+                tag += "<td>-</td>";
+            }
+        });
+        tag += "</tr>";
+        $("#tbl-body").append(tag);
+    }
+
+    $("#tbl-filter").DataTable({
+        scrollX: true,
+        responsive: false,
+        pageLength: 10,
+        autoWidth: false,
+    });
 }
 
 function refreshCollumn() {
@@ -296,6 +377,53 @@ function refreshCollumn() {
         $("#namedkey").append(tag);
     }
     document.getElementById("banyakCollumn").value = collumn.length;
+}
+
+function checklist(index) {
+    cek = dataCalon[index]["checklist"] = document.getElementById(
+        "checklist-" + index
+    ).checked;
+
+    id_kuota = dataKuota
+        .map((row) => row["jurusan"])
+        .indexOf(dataCalon[index]["jurusan"]);
+
+    if (cek === true) {
+        if (
+            dataKuota[id_kuota]["kuota terpilih"] !==
+            dataKuota[id_kuota]["kuota tersedia"]
+        ) {
+            document.getElementById("text-" + index).innerHTML = true;
+
+            dataKuota[id_kuota]["kuota terpilih"]++;
+        } else {
+            dataCalon[index]["checklist"] = document.getElementById(
+                "checklist-" + index
+            ).checked = false;
+
+            swal(
+                "Error",
+                "Kuota " + dataKuota[id_kuota]["jurusan"] + " Telah Terpenuhi",
+                "error"
+            );
+        }
+    } else if (cek === false) {
+        if (dataKuota[id_kuota]["kuota terpilih"] !== 0) {
+            document.getElementById("text-" + index).innerHTML = false;
+            dataKuota[id_kuota]["kuota terpilih"]--;
+        } else {
+            dataCalon[index]["checklist"] = document.getElementById(
+                "checklist-" + index
+            ).checked = true;
+            swal(
+                "Error",
+                "Kuota " + dataKuota[id_kuota]["jurusan"] + " Telah Kosong",
+                "error"
+            );
+        }
+    }
+
+    refreshTableKuota(dataKuota);
 }
 
 function deleteCollumn(id) {
@@ -357,6 +485,32 @@ function myFunction() {
 }
 
 function saveFilter() {
+    dataKuota.forEach((kuota) => {
+        if (kuota["kuota tersedia"] != kuota["kuota terpilih"]) {
+            swal({
+                title: "Lanjutkan Saja?",
+                text:
+                    "Jurusan " +
+                    kuota["jurusan"] +
+                    " Masih memiliki " +
+                    (kuota["kuota tersedia"] - kuota["kuota terpilih"]) +
+                    " kuota tersedia",
+                icon: "warning",
+                buttons: true,
+            }).then((saveData) => {
+                if (saveData) {
+                    saveeFilter();
+                } else {
+                    swal("Proses filter dibatalkan", {
+                        timer: 3000,
+                    });
+                }
+            });
+        }
+    });
+}
+
+function saveeFilter() {
     swal({
         title: "Apakah Anda Yakin?",
         text: "Proses ini tidak dibatalkan. Pastikan data sudah benar! ",
@@ -373,6 +527,7 @@ function saveFilter() {
             formdata.append("jurusan_kolom", jurusan);
             formdata.append("tahun", tahun);
             formdata.append("pendidikan", pend);
+
             for (let x = 0; x < collumn.length; x++) {
                 for (let y = 0; y < collumn[x].length; y++) {
                     formdata.append(
@@ -381,6 +536,7 @@ function saveFilter() {
                     );
                 }
             }
+            formdata.append("candidates", JSON.stringify(dataCalon));
 
             var requestOptions = {
                 method: "POST",
@@ -392,6 +548,7 @@ function saveFilter() {
                 .then((response) => response.text())
                 .then((result) => {
                     var result = JSON.parse(result);
+
                     if (result.status) {
                         swal("Success", result.status, "success");
                         refresh();
@@ -401,6 +558,7 @@ function saveFilter() {
                 })
                 .catch((error) => {
                     swal("Error", "Terjadi Kesalahan", "error");
+                    console.log(error);
                 });
         } else {
             swal("Proses filter dibatalkan", {
